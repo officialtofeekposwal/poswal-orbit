@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512"><defs><linearGradient id="g12a" gradientUnits="userSpaceOnUse" x1="90" y1="90" x2="430" y2="430"><stop offset="0" stop-color="#14B8A6"/><stop offset=".5" stop-color="#8B7CFF"/><stop offset="1" stop-color="#FF7A59"/></linearGradient>
+<linearGradient id="g12s" gradientUnits="userSpaceOnUse" x1="110" y1="90" x2="420" y2="400"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<radialGradient id="g12d" cx=".38" cy=".32" r=".8"><stop offset="0" stop-color="#fff"/><stop offset=".45" stop-color="#FFE7A8"/><stop offset="1" stop-color="#FFC857"/></radialGradient>
+<filter id="g12g" color-interpolation-filters="sRGB" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="16"/></filter>
+<filter id="g12h" color-interpolation-filters="sRGB" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="12"/></filter></defs><path d="M 382.1 174.75 A 150 150 0 1 1 263.3 106.2" fill="none" stroke="url(#g12a)" stroke-width="44" stroke-linecap="round" opacity=".55" filter="url(#g12g)"/>
+<path d="M 382.1 174.75 A 150 150 0 1 1 263.3 106.2" fill="none" stroke="url(#g12a)" stroke-width="44" stroke-linecap="round"/>
+<path d="M 392.2 168.2 A 162 162 0 1 1 263.9 94.2" fill="none" stroke="url(#g12s)" stroke-width="7" stroke-linecap="round"/>
+<circle cx="331.0" cy="126.1" r="38" fill="#FFC857" opacity=".75" filter="url(#g12h)"/>
+<circle cx="331.0" cy="126.1" r="26" fill="url(#g12d)"/></svg>

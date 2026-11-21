@@ -1,0 +1,16 @@
+BRAND KIT (use exactly; keep all values as theme tokens in one file)
+- App name: "Poswal Orbit". Tagline: "Your whole day, in orbit." Package/bundle ID: com.poswal.orbit.
+- Personality: calm, premium, encouraging, never pushy or guilt-inducing.
+- Logo: wordmark "Poswal" (bold) + "Orbit" (lighter) in Plus Jakarta Sans. Symbol: a glass ring with a small glowing dot orbiting it. The same ring is the Today progress ring in the app. Logo assets are in assets/brand/logo (use the on-dark / on-light variants).
+- App icon: use assets/brand/app-icon files. iOS 1024x1024 with no transparency; Android adaptive icon (foreground, background, monochrome).
+- Splash: Ink background, the ring draws itself, the dot completes one orbit, then cross-fades into Today.
+- Colors: Primary Orbit Teal #14B8A6; Secondary Nebula Violet #8B7CFF; Accent Sunrise Coral #FF7A59; Streak Gold #FFC857; Ink #070B14; OLED #000000; Mist #F4F6FB; Success #34D399; Warning #FBBF24; Danger #F87171.
+- Supporting neutrals: surfaceDark #0F1626, surfaceDark2 #151D30, textOnDark #F5F7FF, textMutedDark #A3AEC7, surfaceLight #FFFFFF, textOnLight #0B1020, textMutedLight #5B667F.
+- Aurora gradient: #14B8A6 -> #8B7CFF -> #FF7A59 (hero cards, progress ring, icon).
+- Habit color palette (10): #14B8A6, #3B82F6, #8B7CFF, #EC4899, #FF7A59, #FFC857, #84CC16, #22D3EE, #A78BFA, #F472B6.
+- Fonts (bundled locally in assets/fonts): Plus Jakarta Sans for headings, Inter for body, Noto Sans Devanagari for Hindi, Noto Nastaliq Urdu for Urdu.
+- Ready-made tokens: use poswal_tokens.dart (colors, gradients, radii, spacing, glass tokens, text styles) as the single source of truth.
+- Glass tokens: dark tint white 10-14%, light tint white 55-65%; 1px border (white 18% dark / 70% light); top-left specular rim highlight; radii: card 24, sheet 32, button 16, pill full; very soft large-blur shadows.
+- Glass usage: only for navigation chrome, buttons, FAB, chips, sheets, dialogs, toasts and 1-2 hero cards. Lists use soft semi-solid surfaces.
+- Voice: short, warm, encouraging (e.g. "Nice, 3 of 5 done."). Never guilt-based copy.
+- Also generate: a brand style guide page inside the Design Playground screen, and store listing text (iOS subtitle: "Habits, tasks & notes").

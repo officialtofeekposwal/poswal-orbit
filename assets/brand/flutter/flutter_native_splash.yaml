@@ -1,0 +1,11 @@
+# Then run: dart run flutter_native_splash:create
+flutter_native_splash:
+  color: "#F4F6FB"
+  image: assets/brand/splash/splash-symbol-transparent-1152.png
+  color_dark: "#070B14"
+  image_dark: assets/brand/splash/splash-symbol-transparent-1152.png
+  android_12:
+    color: "#F4F6FB"
+    image: assets/brand/splash/splash-symbol-transparent-1152.png
+    color_dark: "#070B14"
+    image_dark: assets/brand/splash/splash-symbol-transparent-1152.png

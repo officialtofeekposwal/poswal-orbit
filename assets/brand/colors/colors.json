@@ -1,0 +1,40 @@
+{
+  "brand": {
+    "teal": "#14B8A6",
+    "violet": "#8B7CFF",
+    "coral": "#FF7A59",
+    "gold": "#FFC857",
+    "ink": "#070B14",
+    "oled": "#000000",
+    "mist": "#F4F6FB",
+    "success": "#34D399",
+    "warning": "#FBBF24",
+    "danger": "#F87171"
+  },
+  "supporting_neutrals": {
+    "surfaceDark": "#0F1626",
+    "surfaceDark2": "#151D30",
+    "textOnDark": "#F5F7FF",
+    "textMutedDark": "#A3AEC7",
+    "surfaceLight": "#FFFFFF",
+    "textOnLight": "#0B1020",
+    "textMutedLight": "#5B667F"
+  },
+  "habit_palette": [
+    "#14B8A6",
+    "#3B82F6",
+    "#8B7CFF",
+    "#EC4899",
+    "#FF7A59",
+    "#FFC857",
+    "#84CC16",
+    "#22D3EE",
+    "#A78BFA",
+    "#F472B6"
+  ],
+  "aurora_gradient": [
+    "#14B8A6",
+    "#8B7CFF",
+    "#FF7A59"
+  ]
+}

@@ -1,0 +1,10 @@
+# Put under assets/brand/ (copy app-icon/ and splash/ folders), then run:
+#   dart run flutter_launcher_icons
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/brand/app-icon/ios-1024-default.png"
+  remove_alpha_ios: true
+  adaptive_icon_background: "assets/brand/app-icon/android-adaptive-background.png"
+  adaptive_icon_foreground: "assets/brand/app-icon/android-adaptive-foreground.png"
+  adaptive_icon_monochrome: "assets/brand/app-icon/android-adaptive-monochrome.png"

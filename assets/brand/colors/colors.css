@@ -1,0 +1,30 @@
+:root {
+  --poswal-teal: #14B8A6;
+  --poswal-violet: #8B7CFF;
+  --poswal-coral: #FF7A59;
+  --poswal-gold: #FFC857;
+  --poswal-ink: #070B14;
+  --poswal-oled: #000000;
+  --poswal-mist: #F4F6FB;
+  --poswal-success: #34D399;
+  --poswal-warning: #FBBF24;
+  --poswal-danger: #F87171;
+  --poswal-surfaceDark: #0F1626;
+  --poswal-surfaceDark2: #151D30;
+  --poswal-textOnDark: #F5F7FF;
+  --poswal-textMutedDark: #A3AEC7;
+  --poswal-surfaceLight: #FFFFFF;
+  --poswal-textOnLight: #0B1020;
+  --poswal-textMutedLight: #5B667F;
+  --poswal-aurora: linear-gradient(135deg, #14B8A6, #8B7CFF, #FF7A59);
+  --poswal-habit-1: #14B8A6;
+  --poswal-habit-2: #3B82F6;
+  --poswal-habit-3: #8B7CFF;
+  --poswal-habit-4: #EC4899;
+  --poswal-habit-5: #FF7A59;
+  --poswal-habit-6: #FFC857;
+  --poswal-habit-7: #84CC16;
+  --poswal-habit-8: #22D3EE;
+  --poswal-habit-9: #A78BFA;
+  --poswal-habit-10: #F472B6;
+}
