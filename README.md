@@ -30,11 +30,11 @@
 
 ---
 
-## 📱 Screenshots
+## 📱 Screenshots (Phase 0 Design Playground)
 
-| Today Hub (Dark) | Habits & Analytics | Tasks & Quick Add | Notes Hub |
-| :---: | :---: | :---: | :---: |
-| *(Coming in Phase 0)* | *(Coming in Phase 1)* | *(Coming in Phase 2)* | *(Coming in Phase 3)* |
+| Dark Theme (`#070B14`) | Light Theme (`#F4F6FB`) | OLED Black (`#000000`) |
+| :---: | :---: | :---: |
+| <img src="docs/screenshots/playground-dark.png" width="260" alt="Dark Theme" /> | <img src="docs/screenshots/playground-light.png" width="260" alt="Light Theme" /> | <img src="docs/screenshots/playground-oled.png" width="260" alt="OLED Theme" /> |
 
 ---
 
