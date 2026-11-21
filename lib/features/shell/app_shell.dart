@@ -5,6 +5,8 @@ import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/features/habits/presentation/habit_form_sheet.dart';
 import 'package:poswal_orbit/features/habits/presentation/habits_screen.dart';
+import 'package:poswal_orbit/features/tasks/presentation/tasks_screen.dart';
+import 'package:poswal_orbit/features/tasks/presentation/widgets/task_quick_add_sheet.dart';
 import 'package:poswal_orbit/features/today/presentation/today_screen.dart';
 
 class AppShell extends StatefulWidget {
@@ -19,12 +21,16 @@ class _AppShellState extends State<AppShell> {
 
   void _openCreateSheet() {
     HapticFeedback.lightImpact();
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (_) => const HabitFormSheet(),
-    );
+    if (_currentIndex == 2) {
+      TaskQuickAddSheet.show(context);
+    } else {
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (_) => const HabitFormSheet(),
+      );
+    }
   }
 
   Widget _buildPlaceholderScreen(String title, String phase) {
@@ -78,7 +84,7 @@ class _AppShellState extends State<AppShell> {
             children: [
               const TodayScreen(),
               const HabitsScreen(),
-              _buildPlaceholderScreen('Tasks & Quick Add', 'Phase 2'),
+              const TasksScreen(),
               _buildPlaceholderScreen('Markdown Notes', 'Phase 3'),
               _buildPlaceholderScreen('Productivity Insights', 'Phase 5'),
             ],

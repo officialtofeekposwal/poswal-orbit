@@ -2,9 +2,10 @@ import 'dart:convert';
 
 enum TaskPriority {
   urgent(1, 'Urgent', 0xFFFF5252),  // Red
-  medium(2, 'Medium', 0xFFFFC857),  // Gold
-  low(3, 'Low', 0xFF0284C7),        // Sky
-  none(4, 'None', 0xFF94A3B8);      // Muted slate
+  high(2, 'High', 0xFFFF7A59),      // Coral
+  medium(3, 'Medium', 0xFFFFC857),  // Gold
+  low(4, 'Low', 0xFF0284C7),        // Sky
+  none(0, 'None', 0xFF94A3B8);      // Muted slate
 
   final int value;
   final String label;
@@ -21,9 +22,10 @@ enum TaskPriority {
 
   static TaskPriority fromString(String str) {
     final lower = str.toLowerCase().trim();
-    if (lower == 'high' || lower == 'urgent' || lower == '1') return TaskPriority.urgent;
-    if (lower == 'med' || lower == 'medium' || lower == '2') return TaskPriority.medium;
-    if (lower == 'low' || lower == '3') return TaskPriority.low;
+    if (lower == 'urgent' || lower == '1') return TaskPriority.urgent;
+    if (lower == 'high' || lower == '2') return TaskPriority.high;
+    if (lower == 'med' || lower == 'medium' || lower == '3') return TaskPriority.medium;
+    if (lower == 'low' || lower == '4') return TaskPriority.low;
     return TaskPriority.none;
   }
 }

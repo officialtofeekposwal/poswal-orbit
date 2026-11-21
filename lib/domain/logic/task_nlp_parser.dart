@@ -49,16 +49,19 @@ class TaskNlpParser {
     for (final m in priorityMatches) {
       final val = m.group(1)?.toLowerCase();
       if (val != null) {
-        if (val == '1' || val == 'high' || val == 'urgent') {
+        if (val == '1' || val == 'urgent') {
           priority = TaskPriority.urgent;
           working = working.replaceFirst(m.group(0)!, ' ');
-        } else if (val == '2' || val == 'med' || val == 'medium') {
+        } else if (val == '2' || val == 'high') {
+          priority = TaskPriority.high;
+          working = working.replaceFirst(m.group(0)!, ' ');
+        } else if (val == '3' || val == 'med' || val == 'medium') {
           priority = TaskPriority.medium;
           working = working.replaceFirst(m.group(0)!, ' ');
-        } else if (val == '3' || val == 'low') {
+        } else if (val == '4' || val == 'low') {
           priority = TaskPriority.low;
           working = working.replaceFirst(m.group(0)!, ' ');
-        } else if (val == '4' || val == 'none') {
+        } else if (val == 'none') {
           priority = TaskPriority.none;
           working = working.replaceFirst(m.group(0)!, ' ');
         }

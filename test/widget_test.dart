@@ -155,7 +155,7 @@ void main() {
 
       expect(find.text('Today'), findsOneWidget);
       expect(find.text('Habits'), findsOneWidget);
-      expect(find.text('Tasks'), findsOneWidget);
+      expect(find.text('Tasks'), findsWidgets);
       expect(find.text('Notes'), findsOneWidget);
       expect(find.text('Insights'), findsOneWidget);
 

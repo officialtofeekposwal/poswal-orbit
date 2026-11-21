@@ -79,10 +79,25 @@ class TaskRepository {
     return query.watch().map((rows) => rows.map(_mapTask).toList());
   }
 
+  Future<List<Task>> getSubtasks(String parentId) async {
+    final query = _db.select(_db.tasksTable)
+      ..where((tbl) => tbl.parentId.equals(parentId) & tbl.deletedAt.isNull())
+      ..orderBy([(tbl) => OrderingTerm(expression: tbl.sortOrder)]);
+    final rows = await query.get();
+    return rows.map(_mapTask).toList();
+  }
+
+  DateTime _getEffectiveRefDate(DateTime ref, int dayStartHour) {
+    if (ref.hour == 0 && ref.minute == 0 && ref.second == 0 && ref.millisecond == 0) {
+      return ref;
+    }
+    return DateBoundary.getEffectiveDate(ref, dayStartHour: dayStartHour);
+  }
+
   // Smart Lists
   Stream<List<Task>> watchTodayTasks({DateTime? referenceDate, int dayStartHour = 4}) {
     final ref = referenceDate ?? DateTime.now();
-    final effective = DateBoundary.getEffectiveDate(ref, dayStartHour: dayStartHour);
+    final effective = _getEffectiveRefDate(ref, dayStartHour);
     final startOfToday = DateTime(effective.year, effective.month, effective.day);
     final endOfToday = DateTime(effective.year, effective.month, effective.day, 23, 59, 59, 999);
 
@@ -107,7 +122,7 @@ class TaskRepository {
 
   Stream<List<Task>> watchUpcomingTasks({DateTime? referenceDate, int dayStartHour = 4}) {
     final ref = referenceDate ?? DateTime.now();
-    final effective = DateBoundary.getEffectiveDate(ref, dayStartHour: dayStartHour);
+    final effective = _getEffectiveRefDate(ref, dayStartHour);
     final endOfToday = DateTime(effective.year, effective.month, effective.day, 23, 59, 59, 999);
 
     final query = _db.select(_db.tasksTable)
@@ -126,7 +141,7 @@ class TaskRepository {
 
   Stream<List<Task>> watchOverdueTasks({DateTime? referenceDate, int dayStartHour = 4}) {
     final ref = referenceDate ?? DateTime.now();
-    final effective = DateBoundary.getEffectiveDate(ref, dayStartHour: dayStartHour);
+    final effective = _getEffectiveRefDate(ref, dayStartHour);
     final startOfToday = DateTime(effective.year, effective.month, effective.day);
 
     final query = _db.select(_db.tasksTable)
@@ -149,7 +164,7 @@ class TaskRepository {
           tbl.deletedAt.isNull() &
           tbl.parentId.isNull() &
           tbl.isCompleted.equals(false) &
-          tbl.priority.equals(TaskPriority.urgent.value))
+          (tbl.priority.equals(TaskPriority.urgent.value) | tbl.priority.equals(TaskPriority.high.value)))
       ..orderBy([
         (tbl) => OrderingTerm(expression: tbl.dueAt),
         (tbl) => OrderingTerm(expression: tbl.sortOrder),
@@ -332,6 +347,16 @@ class TaskRepository {
       await (_db.delete(_db.tasksTable)..where((tbl) => tbl.parentId.equals(taskId))).go();
       await (_db.delete(_db.tasksTable)..where((tbl) => tbl.id.equals(taskId))).go();
     }
+  }
+
+  Future<void> restoreTask(String taskId) async {
+    final now = DateTime.now();
+    await (_db.update(_db.tasksTable)..where((tbl) => tbl.id.equals(taskId))).write(
+      TasksTableCompanion(deletedAt: const Value(null), updatedAt: Value(now)),
+    );
+    await (_db.update(_db.tasksTable)..where((tbl) => tbl.parentId.equals(taskId))).write(
+      TasksTableCompanion(deletedAt: const Value(null), updatedAt: Value(now)),
+    );
   }
 
   Future<void> reorderTasks(List<String> taskIds) async {

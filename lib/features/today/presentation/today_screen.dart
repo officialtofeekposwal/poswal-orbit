@@ -8,6 +8,8 @@ import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/core/widgets/aurora_background.dart';
 import 'package:poswal_orbit/domain/models/habit_models.dart';
 import 'package:poswal_orbit/features/habits/presentation/habit_form_sheet.dart';
+import 'package:poswal_orbit/features/tasks/application/task_providers.dart';
+import 'package:poswal_orbit/features/tasks/presentation/widgets/task_row_card.dart';
 import 'package:poswal_orbit/features/today/application/today_providers.dart';
 import 'package:poswal_orbit/features/today/presentation/widgets/habit_row_card.dart';
 import 'package:poswal_orbit/features/today/presentation/widgets/hero_orbit_card.dart';
@@ -49,6 +51,7 @@ class TodayScreen extends ConsumerWidget {
 
     final selectedDate = ref.watch(selectedDateProvider);
     final todayAsync = ref.watch(todayHabitsDataProvider);
+    final tasksAsync = ref.watch(todayTasksStreamProvider);
     final formattedDate = DateFormat('EEEE, MMM d').format(selectedDate);
 
     return AuroraBackground(
@@ -236,6 +239,87 @@ class TodayScreen extends ConsumerWidget {
                           ],
                         ],
                       ],
+
+                      // 4. Tasks Due & Overdue Section
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          top: PoswalSpacing.xl,
+                          bottom: PoswalSpacing.sm,
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              PhosphorIconsBold.checkSquare,
+                              color: PoswalColors.teal,
+                              size: 18,
+                            ),
+                            const SizedBox(width: PoswalSpacing.xs),
+                            Text(
+                              'Tasks',
+                              style: PoswalText.caption.copyWith(
+                                color: textPrimary,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                            tasksAsync.maybeWhen(
+                              data: (tasks) {
+                                final pending = tasks.where((t) => !t.isCompleted).length;
+                                return Padding(
+                                  padding: const EdgeInsets.only(left: PoswalSpacing.sm),
+                                  child: Text(
+                                    '($pending due)',
+                                    style: PoswalText.caption.copyWith(color: textMuted),
+                                  ),
+                                );
+                              },
+                              orElse: () => const SizedBox.shrink(),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      tasksAsync.when(
+                        loading: () => const Padding(
+                          padding: EdgeInsets.symmetric(vertical: PoswalSpacing.md),
+                          child: Center(
+                            child: SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: CircularProgressIndicator(strokeWidth: 2, color: PoswalColors.teal),
+                            ),
+                          ),
+                        ),
+                        error: (err, _) => Padding(
+                          padding: const EdgeInsets.symmetric(vertical: PoswalSpacing.sm),
+                          child: Text(
+                            'Unable to load tasks: $err',
+                            style: const TextStyle(color: PoswalColors.danger, fontSize: 12),
+                          ),
+                        ),
+                        data: (tasks) {
+                          if (tasks.isEmpty) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: PoswalSpacing.md),
+                              child: Center(
+                                child: Text(
+                                  'All clear. Enjoy the quiet.',
+                                  style: PoswalText.callout.copyWith(
+                                    color: textMuted,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                          return Column(
+                            children: [
+                              for (final task in tasks)
+                                TaskRowCard(task: task),
+                            ],
+                          );
+                        },
+                      ),
 
                       const SizedBox(height: 100), // Space for floating bottom tab bar
                     ]),

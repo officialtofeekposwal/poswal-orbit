@@ -15,7 +15,7 @@ void main() {
       expect(result.cleanTitle, 'Call mom');
       expect(result.dueAt, DateTime(2026, 11, 22, 18, 0)); // Tomorrow at 18:00
       expect(result.hasTime, isTrue);
-      expect(result.priority, TaskPriority.urgent);
+      expect(result.priority, TaskPriority.high);
       expect(result.projectName, 'family');
       expect(result.tags, ['family']);
     });
@@ -29,7 +29,7 @@ void main() {
       expect(result.cleanTitle, 'Finish sprint report');
       expect(result.dueAt, DateTime(2026, 11, 24, 9, 0)); // Sat + 3d = Tuesday
       expect(result.hasTime, isFalse);
-      expect(result.priority, TaskPriority.medium);
+      expect(result.priority, TaskPriority.high);
     });
 
     test('Weekday name & 24h time: "Submit tax docs monday 14:30 !urgent #finance"', () {
@@ -77,9 +77,26 @@ void main() {
       );
 
       expect(result.cleanTitle, 'Fix bug');
-      expect(result.priority, TaskPriority.low);
+      expect(result.priority, TaskPriority.medium); // !3 is Medium
       expect(result.tags, ['work', 'mobile', 'flutter']);
       expect(result.projectName, 'work');
+    });
+
+    test('All 4 clear priority levels map correctly (!urgent/!1, !high/!2, !med/!3, !low/!4, none)', () {
+      expect(TaskNlpParser.parse('Task A !urgent').priority, TaskPriority.urgent);
+      expect(TaskNlpParser.parse('Task B !1').priority, TaskPriority.urgent);
+
+      expect(TaskNlpParser.parse('Task C !high').priority, TaskPriority.high);
+      expect(TaskNlpParser.parse('Task D !2').priority, TaskPriority.high);
+
+      expect(TaskNlpParser.parse('Task E !med').priority, TaskPriority.medium);
+      expect(TaskNlpParser.parse('Task F !medium').priority, TaskPriority.medium);
+      expect(TaskNlpParser.parse('Task G !3').priority, TaskPriority.medium);
+
+      expect(TaskNlpParser.parse('Task H !low').priority, TaskPriority.low);
+      expect(TaskNlpParser.parse('Task I !4').priority, TaskPriority.low);
+
+      expect(TaskNlpParser.parse('Task J').priority, TaskPriority.none);
     });
   });
 }
