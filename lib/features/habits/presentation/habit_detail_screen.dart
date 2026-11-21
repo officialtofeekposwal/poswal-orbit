@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:poswal_orbit/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
@@ -57,6 +58,7 @@ class HabitDetailScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context);
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
     final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
 
@@ -77,7 +79,7 @@ class HabitDetailScreen extends ConsumerWidget {
             data: (habit) {
               if (habit == null) {
                 return Center(
-                  child: Text('Habit not found', style: PoswalText.title.copyWith(color: textPrimary)),
+                  child: Text(l10n?.habitNotFound ?? 'Habit not found', style: PoswalText.title.copyWith(color: textPrimary)),
                 );
               }
 
@@ -244,7 +246,7 @@ class HabitDetailScreen extends ConsumerWidget {
                               children: [
                                 Expanded(
                                   child: _buildHeroStatCard(
-                                    title: 'CURRENT STREAK',
+                                    title: l10n?.currentStreakLabel.toUpperCase() ?? 'CURRENT STREAK',
                                     value: '${stats.currentStreak}d',
                                     icon: PhosphorIconsFill.fire,
                                     color: PoswalColors.gold,
@@ -256,7 +258,7 @@ class HabitDetailScreen extends ConsumerWidget {
                                 const SizedBox(width: PoswalSpacing.sm),
                                 Expanded(
                                   child: _buildHeroStatCard(
-                                    title: 'BEST STREAK',
+                                    title: l10n?.bestStreakLabel.toUpperCase() ?? 'BEST STREAK',
                                     value: '${stats.bestStreak}d',
                                     icon: PhosphorIconsFill.trophy,
                                     color: PoswalColors.violet,
@@ -272,7 +274,7 @@ class HabitDetailScreen extends ConsumerWidget {
                               children: [
                                 Expanded(
                                   child: _buildHeroStatCard(
-                                    title: 'HABIT SCORE',
+                                    title: l10n?.habitScoreLabel.toUpperCase() ?? 'HABIT SCORE',
                                     value: '$scorePercent%',
                                     icon: PhosphorIconsFill.chartLineUp,
                                     color: PoswalColors.teal,
@@ -284,7 +286,7 @@ class HabitDetailScreen extends ConsumerWidget {
                                 const SizedBox(width: PoswalSpacing.sm),
                                 Expanded(
                                   child: _buildHeroStatCard(
-                                    title: 'COMPLETION RATE',
+                                    title: l10n?.completionRateLabel.toUpperCase() ?? 'COMPLETION RATE',
                                     value: '$ratePercent%',
                                     icon: PhosphorIconsFill.checkCircle,
                                     color: PoswalColors.coral,

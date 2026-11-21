@@ -54,6 +54,27 @@ class AppLocalizationsHi extends AppLocalizations {
   String get tasksDueOverdue => 'देय और बकाया कार्य';
 
   @override
+  String get yourOrbitClear => 'आपकी कक्षा साफ है';
+
+  @override
+  String get noHabitsScheduled =>
+      'इस दिन के लिए कोई आदत निर्धारित नहीं है।\nविश्राम करें या नीचे एक नई आदत बनाएं।';
+
+  @override
+  String get addHabit => 'आदत जोड़ें';
+
+  @override
+  String get tasksTitle => 'कार्य';
+
+  @override
+  String tasksDueCount(int count) {
+    return '($count देय)';
+  }
+
+  @override
+  String get allHabits => 'सभी आदतें';
+
+  @override
   String get habitsActive => 'सक्रिय';
 
   @override
@@ -66,6 +87,104 @@ class AppLocalizationsHi extends AppLocalizations {
   String streakDays(int days) {
     return '$days दिन लगातार';
   }
+
+  @override
+  String get streakFreezeActive => '1 स्ट्रीक फ्रीज सक्रिय';
+
+  @override
+  String get streakFreezeDescription =>
+      'प्रति माह एक छूटे हुए निर्धारित दिन की सुरक्षा करता है।';
+
+  @override
+  String get noHabitsYet => 'अभी कोई आदत नहीं है';
+
+  @override
+  String get noHabitsYetSubtitle =>
+      'अपनी कक्षा शुरू करने के लिए पहली आदत जोड़ें।';
+
+  @override
+  String get noArchivedHabits => 'कोई संग्रहीत आदत नहीं';
+
+  @override
+  String get noArchivedHabitsSubtitle =>
+      'संग्रहीत आदतें यहां सुरक्षित रखी जाती हैं ताकि मुख्य स्क्रीन साफ रहे।';
+
+  @override
+  String get archivedTapToRestore =>
+      'संग्रहीत • पुनः सक्रिय करने के लिए टैप करें';
+
+  @override
+  String habitRestored(String name) {
+    return '\"$name\" को सक्रिय आदतों में बहाल किया गया';
+  }
+
+  @override
+  String habitDeleted(String name) {
+    return '\"$name\" को हमेशा के लिए हटा दिया गया';
+  }
+
+  @override
+  String get createHabitTitle => 'नई आदत बनाएं';
+
+  @override
+  String get editHabitTitle => 'आदत संपादित करें';
+
+  @override
+  String get livePreview => 'लाइव पूर्वावलोकन';
+
+  @override
+  String get habitNameLabel => 'आदत का नाम';
+
+  @override
+  String get habitNameHint => 'उदा. 20 पृष्ठ पढ़ें';
+
+  @override
+  String get paletteColor => 'पसंदीदा रंग';
+
+  @override
+  String get iconLabel => 'प्रतीक';
+
+  @override
+  String get timeOfDayLabel => 'दिन का समय';
+
+  @override
+  String get scheduleLabel => 'समय सारणी';
+
+  @override
+  String get saveChanges => 'बदलाव सहेजें';
+
+  @override
+  String get habitNotFound => 'आदत नहीं मिली';
+
+  @override
+  String get currentStreakLabel => 'वर्तमान स्ट्रीक';
+
+  @override
+  String get bestStreakLabel => 'सर्वोत्तम स्ट्रीक';
+
+  @override
+  String get habitScoreLabel => 'आदत स्कोर';
+
+  @override
+  String get completionRateLabel => 'पूर्णता दर';
+
+  @override
+  String get archiveHabit => 'आदत संग्रहीत करें';
+
+  @override
+  String get restoreHabit => 'आदत बहाल करें';
+
+  @override
+  String get deleteHabit => 'आदत हटाएं';
+
+  @override
+  String get checkinStatusDone => 'पूर्ण';
+
+  @override
+  String get checkinStatusSkip => 'छोड़ें';
+
+  @override
+  String get checkinStatusMissed => 'छूटा';
 
   @override
   String get tasksSmartToday => 'आज';
@@ -99,6 +218,46 @@ class AppLocalizationsHi extends AppLocalizations {
   String get priorityNone => 'कोई नहीं';
 
   @override
+  String get keepDayInMotion => 'अपने दिन को गतिमान रखें';
+
+  @override
+  String get allProjects => 'सभी प्रोजेक्ट्स';
+
+  @override
+  String get noPendingTasksFound =>
+      'इस दृश्य के लिए कोई लंबित कार्य नहीं मिला।';
+
+  @override
+  String get addTask => 'कार्य जोड़ें';
+
+  @override
+  String get subtasksTitle => 'उप-कार्य';
+
+  @override
+  String get addSubtaskHint => 'उप-कार्य जोड़ें...';
+
+  @override
+  String get notesLabel => 'नोट्स';
+
+  @override
+  String get addNotesHint => 'विस्तृत विवरण जोड़ें...';
+
+  @override
+  String get dueDateLabel => 'देय तिथि';
+
+  @override
+  String get priorityLabel => 'प्राथमिकता';
+
+  @override
+  String get projectLabel => 'प्रोजेक्ट';
+
+  @override
+  String get taskDeletedToast => 'कार्य हटा दिया गया';
+
+  @override
+  String get undoButton => 'पूर्ववत करें';
+
+  @override
   String get notesPinned => 'पिन किए गए';
 
   @override
@@ -112,6 +271,41 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get notesSaving => 'सहेजा जा रहा है...';
+
+  @override
+  String get unpinNote => 'पिन हटाएं';
+
+  @override
+  String get pinNote => 'पिन करें';
+
+  @override
+  String get changeColorLabel => 'रंग लेबल बदलें';
+
+  @override
+  String get deleteNote => 'नोट हटाएं';
+
+  @override
+  String get noteDeletedToast => 'नोट हटा दिया गया';
+
+  @override
+  String get noNotesYet => 'अभी कोई नोट नहीं है';
+
+  @override
+  String get noNotesYetSubtitle => 'अपने विचार लिखें या आज की डायरी शुरू करें।';
+
+  @override
+  String get newNote => 'नया नोट';
+
+  @override
+  String get noteTitleHint => 'शीर्षक';
+
+  @override
+  String get noteBodyHint => 'लिखना शुरू करें (मार्कडाउन-लाइट समर्थित)...';
+
+  @override
+  String journalForDate(String date) {
+    return 'दैनिक डायरी: $date';
+  }
 
   @override
   String get insightsTitle => 'अंतर्दृष्टि';
@@ -201,4 +395,55 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get settingsDeleteAll => 'सारा डेटा हटाएं';
+
+  @override
+  String get securityTitle => 'ऐप लॉक और सुरक्षा';
+
+  @override
+  String get biometricLock => 'बायोमेट्रिक लॉक';
+
+  @override
+  String get biometricLockSubtitle =>
+      'शुरू होने पर फेस आईडी, फिंगरप्रिंट या पिन अनिवार्य करें';
+
+  @override
+  String get lockTimeout => 'लॉक समय सीमा';
+
+  @override
+  String get lockTimeoutImmediate => 'तुरंत';
+
+  @override
+  String get lockTimeout30s => '30 सेकंड बाद';
+
+  @override
+  String get lockTimeout1m => '1 मिनट बाद';
+
+  @override
+  String get lockTimeout5m => '5 मिनट बाद';
+
+  @override
+  String get hideContentRecents => 'हाल के ऐप्स में सामग्री छुपाएं';
+
+  @override
+  String get hideContentRecentsSubtitle =>
+      'टास्क स्विचर में ऐप पूर्वावलोकन को धुंधला या ब्लॉक करता है';
+
+  @override
+  String get unlockPrompt =>
+      'अपनी आदतों और नोट्स को देखने के लिए पोसवाल ऑर्बिट अनलॉक करें';
+
+  @override
+  String get unlockWithBiometrics => 'बायोमेट्रिक्स से अनलॉक करें';
+
+  @override
+  String get unlockWithPasscode => 'डिवाइस पासकोड उपयोग करें';
+
+  @override
+  String get widgetTodayProgress => 'ऑर्बिट आज की प्रगति';
+
+  @override
+  String get widgetQuickCheckin => 'त्वरित आदत चेक-इन';
+
+  @override
+  String get widgetTasksGlance => 'लंबित कार्य एक नज़र में';
 }

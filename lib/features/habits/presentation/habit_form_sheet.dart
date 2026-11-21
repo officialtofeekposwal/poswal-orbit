@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:poswal_orbit/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
@@ -99,6 +100,7 @@ class _HabitFormSheetState extends ConsumerState<HabitFormSheet> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context);
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
     final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
     final cardBg = isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight;
@@ -132,7 +134,9 @@ class _HabitFormSheetState extends ConsumerState<HabitFormSheet> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    widget.habitToEdit == null ? 'Create Habit' : 'Edit Habit',
+                    widget.habitToEdit == null
+                        ? (l10n?.createHabitTitle ?? 'Create Habit')
+                        : (l10n?.editHabitTitle ?? 'Edit Habit'),
                     style: PoswalText.title.copyWith(color: textPrimary, fontWeight: FontWeight.w700),
                   ),
                   IconButton(
@@ -144,7 +148,7 @@ class _HabitFormSheetState extends ConsumerState<HabitFormSheet> {
               const SizedBox(height: PoswalSpacing.md),
 
               // LIVE ROW PREVIEW
-              Text('Live Preview', style: PoswalText.caption.copyWith(color: textMuted)),
+              Text(l10n?.livePreview ?? 'Live Preview', style: PoswalText.caption.copyWith(color: textMuted)),
               const SizedBox(height: PoswalSpacing.xs),
               Container(
                 padding: const EdgeInsets.all(PoswalSpacing.md),
@@ -202,14 +206,14 @@ class _HabitFormSheetState extends ConsumerState<HabitFormSheet> {
               const SizedBox(height: PoswalSpacing.lg),
 
               // 1. Name Input
-              Text('Habit Name', style: PoswalText.headline.copyWith(color: textPrimary)),
+              Text(l10n?.habitNameLabel ?? 'Habit Name', style: PoswalText.headline.copyWith(color: textPrimary)),
               const SizedBox(height: PoswalSpacing.xs),
               TextField(
                 controller: _nameController,
                 autofocus: widget.habitToEdit == null,
                 style: TextStyle(color: textPrimary),
                 decoration: InputDecoration(
-                  hintText: 'e.g. Read 20 pages, Hydration, Gym',
+                  hintText: l10n?.habitNameHint ?? 'e.g. Read 20 pages',
                   hintStyle: TextStyle(color: textMuted),
                   filled: true,
                   fillColor: cardBg,
@@ -226,7 +230,7 @@ class _HabitFormSheetState extends ConsumerState<HabitFormSheet> {
               const SizedBox(height: PoswalSpacing.lg),
 
               // 2. Color Palette (10 brand colors)
-              Text('Palette Color', style: PoswalText.headline.copyWith(color: textPrimary)),
+              Text(l10n?.paletteColor ?? 'Palette Color', style: PoswalText.headline.copyWith(color: textPrimary)),
               const SizedBox(height: PoswalSpacing.xs),
               Wrap(
                 spacing: PoswalSpacing.md,
@@ -269,7 +273,7 @@ class _HabitFormSheetState extends ConsumerState<HabitFormSheet> {
               const SizedBox(height: PoswalSpacing.lg),
 
               // 3. Icon Selection
-              Text('Icon', style: PoswalText.headline.copyWith(color: textPrimary)),
+              Text(l10n?.iconLabel ?? 'Icon', style: PoswalText.headline.copyWith(color: textPrimary)),
               const SizedBox(height: PoswalSpacing.xs),
               Wrap(
                 spacing: PoswalSpacing.sm,
@@ -305,7 +309,7 @@ class _HabitFormSheetState extends ConsumerState<HabitFormSheet> {
               const SizedBox(height: PoswalSpacing.lg),
 
               // 4. Time of Day
-              Text('Time of Day', style: PoswalText.headline.copyWith(color: textPrimary)),
+              Text(l10n?.timeOfDayLabel ?? 'Time of Day', style: PoswalText.headline.copyWith(color: textPrimary)),
               const SizedBox(height: PoswalSpacing.xs),
               AppGlassSegmentedControl<TimeOfDayGroup>(
                 values: const [
@@ -322,7 +326,7 @@ class _HabitFormSheetState extends ConsumerState<HabitFormSheet> {
               const SizedBox(height: PoswalSpacing.lg),
 
               // 5. Schedule Cadence
-              Text('Schedule', style: PoswalText.headline.copyWith(color: textPrimary)),
+              Text(l10n?.scheduleLabel ?? 'Schedule', style: PoswalText.headline.copyWith(color: textPrimary)),
               const SizedBox(height: PoswalSpacing.xs),
               AppGlassSegmentedControl<ScheduleType>(
                 values: const [
@@ -348,7 +352,9 @@ class _HabitFormSheetState extends ConsumerState<HabitFormSheet> {
                     const Icon(PhosphorIconsBold.check, size: 18, color: Colors.white),
                     const SizedBox(width: PoswalSpacing.sm),
                     Text(
-                      widget.habitToEdit == null ? 'Create Habit' : 'Save Changes',
+                      widget.habitToEdit == null
+                          ? (l10n?.createHabitTitle ?? 'Create Habit')
+                          : (l10n?.saveChanges ?? 'Save Changes'),
                       style: const TextStyle(fontWeight: FontWeight.w700),
                     ),
                   ],

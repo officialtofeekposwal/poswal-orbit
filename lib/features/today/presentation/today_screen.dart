@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poswal_orbit/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -20,11 +21,11 @@ import 'package:poswal_orbit/features/today/presentation/widgets/week_strip.dart
 class TodayScreen extends ConsumerWidget {
   const TodayScreen({super.key});
 
-  String _getGreeting() {
+  String _getGreeting(AppLocalizations? l10n) {
     final hour = DateTime.now().hour;
-    if (hour < 12) return 'Good morning';
-    if (hour < 17) return 'Good afternoon';
-    return 'Good evening';
+    if (hour < 12) return l10n?.greetingMorning ?? 'Good morning';
+    if (hour < 17) return l10n?.greetingAfternoon ?? 'Good afternoon';
+    return l10n?.greetingEvening ?? 'Good evening';
   }
 
   void _openCreateSheet(BuildContext context) {
@@ -48,6 +49,7 @@ class TodayScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context);
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
     final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
 
@@ -75,7 +77,7 @@ class TodayScreen extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          _getGreeting(),
+                          _getGreeting(l10n),
                           style: PoswalText.title.copyWith(
                             color: textPrimary,
                             fontWeight: FontWeight.w700,
@@ -179,7 +181,7 @@ class TodayScreen extends ConsumerWidget {
                                 ),
                                 const SizedBox(height: PoswalSpacing.md),
                                 Text(
-                                  'Your Orbit is Clear',
+                                  l10n?.yourOrbitClear ?? 'Your Orbit is Clear',
                                   style: PoswalText.headline.copyWith(
                                     color: textPrimary,
                                     fontWeight: FontWeight.w600,
@@ -187,7 +189,8 @@ class TodayScreen extends ConsumerWidget {
                                 ),
                                 const SizedBox(height: PoswalSpacing.xs),
                                 Text(
-                                  'No habits scheduled for this day.\nRest and recharge, or create a new habit below.',
+                                  l10n?.noHabitsScheduled ??
+                                      'No habits scheduled for this day.\nRest and recharge, or create a new habit below.',
                                   textAlign: TextAlign.center,
                                   style: PoswalText.callout.copyWith(color: textMuted),
                                 ),
@@ -195,12 +198,12 @@ class TodayScreen extends ConsumerWidget {
                                 AppGlassButton(
                                   isPrimary: true,
                                   onPressed: () => _openCreateSheet(context),
-                                  child: const Row(
+                                  child: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Icon(PhosphorIconsBold.plus, size: 16, color: Colors.white),
-                                      SizedBox(width: PoswalSpacing.xs),
-                                      Text('Add Habit'),
+                                      const Icon(PhosphorIconsBold.plus, size: 16, color: Colors.white),
+                                      const SizedBox(width: PoswalSpacing.xs),
+                                      Text(l10n?.addHabit ?? 'Add Habit'),
                                     ],
                                   ),
                                 ),
@@ -271,7 +274,7 @@ class TodayScreen extends ConsumerWidget {
                             ),
                             const SizedBox(width: PoswalSpacing.xs),
                             Text(
-                              'Tasks',
+                              l10n?.tasksTitle ?? 'Tasks',
                               style: PoswalText.caption.copyWith(
                                 color: textPrimary,
                                 fontWeight: FontWeight.w700,
@@ -284,7 +287,7 @@ class TodayScreen extends ConsumerWidget {
                                 return Padding(
                                   padding: const EdgeInsets.only(left: PoswalSpacing.sm),
                                   child: Text(
-                                    '($pending due)',
+                                    l10n?.tasksDueCount(pending) ?? '($pending due)',
                                     style: PoswalText.caption.copyWith(color: textMuted),
                                   ),
                                 );
@@ -319,7 +322,7 @@ class TodayScreen extends ConsumerWidget {
                               padding: const EdgeInsets.symmetric(vertical: PoswalSpacing.md),
                               child: Center(
                                 child: Text(
-                                  'All clear. Enjoy the quiet.',
+                                  l10n?.allClear ?? 'All clear. Enjoy the quiet.',
                                   style: PoswalText.callout.copyWith(
                                     color: textMuted,
                                     fontStyle: FontStyle.italic,

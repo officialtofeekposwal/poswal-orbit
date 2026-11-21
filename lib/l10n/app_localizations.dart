@@ -184,6 +184,42 @@ abstract class AppLocalizations {
   /// **'Tasks Due & Overdue'**
   String get tasksDueOverdue;
 
+  /// No description provided for @yourOrbitClear.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Orbit is Clear'**
+  String get yourOrbitClear;
+
+  /// No description provided for @noHabitsScheduled.
+  ///
+  /// In en, this message translates to:
+  /// **'No habits scheduled for this day.\nRest and recharge, or create a new habit below.'**
+  String get noHabitsScheduled;
+
+  /// No description provided for @addHabit.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Habit'**
+  String get addHabit;
+
+  /// No description provided for @tasksTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks'**
+  String get tasksTitle;
+
+  /// No description provided for @tasksDueCount.
+  ///
+  /// In en, this message translates to:
+  /// **'({count} due)'**
+  String tasksDueCount(int count);
+
+  /// No description provided for @allHabits.
+  ///
+  /// In en, this message translates to:
+  /// **'All Habits'**
+  String get allHabits;
+
   /// No description provided for @habitsActive.
   ///
   /// In en, this message translates to:
@@ -207,6 +243,186 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{days}d streak'**
   String streakDays(int days);
+
+  /// No description provided for @streakFreezeActive.
+  ///
+  /// In en, this message translates to:
+  /// **'1 Streak Freeze Active'**
+  String get streakFreezeActive;
+
+  /// No description provided for @streakFreezeDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Protects one missed scheduled day per month.'**
+  String get streakFreezeDescription;
+
+  /// No description provided for @noHabitsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No Habits Yet'**
+  String get noHabitsYet;
+
+  /// No description provided for @noHabitsYetSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your first habit to begin your orbit.'**
+  String get noHabitsYetSubtitle;
+
+  /// No description provided for @noArchivedHabits.
+  ///
+  /// In en, this message translates to:
+  /// **'No Archived Habits'**
+  String get noArchivedHabits;
+
+  /// No description provided for @noArchivedHabitsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Archived habits are stored safely here without cluttering your daily view.'**
+  String get noArchivedHabitsSubtitle;
+
+  /// No description provided for @archivedTapToRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'Archived • Tap restore to reactivate'**
+  String get archivedTapToRestore;
+
+  /// No description provided for @habitRestored.
+  ///
+  /// In en, this message translates to:
+  /// **'Restored \"{name}\" to Active Habits'**
+  String habitRestored(String name);
+
+  /// No description provided for @habitDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Permanently deleted \"{name}\"'**
+  String habitDeleted(String name);
+
+  /// No description provided for @createHabitTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Habit'**
+  String get createHabitTitle;
+
+  /// No description provided for @editHabitTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Habit'**
+  String get editHabitTitle;
+
+  /// No description provided for @livePreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Live Preview'**
+  String get livePreview;
+
+  /// No description provided for @habitNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Habit Name'**
+  String get habitNameLabel;
+
+  /// No description provided for @habitNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Read 20 pages'**
+  String get habitNameHint;
+
+  /// No description provided for @paletteColor.
+  ///
+  /// In en, this message translates to:
+  /// **'Palette Color'**
+  String get paletteColor;
+
+  /// No description provided for @iconLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Icon'**
+  String get iconLabel;
+
+  /// No description provided for @timeOfDayLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Time of Day'**
+  String get timeOfDayLabel;
+
+  /// No description provided for @scheduleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule'**
+  String get scheduleLabel;
+
+  /// No description provided for @saveChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Changes'**
+  String get saveChanges;
+
+  /// No description provided for @habitNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Habit not found'**
+  String get habitNotFound;
+
+  /// No description provided for @currentStreakLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Streak'**
+  String get currentStreakLabel;
+
+  /// No description provided for @bestStreakLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Best Streak'**
+  String get bestStreakLabel;
+
+  /// No description provided for @habitScoreLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Habit Score'**
+  String get habitScoreLabel;
+
+  /// No description provided for @completionRateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Completion Rate'**
+  String get completionRateLabel;
+
+  /// No description provided for @archiveHabit.
+  ///
+  /// In en, this message translates to:
+  /// **'Archive Habit'**
+  String get archiveHabit;
+
+  /// No description provided for @restoreHabit.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Habit'**
+  String get restoreHabit;
+
+  /// No description provided for @deleteHabit.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Habit'**
+  String get deleteHabit;
+
+  /// No description provided for @checkinStatusDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get checkinStatusDone;
+
+  /// No description provided for @checkinStatusSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get checkinStatusSkip;
+
+  /// No description provided for @checkinStatusMissed.
+  ///
+  /// In en, this message translates to:
+  /// **'Missed'**
+  String get checkinStatusMissed;
 
   /// No description provided for @tasksSmartToday.
   ///
@@ -268,6 +484,84 @@ abstract class AppLocalizations {
   /// **'None'**
   String get priorityNone;
 
+  /// No description provided for @keepDayInMotion.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your day in motion'**
+  String get keepDayInMotion;
+
+  /// No description provided for @allProjects.
+  ///
+  /// In en, this message translates to:
+  /// **'All Projects'**
+  String get allProjects;
+
+  /// No description provided for @noPendingTasksFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No pending tasks found for this view.'**
+  String get noPendingTasksFound;
+
+  /// No description provided for @addTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Task'**
+  String get addTask;
+
+  /// No description provided for @subtasksTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Subtasks'**
+  String get subtasksTitle;
+
+  /// No description provided for @addSubtaskHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a subtask...'**
+  String get addSubtaskHint;
+
+  /// No description provided for @notesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get notesLabel;
+
+  /// No description provided for @addNotesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add detailed notes...'**
+  String get addNotesHint;
+
+  /// No description provided for @dueDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Due Date'**
+  String get dueDateLabel;
+
+  /// No description provided for @priorityLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Priority'**
+  String get priorityLabel;
+
+  /// No description provided for @projectLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Project'**
+  String get projectLabel;
+
+  /// No description provided for @taskDeletedToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Task deleted'**
+  String get taskDeletedToast;
+
+  /// No description provided for @undoButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get undoButton;
+
   /// No description provided for @notesPinned.
   ///
   /// In en, this message translates to:
@@ -297,6 +591,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Saving...'**
   String get notesSaving;
+
+  /// No description provided for @unpinNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Unpin Note'**
+  String get unpinNote;
+
+  /// No description provided for @pinNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Pin Note'**
+  String get pinNote;
+
+  /// No description provided for @changeColorLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Color Label'**
+  String get changeColorLabel;
+
+  /// No description provided for @deleteNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Note'**
+  String get deleteNote;
+
+  /// No description provided for @noteDeletedToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Note deleted'**
+  String get noteDeletedToast;
+
+  /// No description provided for @noNotesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No notes yet'**
+  String get noNotesYet;
+
+  /// No description provided for @noNotesYetSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Capture your thoughts, ideas, or start today\'s journal.'**
+  String get noNotesYetSubtitle;
+
+  /// No description provided for @newNote.
+  ///
+  /// In en, this message translates to:
+  /// **'New Note'**
+  String get newNote;
+
+  /// No description provided for @noteTitleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get noteTitleHint;
+
+  /// No description provided for @noteBodyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Start writing (Markdown-lite supported)...'**
+  String get noteBodyHint;
+
+  /// No description provided for @journalForDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Journal: {date}'**
+  String journalForDate(String date);
 
   /// No description provided for @insightsTitle.
   ///
@@ -471,6 +831,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete All Data'**
   String get settingsDeleteAll;
+
+  /// No description provided for @securityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'App Lock & Security'**
+  String get securityTitle;
+
+  /// No description provided for @biometricLock.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric Lock'**
+  String get biometricLock;
+
+  /// No description provided for @biometricLockSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Require Face ID, fingerprint or device PIN on launch'**
+  String get biometricLockSubtitle;
+
+  /// No description provided for @lockTimeout.
+  ///
+  /// In en, this message translates to:
+  /// **'Lock Timeout'**
+  String get lockTimeout;
+
+  /// No description provided for @lockTimeoutImmediate.
+  ///
+  /// In en, this message translates to:
+  /// **'Immediately'**
+  String get lockTimeoutImmediate;
+
+  /// No description provided for @lockTimeout30s.
+  ///
+  /// In en, this message translates to:
+  /// **'After 30 seconds'**
+  String get lockTimeout30s;
+
+  /// No description provided for @lockTimeout1m.
+  ///
+  /// In en, this message translates to:
+  /// **'After 1 minute'**
+  String get lockTimeout1m;
+
+  /// No description provided for @lockTimeout5m.
+  ///
+  /// In en, this message translates to:
+  /// **'After 5 minutes'**
+  String get lockTimeout5m;
+
+  /// No description provided for @hideContentRecents.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide in Recent Apps'**
+  String get hideContentRecents;
+
+  /// No description provided for @hideContentRecentsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Blurs or blocks app preview in OS task switcher'**
+  String get hideContentRecentsSubtitle;
+
+  /// No description provided for @unlockPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock Poswal Orbit to view your habits and notes'**
+  String get unlockPrompt;
+
+  /// No description provided for @unlockWithBiometrics.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock with Biometrics'**
+  String get unlockWithBiometrics;
+
+  /// No description provided for @unlockWithPasscode.
+  ///
+  /// In en, this message translates to:
+  /// **'Use Device Passcode'**
+  String get unlockWithPasscode;
+
+  /// No description provided for @widgetTodayProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Orbit Today Progress'**
+  String get widgetTodayProgress;
+
+  /// No description provided for @widgetQuickCheckin.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Habit Check-in'**
+  String get widgetQuickCheckin;
+
+  /// No description provided for @widgetTasksGlance.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending Tasks at a Glance'**
+  String get widgetTasksGlance;
 }
 
 class _AppLocalizationsDelegate

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:poswal_orbit/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
@@ -439,6 +440,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context);
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
     final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
 
@@ -484,12 +486,12 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
                           duration: const Duration(milliseconds: 200),
                           child: _isSaving
                               ? Text(
-                                  'Saving...',
+                                  l10n?.notesSaving ?? 'Saving...',
                                   key: const ValueKey('saving_indicator'),
                                   style: PoswalText.caption.copyWith(color: PoswalColors.gold),
                                 )
                               : Text(
-                                  'Saved',
+                                  l10n?.notesSaved ?? 'Saved',
                                   key: const ValueKey('saved_indicator'),
                                   style: PoswalText.caption.copyWith(color: PoswalColors.teal),
                                 ),
@@ -656,7 +658,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
                               fontWeight: FontWeight.w700,
                             ),
                             decoration: InputDecoration(
-                              hintText: 'Title',
+                              hintText: l10n?.noteTitleHint ?? 'Title',
                               hintStyle: PoswalText.largeTitle.copyWith(
                                 color: textMuted.withValues(alpha: 0.6),
                               ),
@@ -678,7 +680,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
                               height: 1.5,
                             ),
                             decoration: InputDecoration(
-                              hintText: 'Start typing or use markdown formatting...',
+                              hintText: l10n?.noteBodyHint ?? 'Start writing (Markdown-lite supported)...',
                               hintStyle: PoswalText.bodyText.copyWith(
                                 color: textMuted.withValues(alpha: 0.6),
                               ),

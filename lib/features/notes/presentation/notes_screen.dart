@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:poswal_orbit/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
@@ -46,6 +47,8 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
 
+    final l10n = AppLocalizations.of(context);
+
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -63,7 +66,7 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                     color: PoswalColors.gold,
                   ),
                   title: Text(
-                    note.isPinned ? 'Unpin Note' : 'Pin Note',
+                    note.isPinned ? (l10n?.unpinNote ?? 'Unpin Note') : (l10n?.pinNote ?? 'Pin Note'),
                     style: TextStyle(color: textPrimary, fontWeight: FontWeight.w600),
                   ),
                   onTap: () {
@@ -75,7 +78,7 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                   key: const ValueKey('note_action_color'),
                   leading: const Icon(PhosphorIconsRegular.palette, color: PoswalColors.violet),
                   title: Text(
-                    'Change Color Label',
+                    l10n?.changeColorLabel ?? 'Change Color Label',
                     style: TextStyle(color: textPrimary, fontWeight: FontWeight.w600),
                   ),
                   onTap: () {
@@ -87,9 +90,9 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                 ListTile(
                   key: const ValueKey('note_action_delete'),
                   leading: const Icon(PhosphorIconsRegular.trash, color: PoswalColors.danger),
-                  title: const Text(
-                    'Delete Note',
-                    style: TextStyle(color: PoswalColors.danger, fontWeight: FontWeight.w600),
+                  title: Text(
+                    l10n?.deleteNote ?? 'Delete Note',
+                    style: const TextStyle(color: PoswalColors.danger, fontWeight: FontWeight.w600),
                   ),
                   onTap: () async {
                     Navigator.pop(ctx);
@@ -101,11 +104,11 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                         SnackBar(
                           backgroundColor: isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight,
                           content: Text(
-                            'Note deleted',
+                            l10n?.noteDeletedToast ?? 'Note deleted',
                             style: TextStyle(color: textPrimary),
                           ),
                           action: SnackBarAction(
-                            label: 'Undo',
+                            label: l10n?.undoButton ?? 'Undo',
                             textColor: PoswalColors.teal,
                             onPressed: () {
                               repo.restoreNote(note.id);
@@ -183,6 +186,7 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context);
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
     final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
 
@@ -207,7 +211,7 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                     Row(
                       children: [
                         Text(
-                          'Notes',
+                          l10n?.tabNotes ?? 'Notes',
                           style: PoswalText.largeTitle.copyWith(
                             color: textPrimary,
                             fontWeight: FontWeight.w700,
@@ -241,12 +245,12 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                           key: const ValueKey('today_journal_btn'),
                           padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md, vertical: PoswalSpacing.xs),
                           onPressed: () => _openTodayJournal(context),
-                          child: const Row(
+                          child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(PhosphorIconsRegular.bookOpen, size: 14),
-                              SizedBox(width: 4),
-                              Text('Today', style: PoswalText.caption),
+                              const Icon(PhosphorIconsRegular.bookOpen, size: 14),
+                              const SizedBox(width: 4),
+                              Text(l10n?.tabToday ?? 'Today', style: PoswalText.caption),
                             ],
                           ),
                         ),
@@ -317,12 +321,12 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                           Icon(PhosphorIconsRegular.notepad, size: 56, color: textMuted.withValues(alpha: 0.5)),
                           const SizedBox(height: PoswalSpacing.md),
                           Text(
-                            'No notes yet',
+                            l10n?.noNotesYet ?? 'No notes yet',
                             style: PoswalText.title.copyWith(color: textPrimary, fontWeight: FontWeight.w700),
                           ),
                           const SizedBox(height: PoswalSpacing.xs),
                           Text(
-                            'Capture your thoughts, ideas, or start today\'s journal.',
+                            l10n?.noNotesYetSubtitle ?? 'Capture your thoughts, ideas, or start today\'s journal.',
                             style: PoswalText.caption.copyWith(color: textMuted),
                           ),
                           const SizedBox(height: PoswalSpacing.lg),
@@ -330,12 +334,12 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                             key: const ValueKey('empty_new_note_btn'),
                             isPrimary: true,
                             onPressed: () => NoteEditorScreen.push(context),
-                            child: const Row(
+                            child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(PhosphorIconsRegular.plus, size: 16),
-                                SizedBox(width: 6),
-                                Text('New Note'),
+                                const Icon(PhosphorIconsRegular.plus, size: 16),
+                                const SizedBox(width: 6),
+                                Text(l10n?.newNote ?? 'New Note'),
                               ],
                             ),
                           ),

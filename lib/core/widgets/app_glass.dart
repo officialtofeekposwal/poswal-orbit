@@ -174,6 +174,7 @@ class AppGlassButton extends ConsumerWidget {
           color: Colors.transparent,
           child: InkWell(
             borderRadius: BorderRadius.circular(borderRadius),
+            splashFactory: InkRipple.splashFactory,
             onTap: onPressed == null
                 ? null
                 : () {

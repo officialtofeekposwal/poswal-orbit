@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:poswal_orbit/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
@@ -88,6 +89,7 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context);
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
     final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
     final habitColor = Color(widget.habit.colorValue);
@@ -189,21 +191,21 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
                 children: [
                   _buildStatusButton(
                     status: HabitEntryStatus.done,
-                    label: 'Done',
+                    label: l10n?.checkinStatusDone ?? 'Done',
                     icon: PhosphorIconsFill.checkCircle,
                     color: PoswalColors.teal,
                   ),
                   const SizedBox(width: PoswalSpacing.xs),
                   _buildStatusButton(
                     status: HabitEntryStatus.skipped,
-                    label: 'Skip',
+                    label: l10n?.checkinStatusSkip ?? 'Skip',
                     icon: PhosphorIconsFill.shieldStar,
                     color: PoswalColors.gold,
                   ),
                   const SizedBox(width: PoswalSpacing.xs),
                   _buildStatusButton(
                     status: HabitEntryStatus.missed,
-                    label: 'Missed',
+                    label: l10n?.checkinStatusMissed ?? 'Missed',
                     icon: PhosphorIconsFill.xCircle,
                     color: PoswalColors.danger,
                   ),
@@ -319,8 +321,8 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
                 child: AppGlassButton(
                   isPrimary: true,
                   onPressed: _saveCheckin,
-                  child: const Center(
-                    child: Text('Save Check-in'),
+                  child: Center(
+                    child: Text(l10n?.saveChanges ?? 'Save Check-in'),
                   ),
                 ),
               ),

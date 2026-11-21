@@ -122,8 +122,40 @@
 - [x] **Phase 3: Notes & Global Search** — Markdown-lite notes editor with floating glass toolbar, autosave engine, checklist toggling, pins, color tags, RTL support (Urdu/Hindi), and unified multi-entity global search.
 - [x] **Phase 4: Data Safety & Notifications** — 7-day automatic backup rotation, full JSON & CSV import/export, Loop Habit Tracker migration, Settings screen, battery-safe 7-day rolling notifications engine, exact alarms, boot/timezone reschedule receiver, and Reminders Health Check.
 - [x] **Phase 5A: Insights & Multilingual Localization** — Weekly review card (non-guilt copy, habits/tasks/best streak), pure Dart productivity scoring ($60\%$ habits + $40\%$ tasks), peak momentum timing (best weekday & peak window), habit-vs-task correlation ($\ge 14$ days guardrail), shareable stats image rendering (`share_plus`), and complete native localization for English, Hindi (Noto Sans Devanagari), and Urdu (Noto Nastaliq Urdu with RTL text direction).
-- [ ] **Phase 5B: Widgets, App Security & Privacy Guard** — Home screen Android/iOS glance widgets, biometric app lock (Fingerprint/Face), and privacy shields.
+- [x] **Phase 5B: Widgets, App Security & Privacy Guard** — Home screen glance widgets (Android `AppWidgetProvider` with background interactive check-in & iOS WidgetKit extension), biometric app lock (Fingerprint/Face/Passcode fallback with configurable auto-lock timeout), and Android `FLAG_SECURE` recent apps privacy guard.
 - [ ] **Phase 6: Polish & Release** — Multi-device profiling, accessibility audit, and production store builds.
+
+---
+
+## 🔒 Security & Privacy (Phase 5B)
+
+Poswal Orbit delivers privacy-by-design and defense-in-depth:
+- **Biometric App Lock**: Lock on launch or background timeout (immediate, 30s, 1m, 5m) via `local_auth`. Features an atmospheric glass shield, haptic cues, and device PIN/passcode fallback.
+- **Recent Apps Privacy Shield**: Dynamically enables Android `WindowManager.LayoutParams.FLAG_SECURE` to block app preview snapshots in Android's recent apps switcher and prevent third-party screen recordings.
+- **Offline & Local-Only**: Zero telemetry, zero analytics, zero external network requests. All data remains encrypted on your device.
+
+---
+
+## 📱 Home Screen Widgets (Phase 5B)
+
+- **Android Widget**: Native `OrbitTodayWidgetProvider` in Kotlin + XML layouts. Displays Today completion ring, habit progress, and task counters. Includes background broadcast receiver for check-offs without UI freezing.
+- **iOS WidgetKit**: Native Swift SwiftUI widget extension (`ios/OrbitWidget`) with App Group shared preferences timeline provider. *(Documented as written, not yet verified on physical Apple device).*
+
+---
+
+## 🧪 Real-Device Testing Checklist (Samsung Galaxy M36 / Android)
+
+When testing the debug APK artifact on your physical Android phone:
+1. **Biometric Lock**:
+   - Go to **Settings > Security**, toggle **Biometric Lock** ON.
+   - Choose a timeout (e.g., *Immediate* or *30 seconds*).
+   - Switch out of Poswal Orbit to the home screen. Wait for the timeout and re-open Orbit: verify the calm glass lock screen appears and prompts for fingerprint or device passcode.
+2. **Recent Apps Privacy Shield**:
+   - In **Settings > Security**, toggle **Hide in Recent Apps** ON.
+   - Open Android's Recent Apps / Task Switcher: verify that Orbit's preview is blanked/obscured for privacy.
+3. **Home Screen Glance Widget**:
+   - Long-press on your phone's home screen > **Widgets** > select **Poswal Orbit**.
+   - Place the widget on your home screen: verify it displays your current habit and task completion numbers and updates when you check off items inside the app.
 
 ---
 

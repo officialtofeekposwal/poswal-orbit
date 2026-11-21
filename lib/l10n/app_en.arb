@@ -23,6 +23,18 @@
   "habitsAllDone": "All habits complete for today. Outstanding work!",
   "tasksDueOverdue": "Tasks Due & Overdue",
 
+  "yourOrbitClear": "Your Orbit is Clear",
+  "noHabitsScheduled": "No habits scheduled for this day.\nRest and recharge, or create a new habit below.",
+  "addHabit": "Add Habit",
+  "tasksTitle": "Tasks",
+  "tasksDueCount": "({count} due)",
+  "@tasksDueCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "allHabits": "All Habits",
   "habitsActive": "Active",
   "habitsArchived": "Archived",
   "newHabit": "New Habit",
@@ -32,6 +44,47 @@
       "days": {"type": "int"}
     }
   },
+  "streakFreezeActive": "1 Streak Freeze Active",
+  "streakFreezeDescription": "Protects one missed scheduled day per month.",
+  "noHabitsYet": "No Habits Yet",
+  "noHabitsYetSubtitle": "Create your first habit to begin your orbit.",
+  "noArchivedHabits": "No Archived Habits",
+  "noArchivedHabitsSubtitle": "Archived habits are stored safely here without cluttering your daily view.",
+  "archivedTapToRestore": "Archived • Tap restore to reactivate",
+  "habitRestored": "Restored \"{name}\" to Active Habits",
+  "@habitRestored": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "habitDeleted": "Permanently deleted \"{name}\"",
+  "@habitDeleted": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+
+  "createHabitTitle": "Create Habit",
+  "editHabitTitle": "Edit Habit",
+  "livePreview": "Live Preview",
+  "habitNameLabel": "Habit Name",
+  "habitNameHint": "e.g. Read 20 pages",
+  "paletteColor": "Palette Color",
+  "iconLabel": "Icon",
+  "timeOfDayLabel": "Time of Day",
+  "scheduleLabel": "Schedule",
+  "saveChanges": "Save Changes",
+  "habitNotFound": "Habit not found",
+  "currentStreakLabel": "Current Streak",
+  "bestStreakLabel": "Best Streak",
+  "habitScoreLabel": "Habit Score",
+  "completionRateLabel": "Completion Rate",
+  "archiveHabit": "Archive Habit",
+  "restoreHabit": "Restore Habit",
+  "deleteHabit": "Delete Habit",
+  "checkinStatusDone": "Done",
+  "checkinStatusSkip": "Skip",
+  "checkinStatusMissed": "Missed",
 
   "tasksSmartToday": "Today",
   "tasksSmartUpcoming": "Upcoming",
@@ -43,12 +96,41 @@
   "priorityMedium": "Medium",
   "priorityLow": "Low",
   "priorityNone": "None",
+  "keepDayInMotion": "Keep your day in motion",
+  "allProjects": "All Projects",
+  "noPendingTasksFound": "No pending tasks found for this view.",
+  "addTask": "Add Task",
+  "subtasksTitle": "Subtasks",
+  "addSubtaskHint": "Add a subtask...",
+  "notesLabel": "Notes",
+  "addNotesHint": "Add detailed notes...",
+  "dueDateLabel": "Due Date",
+  "priorityLabel": "Priority",
+  "projectLabel": "Project",
+  "taskDeletedToast": "Task deleted",
+  "undoButton": "Undo",
 
   "notesPinned": "Pinned",
   "notesAll": "All Notes",
   "notesTodayJournal": "Today's Journal",
   "notesSaved": "Saved",
   "notesSaving": "Saving...",
+  "unpinNote": "Unpin Note",
+  "pinNote": "Pin Note",
+  "changeColorLabel": "Change Color Label",
+  "deleteNote": "Delete Note",
+  "noteDeletedToast": "Note deleted",
+  "noNotesYet": "No notes yet",
+  "noNotesYetSubtitle": "Capture your thoughts, ideas, or start today's journal.",
+  "newNote": "New Note",
+  "noteTitleHint": "Title",
+  "noteBodyHint": "Start writing (Markdown-lite supported)...",
+  "journalForDate": "Daily Journal: {date}",
+  "@journalForDate": {
+    "placeholders": {
+      "date": {"type": "String"}
+    }
+  },
 
   "insightsTitle": "Insights",
   "weeklyReviewTitle": "Weekly Review",
@@ -79,5 +161,23 @@
   "settingsExport": "Export",
   "settingsImport": "Import",
   "settingsDanger": "Danger Zone",
-  "settingsDeleteAll": "Delete All Data"
+  "settingsDeleteAll": "Delete All Data",
+
+  "securityTitle": "App Lock & Security",
+  "biometricLock": "Biometric Lock",
+  "biometricLockSubtitle": "Require Face ID, fingerprint or device PIN on launch",
+  "lockTimeout": "Lock Timeout",
+  "lockTimeoutImmediate": "Immediately",
+  "lockTimeout30s": "After 30 seconds",
+  "lockTimeout1m": "After 1 minute",
+  "lockTimeout5m": "After 5 minutes",
+  "hideContentRecents": "Hide in Recent Apps",
+  "hideContentRecentsSubtitle": "Blurs or blocks app preview in OS task switcher",
+  "unlockPrompt": "Unlock Poswal Orbit to view your habits and notes",
+  "unlockWithBiometrics": "Unlock with Biometrics",
+  "unlockWithPasscode": "Use Device Passcode",
+
+  "widgetTodayProgress": "Orbit Today Progress",
+  "widgetQuickCheckin": "Quick Habit Check-in",
+  "widgetTasksGlance": "Pending Tasks at a Glance"
 }

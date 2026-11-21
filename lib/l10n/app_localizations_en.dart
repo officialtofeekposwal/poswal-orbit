@@ -55,6 +55,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tasksDueOverdue => 'Tasks Due & Overdue';
 
   @override
+  String get yourOrbitClear => 'Your Orbit is Clear';
+
+  @override
+  String get noHabitsScheduled =>
+      'No habits scheduled for this day.\nRest and recharge, or create a new habit below.';
+
+  @override
+  String get addHabit => 'Add Habit';
+
+  @override
+  String get tasksTitle => 'Tasks';
+
+  @override
+  String tasksDueCount(int count) {
+    return '($count due)';
+  }
+
+  @override
+  String get allHabits => 'All Habits';
+
+  @override
   String get habitsActive => 'Active';
 
   @override
@@ -67,6 +88,103 @@ class AppLocalizationsEn extends AppLocalizations {
   String streakDays(int days) {
     return '${days}d streak';
   }
+
+  @override
+  String get streakFreezeActive => '1 Streak Freeze Active';
+
+  @override
+  String get streakFreezeDescription =>
+      'Protects one missed scheduled day per month.';
+
+  @override
+  String get noHabitsYet => 'No Habits Yet';
+
+  @override
+  String get noHabitsYetSubtitle =>
+      'Create your first habit to begin your orbit.';
+
+  @override
+  String get noArchivedHabits => 'No Archived Habits';
+
+  @override
+  String get noArchivedHabitsSubtitle =>
+      'Archived habits are stored safely here without cluttering your daily view.';
+
+  @override
+  String get archivedTapToRestore => 'Archived • Tap restore to reactivate';
+
+  @override
+  String habitRestored(String name) {
+    return 'Restored \"$name\" to Active Habits';
+  }
+
+  @override
+  String habitDeleted(String name) {
+    return 'Permanently deleted \"$name\"';
+  }
+
+  @override
+  String get createHabitTitle => 'Create Habit';
+
+  @override
+  String get editHabitTitle => 'Edit Habit';
+
+  @override
+  String get livePreview => 'Live Preview';
+
+  @override
+  String get habitNameLabel => 'Habit Name';
+
+  @override
+  String get habitNameHint => 'e.g. Read 20 pages';
+
+  @override
+  String get paletteColor => 'Palette Color';
+
+  @override
+  String get iconLabel => 'Icon';
+
+  @override
+  String get timeOfDayLabel => 'Time of Day';
+
+  @override
+  String get scheduleLabel => 'Schedule';
+
+  @override
+  String get saveChanges => 'Save Changes';
+
+  @override
+  String get habitNotFound => 'Habit not found';
+
+  @override
+  String get currentStreakLabel => 'Current Streak';
+
+  @override
+  String get bestStreakLabel => 'Best Streak';
+
+  @override
+  String get habitScoreLabel => 'Habit Score';
+
+  @override
+  String get completionRateLabel => 'Completion Rate';
+
+  @override
+  String get archiveHabit => 'Archive Habit';
+
+  @override
+  String get restoreHabit => 'Restore Habit';
+
+  @override
+  String get deleteHabit => 'Delete Habit';
+
+  @override
+  String get checkinStatusDone => 'Done';
+
+  @override
+  String get checkinStatusSkip => 'Skip';
+
+  @override
+  String get checkinStatusMissed => 'Missed';
 
   @override
   String get tasksSmartToday => 'Today';
@@ -100,6 +218,45 @@ class AppLocalizationsEn extends AppLocalizations {
   String get priorityNone => 'None';
 
   @override
+  String get keepDayInMotion => 'Keep your day in motion';
+
+  @override
+  String get allProjects => 'All Projects';
+
+  @override
+  String get noPendingTasksFound => 'No pending tasks found for this view.';
+
+  @override
+  String get addTask => 'Add Task';
+
+  @override
+  String get subtasksTitle => 'Subtasks';
+
+  @override
+  String get addSubtaskHint => 'Add a subtask...';
+
+  @override
+  String get notesLabel => 'Notes';
+
+  @override
+  String get addNotesHint => 'Add detailed notes...';
+
+  @override
+  String get dueDateLabel => 'Due Date';
+
+  @override
+  String get priorityLabel => 'Priority';
+
+  @override
+  String get projectLabel => 'Project';
+
+  @override
+  String get taskDeletedToast => 'Task deleted';
+
+  @override
+  String get undoButton => 'Undo';
+
+  @override
   String get notesPinned => 'Pinned';
 
   @override
@@ -113,6 +270,42 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notesSaving => 'Saving...';
+
+  @override
+  String get unpinNote => 'Unpin Note';
+
+  @override
+  String get pinNote => 'Pin Note';
+
+  @override
+  String get changeColorLabel => 'Change Color Label';
+
+  @override
+  String get deleteNote => 'Delete Note';
+
+  @override
+  String get noteDeletedToast => 'Note deleted';
+
+  @override
+  String get noNotesYet => 'No notes yet';
+
+  @override
+  String get noNotesYetSubtitle =>
+      'Capture your thoughts, ideas, or start today\'s journal.';
+
+  @override
+  String get newNote => 'New Note';
+
+  @override
+  String get noteTitleHint => 'Title';
+
+  @override
+  String get noteBodyHint => 'Start writing (Markdown-lite supported)...';
+
+  @override
+  String journalForDate(String date) {
+    return 'Daily Journal: $date';
+  }
 
   @override
   String get insightsTitle => 'Insights';
@@ -201,4 +394,55 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsDeleteAll => 'Delete All Data';
+
+  @override
+  String get securityTitle => 'App Lock & Security';
+
+  @override
+  String get biometricLock => 'Biometric Lock';
+
+  @override
+  String get biometricLockSubtitle =>
+      'Require Face ID, fingerprint or device PIN on launch';
+
+  @override
+  String get lockTimeout => 'Lock Timeout';
+
+  @override
+  String get lockTimeoutImmediate => 'Immediately';
+
+  @override
+  String get lockTimeout30s => 'After 30 seconds';
+
+  @override
+  String get lockTimeout1m => 'After 1 minute';
+
+  @override
+  String get lockTimeout5m => 'After 5 minutes';
+
+  @override
+  String get hideContentRecents => 'Hide in Recent Apps';
+
+  @override
+  String get hideContentRecentsSubtitle =>
+      'Blurs or blocks app preview in OS task switcher';
+
+  @override
+  String get unlockPrompt =>
+      'Unlock Poswal Orbit to view your habits and notes';
+
+  @override
+  String get unlockWithBiometrics => 'Unlock with Biometrics';
+
+  @override
+  String get unlockWithPasscode => 'Use Device Passcode';
+
+  @override
+  String get widgetTodayProgress => 'Orbit Today Progress';
+
+  @override
+  String get widgetQuickCheckin => 'Quick Habit Check-in';
+
+  @override
+  String get widgetTasksGlance => 'Pending Tasks at a Glance';
 }

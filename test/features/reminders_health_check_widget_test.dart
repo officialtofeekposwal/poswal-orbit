@@ -61,7 +61,7 @@ void main() {
     });
 
     testWidgets('Settings screen renders Reminders & Notifications card with deep link', (tester) async {
-      tester.view.physicalSize = const Size(1080, 2400);
+      tester.view.physicalSize = const Size(1080, 4800);
       tester.view.devicePixelRatio = 2.0;
       addTearDown(() {
         tester.view.resetPhysicalSize();

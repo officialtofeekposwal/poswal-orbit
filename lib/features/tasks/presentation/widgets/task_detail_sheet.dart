@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:poswal_orbit/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
@@ -175,6 +176,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context);
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
     final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
 
@@ -226,7 +228,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                     isPrimary: true,
                     padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md, vertical: 8),
                     onPressed: _saveChanges,
-                    child: const Text('Save'),
+                    child: Text(l10n?.saveChanges ?? 'Save'),
                   ),
                 ],
               ),
@@ -243,7 +245,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                     controller: _titleController,
                     style: PoswalText.headline.copyWith(color: textPrimary, fontSize: 18),
                     decoration: InputDecoration(
-                      hintText: 'Task Title',
+                      hintText: l10n?.tasksTitle ?? 'Task Title',
                       hintStyle: PoswalText.headline.copyWith(color: textMuted, fontSize: 18),
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.zero,
@@ -257,7 +259,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                     maxLines: 3,
                     style: PoswalText.callout.copyWith(color: textPrimary),
                     decoration: InputDecoration(
-                      hintText: 'Add notes or details...',
+                      hintText: l10n?.addNotesHint ?? 'Add notes or details...',
                       hintStyle: PoswalText.callout.copyWith(color: textMuted),
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.zero,
@@ -267,7 +269,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
 
                   // 3. Priority Selector (5 options)
                   Text(
-                    'PRIORITY',
+                    l10n?.priorityLabel.toUpperCase() ?? 'PRIORITY',
                     style: PoswalText.caption.copyWith(color: textMuted, fontWeight: FontWeight.w700, letterSpacing: 0.8),
                   ),
                   const SizedBox(height: PoswalSpacing.sm),
@@ -305,7 +307,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
 
                   // 4. Due Date & Time Pickers
                   Text(
-                    'DUE DATE & TIME',
+                    l10n?.dueDateLabel.toUpperCase() ?? 'DUE DATE & TIME',
                     style: PoswalText.caption.copyWith(color: textMuted, fontWeight: FontWeight.w700, letterSpacing: 0.8),
                   ),
                   const SizedBox(height: PoswalSpacing.sm),
@@ -350,7 +352,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'SUBTASKS',
+                        l10n?.subtasksTitle.toUpperCase() ?? 'SUBTASKS',
                         style: PoswalText.caption.copyWith(color: textMuted, fontWeight: FontWeight.w700, letterSpacing: 0.8),
                       ),
                       subtasksAsync.maybeWhen(
@@ -418,7 +420,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                                   controller: _newSubtaskController,
                                   style: PoswalText.callout.copyWith(color: textPrimary),
                                   decoration: InputDecoration(
-                                    hintText: 'Add a subtask...',
+                                    hintText: l10n?.addSubtaskHint ?? 'Add a subtask...',
                                     hintStyle: PoswalText.callout.copyWith(color: textMuted),
                                     isDense: true,
                                     border: InputBorder.none,

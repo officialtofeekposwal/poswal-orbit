@@ -23,6 +23,18 @@
   "habitsAllDone": "آج کی تمام عادات مکمل ہو گئیں۔ شاندار کارکردگی!",
   "tasksDueOverdue": "مقررہ اور بقایا کام",
 
+  "yourOrbitClear": "آپ کا مدار پرسکون ہے",
+  "noHabitsScheduled": "آج کے لیے کوئی عادت مقرر نہیں۔\nآرام کریں یا نیچے نئی عادت شروع کریں۔",
+  "addHabit": "عادت شامل کریں",
+  "tasksTitle": "کام",
+  "tasksDueCount": "({count} باقی)",
+  "@tasksDueCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "allHabits": "تمام عادات",
   "habitsActive": "فعال",
   "habitsArchived": "محفوظ شدہ",
   "newHabit": "نئی عادت",
@@ -32,6 +44,47 @@
       "days": {"type": "int"}
     }
   },
+  "streakFreezeActive": "1 اسٹریک فریز فعال",
+  "streakFreezeDescription": "ماہانہ ایک دن کے ناغے سے تسلسل کو محفوظ رکھتا ہے۔",
+  "noHabitsYet": "ابھی کوئی عادت نہیں",
+  "noHabitsYetSubtitle": "اپنے مدار کا آغاز کرنے کے لیے پہلی عادت بنائیں۔",
+  "noArchivedHabits": "کوئی محفوظ شدہ عادت نہیں",
+  "noArchivedHabitsSubtitle": "محفوظ عادات یہاں الگ رہتی ہیں تاکہ روزمرہ منظر پرسکون رہے۔",
+  "archivedTapToRestore": "محفوظ شدہ • بحال کرنے کے لیے دبائیں",
+  "habitRestored": "\"{name}\" کو فعال عادات میں بحال کر دیا گیا",
+  "@habitRestored": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "habitDeleted": "\"{name}\" کو مستقل طور پر حذف کر دیا گیا",
+  "@habitDeleted": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+
+  "createHabitTitle": "نئی عادت بنائیں",
+  "editHabitTitle": "عادت کی ترمیم",
+  "livePreview": "براہ راست پیش منظر",
+  "habitNameLabel": "عادت کا نام",
+  "habitNameHint": "مثلاً 20 صفحات کا مطالعہ",
+  "paletteColor": "نمایاں رنگ",
+  "iconLabel": "علامت",
+  "timeOfDayLabel": "دن کا وقت",
+  "scheduleLabel": "اوقات کار",
+  "saveChanges": "تبدیلیاں محفوظ کریں",
+  "habitNotFound": "عادت نہیں ملی",
+  "currentStreakLabel": "موجودہ تسلسل",
+  "bestStreakLabel": "بہترین تسلسل",
+  "habitScoreLabel": "عادت کا اسکور",
+  "completionRateLabel": "تکمیل کی شرح",
+  "archiveHabit": "عادت محفوظ کریں",
+  "restoreHabit": "عادت بحال کریں",
+  "deleteHabit": "عادت حذف کریں",
+  "checkinStatusDone": "مکمل",
+  "checkinStatusSkip": "چھوڑیں",
+  "checkinStatusMissed": "چھوٹ گیا",
 
   "tasksSmartToday": "آج",
   "tasksSmartUpcoming": "آئندہ",
@@ -43,12 +96,41 @@
   "priorityMedium": "درمیانہ",
   "priorityLow": "معمولی",
   "priorityNone": "کوئی نہیں",
+  "keepDayInMotion": "اپنے دن کو متحرک رکھیں",
+  "allProjects": "تمام پروجیکٹس",
+  "noPendingTasksFound": "اس منظر میں کوئی باقی کام نہیں ملا۔",
+  "addTask": "کام شامل کریں",
+  "subtasksTitle": "ذیلی کام",
+  "addSubtaskHint": "ذیلی کام درج کریں...",
+  "notesLabel": "نوٹس",
+  "addNotesHint": "تفصیلی نوٹس درج کریں...",
+  "dueDateLabel": "مقررہ تاریخ",
+  "priorityLabel": "ترجیح",
+  "projectLabel": "پروجیکٹ",
+  "taskDeletedToast": "کام حذف ہو گیا",
+  "undoButton": "واپس لائیں",
 
   "notesPinned": "پن کردہ",
   "notesAll": "تمام نوٹس",
   "notesTodayJournal": "آج کا روزنامچہ",
   "notesSaved": "محفوظ ہو گیا",
   "notesSaving": "محفوظ ہو رہا ہے...",
+  "unpinNote": "پن ہٹائیں",
+  "pinNote": "پن کریں",
+  "changeColorLabel": "رنگ تبدیل کریں",
+  "deleteNote": "نوٹ حذف کریں",
+  "noteDeletedToast": "نوٹ حذف ہو گیا",
+  "noNotesYet": "ابھی کوئی نوٹ نہیں",
+  "noNotesYetSubtitle": "اپنے خیالات لکھیں یا آج کا روزنامچہ شروع کریں۔",
+  "newNote": "نیا نوٹ",
+  "noteTitleHint": "عنوان",
+  "noteBodyHint": "تحریر شروع کریں (مارک ڈاؤن سپورٹ)...",
+  "journalForDate": "روزنامچہ: {date}",
+  "@journalForDate": {
+    "placeholders": {
+      "date": {"type": "String"}
+    }
+  },
 
   "insightsTitle": "بصیرت",
   "weeklyReviewTitle": "ہفتہ وار جائزہ",
@@ -79,5 +161,23 @@
   "settingsExport": "برآمد کریں",
   "settingsImport": "درآمد کریں",
   "settingsDanger": "خطرناک زون",
-  "settingsDeleteAll": "تمام ڈیٹا حذف کریں"
+  "settingsDeleteAll": "تمام ڈیٹا حذف کریں",
+
+  "securityTitle": "ایپ لاک اور سیکیورٹی",
+  "biometricLock": "بایومیٹرک لاک",
+  "biometricLockSubtitle": "آغاز پر فیس آئی ڈی، فنگر پرنٹ یا پاس کوڈ ضروری بنائیں",
+  "lockTimeout": "لاک کا وقفہ",
+  "lockTimeoutImmediate": "فوراً",
+  "lockTimeout30s": "30 سیکنڈ بعد",
+  "lockTimeout1m": "1 منٹ بعد",
+  "lockTimeout5m": "5 منٹ بعد",
+  "hideContentRecents": "حالیہ ایپس میں مواد چھپائیں",
+  "hideContentRecentsSubtitle": "ٹاسک سوئچر میں ایپ کے پیش منظر کو دھندلا یا بند کرتا ہے",
+  "unlockPrompt": "عادات اور نوٹس دیکھنے کے لیے پوسوال مدار انلاک کریں",
+  "unlockWithBiometrics": "بایومیٹرکس سے انلاک کریں",
+  "unlockWithPasscode": "ڈیوائس پاس کوڈ استعمال کریں",
+
+  "widgetTodayProgress": "مدار کی آج کی پیش رفت",
+  "widgetQuickCheckin": "فوری عادت چیک اِن",
+  "widgetTasksGlance": "باقی کام ایک نظر میں"
 }

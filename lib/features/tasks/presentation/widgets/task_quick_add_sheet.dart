@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:poswal_orbit/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
@@ -145,6 +146,7 @@ class _TaskQuickAddSheetState extends ConsumerState<TaskQuickAddSheet> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context);
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
     final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
 
@@ -193,7 +195,7 @@ class _TaskQuickAddSheetState extends ConsumerState<TaskQuickAddSheet> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Quick Add Task',
+                  l10n?.addTask ?? 'Quick Add Task',
                   style: PoswalText.title.copyWith(color: textPrimary, fontWeight: FontWeight.w700),
                 ),
                 IconButton(
@@ -210,7 +212,7 @@ class _TaskQuickAddSheetState extends ConsumerState<TaskQuickAddSheet> {
               focusNode: _focusNode,
               style: PoswalText.headline.copyWith(color: textPrimary, fontSize: 16),
               decoration: InputDecoration(
-                hintText: 'e.g. Call mom tomorrow 6pm !high #family',
+                hintText: l10n?.quickAddTaskHint ?? 'e.g. Call mom tomorrow 6pm !high #family',
                 hintStyle: PoswalText.callout.copyWith(color: textMuted),
                 border: InputBorder.none,
                 contentPadding: const EdgeInsets.symmetric(vertical: PoswalSpacing.xs),
@@ -234,7 +236,7 @@ class _TaskQuickAddSheetState extends ConsumerState<TaskQuickAddSheet> {
                     label: Text(
                       due != null
                           ? '${DateFormat('EEE, MMM d').format(due)}${hasTime ? ' ${DateFormat('h:mm a').format(due)}' : ''}'
-                          : 'Due Date',
+                          : (l10n?.dueDateLabel ?? 'Due Date'),
                       style: TextStyle(
                         color: due != null ? PoswalColors.teal : textMuted,
                         fontWeight: due != null ? FontWeight.w700 : FontWeight.w500,
@@ -258,7 +260,7 @@ class _TaskQuickAddSheetState extends ConsumerState<TaskQuickAddSheet> {
                           )
                         : Icon(PhosphorIconsRegular.flag, size: 14, color: textMuted),
                     label: Text(
-                      priority != TaskPriority.none ? priority.label : 'Priority',
+                      priority != TaskPriority.none ? priority.label : (l10n?.priorityLabel ?? 'Priority'),
                       style: TextStyle(
                         color: priority != TaskPriority.none ? Color(priority.colorValue) : textMuted,
                         fontWeight: priority != TaskPriority.none ? FontWeight.w700 : FontWeight.w500,
@@ -296,12 +298,12 @@ class _TaskQuickAddSheetState extends ConsumerState<TaskQuickAddSheet> {
                   isPrimary: true,
                   padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.xl, vertical: PoswalSpacing.md),
                   onPressed: _submitTask,
-                  child: const Row(
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(PhosphorIconsBold.plus, size: 16),
-                      SizedBox(width: PoswalSpacing.xs),
-                      Text('Add Task'),
+                      const Icon(PhosphorIconsBold.plus, size: 16),
+                      const SizedBox(width: PoswalSpacing.xs),
+                      Text(l10n?.addTask ?? 'Add Task'),
                     ],
                   ),
                 ),

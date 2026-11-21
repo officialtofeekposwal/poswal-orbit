@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:poswal_orbit/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
@@ -60,8 +61,9 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
     ref.invalidate(activeHabitsStreamProvider);
 
     if (context.mounted) {
+      final l10n = AppLocalizations.of(context);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Restored "${habit.name}" to Active Habits')),
+        SnackBar(content: Text(l10n?.habitRestored(habit.name) ?? 'Restored "${habit.name}" to Active Habits')),
       );
     }
   }
@@ -74,8 +76,9 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
     ref.invalidate(archivedHabitsStreamProvider);
 
     if (context.mounted) {
+      final l10n = AppLocalizations.of(context);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Permanently deleted "${habit.name}"')),
+        SnackBar(content: Text(l10n?.habitDeleted(habit.name) ?? 'Permanently deleted "${habit.name}"')),
       );
     }
   }
@@ -83,6 +86,7 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context);
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
     final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
 
@@ -105,7 +109,7 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'All Habits',
+                      l10n?.allHabits ?? 'All Habits',
                       style: PoswalText.largeTitle.copyWith(
                         color: textPrimary,
                         fontWeight: FontWeight.w700,
@@ -127,12 +131,12 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
                   values: const [0, 1],
                   labels: [
                     activeHabitsAsync.maybeWhen(
-                      data: (list) => 'Active (${list.length})',
-                      orElse: () => 'Active',
+                      data: (list) => '${l10n?.habitsActive ?? "Active"} (${list.length})',
+                      orElse: () => l10n?.habitsActive ?? 'Active',
                     ),
                     archivedHabitsAsync.maybeWhen(
-                      data: (list) => 'Archived (${list.length})',
-                      orElse: () => 'Archived',
+                      data: (list) => '${l10n?.habitsArchived ?? "Archived"} (${list.length})',
+                      orElse: () => l10n?.habitsArchived ?? 'Archived',
                     ),
                   ],
                   selectedValue: _selectedTab,
@@ -169,14 +173,14 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '1 Streak Freeze Active',
+                                l10n?.streakFreezeActive ?? '1 Streak Freeze Active',
                                 style: PoswalText.caption.copyWith(
                                   color: textPrimary,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
                               Text(
-                                'Protects one missed scheduled day per month.',
+                                l10n?.streakFreezeDescription ?? 'Protects one missed scheduled day per month.',
                                 style: PoswalText.caption.copyWith(color: textMuted, fontSize: 10),
                               ),
                             ],
@@ -213,23 +217,24 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
       error: (err, _) => Center(child: Text('Error: $err', style: const TextStyle(color: PoswalColors.danger))),
       data: (habits) {
         if (habits.isEmpty) {
+          final l10n = AppLocalizations.of(context);
           return Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 const Icon(PhosphorIconsRegular.target, size: 48, color: PoswalColors.teal),
                 const SizedBox(height: PoswalSpacing.md),
-                Text('No Habits Yet', style: PoswalText.headline.copyWith(color: textPrimary)),
+                Text(l10n?.noHabitsYet ?? 'No Habits Yet', style: PoswalText.headline.copyWith(color: textPrimary)),
                 const SizedBox(height: PoswalSpacing.xs),
                 Text(
-                  'Create your first habit to begin your orbit.',
+                  l10n?.noHabitsYetSubtitle ?? 'Create your first habit to begin your orbit.',
                   style: PoswalText.callout.copyWith(color: textMuted),
                 ),
                 const SizedBox(height: PoswalSpacing.lg),
                 AppGlassButton(
                   isPrimary: true,
                   onPressed: () => _openCreateSheet(context),
-                  child: const Text('Add Habit'),
+                  child: Text(l10n?.addHabit ?? 'Add Habit'),
                 ),
               ],
             ),
@@ -343,6 +348,7 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
       loading: () => const Center(child: CircularProgressIndicator(color: PoswalColors.teal)),
       error: (err, _) => Center(child: Text('Error: $err', style: const TextStyle(color: PoswalColors.danger))),
       data: (habits) {
+        final l10n = AppLocalizations.of(context);
         if (habits.isEmpty) {
           return Center(
             child: Column(
@@ -350,10 +356,11 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
               children: [
                 const Icon(PhosphorIconsRegular.archiveBox, size: 48, color: PoswalColors.violet),
                 const SizedBox(height: PoswalSpacing.md),
-                Text('No Archived Habits', style: PoswalText.headline.copyWith(color: textPrimary)),
+                Text(l10n?.noArchivedHabits ?? 'No Archived Habits', style: PoswalText.headline.copyWith(color: textPrimary)),
                 const SizedBox(height: PoswalSpacing.xs),
                 Text(
-                  'Archived habits are stored safely here without cluttering your daily view.',
+                  l10n?.noArchivedHabitsSubtitle ??
+                      'Archived habits are stored safely here without cluttering your daily view.',
                   textAlign: TextAlign.center,
                   style: PoswalText.callout.copyWith(color: textMuted),
                 ),
@@ -415,7 +422,7 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          'Archived • Tap restore to reactivate',
+                          l10n?.archivedTapToRestore ?? 'Archived • Tap restore to reactivate',
                           style: PoswalText.caption.copyWith(color: textMuted),
                         ),
                       ],

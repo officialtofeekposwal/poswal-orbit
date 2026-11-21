@@ -11,6 +11,8 @@ import 'package:poswal_orbit/features/habits/presentation/habits_screen.dart';
 import 'package:poswal_orbit/features/insights/presentation/insights_screen.dart';
 import 'package:poswal_orbit/features/notes/presentation/note_editor_screen.dart';
 import 'package:poswal_orbit/features/notes/presentation/notes_screen.dart';
+import 'package:poswal_orbit/features/security/application/biometric_lock_providers.dart';
+import 'package:poswal_orbit/features/security/presentation/biometric_lock_screen.dart';
 import 'package:poswal_orbit/features/tasks/presentation/tasks_screen.dart';
 import 'package:poswal_orbit/features/tasks/presentation/widgets/task_quick_add_sheet.dart';
 import 'package:poswal_orbit/features/today/presentation/today_screen.dart';
@@ -47,6 +49,7 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    ref.read(biometricLockProvider.notifier).onAppLifecycleChanged(state);
     if (state == AppLifecycleState.resumed) {
       try {
         ref.read(notificationServiceProvider).refillRollingWindow();
@@ -72,6 +75,8 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
 
   @override
   Widget build(BuildContext context) {
+    final lockState = ref.watch(biometricLockProvider);
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Stack(
@@ -88,66 +93,73 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
             ],
           ),
 
-          // Floating Glass Tab Bar + FAB
-          Positioned(
-            left: PoswalSpacing.lg,
-            right: PoswalSpacing.lg,
-            bottom: PoswalSpacing.lg,
-            child: SafeArea(
-              top: false,
-              child: Row(
-                children: [
-                  // 1. Floating Glass Tab Bar
-                  Expanded(
-                    child: AppGlassCard(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: PoswalSpacing.sm,
-                        vertical: PoswalSpacing.xs,
-                      ),
-                      borderRadius: PoswalRadii.pill,
-                      child: Row(
-                        children: [
-                          _buildTabItem(0, PhosphorIconsRegular.circleHalfTilt, PhosphorIconsFill.circleHalfTilt, 'Today'),
-                          _buildTabItem(1, PhosphorIconsRegular.target, PhosphorIconsFill.target, 'Habits'),
-                          _buildTabItem(2, PhosphorIconsRegular.checkSquare, PhosphorIconsFill.checkSquare, 'Tasks'),
-                          _buildTabItem(3, PhosphorIconsRegular.notepad, PhosphorIconsFill.notepad, 'Notes'),
-                          _buildTabItem(4, PhosphorIconsRegular.chartLineUp, PhosphorIconsFill.chartLineUp, 'Insights'),
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(width: PoswalSpacing.sm),
-
-                  // 2. Floating Liquid Glass '+' FAB
-                  GestureDetector(
-                    key: const ValueKey('app_fab_button'),
-                    onTap: _openCreateSheet,
-                    child: Container(
-                      width: 52,
-                      height: 52,
-                      decoration: BoxDecoration(
-                        gradient: PoswalGradients.aurora,
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: PoswalColors.teal.withValues(alpha: 0.40),
-                            blurRadius: 14,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: const Icon(
-                        PhosphorIconsBold.plus,
-                        color: Colors.white,
-                        size: 24,
+          // Floating Glass Tab Bar + FAB (shielded when locked)
+          if (!lockState.isLocked)
+            Positioned(
+              left: PoswalSpacing.lg,
+              right: PoswalSpacing.lg,
+              bottom: PoswalSpacing.lg,
+              child: SafeArea(
+                top: false,
+                child: Row(
+                  children: [
+                    // 1. Floating Glass Tab Bar
+                    Expanded(
+                      child: AppGlassCard(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: PoswalSpacing.sm,
+                          vertical: PoswalSpacing.xs,
+                        ),
+                        borderRadius: PoswalRadii.pill,
+                        child: Row(
+                          children: [
+                            _buildTabItem(0, PhosphorIconsRegular.circleHalfTilt, PhosphorIconsFill.circleHalfTilt, 'Today'),
+                            _buildTabItem(1, PhosphorIconsRegular.target, PhosphorIconsFill.target, 'Habits'),
+                            _buildTabItem(2, PhosphorIconsRegular.checkSquare, PhosphorIconsFill.checkSquare, 'Tasks'),
+                            _buildTabItem(3, PhosphorIconsRegular.notepad, PhosphorIconsFill.notepad, 'Notes'),
+                            _buildTabItem(4, PhosphorIconsRegular.chartLineUp, PhosphorIconsFill.chartLineUp, 'Insights'),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+
+                    const SizedBox(width: PoswalSpacing.sm),
+
+                    // 2. Floating Liquid Glass '+' FAB
+                    GestureDetector(
+                      key: const ValueKey('app_fab_button'),
+                      onTap: _openCreateSheet,
+                      child: Container(
+                        width: 52,
+                        height: 52,
+                        decoration: BoxDecoration(
+                          gradient: PoswalGradients.aurora,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: PoswalColors.teal.withValues(alpha: 0.40),
+                              blurRadius: 14,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: const Icon(
+                          PhosphorIconsBold.plus,
+                          color: Colors.white,
+                          size: 24,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
+
+          // 3. Biometric Lock Screen Overlay
+          if (lockState.isLocked)
+            const Positioned.fill(
+              child: BiometricLockScreen(),
+            ),
         ],
       ),
     );

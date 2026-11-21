@@ -8,10 +8,13 @@ import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/core/widgets/aurora_background.dart';
 import 'package:poswal_orbit/data/services/data_safety_service.dart';
 import 'package:poswal_orbit/data/services/notification_service.dart';
+import 'package:poswal_orbit/domain/logic/biometric_lock_engine.dart';
 import 'package:poswal_orbit/domain/models/data_safety_models.dart';
+import 'package:poswal_orbit/features/security/application/biometric_lock_providers.dart';
 import 'package:poswal_orbit/features/settings/application/settings_providers.dart';
 import 'package:poswal_orbit/features/settings/domain/settings_preferences.dart';
 import 'package:poswal_orbit/features/settings/presentation/reminders_health_check_screen.dart';
+import 'package:poswal_orbit/l10n/app_localizations.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -350,6 +353,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context);
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
     final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
 
@@ -358,6 +362,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final intensity = ref.watch(glassIntensityProvider);
     final reduceTransparency = ref.watch(reduceTransparencyProvider);
     final backupsAsync = ref.watch(availableBackupsProvider);
+    final lockState = ref.watch(biometricLockProvider);
 
     return AuroraBackground(
       child: Scaffold(
@@ -530,6 +535,84 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 value: settings.hapticsEnabled,
                 activeColor: PoswalColors.teal,
                 onChanged: (val) => settingsNotifier.updateHaptics(val),
+              ),
+            ),
+
+            const SizedBox(height: PoswalSpacing.lg),
+
+            // --- SECTION: SECURITY & APP LOCK ---
+            _buildSectionHeader(l10n?.securityTitle ?? 'App Lock & Security', PhosphorIconsRegular.lockKey, textPrimary),
+            const SizedBox(height: PoswalSpacing.xs),
+            AppGlassCard(
+              child: Column(
+                children: [
+                  SwitchListTile.adaptive(
+                    key: const ValueKey('biometric_lock_toggle'),
+                    contentPadding: EdgeInsets.zero,
+                    title: Text(l10n?.biometricLock ?? 'Biometric Lock', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                    subtitle: Text(l10n?.biometricLockSubtitle ?? 'Require Face ID, fingerprint or device PIN on launch', style: PoswalText.caption.copyWith(color: textMuted)),
+                    value: lockState.isEnabled,
+                    activeColor: PoswalColors.teal,
+                    onChanged: (val) {
+                      unawaited(HapticFeedback.selectionClick());
+                      ref.read(biometricLockProvider.notifier).toggleEnabled(val);
+                    },
+                  ),
+                  if (lockState.isEnabled) ...[
+                    const Divider(color: Colors.white12, height: 20),
+                    ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(l10n?.lockTimeout ?? 'Lock Timeout', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                      trailing: DropdownButton<LockTimeout>(
+                        key: const ValueKey('lock_timeout_dropdown'),
+                        value: lockState.timeout,
+                        dropdownColor: PoswalColors.surfaceDark,
+                        underline: const SizedBox(),
+                        items: LockTimeout.values.map((t) {
+                          String label = t.label;
+                          if (l10n != null) {
+                            switch (t) {
+                              case LockTimeout.immediate:
+                                label = l10n.lockTimeoutImmediate;
+                                break;
+                              case LockTimeout.thirtySeconds:
+                                label = l10n.lockTimeout30s;
+                                break;
+                              case LockTimeout.oneMinute:
+                                label = l10n.lockTimeout1m;
+                                break;
+                              case LockTimeout.fiveMinutes:
+                                label = l10n.lockTimeout5m;
+                                break;
+                            }
+                          }
+                          return DropdownMenuItem(
+                            value: t,
+                            child: Text(label, style: PoswalText.callout.copyWith(color: Colors.white)),
+                          );
+                        }).toList(),
+                        onChanged: (val) {
+                          if (val != null) {
+                            ref.read(biometricLockProvider.notifier).updateTimeout(val);
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                  const Divider(color: Colors.white12, height: 20),
+                  SwitchListTile.adaptive(
+                    key: const ValueKey('hide_recents_toggle'),
+                    contentPadding: EdgeInsets.zero,
+                    title: Text(l10n?.hideContentRecents ?? 'Hide in Recent Apps', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                    subtitle: Text(l10n?.hideContentRecentsSubtitle ?? 'Blurs or blocks app preview in OS task switcher', style: PoswalText.caption.copyWith(color: textMuted)),
+                    value: lockState.hideContentInRecents,
+                    activeColor: PoswalColors.teal,
+                    onChanged: (val) {
+                      unawaited(HapticFeedback.selectionClick());
+                      ref.read(biometricLockProvider.notifier).toggleHideRecents(val);
+                    },
+                  ),
+                ],
               ),
             ),
 

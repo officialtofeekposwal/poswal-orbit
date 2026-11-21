@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:poswal_orbit/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
@@ -33,6 +34,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context);
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
     final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
 
@@ -77,7 +79,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Tasks',
+                        l10n?.tasksTitle ?? 'Tasks',
                         style: PoswalText.largeTitle.copyWith(
                           fontSize: 26,
                           color: textPrimary,
@@ -85,7 +87,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
                         ),
                       ),
                       Text(
-                        'Keep your day in motion',
+                        l10n?.keepDayInMotion ?? 'Keep your day in motion',
                         style: PoswalText.caption.copyWith(color: textMuted),
                       ),
                     ],
@@ -154,7 +156,12 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
                   TaskSmartFilter.all,
                   TaskSmartFilter.completed,
                 ],
-                labels: const ['Today', 'Upcoming', 'All', 'Done'],
+                labels: [
+                  l10n?.tasksSmartToday ?? 'Today',
+                  l10n?.tasksSmartUpcoming ?? 'Upcoming',
+                  l10n?.tasksSmartAll ?? 'All',
+                  l10n?.tasksSmartDone ?? 'Done',
+                ],
                 selectedValue: selectedFilter,
                 onValueChanged: (val) {
                   ref.read(selectedTaskFilterProvider.notifier).setFilter(val);
@@ -176,7 +183,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
                       Padding(
                         padding: const EdgeInsets.only(right: PoswalSpacing.xs),
                         child: ChoiceChip(
-                          label: const Text('All Projects'),
+                          label: Text(l10n?.allProjects ?? 'All Projects'),
                           selected: selectedProjectId == null,
                           onSelected: (val) {
                             if (val) ref.read(selectedProjectIdProvider.notifier).select(null);
@@ -244,12 +251,12 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
                             ),
                             const SizedBox(height: PoswalSpacing.md),
                             Text(
-                              'All clear. Enjoy the quiet.',
+                              l10n?.allClear ?? 'All clear. Enjoy the quiet.',
                               style: PoswalText.headline.copyWith(color: textPrimary, fontWeight: FontWeight.w600),
                             ),
                             const SizedBox(height: PoswalSpacing.xs),
                             Text(
-                              'No pending tasks found for this view.',
+                              l10n?.noPendingTasksFound ?? 'No pending tasks found for this view.',
                               textAlign: TextAlign.center,
                               style: PoswalText.callout.copyWith(color: textMuted),
                             ),
@@ -257,7 +264,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
                             AppGlassButton(
                               isPrimary: true,
                               onPressed: _openQuickAdd,
-                              child: const Text('Add Task'),
+                              child: Text(l10n?.addTask ?? 'Add Task'),
                             ),
                           ],
                         ),
