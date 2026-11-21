@@ -213,6 +213,21 @@ class TaskRepository {
     return query.watch().map((rows) => rows.map(_mapTask).toList());
   }
 
+  Future<List<Task>> searchTasksList(String queryText) async {
+    final trimmed = queryText.trim().toLowerCase();
+    final pattern = '%$trimmed%';
+
+    final query = _db.select(_db.tasksTable)
+      ..where((tbl) =>
+          tbl.deletedAt.isNull() &
+          (tbl.title.lower().like(pattern) |
+           tbl.notes.lower().like(pattern)))
+      ..orderBy([(tbl) => OrderingTerm(expression: tbl.dueAt)]);
+
+    final rows = await query.get();
+    return rows.map(_mapTask).toList();
+  }
+
   // --- Task Mutations ---
 
   Future<void> createTask(Task task, {List<String>? tagIds}) async {

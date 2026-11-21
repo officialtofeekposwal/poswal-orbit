@@ -85,7 +85,7 @@ class GlobalSearchRepository {
   }
 
   Future<List<SearchResultItem>> _searchHabits(String query) async {
-    final habits = await habitRepo.watchActiveHabits().first;
+    final habits = await habitRepo.getActiveHabits();
     final results = <SearchResultItem>[];
 
     for (final habit in habits) {
@@ -119,7 +119,7 @@ class GlobalSearchRepository {
   }
 
   Future<List<SearchResultItem>> _searchTasks(String query) async {
-    final tasks = await taskRepo.searchTasks(query).first;
+    final tasks = await taskRepo.searchTasksList(query);
     final results = <SearchResultItem>[];
 
     for (final task in tasks) {

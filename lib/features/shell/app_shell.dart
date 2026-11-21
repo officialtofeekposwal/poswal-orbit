@@ -5,6 +5,8 @@ import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/features/habits/presentation/habit_form_sheet.dart';
 import 'package:poswal_orbit/features/habits/presentation/habits_screen.dart';
+import 'package:poswal_orbit/features/notes/presentation/note_editor_screen.dart';
+import 'package:poswal_orbit/features/notes/presentation/notes_screen.dart';
 import 'package:poswal_orbit/features/tasks/presentation/tasks_screen.dart';
 import 'package:poswal_orbit/features/tasks/presentation/widgets/task_quick_add_sheet.dart';
 import 'package:poswal_orbit/features/today/presentation/today_screen.dart';
@@ -23,6 +25,8 @@ class _AppShellState extends State<AppShell> {
     HapticFeedback.lightImpact();
     if (_currentIndex == 2) {
       TaskQuickAddSheet.show(context);
+    } else if (_currentIndex == 3) {
+      NoteEditorScreen.push(context);
     } else {
       showModalBottomSheet(
         context: context,
@@ -85,7 +89,7 @@ class _AppShellState extends State<AppShell> {
               const TodayScreen(),
               const HabitsScreen(),
               const TasksScreen(),
-              _buildPlaceholderScreen('Markdown Notes', 'Phase 3'),
+              const NotesScreen(),
               _buildPlaceholderScreen('Productivity Insights', 'Phase 5'),
             ],
           ),

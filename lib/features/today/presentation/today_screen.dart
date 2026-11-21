@@ -8,6 +8,7 @@ import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/core/widgets/aurora_background.dart';
 import 'package:poswal_orbit/domain/models/habit_models.dart';
 import 'package:poswal_orbit/features/habits/presentation/habit_form_sheet.dart';
+import 'package:poswal_orbit/features/search/presentation/global_search_screen.dart';
 import 'package:poswal_orbit/features/tasks/application/task_providers.dart';
 import 'package:poswal_orbit/features/tasks/presentation/widgets/task_row_card.dart';
 import 'package:poswal_orbit/features/today/application/today_providers.dart';
@@ -89,6 +90,13 @@ class TodayScreen extends ConsumerWidget {
                     ),
                     Row(
                       children: [
+                        IconButton(
+                          key: const ValueKey('global_search_btn'),
+                          icon: const Icon(PhosphorIconsRegular.magnifyingGlass, size: 22),
+                          color: textPrimary,
+                          tooltip: 'Search',
+                          onPressed: () => GlobalSearchScreen.push(context),
+                        ),
                         IconButton(
                           icon: const Icon(PhosphorIconsRegular.palette, size: 22),
                           color: textPrimary,
