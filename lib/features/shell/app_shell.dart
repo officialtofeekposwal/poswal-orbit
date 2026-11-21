@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
+import 'package:poswal_orbit/data/services/data_safety_service.dart';
 import 'package:poswal_orbit/features/habits/presentation/habit_form_sheet.dart';
 import 'package:poswal_orbit/features/habits/presentation/habits_screen.dart';
 import 'package:poswal_orbit/features/notes/presentation/note_editor_screen.dart';
@@ -11,15 +13,23 @@ import 'package:poswal_orbit/features/tasks/presentation/tasks_screen.dart';
 import 'package:poswal_orbit/features/tasks/presentation/widgets/task_quick_add_sheet.dart';
 import 'package:poswal_orbit/features/today/presentation/today_screen.dart';
 
-class AppShell extends StatefulWidget {
+class AppShell extends ConsumerStatefulWidget {
   const AppShell({super.key});
 
   @override
-  State<AppShell> createState() => _AppShellState();
+  ConsumerState<AppShell> createState() => _AppShellState();
 }
 
-class _AppShellState extends State<AppShell> {
+class _AppShellState extends ConsumerState<AppShell> {
   int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(dataSafetyServiceProvider).runDailyBackupOnLaunch();
+    });
+  }
 
   void _openCreateSheet() {
     HapticFeedback.lightImpact();
