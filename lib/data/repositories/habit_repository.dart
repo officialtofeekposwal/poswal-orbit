@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:poswal_orbit/data/database/database.dart';
 import 'package:poswal_orbit/domain/logic/habit_score.dart';
+import 'package:poswal_orbit/domain/logic/schedule_engine.dart';
 import 'package:poswal_orbit/domain/logic/streak_engine.dart';
 import 'package:poswal_orbit/domain/models/habit_models.dart';
 import 'package:uuid/uuid.dart';
@@ -241,6 +242,108 @@ class HabitRepository {
       entry: entry,
       currentStreak: streak.currentStreak,
       habitScore: score,
+    );
+  }
+
+  // Phase 1.5 Additions
+  Stream<List<Habit>> watchArchivedHabits() {
+    final query = _db.select(_db.habitsTable)
+      ..where((tbl) => tbl.deletedAt.isNull() & tbl.isArchived.equals(true))
+      ..orderBy([(tbl) => OrderingTerm(expression: tbl.updatedAt, mode: OrderingMode.desc)]);
+
+    return query.watch().map((rows) => rows.map(_mapHabit).toList());
+  }
+
+  Future<void> reorderHabits(List<String> habitIds) async {
+    await _db.batch((batch) {
+      for (int i = 0; i < habitIds.length; i++) {
+        batch.update(
+          _db.habitsTable,
+          HabitsTableCompanion(
+            sortOrder: Value(i),
+            updatedAt: Value(DateTime.now()),
+          ),
+          where: (tbl) => tbl.id.equals(habitIds[i]),
+        );
+      }
+    });
+  }
+
+  Stream<List<HabitEntry>> watchEntriesForHabit(String habitId) {
+    final query = _db.select(_db.habitEntriesTable)
+      ..where((tbl) => tbl.habitId.equals(habitId) & tbl.deletedAt.isNull())
+      ..orderBy([(tbl) => OrderingTerm(expression: tbl.entryDate)]);
+
+    return query.watch().map((rows) => rows.map(_mapEntry).toList());
+  }
+
+  Stream<Habit?> watchHabitById(String id) {
+    final query = _db.select(_db.habitsTable)
+      ..where((tbl) => tbl.id.equals(id) & tbl.deletedAt.isNull());
+    return query.watchSingleOrNull().map((row) => row != null ? _mapHabit(row) : null);
+  }
+
+  Future<HabitDetailedStats> getDetailedStats({
+    required Habit habit,
+    required DateTime referenceDate,
+    int availableFreezes = 1,
+  }) async {
+    final entries = await getEntriesForHabit(habit.id);
+    final streak = StreakEngine.calculate(
+      habit: habit,
+      entries: entries,
+      referenceDate: referenceDate,
+      availableFreezes: availableFreezes,
+    );
+
+    const scoreCalc = HabitScoreCalculator(halfLifeDays: 14);
+    final score = scoreCalc.calculate(
+      habit: habit,
+      entries: entries,
+      referenceDate: referenceDate,
+    );
+
+    int completed = 0;
+    int skipped = 0;
+    final Map<int, int> weekdayCounts = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0};
+
+    for (final entry in entries) {
+      if (entry.isDone) {
+        completed++;
+        final parsed = DateTime.tryParse(entry.entryDate);
+        if (parsed != null) {
+          weekdayCounts[parsed.weekday] = (weekdayCounts[parsed.weekday] ?? 0) + 1;
+        }
+      } else if (entry.isSkipped) {
+        skipped++;
+      }
+    }
+
+    // Calculate total scheduled occurrences between startDate and referenceDate
+    int scheduled = 0;
+    DateTime cursor = DateTime(habit.startDate.year, habit.startDate.month, habit.startDate.day);
+    final end = DateTime(referenceDate.year, referenceDate.month, referenceDate.day);
+
+    while (!cursor.isAfter(end)) {
+      if (ScheduleEngine.isScheduledOn(habit, cursor)) {
+        scheduled++;
+      }
+      cursor = cursor.add(const Duration(days: 1));
+    }
+
+    final double rate = scheduled > 0 ? (completed / scheduled).clamp(0.0, 1.0) : 0.0;
+
+    return HabitDetailedStats(
+      habit: habit,
+      currentStreak: streak.currentStreak,
+      bestStreak: streak.bestStreak,
+      habitScore: score,
+      completionRate: rate,
+      totalScheduled: scheduled,
+      totalCompleted: completed,
+      totalSkipped: skipped,
+      entries: entries,
+      weekdayCompletions: weekdayCounts,
     );
   }
 }

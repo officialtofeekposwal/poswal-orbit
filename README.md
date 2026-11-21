@@ -32,10 +32,14 @@
 
 ## 📱 Screenshots
 
-### Phase 1: Today Hub & Habits Core
-| Today Hub (Dark) | Today Hub (Light) | Create Habit Sheet | Habits Management |
+### Phase 1 & 1.5: Today Hub, Habits Core & Habit Analytics
+| Today Hub (Dark) | Habit Detail (Dark) | Check-in Action Sheet | Habits Management |
 | :---: | :---: | :---: | :---: |
-| <img src="docs/screenshots/today-dark.png" width="220" alt="Today Screen Dark" /> | <img src="docs/screenshots/today-light.png" width="220" alt="Today Screen Light" /> | <img src="docs/screenshots/habit-create-sheet.png" width="220" alt="Create Habit Sheet" /> | <img src="docs/screenshots/habits-list.png" width="220" alt="Habits List" /> |
+| <img src="docs/screenshots/today-dark.png" width="220" alt="Today Screen Dark" /> | <img src="docs/screenshots/habit-detail-dark.png" width="220" alt="Habit Detail Dark" /> | <img src="docs/screenshots/habit-checkin-sheet.png" width="220" alt="Check-in Action Sheet" /> | <img src="docs/screenshots/habits-list.png" width="220" alt="Habits List" /> |
+
+| Today Hub (Light) | Create Habit Sheet |
+| :---: | :---: |
+| <img src="docs/screenshots/today-light.png" width="220" alt="Today Screen Light" /> | <img src="docs/screenshots/habit-create-sheet.png" width="220" alt="Create Habit Sheet" /> |
 
 <details>
 <summary><strong>View Phase 0 Design Playground Screenshots</strong></summary>
@@ -103,11 +107,7 @@
 
 - [x] **Phase 0: Foundation & Look** — Project setup, design tokens, aurora background, glass wrappers, and Design Playground screen.
 - [x] **Phase 1: Habits Core & Today Hub** — Drift database schema v1, pure Dart domain engines (streaks, EWMA score, schedule, date boundary), Today progress ring, habits management, step-by-step creation sheet, and floating glass tab bar.
-- [ ] **Phase 2: Tasks System** — Smart lists, priorities, subtasks, recurrence rules, and live NLP quick-add.
-- [ ] **Phase 3: Notes & Global Search** — Markdown-lite notes editor, pins, color tags, and full-text search.
-- [ ] **Phase 4: Notifications & Data Safety** — Battery-safe notifications, reminders health check, auto-backups, and CSV/JSON import-export.
-- [ ] **Phase 5: Insights, Widgets & Localization** — Visual habit heatmaps, Home screen widgets, and multilingual support (English, Hindi, Urdu RTL).
-- [ ] **Phase 6: Polish & Release** — Multi-device profiling, accessibility audit, and production store builds.
+- [x] **Phase 1.5: Habit Detail & Analytics** — Hero stats (current/best streak, EWMA score, completion rate), 14-week GitHub heatmap, interactive monthly calendar with past days editing, weekly performance bars, consistency trend line, long-press check-in sheet (numeric +/- stepper, skip, notes), and reorderable habits with streak freeze.
 - [ ] **Phase 2: Tasks System** — Smart lists, priorities, subtasks, recurrence rules, and live NLP quick-add.
 - [ ] **Phase 3: Notes & Global Search** — Markdown-lite notes editor, pins, color tags, and full-text search.
 - [ ] **Phase 4: Notifications & Data Safety** — Battery-safe notifications, reminders health check, auto-backups, and CSV/JSON import-export.

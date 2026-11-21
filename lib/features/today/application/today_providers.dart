@@ -144,3 +144,37 @@ final todayHabitsDataProvider = FutureProvider<TodayHabitsData>((ref) async {
     completionRate: rate,
   );
 });
+
+// Phase 1.5 Providers
+final archivedHabitsStreamProvider = StreamProvider<List<Habit>>((ref) {
+  final repo = ref.watch(habitRepositoryProvider);
+  return repo.watchArchivedHabits();
+});
+
+final singleHabitStreamProvider = StreamProvider.family<Habit?, String>((ref, habitId) {
+  final repo = ref.watch(habitRepositoryProvider);
+  return repo.watchHabitById(habitId);
+});
+
+final habitEntriesStreamProvider = StreamProvider.family<List<HabitEntry>, String>((ref, habitId) {
+  final repo = ref.watch(habitRepositoryProvider);
+  return repo.watchEntriesForHabit(habitId);
+});
+
+final habitDetailStatsProvider = FutureProvider.family<HabitDetailedStats?, String>((ref, habitId) async {
+  final repo = ref.watch(habitRepositoryProvider);
+  final habit = await repo.getHabitById(habitId);
+  if (habit == null) return null;
+
+  // Watch entries stream so stats recompute instantly when any check-in changes
+  ref.watch(habitEntriesStreamProvider(habitId));
+
+  const boundary = DateBoundary(dayStartHour: 4);
+  final today = boundary.getAppDate(DateTime.now());
+
+  return repo.getDetailedStats(
+    habit: habit,
+    referenceDate: today,
+    availableFreezes: 1,
+  );
+});

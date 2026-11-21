@@ -10,8 +10,13 @@ import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_theme.dart';
 import 'package:poswal_orbit/data/database/database.dart';
 import 'package:poswal_orbit/domain/logic/date_boundary.dart';
+import 'package:poswal_orbit/features/habits/presentation/habit_detail_screen.dart';
 import 'package:poswal_orbit/features/habits/presentation/habit_form_sheet.dart';
 import 'package:poswal_orbit/features/habits/presentation/habits_screen.dart';
+import 'package:poswal_orbit/features/habits/presentation/widgets/habit_checkin_sheet.dart';
+import 'package:poswal_orbit/features/habits/presentation/widgets/habit_heatmap.dart';
+import 'package:poswal_orbit/features/habits/presentation/widgets/habit_month_calendar.dart';
+import 'package:poswal_orbit/features/habits/presentation/widgets/habit_stats_charts.dart';
 import 'package:poswal_orbit/features/today/application/today_providers.dart';
 import 'package:poswal_orbit/features/today/presentation/today_screen.dart';
 import 'package:poswal_orbit/features/today/presentation/widgets/hero_orbit_card.dart';
@@ -155,7 +160,58 @@ void main() {
     // Capture Dark Mode Today Screen
     await capture('today-dark');
 
-    // 2. Open Create Habit Sheet via Floating '+' FAB
+    // 2. Long Press on 'Drink Water' row -> Opens HabitCheckinSheet
+    await tester.longPress(find.text('Drink Water'));
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(HabitCheckinSheet), findsOneWidget);
+    expect(find.text('CHECK-IN STATUS'), findsOneWidget);
+    expect(find.text('Done'), findsOneWidget);
+    expect(find.text('Skip'), findsOneWidget);
+    expect(find.text('Missed'), findsOneWidget);
+
+    // Capture Check-in Action Sheet
+    await capture('habit-checkin-sheet');
+
+    // Close check-in sheet
+    await tester.tap(find.byIcon(PhosphorIconsRegular.x));
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.pumpAndSettle();
+
+    // 3. Tap on 'Morning Meditation' row -> Opens HabitDetailScreen via Hero transition
+    await tester.tap(find.text('Morning Meditation'));
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(HabitDetailScreen), findsOneWidget);
+    expect(find.text('CURRENT STREAK'), findsOneWidget);
+    expect(find.text('BEST STREAK'), findsOneWidget);
+    expect(find.text('HABIT SCORE'), findsOneWidget);
+    expect(find.text('COMPLETION RATE'), findsOneWidget);
+    expect(find.byType(HabitHeatmap), findsOneWidget);
+    expect(find.byType(HabitMonthCalendar), findsOneWidget);
+
+    // Capture Habit Detail Screen in Dark Mode
+    await capture('habit-detail-dark');
+
+    // Scroll down to reveal Weekly Performance Bars and Trend Line
+    await tester.drag(find.byType(HabitDetailScreen), const Offset(0, -600));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(HabitWeeklyBars), findsOneWidget);
+    expect(find.byType(HabitTrendLine), findsOneWidget);
+
+    // Scroll back up to top
+    await tester.drag(find.byType(HabitDetailScreen), const Offset(0, 600));
+    await tester.pumpAndSettle();
+
+    // Navigate back to Today Screen
+    await tester.tap(find.byIcon(PhosphorIconsRegular.arrowLeft));
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.pumpAndSettle();
+
+    // 4. Open Create Habit Sheet via Floating '+' FAB
     await tester.tap(find.byKey(const ValueKey('app_fab_button')));
     await tester.pump(const Duration(milliseconds: 300));
     await tester.pumpAndSettle();
@@ -173,15 +229,28 @@ void main() {
     await tester.pump(const Duration(milliseconds: 300));
     await tester.pumpAndSettle();
 
-    // 3. Switch to Habits Tab (Tab 1)
+    // 5. Switch to Habits Tab (Tab 1)
     await tester.tap(find.text('Habits'));
     await tester.pump(const Duration(milliseconds: 300));
     await tester.pumpAndSettle();
 
     expect(find.byType(HabitsScreen), findsOneWidget);
+    expect(find.textContaining('Active ('), findsOneWidget);
+    expect(find.textContaining('Archived ('), findsOneWidget);
     await capture('habits-list');
 
-    // 4. Test Light Mode
+    // Test Archived tab toggle
+    await tester.tap(find.textContaining('Archived ('));
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.pumpAndSettle();
+    expect(find.text('No Archived Habits'), findsOneWidget);
+
+    // Toggle back to Active
+    await tester.tap(find.textContaining('Active ('));
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.pumpAndSettle();
+
+    // 6. Test Light Mode
     final element = tester.element(find.byType(PoswalOrbitApp));
     final container = ProviderScope.containerOf(element);
     container.read(appThemeModeProvider.notifier).setMode(AppThemeMode.light);

@@ -8,6 +8,8 @@ import 'package:poswal_orbit/domain/logic/date_boundary.dart';
 import 'package:poswal_orbit/domain/logic/habit_score.dart';
 import 'package:poswal_orbit/domain/logic/schedule_engine.dart';
 import 'package:poswal_orbit/domain/models/habit_models.dart';
+import 'package:poswal_orbit/features/habits/presentation/habit_detail_screen.dart';
+import 'package:poswal_orbit/features/habits/presentation/widgets/habit_checkin_sheet.dart';
 import 'package:poswal_orbit/features/today/application/today_providers.dart';
 
 class HabitRowCard extends ConsumerWidget {
@@ -38,97 +40,22 @@ class HabitRowCard extends ConsumerWidget {
     );
   }
 
-  void _showActionSheet(BuildContext context, WidgetRef ref) {
-    HapticFeedback.selectionClick();
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final repo = ref.read(habitRepositoryProvider);
-    final selectedDate = ref.read(selectedDateProvider);
-    final dateStr = DateBoundary.toDateString(selectedDate);
-
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: isDark ? PoswalColors.surfaceDark : PoswalColors.surfaceLight,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(PoswalRadii.sheet)),
+  void _openDetail(BuildContext context) {
+    HapticFeedback.lightImpact();
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => HabitDetailScreen(habitId: item.habit.id),
       ),
-      builder: (context) {
-        return SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(PoswalSpacing.lg),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      width: 36,
-                      height: 36,
-                      decoration: BoxDecoration(
-                        color: Color(item.habit.colorValue).withValues(alpha: 0.2),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        HabitIconHelper.getIcon(item.habit.iconName),
-                        color: Color(item.habit.colorValue),
-                        size: 20,
-                      ),
-                    ),
-                    const SizedBox(width: PoswalSpacing.md),
-                    Expanded(
-                      child: Text(
-                        item.habit.name,
-                        style: PoswalText.headline.copyWith(
-                          color: isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: PoswalSpacing.lg),
+    );
+  }
 
-                // 1. Mark as Done / Undo
-                ListTile(
-                  leading: const Icon(PhosphorIconsBold.checkCircle, color: PoswalColors.teal),
-                  title: Text(item.isCompleted ? 'Mark Incomplete' : 'Mark as Done'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    _handleToggle(context, ref);
-                  },
-                ),
-
-                // 2. Mark as Skipped (Preserves streak)
-                ListTile(
-                  leading: const Icon(PhosphorIconsRegular.arrowBendRightDown, color: PoswalColors.violet),
-                  title: const Text('Mark as Skipped (Excused)'),
-                  subtitle: const Text('Preserves your streak without adding to it'),
-                  onTap: () async {
-                    Navigator.pop(context);
-                    await repo.setEntryStatus(
-                      habitId: item.habit.id,
-                      dateStr: dateStr,
-                      status: HabitEntryStatus.skipped,
-                      value: 0.0,
-                      note: 'Excused skip',
-                    );
-                  },
-                ),
-
-                // 3. Edit Habit
-                if (onEdit != null)
-                  ListTile(
-                    leading: const Icon(PhosphorIconsRegular.pencilSimple, color: PoswalColors.coral),
-                    title: const Text('Edit Habit Details'),
-                    onTap: () {
-                      Navigator.pop(context);
-                      onEdit!();
-                    },
-                  ),
-              ],
-            ),
-          ),
-        );
-      },
+  void _showActionSheet(BuildContext context, WidgetRef ref) {
+    final selectedDate = ref.read(selectedDateProvider);
+    HabitCheckinSheet.show(
+      context: context,
+      habit: item.habit,
+      checkinDate: selectedDate,
+      initialEntry: item.entry,
     );
   }
 
@@ -165,22 +92,25 @@ class HabitRowCard extends ConsumerWidget {
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(PoswalRadii.card),
-        onTap: () => _handleToggle(context, ref),
+        onTap: () => _openDetail(context),
         onLongPress: () => _showActionSheet(context, ref),
         child: Row(
           children: [
-            // Left: Icon Circle
-            Container(
-              width: 42,
-              height: 42,
-              decoration: BoxDecoration(
-                color: habitColor.withValues(alpha: isDark ? 0.22 : 0.15),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                HabitIconHelper.getIcon(item.habit.iconName),
-                color: habitColor,
-                size: 20,
+            // Left: Icon Circle with Shared-Element Hero
+            Hero(
+              tag: 'habit_icon_${item.habit.id}',
+              child: Container(
+                width: 42,
+                height: 42,
+                decoration: BoxDecoration(
+                  color: habitColor.withValues(alpha: isDark ? 0.22 : 0.15),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  HabitIconHelper.getIcon(item.habit.iconName),
+                  color: habitColor,
+                  size: 20,
+                ),
               ),
             ),
             const SizedBox(width: PoswalSpacing.md),

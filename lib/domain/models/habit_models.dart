@@ -157,6 +157,9 @@ class Habit {
       deletedAt: deletedAt ?? this.deletedAt,
     );
   }
+
+  bool get isNumeric => habitType == HabitType.numeric;
+  bool get isYesNo => habitType == HabitType.yesNo;
 }
 
 class HabitEntry {
@@ -227,4 +230,30 @@ class HabitWithEntry {
   bool get isCompleted => entry?.status == HabitEntryStatus.done;
   bool get isSkipped => entry?.status == HabitEntryStatus.skipped;
   double get currentProgress => entry?.value ?? 0.0;
+}
+
+class HabitDetailedStats {
+  final Habit habit;
+  final int currentStreak;
+  final int bestStreak;
+  final double habitScore;
+  final double completionRate;
+  final int totalScheduled;
+  final int totalCompleted;
+  final int totalSkipped;
+  final List<HabitEntry> entries;
+  final Map<int, int> weekdayCompletions; // 1 (Mon) -> count, 7 (Sun) -> count
+
+  const HabitDetailedStats({
+    required this.habit,
+    required this.currentStreak,
+    required this.bestStreak,
+    required this.habitScore,
+    required this.completionRate,
+    required this.totalScheduled,
+    required this.totalCompleted,
+    required this.totalSkipped,
+    required this.entries,
+    required this.weekdayCompletions,
+  });
 }
