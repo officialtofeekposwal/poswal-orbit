@@ -121,7 +121,8 @@
 - [x] **Phase 2: Tasks System** — Smart lists (Today, Upcoming, All, Done), priorities (Urgent, High, Medium, Low), subtasks checklist, recurrence rules, and live NLP quick-add.
 - [x] **Phase 3: Notes & Global Search** — Markdown-lite notes editor with floating glass toolbar, autosave engine, checklist toggling, pins, color tags, RTL support (Urdu/Hindi), and unified multi-entity global search.
 - [x] **Phase 4: Data Safety & Notifications** — 7-day automatic backup rotation, full JSON & CSV import/export, Loop Habit Tracker migration, Settings screen, battery-safe 7-day rolling notifications engine, exact alarms, boot/timezone reschedule receiver, and Reminders Health Check.
-- [ ] **Phase 5: Insights, Widgets & Localization** — Visual habit heatmaps, Home screen widgets, and multilingual support (English, Hindi, Urdu RTL).
+- [x] **Phase 5A: Insights & Multilingual Localization** — Weekly review card (non-guilt copy, habits/tasks/best streak), pure Dart productivity scoring ($60\%$ habits + $40\%$ tasks), peak momentum timing (best weekday & peak window), habit-vs-task correlation ($\ge 14$ days guardrail), shareable stats image rendering (`share_plus`), and complete native localization for English, Hindi (Noto Sans Devanagari), and Urdu (Noto Nastaliq Urdu with RTL text direction).
+- [ ] **Phase 5B: Widgets, App Security & Privacy Guard** — Home screen Android/iOS glance widgets, biometric app lock (Fingerprint/Face), and privacy shields.
 - [ ] **Phase 6: Polish & Release** — Multi-device profiling, accessibility audit, and production store builds.
 
 ---
@@ -137,7 +138,8 @@ Contributions, issues, and feature requests are welcome! Please read [CONTRIBUTI
 - **Fonts**:
   - [Plus Jakarta Sans](https://github.com/tokotype/PlusJakartaSans) by Tokotype (SIL Open Font License 1.1)
   - [Inter](https://github.com/rsms/inter) by Rasmus Andersson (SIL Open Font License 1.1)
-  - [Noto Sans](https://fonts.google.com/noto) by Google Fonts (SIL Open Font License 1.1)
+  - [Noto Sans Devanagari](https://fonts.google.com/noto/specimen/Noto+Sans+Devanagari) by Google Fonts (SIL Open Font License 1.1)
+  - [Noto Nastaliq Urdu](https://fonts.google.com/noto/specimen/Noto+Nastaliq+Urdu) by Google Fonts (SIL Open Font License 1.1)
 - **Icons**: Designed with inspiration from [Phosphor Icons](https://phosphoricons.com) and [Lucide Icons](https://lucide.dev).
 - **Core Principles**: Inspired by community open-source trackers including Habo, Loop Habit Tracker, and Table Habit.
 

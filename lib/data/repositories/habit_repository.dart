@@ -165,6 +165,21 @@ class HabitRepository {
     return query.watch().map((rows) => rows.map(_mapEntry).toList());
   }
 
+  Stream<List<HabitEntry>> watchAllEntries() {
+    final query = _db.select(_db.habitEntriesTable)
+      ..where((tbl) => tbl.deletedAt.isNull())
+      ..orderBy([(tbl) => OrderingTerm(expression: tbl.entryDate)]);
+    return query.watch().map((rows) => rows.map(_mapEntry).toList());
+  }
+
+  Future<List<HabitEntry>> getAllEntries() async {
+    final query = _db.select(_db.habitEntriesTable)
+      ..where((tbl) => tbl.deletedAt.isNull())
+      ..orderBy([(tbl) => OrderingTerm(expression: tbl.entryDate)]);
+    final rows = await query.get();
+    return rows.map(_mapEntry).toList();
+  }
+
   Future<List<HabitEntry>> getEntriesForHabit(String habitId) async {
     final query = _db.select(_db.habitEntriesTable)
       ..where((tbl) => tbl.habitId.equals(habitId) & tbl.deletedAt.isNull())

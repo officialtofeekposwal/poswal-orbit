@@ -23,7 +23,7 @@ class AppThemeNotifier extends Notifier<AppThemeMode> {
 final appThemeModeProvider = NotifierProvider<AppThemeNotifier, AppThemeMode>(AppThemeNotifier.new);
 
 class PoswalTheme {
-  static ThemeData getTheme(AppThemeMode mode) {
+  static ThemeData getTheme(AppThemeMode mode, {String? languageCode}) {
     switch (mode) {
       case AppThemeMode.light:
         return _buildTheme(
@@ -34,6 +34,7 @@ class PoswalTheme {
           textPrimary: PoswalColors.textOnLight,
           textMuted: PoswalColors.textMutedLight,
           border: Colors.black.withValues(alpha: 0.08),
+          languageCode: languageCode,
         );
       case AppThemeMode.dark:
         return _buildTheme(
@@ -44,6 +45,7 @@ class PoswalTheme {
           textPrimary: PoswalColors.textOnDark,
           textMuted: PoswalColors.textMutedDark,
           border: Colors.white.withValues(alpha: 0.10),
+          languageCode: languageCode,
         );
       case AppThemeMode.oled:
         return _buildTheme(
@@ -54,6 +56,7 @@ class PoswalTheme {
           textPrimary: PoswalColors.textOnDark,
           textMuted: PoswalColors.textMutedDark,
           border: Colors.white.withValues(alpha: 0.12),
+          languageCode: languageCode,
         );
     }
   }
@@ -66,8 +69,20 @@ class PoswalTheme {
     required Color textPrimary,
     required Color textMuted,
     required Color border,
+    String? languageCode,
   }) {
     final isDark = brightness == Brightness.dark;
+    final isUrdu = languageCode == 'ur';
+    final isHindi = languageCode == 'hi';
+
+    final String headingFont = isUrdu
+        ? 'NotoNastaliqUrdu'
+        : (isHindi ? 'NotoSansDevanagari' : PoswalText.heading);
+    final String bodyFont = isUrdu
+        ? 'NotoNastaliqUrdu'
+        : (isHindi ? 'NotoSansDevanagari' : PoswalText.body);
+
+    final double urduHeightMultiplier = isUrdu ? 1.6 : 1.0;
 
     return ThemeData(
       useMaterial3: true,
@@ -88,14 +103,38 @@ class PoswalTheme {
         onSurface: textPrimary,
         outline: border,
       ),
-      fontFamily: PoswalText.body,
+      fontFamily: bodyFont,
       textTheme: TextTheme(
-        displayLarge: PoswalText.largeTitle.copyWith(color: textPrimary),
-        displayMedium: PoswalText.title.copyWith(color: textPrimary),
-        titleLarge: PoswalText.headline.copyWith(color: textPrimary),
-        bodyLarge: PoswalText.bodyText.copyWith(color: textPrimary),
-        bodyMedium: PoswalText.callout.copyWith(color: textPrimary),
-        bodySmall: PoswalText.caption.copyWith(color: textMuted),
+        displayLarge: PoswalText.largeTitle.copyWith(
+          color: textPrimary,
+          fontFamily: headingFont,
+          height: (PoswalText.largeTitle.height ?? 1.15) * urduHeightMultiplier,
+        ),
+        displayMedium: PoswalText.title.copyWith(
+          color: textPrimary,
+          fontFamily: headingFont,
+          height: (PoswalText.title.height ?? 1.2) * urduHeightMultiplier,
+        ),
+        titleLarge: PoswalText.headline.copyWith(
+          color: textPrimary,
+          fontFamily: headingFont,
+          height: (PoswalText.headline.height ?? 1.3) * urduHeightMultiplier,
+        ),
+        bodyLarge: PoswalText.bodyText.copyWith(
+          color: textPrimary,
+          fontFamily: bodyFont,
+          height: (PoswalText.bodyText.height ?? 1.4) * urduHeightMultiplier,
+        ),
+        bodyMedium: PoswalText.callout.copyWith(
+          color: textPrimary,
+          fontFamily: bodyFont,
+          height: (PoswalText.callout.height ?? 1.4) * urduHeightMultiplier,
+        ),
+        bodySmall: PoswalText.caption.copyWith(
+          color: textMuted,
+          fontFamily: bodyFont,
+          height: (PoswalText.caption.height ?? 1.3) * urduHeightMultiplier,
+        ),
       ),
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.transparent,
@@ -103,7 +142,10 @@ class PoswalTheme {
         scrolledUnderElevation: 0,
         centerTitle: false,
         systemOverlayStyle: isDark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark,
-        titleTextStyle: PoswalText.headline.copyWith(color: textPrimary),
+        titleTextStyle: PoswalText.headline.copyWith(
+          color: textPrimary,
+          fontFamily: headingFont,
+        ),
       ),
       cardTheme: CardThemeData(
         color: surface,

@@ -1,0 +1,83 @@
+{
+  "@@locale": "ur",
+  "appTitle": "پوسوال مدار",
+  "tabToday": "آج",
+  "tabHabits": "عادات",
+  "tabTasks": "کام",
+  "tabNotes": "نوٹس",
+  "tabInsights": "بصیرت",
+
+  "greetingMorning": "صبح بخیر",
+  "greetingAfternoon": "دوپہر بخیر",
+  "greetingEvening": "شام بخیر",
+  "greetingNight": "شب بخیر",
+
+  "habitsProgress": "{total} میں سے {completed} مکمل",
+  "@habitsProgress": {
+    "placeholders": {
+      "completed": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "allClear": "سب پرسکون ہے۔ وقت کا لطف اٹھائیں۔",
+  "habitsAllDone": "آج کی تمام عادات مکمل ہو گئیں۔ شاندار کارکردگی!",
+  "tasksDueOverdue": "مقررہ اور بقایا کام",
+
+  "habitsActive": "فعال",
+  "habitsArchived": "محفوظ شدہ",
+  "newHabit": "نئی عادت",
+  "streakDays": "{days} دن مسلسل",
+  "@streakDays": {
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
+
+  "tasksSmartToday": "آج",
+  "tasksSmartUpcoming": "آئندہ",
+  "tasksSmartAll": "تمام",
+  "tasksSmartDone": "مکمل",
+  "quickAddTaskHint": "نیا کام شامل کریں (مثلاً کل شام 6 بجے امی کو کال کریں !high #family)",
+  "priorityUrgent": "انتہائی ضروری",
+  "priorityHigh": "اہم",
+  "priorityMedium": "درمیانہ",
+  "priorityLow": "معمولی",
+  "priorityNone": "کوئی نہیں",
+
+  "notesPinned": "پن کردہ",
+  "notesAll": "تمام نوٹس",
+  "notesTodayJournal": "آج کا روزنامچہ",
+  "notesSaved": "محفوظ ہو گیا",
+  "notesSaving": "محفوظ ہو رہا ہے...",
+
+  "insightsTitle": "بصیرت",
+  "weeklyReviewTitle": "ہفتہ وار جائزہ",
+  "productivityScore": "پیداواری اسکور",
+  "bestDayOfWeek": "ہفتے کا بہترین دن",
+  "bestTimeOfDay": "دن کا بہترین وقت",
+  "habitHeatmaps": "عادات کے ہیٹ میپ",
+  "habitTaskCorrelation": "عادت اور کام کا تعلق",
+  "shareCard": "شیئر کریں",
+  "insightsEmptyTitle": "جیسے جیسے آپ آگے بڑھیں گے، بصیرت میں اضافہ ہوگا",
+  "insightsEmptySubtitle": "ذاتی نمونے، ہفتہ وار جائزے اور پیداواری اسکور کو فعال کرنے کے لیے اپنی عادات اور کام مکمل کریں۔",
+
+  "settingsTitle": "ترتیبات",
+  "settingsAppearance": "ظاہری شکل",
+  "settingsTheme": "تھیم موڈ",
+  "settingsAccent": "نمایاں رنگ",
+  "settingsGlass": "شیشے کا اثر",
+  "settingsReduceTransparency": "شفافیت کم کریں",
+  "settingsTime": "وقت اور دن کی حد",
+  "settingsDayStart": "دن کے آغاز کی حد",
+  "settingsFirstDayOfWeek": "ہفتے کا پہلا دن",
+  "settingsHaptics": "لمسی ارتعاش (ہیپٹکس)",
+  "settingsNotifications": "یاد دہانی اور نوٹیفیکیشنز",
+  "settingsHealthCheck": "یاد دہانی کی صحت کی جانچ",
+  "settingsLanguage": "زبان",
+  "settingsDataSafety": "ڈیٹا کی حفاظت اور بیک اپ",
+  "settingsBackupNow": "ابھی بیک اپ لیں",
+  "settingsExport": "برآمد کریں",
+  "settingsImport": "درآمد کریں",
+  "settingsDanger": "خطرناک زون",
+  "settingsDeleteAll": "تمام ڈیٹا حذف کریں"
+}

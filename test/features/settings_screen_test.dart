@@ -41,7 +41,7 @@ void main() {
   }
 
   testWidgets('renders all settings sections correctly', (tester) async {
-    await tester.binding.setSurfaceSize(const Size(800, 1600));
+    await tester.binding.setSurfaceSize(const Size(800, 2400));
     await tester.pumpWidget(buildTestApp());
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 200));
@@ -50,6 +50,7 @@ void main() {
     expect(find.text('Appearance'), findsOneWidget);
     expect(find.text('Time & Orbit Boundary'), findsOneWidget);
     expect(find.text('Haptics & Motion'), findsOneWidget);
+    expect(find.text('Language'), findsOneWidget);
     expect(find.text('Data Safety & Backups'), findsOneWidget);
     expect(find.text('Danger Zone'), findsOneWidget);
 
@@ -63,7 +64,7 @@ void main() {
   });
 
   testWidgets('tapping Back Up Now triggers backup and shows toast', (tester) async {
-    await tester.binding.setSurfaceSize(const Size(800, 1600));
+    await tester.binding.setSurfaceSize(const Size(800, 2400));
     await tester.pumpWidget(buildTestApp());
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 200));
@@ -90,7 +91,7 @@ void main() {
   });
 
   testWidgets('delete all data shows double confirmation modal dialogs', (tester) async {
-    await tester.binding.setSurfaceSize(const Size(800, 1600));
+    await tester.binding.setSurfaceSize(const Size(800, 2400));
     await tester.pumpWidget(buildTestApp());
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 200));

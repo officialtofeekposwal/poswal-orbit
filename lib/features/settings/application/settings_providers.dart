@@ -50,6 +50,10 @@ class SettingsNotifier extends Notifier<AppSettingsState> {
   void updateHaptics(bool enabled) {
     state = state.copyWith(hapticsEnabled: enabled);
   }
+
+  void updateLanguage(AppLanguageOption language) {
+    state = state.copyWith(language: language);
+  }
 }
 
 final settingsProvider = NotifierProvider<SettingsNotifier, AppSettingsState>(

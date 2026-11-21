@@ -24,9 +24,24 @@ enum AccentColorOption {
   const AccentColorOption(this.label, this.color);
 }
 
+enum AppLanguageOption {
+  system('System', 'System (Auto)', null),
+  en('English', 'English', Locale('en')),
+  hi('हिन्दी', 'Hindi', Locale('hi')),
+  ur('اردو', 'Urdu', Locale('ur'));
+
+  final String label;
+  final String nativeName;
+  final Locale? locale;
+  const AppLanguageOption(this.label, this.nativeName, this.locale);
+
+  bool get isRtl => this == AppLanguageOption.ur;
+}
+
 class AppSettingsState {
   final ThemeModeOption themeMode;
   final AccentColorOption accent;
+  final AppLanguageOption language;
   final double glassIntensity;
   final bool reduceTransparency;
   final int dayStartHour;
@@ -36,6 +51,7 @@ class AppSettingsState {
   const AppSettingsState({
     this.themeMode = ThemeModeOption.dark,
     this.accent = AccentColorOption.teal,
+    this.language = AppLanguageOption.system,
     this.glassIntensity = 0.8,
     this.reduceTransparency = false,
     this.dayStartHour = 4,
@@ -46,6 +62,7 @@ class AppSettingsState {
   AppSettingsState copyWith({
     ThemeModeOption? themeMode,
     AccentColorOption? accent,
+    AppLanguageOption? language,
     double? glassIntensity,
     bool? reduceTransparency,
     int? dayStartHour,
@@ -55,6 +72,7 @@ class AppSettingsState {
     return AppSettingsState(
       themeMode: themeMode ?? this.themeMode,
       accent: accent ?? this.accent,
+      language: language ?? this.language,
       glassIntensity: glassIntensity ?? this.glassIntensity,
       reduceTransparency: reduceTransparency ?? this.reduceTransparency,
       dayStartHour: dayStartHour ?? this.dayStartHour,
@@ -66,6 +84,7 @@ class AppSettingsState {
   Map<String, dynamic> toJson() => {
     'themeMode': themeMode.name,
     'accent': accent.name,
+    'language': language.name,
     'glassIntensity': glassIntensity,
     'reduceTransparency': reduceTransparency,
     'dayStartHour': dayStartHour,
@@ -82,6 +101,10 @@ class AppSettingsState {
       accent: AccentColorOption.values.firstWhere(
         (e) => e.name == json['accent'],
         orElse: () => AccentColorOption.teal,
+      ),
+      language: AppLanguageOption.values.firstWhere(
+        (e) => e.name == json['language'],
+        orElse: () => AppLanguageOption.system,
       ),
       glassIntensity: (json['glassIntensity'] as num?)?.toDouble() ?? 0.8,
       reduceTransparency: json['reduceTransparency'] as bool? ?? false,

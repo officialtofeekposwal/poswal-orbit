@@ -605,7 +605,51 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
             const SizedBox(height: PoswalSpacing.lg),
 
-            // --- SECTION 5: DATA SAFETY & BACKUPS ---
+            // --- SECTION 5: LANGUAGE & LOCALIZATION ---
+            _buildSectionHeader('Language', PhosphorIconsRegular.globe, textPrimary),
+            const SizedBox(height: PoswalSpacing.xs),
+            AppGlassCard(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Display Language', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                  const SizedBox(height: PoswalSpacing.xs),
+                  Text('Supports English, Hindi (हिन्दी), and Urdu (اردو) with native fonts and RTL direction', style: PoswalText.caption.copyWith(color: textMuted)),
+                  const SizedBox(height: PoswalSpacing.md),
+                  Wrap(
+                    spacing: PoswalSpacing.sm,
+                    runSpacing: PoswalSpacing.xs,
+                    children: AppLanguageOption.values.map((lang) {
+                      final isSelected = settings.language == lang;
+                      return ChoiceChip(
+                        key: ValueKey('lang_chip_${lang.name}'),
+                        label: Text(
+                          lang.nativeName,
+                          style: PoswalText.callout.copyWith(
+                            color: isSelected ? PoswalColors.teal : textMuted,
+                            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                          ),
+                        ),
+                        selected: isSelected,
+                        selectedColor: PoswalColors.teal.withValues(alpha: 0.15),
+                        backgroundColor: Colors.white.withValues(alpha: 0.05),
+                        side: BorderSide(
+                          color: isSelected ? PoswalColors.teal : Colors.white12,
+                        ),
+                        onSelected: (_) {
+                          unawaited(HapticFeedback.selectionClick());
+                          settingsNotifier.updateLanguage(lang);
+                        },
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: PoswalSpacing.lg),
+
+            // --- SECTION 6: DATA SAFETY & BACKUPS ---
             _buildSectionHeader('Data Safety & Backups', PhosphorIconsRegular.shieldCheck, textPrimary),
             const SizedBox(height: PoswalSpacing.xs),
             AppGlassCard(

@@ -1,0 +1,83 @@
+{
+  "@@locale": "en",
+  "appTitle": "Poswal Orbit",
+  "tabToday": "Today",
+  "tabHabits": "Habits",
+  "tabTasks": "Tasks",
+  "tabNotes": "Notes",
+  "tabInsights": "Insights",
+
+  "greetingMorning": "Good morning",
+  "greetingAfternoon": "Good afternoon",
+  "greetingEvening": "Good evening",
+  "greetingNight": "Good evening",
+
+  "habitsProgress": "{completed} of {total} completed",
+  "@habitsProgress": {
+    "placeholders": {
+      "completed": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "allClear": "All clear. Enjoy the quiet.",
+  "habitsAllDone": "All habits complete for today. Outstanding work!",
+  "tasksDueOverdue": "Tasks Due & Overdue",
+
+  "habitsActive": "Active",
+  "habitsArchived": "Archived",
+  "newHabit": "New Habit",
+  "streakDays": "{days}d streak",
+  "@streakDays": {
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
+
+  "tasksSmartToday": "Today",
+  "tasksSmartUpcoming": "Upcoming",
+  "tasksSmartAll": "All",
+  "tasksSmartDone": "Done",
+  "quickAddTaskHint": "Add a task (e.g. Call mom tomorrow 6pm !high #family)",
+  "priorityUrgent": "Urgent",
+  "priorityHigh": "High",
+  "priorityMedium": "Medium",
+  "priorityLow": "Low",
+  "priorityNone": "None",
+
+  "notesPinned": "Pinned",
+  "notesAll": "All Notes",
+  "notesTodayJournal": "Today's Journal",
+  "notesSaved": "Saved",
+  "notesSaving": "Saving...",
+
+  "insightsTitle": "Insights",
+  "weeklyReviewTitle": "Weekly Review",
+  "productivityScore": "Productivity Score",
+  "bestDayOfWeek": "Best Day of Week",
+  "bestTimeOfDay": "Best Time of Day",
+  "habitHeatmaps": "Habit Heatmaps",
+  "habitTaskCorrelation": "Habit & Task Correlation",
+  "shareCard": "Share",
+  "insightsEmptyTitle": "Your insights will grow as you go",
+  "insightsEmptySubtitle": "Complete habits and check off tasks to unlock personalized patterns, weekly review cards, and productivity scores.",
+
+  "settingsTitle": "Settings",
+  "settingsAppearance": "Appearance",
+  "settingsTheme": "Theme Mode",
+  "settingsAccent": "Accent Color",
+  "settingsGlass": "Glass Intensity",
+  "settingsReduceTransparency": "Reduce Transparency",
+  "settingsTime": "Time & Orbit Boundary",
+  "settingsDayStart": "Day-Start Boundary",
+  "settingsFirstDayOfWeek": "First Day of Week",
+  "settingsHaptics": "Haptic Feedback",
+  "settingsNotifications": "Reminders & Notifications",
+  "settingsHealthCheck": "Reminders Health Check",
+  "settingsLanguage": "Language",
+  "settingsDataSafety": "Data Safety & Backups",
+  "settingsBackupNow": "Back Up Now",
+  "settingsExport": "Export",
+  "settingsImport": "Import",
+  "settingsDanger": "Danger Zone",
+  "settingsDeleteAll": "Delete All Data"
+}

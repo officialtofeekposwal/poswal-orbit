@@ -1,0 +1,83 @@
+{
+  "@@locale": "hi",
+  "appTitle": "पोसवाल ऑर्बिट",
+  "tabToday": "आज",
+  "tabHabits": "आदतें",
+  "tabTasks": "कार्य",
+  "tabNotes": "नोट्स",
+  "tabInsights": "अंतर्दृष्टि",
+
+  "greetingMorning": "सुप्रभात",
+  "greetingAfternoon": "शुभ दोपहर",
+  "greetingEvening": "शुभ संध्या",
+  "greetingNight": "शुभ संध्या",
+
+  "habitsProgress": "{total} में से {completed} पूर्ण",
+  "@habitsProgress": {
+    "placeholders": {
+      "completed": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "allClear": "सब कुछ शांत है। आराम का आनंद लें।",
+  "habitsAllDone": "आज की सभी आदतें पूरी हो चुकी हैं। शानदार काम!",
+  "tasksDueOverdue": "देय और बकाया कार्य",
+
+  "habitsActive": "सक्रिय",
+  "habitsArchived": "संग्रहीत",
+  "newHabit": "नई आदत",
+  "streakDays": "{days} दिन लगातार",
+  "@streakDays": {
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
+
+  "tasksSmartToday": "आज",
+  "tasksSmartUpcoming": "आगामी",
+  "tasksSmartAll": "सभी",
+  "tasksSmartDone": "पूर्ण",
+  "quickAddTaskHint": "कार्य जोड़ें (उदा. कल शाम 6 बजे माँ को कॉल !high #family)",
+  "priorityUrgent": "अति आवश्यक",
+  "priorityHigh": "उच्च",
+  "priorityMedium": "मध्यम",
+  "priorityLow": "निम्न",
+  "priorityNone": "कोई नहीं",
+
+  "notesPinned": "पिन किए गए",
+  "notesAll": "सभी नोट्स",
+  "notesTodayJournal": "आज की डायरी",
+  "notesSaved": "सहेजा गया",
+  "notesSaving": "सहेजा जा रहा है...",
+
+  "insightsTitle": "अंतर्दृष्टि",
+  "weeklyReviewTitle": "साप्ताहिक समीक्षा",
+  "productivityScore": "उत्पादकता स्कोर",
+  "bestDayOfWeek": "सप्ताह का सर्वश्रेष्ठ दिन",
+  "bestTimeOfDay": "दिन का सर्वोत्तम समय",
+  "habitHeatmaps": "आदत हीटमैप्स",
+  "habitTaskCorrelation": "आदत और कार्य संबंध",
+  "shareCard": "साझा करें",
+  "insightsEmptyTitle": "जैसे-जैसे आप आगे बढ़ेंगे, अंतर्दृष्टि बढ़ेगी",
+  "insightsEmptySubtitle": "व्यक्तिगत पैटर्न, साप्ताहिक समीक्षा और उत्पादकता स्कोर अनलॉक करने के लिए आदतें पूरी करें और कार्य पूरे करें।",
+
+  "settingsTitle": "सेटिंग्स",
+  "settingsAppearance": "दिखावट",
+  "settingsTheme": "थीम मोड",
+  "settingsAccent": "मुख्य रंग",
+  "settingsGlass": "कांच प्रभाव तीव्रता",
+  "settingsReduceTransparency": "पारदर्शिता कम करें",
+  "settingsTime": "समय और दिन की सीमा",
+  "settingsDayStart": "दिन की शुरुआत का समय",
+  "settingsFirstDayOfWeek": "सप्ताह का पहला दिन",
+  "settingsHaptics": "हैप्टिक कंपन",
+  "settingsNotifications": "अनुस्मारक और सूचनाएं",
+  "settingsHealthCheck": "अनुस्मारक स्थिति जांच",
+  "settingsLanguage": "भाषा",
+  "settingsDataSafety": "डेटा सुरक्षा और बैकअप",
+  "settingsBackupNow": "अभी बैकअप लें",
+  "settingsExport": "निर्यात करें",
+  "settingsImport": "आयात करें",
+  "settingsDanger": "खतरा क्षेत्र",
+  "settingsDeleteAll": "सारा डेटा हटाएं"
+}

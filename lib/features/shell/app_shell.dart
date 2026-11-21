@@ -8,6 +8,7 @@ import 'package:poswal_orbit/data/services/data_safety_service.dart';
 import 'package:poswal_orbit/data/services/notification_service.dart';
 import 'package:poswal_orbit/features/habits/presentation/habit_form_sheet.dart';
 import 'package:poswal_orbit/features/habits/presentation/habits_screen.dart';
+import 'package:poswal_orbit/features/insights/presentation/insights_screen.dart';
 import 'package:poswal_orbit/features/notes/presentation/note_editor_screen.dart';
 import 'package:poswal_orbit/features/notes/presentation/notes_screen.dart';
 import 'package:poswal_orbit/features/tasks/presentation/tasks_screen.dart';
@@ -69,45 +70,6 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
     }
   }
 
-  Widget _buildPlaceholderScreen(String title, String phase) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
-    final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
-
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(PoswalSpacing.xl),
-        child: AppGlassCard(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 56,
-                height: 56,
-                decoration: const BoxDecoration(
-                  gradient: PoswalGradients.aurora,
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(PhosphorIconsRegular.sparkle, color: Colors.white, size: 28),
-              ),
-              const SizedBox(height: PoswalSpacing.md),
-              Text(
-                title,
-                style: PoswalText.title.copyWith(color: textPrimary, fontWeight: FontWeight.w700),
-              ),
-              const SizedBox(height: PoswalSpacing.xs),
-              Text(
-                'Coming in $phase of Poswal Orbit.',
-                textAlign: TextAlign.center,
-                style: PoswalText.callout.copyWith(color: textMuted),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,12 +79,12 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
           // Screen View
           IndexedStack(
             index: _currentIndex,
-            children: [
-              const TodayScreen(),
-              const HabitsScreen(),
-              const TasksScreen(),
-              const NotesScreen(),
-              _buildPlaceholderScreen('Productivity Insights', 'Phase 5'),
+            children: const [
+              TodayScreen(),
+              HabitsScreen(),
+              TasksScreen(),
+              NotesScreen(),
+              InsightsScreen(),
             ],
           ),
 
