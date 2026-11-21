@@ -71,6 +71,7 @@ class PoswalTheme {
 
     return ThemeData(
       useMaterial3: true,
+      splashFactory: NoSplash.splashFactory,
       brightness: brightness,
       scaffoldBackgroundColor: background,
       colorScheme: ColorScheme(

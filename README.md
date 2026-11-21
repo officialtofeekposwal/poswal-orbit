@@ -30,11 +30,21 @@
 
 ---
 
-## 📱 Screenshots (Phase 0 Design Playground)
+## 📱 Screenshots
+
+### Phase 1: Today Hub & Habits Core
+| Today Hub (Dark) | Today Hub (Light) | Create Habit Sheet | Habits Management |
+| :---: | :---: | :---: | :---: |
+| <img src="docs/screenshots/today-dark.png" width="220" alt="Today Screen Dark" /> | <img src="docs/screenshots/today-light.png" width="220" alt="Today Screen Light" /> | <img src="docs/screenshots/habit-create-sheet.png" width="220" alt="Create Habit Sheet" /> | <img src="docs/screenshots/habits-list.png" width="220" alt="Habits List" /> |
+
+<details>
+<summary><strong>View Phase 0 Design Playground Screenshots</strong></summary>
 
 | Dark Theme (`#070B14`) | Light Theme (`#F4F6FB`) | OLED Black (`#000000`) |
 | :---: | :---: | :---: |
-| <img src="docs/screenshots/playground-dark.png" width="260" alt="Dark Theme" /> | <img src="docs/screenshots/playground-light.png" width="260" alt="Light Theme" /> | <img src="docs/screenshots/playground-oled.png" width="260" alt="OLED Theme" /> |
+| <img src="docs/screenshots/playground-dark.png" width="240" alt="Dark Theme" /> | <img src="docs/screenshots/playground-light.png" width="240" alt="Light Theme" /> | <img src="docs/screenshots/playground-oled.png" width="240" alt="OLED Theme" /> |
+
+</details>
 
 ---
 
@@ -57,6 +67,7 @@
 - [Flutter SDK](https://docs.flutter.dev/get-started/install) (3.24+ recommended)
 - Android Studio with Android SDK 34+ (for Android builds)
 - Xcode 15+ & CocoaPods on macOS (for iOS builds)
+*(Windows developers: see [docs/WINDOWS_SETUP.md](docs/WINDOWS_SETUP.md) for Windows 11 Smart App Control & ADB setup tips).*
 
 ### Installation & Run
 
@@ -90,8 +101,13 @@
 
 ## 🗺️ Project Roadmap
 
-- [ ] **Phase 0: Foundation & Look** — Project setup, design tokens, aurora background, glass wrappers, and Design Playground screen.
-- [ ] **Phase 1: Habits Core & Today Hub** — Drift database, habit engines (numeric, duration, quit), EWMA scores, and Today progress ring.
+- [x] **Phase 0: Foundation & Look** — Project setup, design tokens, aurora background, glass wrappers, and Design Playground screen.
+- [x] **Phase 1: Habits Core & Today Hub** — Drift database schema v1, pure Dart domain engines (streaks, EWMA score, schedule, date boundary), Today progress ring, habits management, step-by-step creation sheet, and floating glass tab bar.
+- [ ] **Phase 2: Tasks System** — Smart lists, priorities, subtasks, recurrence rules, and live NLP quick-add.
+- [ ] **Phase 3: Notes & Global Search** — Markdown-lite notes editor, pins, color tags, and full-text search.
+- [ ] **Phase 4: Notifications & Data Safety** — Battery-safe notifications, reminders health check, auto-backups, and CSV/JSON import-export.
+- [ ] **Phase 5: Insights, Widgets & Localization** — Visual habit heatmaps, Home screen widgets, and multilingual support (English, Hindi, Urdu RTL).
+- [ ] **Phase 6: Polish & Release** — Multi-device profiling, accessibility audit, and production store builds.
 - [ ] **Phase 2: Tasks System** — Smart lists, priorities, subtasks, recurrence rules, and live NLP quick-add.
 - [ ] **Phase 3: Notes & Global Search** — Markdown-lite notes editor, pins, color tags, and full-text search.
 - [ ] **Phase 4: Notifications & Data Safety** — Battery-safe notifications, reminders health check, auto-backups, and CSV/JSON import-export.
