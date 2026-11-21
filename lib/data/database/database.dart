@@ -235,12 +235,24 @@ class AppDatabase extends _$AppDatabase {
     },
     onUpgrade: (Migrator m, int from, int to) async {
       if (from < 2) {
-        // Upgrade tasks table from v1 to v2 schema
-        await m.addColumn(tasksTable, tasksTable.hasTime);
-        await m.addColumn(tasksTable, tasksTable.repeatRule);
-        await m.addColumn(tasksTable, tasksTable.completedAt);
-        await m.addColumn(tasksTable, tasksTable.linkedHabitId);
-        await m.addColumn(tasksTable, tasksTable.sortOrder);
+        // Upgrade tasks table from v1 to v2 schema safely and idempotently
+        final v2Columns = [
+          tasksTable.parentId,
+          tasksTable.hasTime,
+          tasksTable.priority,
+          tasksTable.projectId,
+          tasksTable.repeatRule,
+          tasksTable.completedAt,
+          tasksTable.linkedHabitId,
+          tasksTable.sortOrder,
+        ];
+        for (final col in v2Columns) {
+          try {
+            await m.addColumn(tasksTable, col);
+          } catch (_) {
+            // Column may already exist from earlier schema variants
+          }
+        }
 
         // Create new projects, tags, task_tags tables
         await m.createTable(projectsTable);
@@ -256,6 +268,9 @@ class AppDatabase extends _$AppDatabase {
 
       if (from < 3) {
         // Upgrade notes table from v1/v2 stub to full v3 schema
+        try {
+          await customStatement(r'ALTER TABLE notes ADD COLUMN is_pinned INTEGER NOT NULL DEFAULT 0;');
+        } catch (_) {}
         await customStatement(r"ALTER TABLE notes ADD COLUMN body TEXT NOT NULL DEFAULT '';");
         await customStatement(r'ALTER TABLE notes ADD COLUMN color_label INTEGER NOT NULL DEFAULT 0;');
         await customStatement(r'ALTER TABLE notes ADD COLUMN is_journal INTEGER NOT NULL DEFAULT 0;');

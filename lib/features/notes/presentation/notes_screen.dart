@@ -276,7 +276,7 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                           style: TextStyle(color: textPrimary),
                           decoration: InputDecoration(
                             icon: Icon(PhosphorIconsRegular.magnifyingGlass, color: textMuted, size: 18),
-                            hintText: 'Filter notes by title or content...',
+                            hintText: l10n?.searchNotesPlaceholder ?? 'Filter notes by title or content...',
                             hintStyle: TextStyle(color: textMuted),
                             border: InputBorder.none,
                           ),

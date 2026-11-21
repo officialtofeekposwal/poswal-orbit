@@ -431,13 +431,13 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
                   IconButton(
                     icon: const Icon(PhosphorIconsRegular.arrowCounterClockwise, size: 20),
                     color: PoswalColors.teal,
-                    tooltip: 'Restore Habit',
+                    tooltip: l10n?.restoreHabitTooltip ?? 'Restore Habit',
                     onPressed: () => _restoreHabit(context, habit),
                   ),
                   IconButton(
                     icon: const Icon(PhosphorIconsRegular.trash, size: 20),
                     color: PoswalColors.danger,
-                    tooltip: 'Delete Permanently',
+                    tooltip: l10n?.deletePermanentlyTooltip ?? 'Delete Permanently',
                     onPressed: () => _deleteHabit(context, habit),
                   ),
                 ],

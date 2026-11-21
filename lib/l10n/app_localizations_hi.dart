@@ -446,4 +446,371 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get widgetTasksGlance => 'लंबित कार्य एक नज़र में';
+
+  @override
+  String get dayStartBoundarySubtitle =>
+      'इस घंटे से पहले की आदतें पिछले दिन में गिनी जाती हैं';
+
+  @override
+  String get reduceTransparencySubtitle =>
+      'कम जीपीयू लोड या उच्च कंट्रास्ट के लिए ठोस बैकग्राउंड कार्ड';
+
+  @override
+  String get hapticFeedbackSubtitle =>
+      'आदत चक्र, चेकबॉक्स और जेस्चर पर स्पर्श प्रतिक्रिया';
+
+  @override
+  String get remindersHealthCheckSubtitle =>
+      '100% विश्वसनीय आदत रिमाइंडर सुनिश्चित करने के लिए सिस्टम अनुमतियों और सैमसंग One UI बैकग्राउंड नियमों की जांच करें।';
+
+  @override
+  String get sendTestAlert => 'परीक्षण अलर्ट भेजें';
+
+  @override
+  String get syncSchedule => 'शेड्यूल सिंक करें';
+
+  @override
+  String get displayLanguage => 'प्रदर्शन भाषा';
+
+  @override
+  String get displayLanguageSubtitle =>
+      'मूल फोंट और आरटीएल दिशा के साथ अंग्रेज़ी, हिन्दी और उर्दू का समर्थन';
+
+  @override
+  String get autoDailyBackupsActive => 'स्वचालित दैनिक बैकअप सक्रिय';
+
+  @override
+  String get autoDailyBackupsSubtitle =>
+      'रोलिंग रिटेंशन पिछले 7 दैनिक स्नैपशॉट को सुरक्षित रखता है।';
+
+  @override
+  String get deleteAllDataSubtitle =>
+      'आदतें, प्रविष्टियाँ, कार्य और नोट्स स्थायी रूप से मिटाएँ';
+
+  @override
+  String get deleteAllDataDialogTitle => 'सारा डेटा हटाएं?';
+
+  @override
+  String get deleteAllDataDialogContent =>
+      'यह सभी आदतों, प्रविष्टियों, कार्यों और नोट्स को मिटा देगा।\n\nमिटाने से पहले एक सुरक्षा बैकअप स्नैपशॉट स्वचालित रूप से बनाया जाएगा ताकि आप ज़रूरत पड़ने पर पुनर्प्राप्त कर सकें।';
+
+  @override
+  String get finalConfirmationTitle => 'अंतिम पुष्टि';
+
+  @override
+  String get finalConfirmationContent =>
+      'क्या आप पूरी तरह सुनिश्चित हैं? यह क्रिया आपके सक्रिय कार्यक्षेत्र को रीसेट कर देगी।';
+
+  @override
+  String get keepMyData => 'मेरा डेटा रखें';
+
+  @override
+  String get wipeEverything => 'सब कुछ मिटा दें';
+
+  @override
+  String get importDialogTitle => 'डेटा / लूप सीएसवी आयात करें';
+
+  @override
+  String get importDialogContent =>
+      'नीचे जेसन बैकअप सामग्री या लूप हैबिट ट्रैकर सीएसवी डेटा पेस्ट करें:';
+
+  @override
+  String get inspectAndImport => 'निरीक्षण और आयात करें';
+
+  @override
+  String get cancel => 'रद्द करें';
+
+  @override
+  String get proceed => 'आगे बढ़ें';
+
+  @override
+  String get understood => 'समझ गया';
+
+  @override
+  String get notificationPermissionTitle => 'अधिसूचना अनुमति';
+
+  @override
+  String get notificationPermissionSubtitle =>
+      'पोसवाल ऑर्बिट को आपके स्टेटस बार और लॉक स्क्रीन पर अलर्ट दिखाने की अनुमति देता है।';
+
+  @override
+  String get openNotificationSettings => 'अधिसूचना सेटिंग्स खोलें';
+
+  @override
+  String get exactAlarmSchedulingTitle => 'सटीक अलार्म शेड्यूलिंग';
+
+  @override
+  String get exactAlarmSchedulingSubtitle =>
+      'रिमाइंडर को बैटरी प्रबंधन द्वारा विलंबित किए बिना ठीक उसी मिनट पर बजने की अनुमति देता है।';
+
+  @override
+  String get manageAlarmPermission => 'अलार्म अनुमति प्रबंधित करें';
+
+  @override
+  String get samsungBatteryExemptionTitle => 'सैमसंग बैटरी छूट';
+
+  @override
+  String get samsungBatteryExemptionSubtitle =>
+      'वन यूआई कुछ दिनों तक उपयोग न किए गए ऐप्स को सुला देता है। छूट से स्ट्रीक रिमाइंडर सुनिश्चित रहते हैं।';
+
+  @override
+  String get howToSetUnrestricted => '\"अप्रतिबंधित\" कैसे सेट करें';
+
+  @override
+  String get rollingWindowStatusTitle => 'रोलिंग 7-दिवसीय विंडो';
+
+  @override
+  String rollingWindowStatusSubtitle(int count) {
+    return 'ओएस कतार में $count निर्धारित अनुस्मारक सक्रिय हैं।';
+  }
+
+  @override
+  String get refillBtn => 'पुनः भरें';
+
+  @override
+  String get sendTestNotificationBtn => 'परीक्षण अधिसूचना भेजें';
+
+  @override
+  String get dispatching => 'भेज रहा है...';
+
+  @override
+  String get granted => 'स्वीकृत';
+
+  @override
+  String get restricted => 'प्रतिबंधित';
+
+  @override
+  String get samsungGuideTitle => 'सैमसंग वन यूआई बैटरी गाइड';
+
+  @override
+  String get samsungGuideIntro =>
+      'सैमसंग फोन बैटरी बचाने के लिए बैकग्राउंड ऐप्स को बंद कर देते हैं। स्ट्रीक रिमाइंडर न छूटने के लिए:';
+
+  @override
+  String get habitsDoneCount => 'आदतें पूरी हुईं';
+
+  @override
+  String get tasksFinishedCount => 'कार्य पूर्ण हुए';
+
+  @override
+  String get bestStreakCount => 'सर्वश्रेष्ठ स्ट्रीक';
+
+  @override
+  String get peakMomentum => 'चरम गति';
+
+  @override
+  String get observedPattern => 'देखा गया पैटर्न';
+
+  @override
+  String get correlationDisclaimer =>
+      'हम सीमित डेटा पर निष्कर्ष पर नहीं पहुँचते। वास्तविक सहसंबंध प्रकट करने के लिए ट्रैक करते रहें।';
+
+  @override
+  String get overallHeatmap => 'समग्र गतिविधि हीटमैप';
+
+  @override
+  String get last8Weeks => 'पिछले 8 सप्ताह';
+
+  @override
+  String get heatmapLess => 'कम';
+
+  @override
+  String get heatmapMore => 'अधिक';
+
+  @override
+  String get shareWeeklyRhythm => 'पोसवाल ऑर्बिट पर मेरी साप्ताहिक लय 🚀';
+
+  @override
+  String shareFailed(String error) {
+    return 'साझा करने में विफल: $error';
+  }
+
+  @override
+  String get restoreHabitTooltip => 'आदत पुनर्स्थापित करें';
+
+  @override
+  String get deletePermanentlyTooltip => 'स्थायी रूप से हटाएं';
+
+  @override
+  String get habitNotePlaceholder =>
+      'उदा. आज बहुत अच्छा लगा, 20 मिनट अतिरिक्त किया';
+
+  @override
+  String get searchNotesPlaceholder =>
+      'शीर्षक या सामग्री द्वारा नोट्स फ़िल्टर करें...';
+
+  @override
+  String get addTagPlaceholder => 'उदा. प्रोजेक्ट, विचार';
+
+  @override
+  String get addTag => 'जोड़ें';
+
+  @override
+  String get colorLabelTooltip => 'रंग लेबल';
+
+  @override
+  String get linkHabitTaskTooltip => 'आदत/कार्य से जोड़ें';
+
+  @override
+  String get addTagTooltip => 'टैग जोड़ें';
+
+  @override
+  String get headingTooltip => 'शीर्षक';
+
+  @override
+  String get boldTooltip => 'मोटा (बोल्ड)';
+
+  @override
+  String get italicTooltip => 'तिरछा (इटैलिक)';
+
+  @override
+  String get bulletListTooltip => 'बुलेट सूची';
+
+  @override
+  String get checklistTooltip => 'चेकलिस्ट';
+
+  @override
+  String get insertLinkTooltip => 'लिंक डालें';
+
+  @override
+  String get globalSearchPlaceholder => 'आदतें, कार्य, नोट्स खोजें...';
+
+  @override
+  String get searchTasksPlaceholder => 'कार्य खोजें...';
+
+  @override
+  String get noHabitLinked => 'कोई आदत जुड़ी नहीं';
+
+  @override
+  String taskDeletedNamed(String title) {
+    return 'कार्य \"$title\" हटा दिया गया';
+  }
+
+  @override
+  String get searchTooltip => 'खोजें';
+
+  @override
+  String get settingsTooltip => 'सेटिंग्स';
+
+  @override
+  String get designPlaygroundTooltip => 'डिज़ाइन प्लेग्राउंड';
+
+  @override
+  String get mondayShort => 'सोम';
+
+  @override
+  String get sundayShort => 'रवि';
+
+  @override
+  String get saving => 'सहेज रहा है...';
+
+  @override
+  String get availableBackups => 'उपलब्ध बैकअप (पिछले 7)';
+
+  @override
+  String get noBackupsYet =>
+      'अभी कोई बैकअप स्नैपशॉट नहीं है। अपना पहला स्नैपशॉट सहेजने के लिए \"अभी बैकअप लें\" पर टैप करें।';
+
+  @override
+  String get restore => 'पुनर्स्थापित करें';
+
+  @override
+  String get resetOrClearData => 'डेटा रीसेट या साफ़ करें';
+
+  @override
+  String get backupFullJson => 'पूर्ण डेटाबेस स्नैपशॉट (JSON)';
+
+  @override
+  String get backupFullJsonSubtitle =>
+      'आदतों, कार्यों और नोट्स के साथ पूर्ण पोर्टेबल बैकअप';
+
+  @override
+  String get exportHabitsCsv => 'आदतें और चेक-इन (CSV)';
+
+  @override
+  String get exportTasksCsv => 'कार्य और उप-कार्य (CSV)';
+
+  @override
+  String get exportNotesCsv => 'नोट्स और जर्नल (CSV)';
+
+  @override
+  String get importPreview => 'आयात पूर्वावलोकन';
+
+  @override
+  String importFormat(String format) {
+    return 'प्रारूप: $format';
+  }
+
+  @override
+  String get importSafetyNote =>
+      'आपके वर्तमान डेटाबेस की सुरक्षा के लिए आयात करने से पहले एक सुरक्षा बैकअप स्वचालित रूप से बनाया जाएगा।';
+
+  @override
+  String get importPlaceholder => 'JSON बैकअप या लूप CSV डेटा यहाँ चिपकाएँ...';
+
+  @override
+  String get applyImport => 'आयात लागू करें';
+
+  @override
+  String get allDataClearedToast =>
+      'सभी डेटा साफ़ कर दिया गया। बैकअप में सुरक्षा स्नैपशॉट सुरक्षित रखा गया था।';
+
+  @override
+  String fullJsonCopiedToast(int bytes) {
+    return 'पूर्ण JSON बैकअप क्लिपबोर्ड पर कॉपी किया गया ($bytes बाइट्स)';
+  }
+
+  @override
+  String get habitsCsvCopiedToast => 'आदतें CSV क्लिपबोर्ड पर कॉपी की गई';
+
+  @override
+  String get tasksCsvCopiedToast => 'कार्य CSV क्लिपबोर्ड पर कॉपी किए गए';
+
+  @override
+  String get notesCsvCopiedToast => 'नोट्स CSV क्लिपबोर्ड पर कॉपी किए गए';
+
+  @override
+  String importSuccessToast(int habits, int tasks, int notes) {
+    return 'सफलतापूर्वक $habits आदतें, $tasks कार्य, $notes नोट्स आयात किए गए';
+  }
+
+  @override
+  String get remindersHealthCheckTitle => 'रिमाइंडर स्वास्थ्य जांच';
+
+  @override
+  String get onboardingWelcomeTitle => 'पोसवाल ऑर्बिट में आपका स्वागत है';
+
+  @override
+  String get onboardingWelcomeDesc =>
+      'आपकी आदतों, कार्यों और विचारों के लिए एक शांत, निजी और ऑफ़लाइन स्थान।';
+
+  @override
+  String get onboardingHabitsTitle => 'स्थायी गति बनाएं';
+
+  @override
+  String get onboardingHabitsDesc =>
+      'खूबसूरत ऑर्बिट रिंग्स और बिना किसी अपराधबोध के अपनी दैनिक प्रगति ट्रैक करें।';
+
+  @override
+  String get onboardingTasksTitle => 'शांत और केंद्रित कार्य';
+
+  @override
+  String get onboardingTasksDesc =>
+      'स्मार्ट सूचियां और आसान चेकलिस्ट आपके दिन को स्पष्ट और शांत रखती हैं।';
+
+  @override
+  String get onboardingNotesTitle => 'निजी विचार और डायरी';
+
+  @override
+  String get onboardingNotesDesc =>
+      'मार्कडाउन नोट्स और दैनिक डायरी, केवल आपके डिवाइस पर सुरक्षित।';
+
+  @override
+  String get getStarted => 'शुरू करें';
+
+  @override
+  String get skip => 'छोड़ें';
+
+  @override
+  String get next => 'आगे';
 }

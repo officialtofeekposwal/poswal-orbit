@@ -86,5 +86,21 @@ void main() {
       expect(payload.habits.length, equals(5));
       expect(payload.tasks.length, equals(5));
     });
+
+    test('WidgetHabitItem and WidgetTaskItem roundtrip serialization for multiple widgets', () {
+      const habit = WidgetHabitItem(id: 'habit-123', name: 'Deep Work', isCompleted: false);
+      final habitJson = habit.toJson();
+      final habitRestored = WidgetHabitItem.fromJson(habitJson);
+      expect(habitRestored.id, equals('habit-123'));
+      expect(habitRestored.name, equals('Deep Work'));
+      expect(habitRestored.isCompleted, isFalse);
+
+      const task = WidgetTaskItem(id: 'task-456', title: 'Prepare Release', priority: 1);
+      final taskJson = task.toJson();
+      final taskRestored = WidgetTaskItem.fromJson(taskJson);
+      expect(taskRestored.id, equals('task-456'));
+      expect(taskRestored.title, equals('Prepare Release'));
+      expect(taskRestored.priority, equals(1));
+    });
   });
 }

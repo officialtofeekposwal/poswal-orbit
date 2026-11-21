@@ -9,6 +9,7 @@ import 'package:poswal_orbit/domain/logic/date_boundary.dart';
 import 'package:poswal_orbit/domain/models/task_models.dart';
 import 'package:poswal_orbit/features/tasks/application/task_providers.dart';
 import 'package:poswal_orbit/features/tasks/presentation/widgets/task_detail_sheet.dart';
+import 'package:poswal_orbit/l10n/app_localizations.dart';
 
 class TaskRowCard extends ConsumerWidget {
   final Task task;
@@ -115,6 +116,7 @@ class TaskRowCard extends ConsumerWidget {
         } else {
           // Swipe left: Delete with Undo
           final messenger = ScaffoldMessenger.of(context);
+          final l10n = AppLocalizations.of(context);
           unawaited(HapticFeedback.mediumImpact());
           final repo = ref.read(taskRepositoryProvider);
           final deletedTask = task;
@@ -123,9 +125,9 @@ class TaskRowCard extends ConsumerWidget {
           messenger.clearSnackBars();
           messenger.showSnackBar(
             SnackBar(
-              content: Text('Task "${deletedTask.title}" deleted'),
+              content: Text(l10n?.taskDeletedNamed(deletedTask.title) ?? 'Task "${deletedTask.title}" deleted'),
               action: SnackBarAction(
-                label: 'Undo',
+                label: l10n?.undoButton ?? 'Undo',
                 textColor: PoswalColors.teal,
                 onPressed: () async {
                   await repo.restoreTask(deletedTask.id);

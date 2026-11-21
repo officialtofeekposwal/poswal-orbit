@@ -107,28 +107,29 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   }
 
   Future<void> _handleDeleteAllData() async {
+    final l10n = AppLocalizations.of(context);
     final firstConfirm = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: PoswalColors.surfaceDark,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.card)),
         title: Text(
-          'Delete All Data?',
+          l10n?.deleteAllDataDialogTitle ?? 'Delete All Data?',
           style: PoswalText.title.copyWith(color: PoswalColors.danger),
         ),
         content: Text(
-          'This will wipe all habits, entries, tasks, and notes.\n\nA safety backup snapshot will be created automatically before wiping so you can recover if needed.',
+          l10n?.deleteAllDataDialogContent ?? 'This will wipe all habits, entries, tasks, and notes.\n\nA safety backup snapshot will be created automatically before wiping so you can recover if needed.',
           style: PoswalText.bodyText.copyWith(color: PoswalColors.textMutedDark),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: Text('Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
+            child: Text(l10n?.cancel ?? 'Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
           ),
           FilledButton(
             style: FilledButton.styleFrom(backgroundColor: PoswalColors.danger),
             onPressed: () => Navigator.of(ctx).pop(true),
-            child: Text('Proceed', style: PoswalText.callout.copyWith(color: Colors.white)),
+            child: Text(l10n?.proceed ?? 'Proceed', style: PoswalText.callout.copyWith(color: Colors.white)),
           ),
         ],
       ),
@@ -142,22 +143,22 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         backgroundColor: PoswalColors.surfaceDark,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.card)),
         title: Text(
-          'Final Confirmation',
+          l10n?.finalConfirmationTitle ?? 'Final Confirmation',
           style: PoswalText.title.copyWith(color: PoswalColors.danger),
         ),
         content: Text(
-          'Are you completely sure? This action will reset your active workspace.',
+          l10n?.finalConfirmationContent ?? 'Are you completely sure? This action will reset your active workspace.',
           style: PoswalText.bodyText.copyWith(color: PoswalColors.textMutedDark),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: Text('Keep My Data', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
+            child: Text(l10n?.keepMyData ?? 'Keep My Data', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
           ),
           FilledButton(
             style: FilledButton.styleFrom(backgroundColor: PoswalColors.danger),
             onPressed: () => Navigator.of(ctx).pop(true),
-            child: Text('Wipe Everything', style: PoswalText.callout.copyWith(color: Colors.white)),
+            child: Text(l10n?.wipeEverything ?? 'Wipe Everything', style: PoswalText.callout.copyWith(color: Colors.white)),
           ),
         ],
       ),
@@ -169,27 +170,28 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       await ref.read(dataSafetyServiceProvider).deleteAllData();
       ref.invalidate(availableBackupsProvider);
       unawaited(HapticFeedback.heavyImpact());
-      _showToast('All data cleared. Pre-wipe safety snapshot was preserved in backups.');
+      _showToast(l10n?.allDataClearedToast ?? 'All data cleared. Pre-wipe safety snapshot was preserved in backups.');
     } catch (e) {
       _showToast('Failed to clear data: $e', isError: true);
     }
   }
 
   void _showImportDialog() {
+    final l10n = AppLocalizations.of(context);
     final textController = TextEditingController();
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: PoswalColors.surfaceDark,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.card)),
-        title: Text('Import Data / Loop CSV', style: PoswalText.title.copyWith(color: Colors.white)),
+        title: Text(l10n?.importDialogTitle ?? 'Import Data / Loop CSV', style: PoswalText.title.copyWith(color: Colors.white)),
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Paste JSON backup content or Loop Habit Tracker CSV data below:',
+                l10n?.importDialogContent ?? 'Paste JSON backup content or Loop Habit Tracker CSV data below:',
                 style: PoswalText.bodyText.copyWith(color: PoswalColors.textMutedDark),
               ),
               const SizedBox(height: PoswalSpacing.md),
@@ -198,7 +200,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 maxLines: 6,
                 style: PoswalText.bodyText.copyWith(color: Colors.white),
                 decoration: InputDecoration(
-                  hintText: '{"version": 1, ...} OR Position,Name,Question...',
+                  hintText: l10n?.importPlaceholder ?? 'Paste JSON backup or Loop CSV data...',
                   hintStyle: PoswalText.caption.copyWith(color: PoswalColors.textMutedDark),
                   filled: true,
                   fillColor: Colors.black26,
@@ -214,7 +216,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),
-            child: Text('Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
+            child: Text(l10n?.cancel ?? 'Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
           ),
           FilledButton(
             style: FilledButton.styleFrom(backgroundColor: PoswalColors.teal),
@@ -224,7 +226,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               Navigator.of(ctx).pop();
               await _processImportContent(content);
             },
-            child: Text('Inspect & Import', style: PoswalText.callout.copyWith(color: Colors.white)),
+            child: Text(l10n?.inspectAndImport ?? 'Inspect & Import', style: PoswalText.callout.copyWith(color: Colors.white)),
           ),
         ],
       ),
@@ -232,6 +234,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   }
 
   Future<void> _processImportContent(String content) async {
+    final l10n = AppLocalizations.of(context);
     final safetyService = ref.read(dataSafetyServiceProvider);
     final preview = safetyService.inspectImportContent(content);
 
@@ -248,17 +251,17 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       builder: (ctx) => AlertDialog(
         backgroundColor: PoswalColors.surfaceDark,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.card)),
-        title: Text('Import Preview', style: PoswalText.title.copyWith(color: Colors.white)),
+        title: Text(l10n?.importPreview ?? 'Import Preview', style: PoswalText.title.copyWith(color: Colors.white)),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Format: ${preview.format.label}', style: PoswalText.headline.copyWith(color: PoswalColors.teal)),
+            Text(l10n?.importFormat(preview.format.label) ?? 'Format: ${preview.format.label}', style: PoswalText.headline.copyWith(color: PoswalColors.teal)),
             const SizedBox(height: PoswalSpacing.xs),
             Text(preview.summary, style: PoswalText.bodyText.copyWith(color: Colors.white)),
             const SizedBox(height: PoswalSpacing.md),
             Text(
-              'A safety backup will be created automatically before importing to protect your current database.',
+              l10n?.importSafetyNote ?? 'A safety backup will be created automatically before importing to protect your current database.',
               style: PoswalText.caption.copyWith(color: PoswalColors.textMutedDark),
             ),
           ],
@@ -266,12 +269,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: Text('Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
+            child: Text(l10n?.cancel ?? 'Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
           ),
           FilledButton(
             style: FilledButton.styleFrom(backgroundColor: PoswalColors.teal),
             onPressed: () => Navigator.of(ctx).pop(true),
-            child: Text('Apply Import', style: PoswalText.callout.copyWith(color: Colors.white)),
+            child: Text(l10n?.applyImport ?? 'Apply Import', style: PoswalText.callout.copyWith(color: Colors.white)),
           ),
         ],
       ),
@@ -285,13 +288,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           : await safetyService.restoreFromJsonString(content);
       ref.invalidate(availableBackupsProvider);
       unawaited(HapticFeedback.heavyImpact());
-      _showToast('Successfully imported ${res.habitsCount} habits, ${res.tasksCount} tasks, ${res.notesCount} notes');
+      _showToast(l10n?.importSuccessToast(res.habitsCount, res.tasksCount, res.notesCount) ?? 'Successfully imported ${res.habitsCount} habits, ${res.tasksCount} tasks, ${res.notesCount} notes');
     } catch (e) {
       _showToast('Import failed: $e', isError: true);
     }
   }
 
   void _showExportOptions() {
+    final l10n = AppLocalizations.of(context);
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -301,47 +305,47 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Export Data', style: PoswalText.headline.copyWith(color: Colors.white)),
+            Text(l10n?.settingsExport ?? 'Export Data', style: PoswalText.headline.copyWith(color: Colors.white)),
             const SizedBox(height: PoswalSpacing.sm),
             ListTile(
               leading: const Icon(PhosphorIconsRegular.fileCode, color: PoswalColors.teal),
-              title: Text('Full Database Snapshot (JSON)', style: PoswalText.callout.copyWith(color: Colors.white)),
-              subtitle: Text('Complete portable backup with habits, tasks & notes', style: PoswalText.caption.copyWith(color: PoswalColors.textMutedDark)),
+              title: Text(l10n?.backupFullJson ?? 'Full Database Snapshot (JSON)', style: PoswalText.callout.copyWith(color: Colors.white)),
+              subtitle: Text(l10n?.backupFullJsonSubtitle ?? 'Complete portable backup with habits, tasks & notes', style: PoswalText.caption.copyWith(color: PoswalColors.textMutedDark)),
               onTap: () async {
                 Navigator.of(ctx).pop();
                 final jsonStr = await ref.read(dataSafetyServiceProvider).exportFullDatabaseJson();
                 await Clipboard.setData(ClipboardData(text: jsonStr));
-                _showToast('Full JSON backup copied to clipboard (${jsonStr.length} bytes)');
+                _showToast(l10n?.fullJsonCopiedToast(jsonStr.length) ?? 'Full JSON backup copied to clipboard (${jsonStr.length} bytes)');
               },
             ),
             ListTile(
               leading: const Icon(PhosphorIconsRegular.table, color: PoswalColors.success),
-              title: Text('Habits & Check-ins (CSV)', style: PoswalText.callout.copyWith(color: Colors.white)),
+              title: Text(l10n?.exportHabitsCsv ?? 'Habits & Check-ins (CSV)', style: PoswalText.callout.copyWith(color: Colors.white)),
               onTap: () async {
                 Navigator.of(ctx).pop();
                 final csvStr = await ref.read(dataSafetyServiceProvider).exportHabitsCsv();
                 await Clipboard.setData(ClipboardData(text: csvStr));
-                _showToast('Habits CSV copied to clipboard');
+                _showToast(l10n?.habitsCsvCopiedToast ?? 'Habits CSV copied to clipboard');
               },
             ),
             ListTile(
               leading: const Icon(PhosphorIconsRegular.checkSquare, color: PoswalColors.coral),
-              title: Text('Tasks & Subtasks (CSV)', style: PoswalText.callout.copyWith(color: Colors.white)),
+              title: Text(l10n?.exportTasksCsv ?? 'Tasks & Subtasks (CSV)', style: PoswalText.callout.copyWith(color: Colors.white)),
               onTap: () async {
                 Navigator.of(ctx).pop();
                 final csvStr = await ref.read(dataSafetyServiceProvider).exportTasksCsv();
                 await Clipboard.setData(ClipboardData(text: csvStr));
-                _showToast('Tasks CSV copied to clipboard');
+                _showToast(l10n?.tasksCsvCopiedToast ?? 'Tasks CSV copied to clipboard');
               },
             ),
             ListTile(
               leading: const Icon(PhosphorIconsRegular.note, color: PoswalColors.violet),
-              title: Text('Notes & Journal (CSV)', style: PoswalText.callout.copyWith(color: Colors.white)),
+              title: Text(l10n?.exportNotesCsv ?? 'Notes & Journal (CSV)', style: PoswalText.callout.copyWith(color: Colors.white)),
               onTap: () async {
                 Navigator.of(ctx).pop();
                 final csvStr = await ref.read(dataSafetyServiceProvider).exportNotesCsv();
                 await Clipboard.setData(ClipboardData(text: csvStr));
-                _showToast('Notes CSV copied to clipboard');
+                _showToast(l10n?.notesCsvCopiedToast ?? 'Notes CSV copied to clipboard');
               },
             ),
           ],
@@ -461,8 +465,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   const Divider(color: Colors.white12, height: 28),
                   SwitchListTile.adaptive(
                     contentPadding: EdgeInsets.zero,
-                    title: Text('Reduce Transparency', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
-                    subtitle: Text('Solid background cards for reduced GPU load or high contrast', style: PoswalText.caption.copyWith(color: textMuted)),
+                    title: Text(l10n?.settingsReduceTransparency ?? 'Reduce Transparency', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                    subtitle: Text(l10n?.reduceTransparencySubtitle ?? 'Solid background cards for reduced GPU load or high contrast', style: PoswalText.caption.copyWith(color: textMuted)),
                     value: reduceTransparency,
                     activeColor: PoswalColors.teal,
                     onChanged: (val) {
@@ -477,16 +481,16 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             const SizedBox(height: PoswalSpacing.lg),
 
             // --- SECTION 2: TIME & DAY BOUNDARY ---
-            _buildSectionHeader('Time & Orbit Boundary', PhosphorIconsRegular.clock, textPrimary),
+            _buildSectionHeader(l10n?.settingsTime ?? 'Time & Orbit Boundary', PhosphorIconsRegular.clock, textPrimary),
             const SizedBox(height: PoswalSpacing.xs),
             AppGlassCard(
               child: Column(
                 children: [
                   ListTile(
                     contentPadding: EdgeInsets.zero,
-                    title: Text('Day-Start Boundary', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                    title: Text(l10n?.settingsDayStart ?? 'Day-Start Boundary', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
                     subtitle: Text(
-                      'Habit check-ins before this hour count towards previous day',
+                      l10n?.dayStartBoundarySubtitle ?? 'Habit check-ins before this hour count towards previous day',
                       style: PoswalText.caption.copyWith(color: textMuted),
                     ),
                     trailing: DropdownButton<int>(
@@ -508,11 +512,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   const Divider(color: Colors.white12, height: 20),
                   ListTile(
                     contentPadding: EdgeInsets.zero,
-                    title: Text('First Day of Week', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                    title: Text(l10n?.settingsFirstDayOfWeek ?? 'First Day of Week', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
                     trailing: SegmentedButton<int>(
-                      segments: const [
-                        ButtonSegment(value: DateTime.monday, label: Text('Mon')),
-                        ButtonSegment(value: DateTime.sunday, label: Text('Sun')),
+                      segments: [
+                        ButtonSegment(value: DateTime.monday, label: Text(l10n?.mondayShort ?? 'Mon')),
+                        ButtonSegment(value: DateTime.sunday, label: Text(l10n?.sundayShort ?? 'Sun')),
                       ],
                       selected: {settings.firstDayOfWeek},
                       onSelectionChanged: (set) => settingsNotifier.updateFirstDayOfWeek(set.first),
@@ -525,13 +529,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             const SizedBox(height: PoswalSpacing.lg),
 
             // --- SECTION 3: FEEDBACK ---
-            _buildSectionHeader('Haptics & Motion', PhosphorIconsRegular.vibrate, textPrimary),
+            _buildSectionHeader(l10n?.settingsHaptics ?? 'Haptics & Motion', PhosphorIconsRegular.vibrate, textPrimary),
             const SizedBox(height: PoswalSpacing.xs),
             AppGlassCard(
               child: SwitchListTile.adaptive(
                 contentPadding: EdgeInsets.zero,
-                title: Text('Haptic Feedback', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
-                subtitle: Text('Tactile vibration on habit rings, checkboxes and gestures', style: PoswalText.caption.copyWith(color: textMuted)),
+                title: Text(l10n?.settingsHaptics ?? 'Haptic Feedback', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                subtitle: Text(l10n?.hapticFeedbackSubtitle ?? 'Tactile vibration on habit rings, checkboxes and gestures', style: PoswalText.caption.copyWith(color: textMuted)),
                 value: settings.hapticsEnabled,
                 activeColor: PoswalColors.teal,
                 onChanged: (val) => settingsNotifier.updateHaptics(val),
@@ -619,7 +623,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             const SizedBox(height: PoswalSpacing.lg),
 
             // --- SECTION 4: REMINDERS & NOTIFICATIONS ---
-            _buildSectionHeader('Reminders & Notifications', PhosphorIconsRegular.bell, textPrimary),
+            _buildSectionHeader(l10n?.settingsNotifications ?? 'Reminders & Notifications', PhosphorIconsRegular.bell, textPrimary),
             const SizedBox(height: PoswalSpacing.xs),
             AppGlassCard(
               child: Column(
@@ -635,8 +639,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       ),
                       child: const Icon(PhosphorIconsRegular.heartbeat, color: PoswalColors.teal, size: 20),
                     ),
-                    title: Text('Reminders Health Check', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
-                    subtitle: Text('Verify notification permissions, exact alarms & One UI battery rules', style: PoswalText.caption.copyWith(color: textMuted)),
+                    title: Text(l10n?.settingsHealthCheck ?? 'Reminders Health Check', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                    subtitle: Text(l10n?.remindersHealthCheckSubtitle ?? 'Verify notification permissions, exact alarms & One UI battery rules', style: PoswalText.caption.copyWith(color: textMuted)),
                     trailing: const Icon(PhosphorIconsRegular.caretRight, size: 16, color: Colors.white54),
                     onTap: () => RemindersHealthCheckScreen.push(context),
                   ),
@@ -658,7 +662,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                             }
                           },
                           icon: const Icon(PhosphorIconsRegular.paperPlaneTilt, size: 16, color: Colors.white),
-                          label: Text('Send Test Alert', style: PoswalText.caption.copyWith(color: Colors.white)),
+                          label: Text(l10n?.sendTestAlert ?? 'Send Test Alert', style: PoswalText.caption.copyWith(color: Colors.white)),
                         ),
                       ),
                       const SizedBox(width: PoswalSpacing.sm),
@@ -677,7 +681,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                             }
                           },
                           icon: const Icon(PhosphorIconsRegular.arrowsClockwise, size: 16, color: Colors.white),
-                          label: Text('Sync Schedule', style: PoswalText.caption.copyWith(color: Colors.white)),
+                          label: Text(l10n?.syncSchedule ?? 'Sync Schedule', style: PoswalText.caption.copyWith(color: Colors.white)),
                         ),
                       ),
                     ],
@@ -689,15 +693,15 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             const SizedBox(height: PoswalSpacing.lg),
 
             // --- SECTION 5: LANGUAGE & LOCALIZATION ---
-            _buildSectionHeader('Language', PhosphorIconsRegular.globe, textPrimary),
+            _buildSectionHeader(l10n?.settingsLanguage ?? 'Language', PhosphorIconsRegular.globe, textPrimary),
             const SizedBox(height: PoswalSpacing.xs),
             AppGlassCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Display Language', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                  Text(l10n?.displayLanguage ?? 'Display Language', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
                   const SizedBox(height: PoswalSpacing.xs),
-                  Text('Supports English, Hindi (हिन्दी), and Urdu (اردو) with native fonts and RTL direction', style: PoswalText.caption.copyWith(color: textMuted)),
+                  Text(l10n?.displayLanguageSubtitle ?? 'Supports English, Hindi (हिन्दी), and Urdu (اردو) with native fonts and RTL direction', style: PoswalText.caption.copyWith(color: textMuted)),
                   const SizedBox(height: PoswalSpacing.md),
                   Wrap(
                     spacing: PoswalSpacing.sm,
@@ -733,7 +737,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             const SizedBox(height: PoswalSpacing.lg),
 
             // --- SECTION 6: DATA SAFETY & BACKUPS ---
-            _buildSectionHeader('Data Safety & Backups', PhosphorIconsRegular.shieldCheck, textPrimary),
+            _buildSectionHeader(l10n?.settingsDataSafety ?? 'Data Safety & Backups', PhosphorIconsRegular.shieldCheck, textPrimary),
             const SizedBox(height: PoswalSpacing.xs),
             AppGlassCard(
               child: Column(
@@ -754,8 +758,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Automatic Daily Backups Active', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
-                            Text('Rolling retention keeps the last 7 daily snapshots safely.', style: PoswalText.caption.copyWith(color: textMuted)),
+                            Text(l10n?.autoDailyBackupsActive ?? 'Automatic Daily Backups Active', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                            Text(l10n?.autoDailyBackupsSubtitle ?? 'Rolling retention keeps the last 7 daily snapshots safely.', style: PoswalText.caption.copyWith(color: textMuted)),
                           ],
                         ),
                       ),
@@ -776,7 +780,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                           icon: _isBackingUp
                               ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
                               : const Icon(PhosphorIconsRegular.floppyDisk, size: 18),
-                          label: Text(_isBackingUp ? 'Saving...' : 'Back Up Now', style: PoswalText.callout.copyWith(color: Colors.white, fontWeight: FontWeight.w600)),
+                          label: Text(_isBackingUp ? (l10n?.saving ?? 'Saving...') : (l10n?.settingsBackupNow ?? 'Back Up Now'), style: PoswalText.callout.copyWith(color: Colors.white, fontWeight: FontWeight.w600)),
                         ),
                       ),
                       const SizedBox(width: PoswalSpacing.sm),
@@ -789,7 +793,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         ),
                         onPressed: _showExportOptions,
                         icon: const Icon(PhosphorIconsRegular.export, size: 18, color: Colors.white),
-                        label: Text('Export', style: PoswalText.callout.copyWith(color: Colors.white)),
+                        label: Text(l10n?.settingsExport ?? 'Export', style: PoswalText.callout.copyWith(color: Colors.white)),
                       ),
                       const SizedBox(width: PoswalSpacing.sm),
                       OutlinedButton.icon(
@@ -801,14 +805,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         ),
                         onPressed: _showImportDialog,
                         icon: const Icon(PhosphorIconsRegular.downloadSimple, size: 18, color: Colors.white),
-                        label: Text('Import', style: PoswalText.callout.copyWith(color: Colors.white)),
+                        label: Text(l10n?.settingsImport ?? 'Import', style: PoswalText.callout.copyWith(color: Colors.white)),
                       ),
                     ],
                   ),
 
                   const Divider(color: Colors.white12, height: 28),
 
-                  Text('Available Backups (Last 7)', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                  Text(l10n?.availableBackups ?? 'Available Backups (Last 7)', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
                   const SizedBox(height: PoswalSpacing.xs),
 
                   backupsAsync.when(
@@ -818,7 +822,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       if (backups.isEmpty) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: PoswalSpacing.md),
-                          child: Text('No backup snapshots yet. Tap "Back Up Now" to save your first snapshot.', style: PoswalText.caption.copyWith(color: textMuted)),
+                          child: Text(l10n?.noBackupsYet ?? 'No backup snapshots yet. Tap "Back Up Now" to save your first snapshot.', style: PoswalText.caption.copyWith(color: textMuted)),
                         );
                       }
                       return Column(
@@ -850,7 +854,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                   ),
                                   onPressed: _isRestoring ? null : () => _handleRestoreBackup(b),
                                   icon: const Icon(PhosphorIconsRegular.arrowCounterClockwise, size: 16, color: PoswalColors.teal),
-                                  label: Text('Restore', style: PoswalText.caption.copyWith(color: PoswalColors.teal, fontWeight: FontWeight.w700)),
+                                  label: Text(l10n?.restore ?? 'Restore', style: PoswalText.caption.copyWith(color: PoswalColors.teal, fontWeight: FontWeight.w700)),
                                 ),
                               ],
                             ),
@@ -866,17 +870,17 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             const SizedBox(height: PoswalSpacing.lg),
 
             // --- SECTION 5: DANGER ZONE ---
-            _buildSectionHeader('Danger Zone', PhosphorIconsRegular.warningOctagon, PoswalColors.danger),
+            _buildSectionHeader(l10n?.settingsDanger ?? 'Danger Zone', PhosphorIconsRegular.warningOctagon, PoswalColors.danger),
             const SizedBox(height: PoswalSpacing.xs),
             AppGlassCard(
               tintColor: PoswalColors.danger,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Reset or Clear Data', style: PoswalText.callout.copyWith(color: Colors.white, fontWeight: FontWeight.w600)),
+                  Text(l10n?.resetOrClearData ?? 'Reset or Clear Data', style: PoswalText.callout.copyWith(color: Colors.white, fontWeight: FontWeight.w600)),
                   const SizedBox(height: PoswalSpacing.xs),
                   Text(
-                    'Wipes all active habits, tasks, and notes. A pre-wipe snapshot is automatically taken to guarantee data safety.',
+                    l10n?.deleteAllDataSubtitle ?? 'Wipes all active habits, tasks, and notes. A pre-wipe snapshot is automatically taken to guarantee data safety.',
                     style: PoswalText.caption.copyWith(color: PoswalColors.textMutedDark),
                   ),
                   const SizedBox(height: PoswalSpacing.md),
@@ -889,7 +893,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     ),
                     onPressed: _handleDeleteAllData,
                     icon: const Icon(PhosphorIconsRegular.trash, color: PoswalColors.danger, size: 18),
-                    label: Text('Delete All Data', style: PoswalText.callout.copyWith(color: PoswalColors.danger, fontWeight: FontWeight.w600)),
+                    label: Text(l10n?.settingsDeleteAll ?? 'Delete All Data', style: PoswalText.callout.copyWith(color: PoswalColors.danger, fontWeight: FontWeight.w600)),
                   ),
                 ],
               ),

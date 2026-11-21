@@ -296,7 +296,7 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
                 controller: _noteController,
                 style: PoswalText.bodyText.copyWith(color: textPrimary),
                 decoration: InputDecoration(
-                  hintText: 'e.g. Felt great today, did 20 extra minutes',
+                  hintText: l10n?.habitNotePlaceholder ?? 'e.g. Felt great today, did 20 extra minutes',
                   hintStyle: PoswalText.callout.copyWith(color: textMuted),
                   filled: true,
                   fillColor: isDark ? PoswalColors.surfaceDark2 : Colors.white.withValues(alpha: 0.7),

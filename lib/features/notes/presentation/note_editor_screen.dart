@@ -326,20 +326,21 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
     showDialog(
       context: context,
       builder: (ctx) {
+        final l10n = AppLocalizations.of(context);
         return AlertDialog(
           backgroundColor: Theme.of(context).brightness == Brightness.dark
               ? PoswalColors.surfaceDark
               : PoswalColors.surfaceLight,
-          title: const Text('Add Tag', style: PoswalText.headline),
+          title: Text(l10n?.addTagTooltip ?? 'Add Tag', style: PoswalText.headline),
           content: TextField(
             controller: tagCtrl,
             autofocus: true,
-            decoration: const InputDecoration(hintText: 'e.g. project, ideas'),
+            decoration: InputDecoration(hintText: l10n?.addTagPlaceholder ?? 'e.g. project, ideas'),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(ctx),
-              child: const Text('Cancel'),
+              child: Text(l10n?.cancel ?? 'Cancel'),
             ),
             TextButton(
               onPressed: () {
@@ -352,7 +353,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
                 }
                 Navigator.pop(ctx);
               },
-              child: const Text('Add'),
+              child: Text(l10n?.addTag ?? 'Add'),
             ),
           ],
         );
@@ -528,7 +529,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
                               ? Color(NoteColorLabel.toColorValue(_colorLabel))
                               : textMuted,
                         ),
-                        tooltip: 'Color Label',
+                        tooltip: l10n?.colorLabelTooltip ?? 'Color Label',
                         onPressed: _openColorPicker,
                       ),
 
@@ -542,7 +543,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
                               ? PoswalColors.violet
                               : textMuted,
                         ),
-                        tooltip: 'Link to Habit/Task',
+                        tooltip: l10n?.linkHabitTaskTooltip ?? 'Link to Habit/Task',
                         onPressed: _openLinkItemPicker,
                       ),
 
@@ -551,7 +552,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
                         key: const ValueKey('note_tag_btn'),
                         icon: const Icon(PhosphorIconsRegular.tag, size: 20),
                         color: textMuted,
-                        tooltip: 'Add Tag',
+                        tooltip: l10n?.addTagTooltip ?? 'Add Tag',
                         onPressed: _openAddTagDialog,
                       ),
                     ],

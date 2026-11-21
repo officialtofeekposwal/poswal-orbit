@@ -9,6 +9,7 @@ import 'package:poswal_orbit/features/habits/presentation/habit_detail_screen.da
 import 'package:poswal_orbit/features/notes/presentation/note_editor_screen.dart';
 import 'package:poswal_orbit/features/search/application/search_providers.dart';
 import 'package:poswal_orbit/features/tasks/presentation/widgets/task_detail_sheet.dart';
+import 'package:poswal_orbit/l10n/app_localizations.dart';
 
 class GlobalSearchScreen extends ConsumerStatefulWidget {
   const GlobalSearchScreen({super.key});
@@ -157,6 +158,7 @@ class _GlobalSearchScreenState extends ConsumerState<GlobalSearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
     final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
@@ -198,7 +200,7 @@ class _GlobalSearchScreenState extends ConsumerState<GlobalSearchScreen> {
                           style: TextStyle(color: textPrimary),
                           decoration: InputDecoration(
                             icon: Icon(PhosphorIconsRegular.magnifyingGlass, color: textMuted, size: 20),
-                            hintText: 'Search habits, tasks, notes...',
+                            hintText: l10n?.globalSearchPlaceholder ?? 'Search habits, tasks, notes...',
                             hintStyle: TextStyle(color: textMuted),
                             border: InputBorder.none,
                           ),

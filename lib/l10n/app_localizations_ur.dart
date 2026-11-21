@@ -445,4 +445,372 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get widgetTasksGlance => 'باقی کام ایک نظر میں';
+
+  @override
+  String get dayStartBoundarySubtitle =>
+      'اس گھنٹے سے پہلے کی عادتیں پچھلے دن میں شمار ہوتی ہیں';
+
+  @override
+  String get reduceTransparencySubtitle =>
+      'کم جی پی یو بوجھ یا زیادہ کنٹراسٹ کے لیے ٹھوس پس منظر کارڈ';
+
+  @override
+  String get hapticFeedbackSubtitle =>
+      'عادت کے دائروں، چیک باکسز اور اشاروں پر لمسی ارتعاش';
+
+  @override
+  String get remindersHealthCheckSubtitle =>
+      '100٪ قابل اعتماد عادات کی یاد دہانیوں کو یقینی بنانے کے لیے سسٹم کی اجازتوں اور سام سنگ One UI کے پس منظر کے اصولوں کی توثیق کریں۔';
+
+  @override
+  String get sendTestAlert => 'آزمائشی الرٹ بھیجیں';
+
+  @override
+  String get syncSchedule => 'شیڈول مطابقت پذیر کریں';
+
+  @override
+  String get displayLanguage => 'نمائش کی زبان';
+
+  @override
+  String get displayLanguageSubtitle =>
+      'مقامی فونٹس اور دائیں سے بائیں سمت کے ساتھ انگریزی، ہندی اور اردو کی معاونت';
+
+  @override
+  String get autoDailyBackupsActive => 'خودکار روزانہ بیک اپ فعال ہے';
+
+  @override
+  String get autoDailyBackupsSubtitle =>
+      'حفاظتی دائرہ پچھلے 7 روزانہ بیک اپ محفوظ رکھتا ہے۔';
+
+  @override
+  String get deleteAllDataSubtitle =>
+      'عادات، اندراجات، کام اور نوٹس مستقل طور پر حذف کریں';
+
+  @override
+  String get deleteAllDataDialogTitle => 'کیا تمام ڈیٹا حذف کریں؟';
+
+  @override
+  String get deleteAllDataDialogContent =>
+      'اس سے تمام عادات، اندراجات، کام اور نوٹس مٹ جائیں گے۔\n\nحذف کرنے سے پہلے ایک حفاظتی بیک اپ خودکار طور پر بن جائے گا تاکہ آپ ضرورت پڑنے پر بحال کر سکیں۔';
+
+  @override
+  String get finalConfirmationTitle => 'حتمی تصدیق';
+
+  @override
+  String get finalConfirmationContent =>
+      'کیا آپ کو مکمل یقین ہے؟ اس عمل سے آپ کا فعال ورک اسپیس ری سیٹ ہو جائے گا۔';
+
+  @override
+  String get keepMyData => 'میرا ڈیٹا برقرار رکھیں';
+
+  @override
+  String get wipeEverything => 'سب کچھ مٹا دیں';
+
+  @override
+  String get importDialogTitle => 'ڈیٹا / لوپ سی ایس وی درآمد کریں';
+
+  @override
+  String get importDialogContent =>
+      'نیچے جیسن بیک اپ یا لوپ ہیبٹ ٹریکر سی ایس وی کا متن چسپاں کریں:';
+
+  @override
+  String get inspectAndImport => 'معائنہ اور درآمد کریں';
+
+  @override
+  String get cancel => 'منسوخ کریں';
+
+  @override
+  String get proceed => 'آگے بڑھیں';
+
+  @override
+  String get understood => 'سمجھ گیا';
+
+  @override
+  String get notificationPermissionTitle => 'اطلاعات کی اجازت';
+
+  @override
+  String get notificationPermissionSubtitle =>
+      'پوسوال مدار کو اسٹیٹس بار اور لاک اسکرین پر الرٹس دکھانے کی اجازت دیتا ہے۔';
+
+  @override
+  String get openNotificationSettings => 'اطلاعات کی ترتیبات کھولیں';
+
+  @override
+  String get exactAlarmSchedulingTitle => 'درست وقت پر الارم کی ترتیب';
+
+  @override
+  String get exactAlarmSchedulingSubtitle =>
+      'بیٹری مینجمنٹ کی تاخیر کے بغیر یاد دہانیوں کو عین مقررہ منٹ پر بجنے دیتا ہے۔';
+
+  @override
+  String get manageAlarmPermission => 'الارم کی اجازت کا انتظام کریں';
+
+  @override
+  String get samsungBatteryExemptionTitle => 'سام سنگ بیٹری چھوٹ';
+
+  @override
+  String get samsungBatteryExemptionSubtitle =>
+      'ون یو آئی کچھ دن غیر استعمال شدہ ایپس کو سلا دیتا ہے۔ چھوٹ سے تسلسل کی یاد دہانیاں محفوظ رہتی ہیں۔';
+
+  @override
+  String get howToSetUnrestricted => '\"غیر پابند\" کیسے سیٹ کریں';
+
+  @override
+  String get rollingWindowStatusTitle => '7 روزہ متحرک شیڈول';
+
+  @override
+  String rollingWindowStatusSubtitle(int count) {
+    return 'او ایس قطار میں $count یاد دہانیاں فعال ہیں۔';
+  }
+
+  @override
+  String get refillBtn => 'دوبارہ بھریں';
+
+  @override
+  String get sendTestNotificationBtn => 'آزمائشی اطلاع بھیجیں';
+
+  @override
+  String get dispatching => 'بھیجا جا رہا ہے...';
+
+  @override
+  String get granted => 'منظور شدہ';
+
+  @override
+  String get restricted => 'محدود';
+
+  @override
+  String get samsungGuideTitle => 'سام سنگ ون یو آئی بیٹری گائیڈ';
+
+  @override
+  String get samsungGuideIntro =>
+      'سام سنگ فون بیٹری بچانے کے لیے بیک گراؤنڈ ایپس کو بند کر دیتے ہیں۔ تسلسل کے الرٹس برقرار رکھنے کے لیے:';
+
+  @override
+  String get habitsDoneCount => 'مکمل عادات';
+
+  @override
+  String get tasksFinishedCount => 'مکمل کام';
+
+  @override
+  String get bestStreakCount => 'بہترین تسلسل';
+
+  @override
+  String get peakMomentum => 'عروج کا وقت';
+
+  @override
+  String get observedPattern => 'مشاہدہ شدہ انداز';
+
+  @override
+  String get correlationDisclaimer =>
+      'ہم محدود ڈیٹا پر نتائج اخذ نہیں کرتے۔ حقیقی تعلق جاننے کے لیے ٹریک کرتے رہیں۔';
+
+  @override
+  String get overallHeatmap => 'مجموعی سرگرمی کا نقشہ';
+
+  @override
+  String get last8Weeks => 'گزشتہ 8 ہفتے';
+
+  @override
+  String get heatmapLess => 'کم';
+
+  @override
+  String get heatmapMore => 'زیادہ';
+
+  @override
+  String get shareWeeklyRhythm => 'پوسوال مدار پر میری ہفتہ وار ترتیب 🚀';
+
+  @override
+  String shareFailed(String error) {
+    return 'شیئر کرنے میں ناکامی: $error';
+  }
+
+  @override
+  String get restoreHabitTooltip => 'عادت بحال کریں';
+
+  @override
+  String get deletePermanentlyTooltip => 'مستقل طور پر حذف کریں';
+
+  @override
+  String get habitNotePlaceholder =>
+      'مثلاً آج بہت اچھا محسوس ہوا، 20 منٹ اضافی کیا';
+
+  @override
+  String get searchNotesPlaceholder =>
+      'عنوان یا متن کے لحاظ سے نوٹس فلٹر کریں...';
+
+  @override
+  String get addTagPlaceholder => 'مثلاً پروجیکٹ، خیالات';
+
+  @override
+  String get addTag => 'شامل کریں';
+
+  @override
+  String get colorLabelTooltip => 'رنگین لیبل';
+
+  @override
+  String get linkHabitTaskTooltip => 'عادت یا کام سے منسلک کریں';
+
+  @override
+  String get addTagTooltip => 'ٹیگ شامل کریں';
+
+  @override
+  String get headingTooltip => 'سرخی';
+
+  @override
+  String get boldTooltip => 'جلی (بولڈ)';
+
+  @override
+  String get italicTooltip => 'ترچھا (اٹالک)';
+
+  @override
+  String get bulletListTooltip => 'بلٹ لسٹ';
+
+  @override
+  String get checklistTooltip => 'چیک لسٹ';
+
+  @override
+  String get insertLinkTooltip => 'لنک داخل کریں';
+
+  @override
+  String get globalSearchPlaceholder => 'عادات، کام، نوٹس تلاش کریں...';
+
+  @override
+  String get searchTasksPlaceholder => 'کام تلاش کریں...';
+
+  @override
+  String get noHabitLinked => 'کوئی عادت منسلک نہیں';
+
+  @override
+  String taskDeletedNamed(String title) {
+    return 'کام \"$title\" حذف کر دیا گیا';
+  }
+
+  @override
+  String get searchTooltip => 'تلاش کریں';
+
+  @override
+  String get settingsTooltip => 'ترتیبات';
+
+  @override
+  String get designPlaygroundTooltip => 'ڈیزائن پلے گراؤنڈ';
+
+  @override
+  String get mondayShort => 'پیر';
+
+  @override
+  String get sundayShort => 'اتوار';
+
+  @override
+  String get saving => 'محفوظ ہو رہا ہے...';
+
+  @override
+  String get availableBackups => 'دستیاب بیک اپس (آخری 7)';
+
+  @override
+  String get noBackupsYet =>
+      'ابھی کوئی بیک اپ سنیپ شاٹ نہیں ہے۔ پہلا سنیپ شاٹ محفوظ کرنے کے لیے \"ابھی بیک اپ لیں\" پر ٹیپ کریں۔';
+
+  @override
+  String get restore => 'بحال کریں';
+
+  @override
+  String get resetOrClearData => 'ڈیٹا ری سیٹ یا صاف کریں';
+
+  @override
+  String get backupFullJson => 'مکمل ڈیٹا بیس سنیپ شاٹ (JSON)';
+
+  @override
+  String get backupFullJsonSubtitle =>
+      'عادات، کاموں اور نوٹس کے ساتھ مکمل پورٹیبل بیک اپ';
+
+  @override
+  String get exportHabitsCsv => 'عادات اور چیک ان (CSV)';
+
+  @override
+  String get exportTasksCsv => 'کام اور ذیلی کام (CSV)';
+
+  @override
+  String get exportNotesCsv => 'نوٹس اور جرنل (CSV)';
+
+  @override
+  String get importPreview => 'درآمد کا پیش نظارہ';
+
+  @override
+  String importFormat(String format) {
+    return 'فارمیٹ: $format';
+  }
+
+  @override
+  String get importSafetyNote =>
+      'آپ کے موجودہ ڈیٹا بیس کی حفاظت کے لیے درآمد کرنے سے پہلے ایک حفاظتی بیک اپ خودکار طور پر بنایا جائے گا۔';
+
+  @override
+  String get importPlaceholder =>
+      'یہاں JSON بیک اپ یا لوپ CSV ڈیٹا چسپاں کریں...';
+
+  @override
+  String get applyImport => 'درآمد لاگو کریں';
+
+  @override
+  String get allDataClearedToast =>
+      'تمام ڈیٹا صاف کر دیا گیا۔ بیک اپس میں حفاظتی سنیپ شاٹ محفوظ رکھا گیا تھا۔';
+
+  @override
+  String fullJsonCopiedToast(int bytes) {
+    return 'مکمل JSON بیک اپ کلپ بورڈ پر کاپی ہو گیا ($bytes بائٹس)';
+  }
+
+  @override
+  String get habitsCsvCopiedToast => 'عادات CSV کلپ بورڈ پر کاپی ہو گئی';
+
+  @override
+  String get tasksCsvCopiedToast => 'کام CSV کلپ بورڈ پر کاپی ہو گئے';
+
+  @override
+  String get notesCsvCopiedToast => 'نوٹس CSV کلپ بورڈ پر کاپی ہو گئے';
+
+  @override
+  String importSuccessToast(int habits, int tasks, int notes) {
+    return 'کامیابی کے ساتھ $habits عادات، $tasks کام، $notes نوٹس درآمد کیے گئے';
+  }
+
+  @override
+  String get remindersHealthCheckTitle => 'یاد دہانیوں کی جانچ';
+
+  @override
+  String get onboardingWelcomeTitle => 'پوسوال مدار میں خوش آمدید';
+
+  @override
+  String get onboardingWelcomeDesc =>
+      'آپ کی عادات، کاموں اور خیالات کے لیے ایک پرسکون، ذاتی اور آف لائن جگہ۔';
+
+  @override
+  String get onboardingHabitsTitle => 'پائیدار تسلسل بنائیں';
+
+  @override
+  String get onboardingHabitsDesc =>
+      'خوبصورت مدار رنگز اور بغیر کسی ندامت کے احساس کے اپنی روزانہ کی رفتار ٹریک کریں۔';
+
+  @override
+  String get onboardingTasksTitle => 'پرسکون اور مرکوز کام';
+
+  @override
+  String get onboardingTasksDesc =>
+      'سمارٹ فہرستیں اور سادہ چیک لسٹس آپ کے دن کو واضح اور پرسکون رکھتی ہیں۔';
+
+  @override
+  String get onboardingNotesTitle => 'ذاتی خیالات اور روزنامچہ';
+
+  @override
+  String get onboardingNotesDesc =>
+      'مارک ڈاؤن نوٹس اور روزنامچہ، صرف آپ کے ڈیوائس پر محفوظ۔';
+
+  @override
+  String get getStarted => 'شروع کریں';
+
+  @override
+  String get skip => 'چھوڑیں';
+
+  @override
+  String get next => 'آگے';
 }

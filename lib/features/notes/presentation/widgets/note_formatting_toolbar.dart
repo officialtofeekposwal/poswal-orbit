@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
+import 'package:poswal_orbit/l10n/app_localizations.dart';
 
 class NoteFormattingToolbar extends StatelessWidget {
   final TextEditingController controller;
@@ -81,6 +82,7 @@ class NoteFormattingToolbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final iconColor = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
 
@@ -103,7 +105,7 @@ class NoteFormattingToolbar extends StatelessWidget {
                 key: const ValueKey('fmt_heading'),
                 icon: const Icon(PhosphorIconsRegular.textH, size: 20),
                 color: iconColor,
-                tooltip: 'Heading',
+                tooltip: l10n?.headingTooltip ?? 'Heading',
                 onPressed: () => _toggleLinePrefix('# '),
               ),
               // Bold
@@ -111,7 +113,7 @@ class NoteFormattingToolbar extends StatelessWidget {
                 key: const ValueKey('fmt_bold'),
                 icon: const Icon(PhosphorIconsRegular.textB, size: 20),
                 color: iconColor,
-                tooltip: 'Bold',
+                tooltip: l10n?.boldTooltip ?? 'Bold',
                 onPressed: () => _wrapSelection('**', '**'),
               ),
               // Italic
@@ -119,7 +121,7 @@ class NoteFormattingToolbar extends StatelessWidget {
                 key: const ValueKey('fmt_italic'),
                 icon: const Icon(PhosphorIconsRegular.textItalic, size: 20),
                 color: iconColor,
-                tooltip: 'Italic',
+                tooltip: l10n?.italicTooltip ?? 'Italic',
                 onPressed: () => _wrapSelection('*', '*'),
               ),
               // Bullet List
@@ -127,7 +129,7 @@ class NoteFormattingToolbar extends StatelessWidget {
                 key: const ValueKey('fmt_bullet'),
                 icon: const Icon(PhosphorIconsRegular.listBullets, size: 20),
                 color: iconColor,
-                tooltip: 'Bullet List',
+                tooltip: l10n?.bulletListTooltip ?? 'Bullet List',
                 onPressed: () => _toggleLinePrefix('- '),
               ),
               // Checklist
@@ -135,7 +137,7 @@ class NoteFormattingToolbar extends StatelessWidget {
                 key: const ValueKey('fmt_checklist'),
                 icon: const Icon(PhosphorIconsRegular.checkSquare, size: 20),
                 color: iconColor,
-                tooltip: 'Checklist',
+                tooltip: l10n?.checklistTooltip ?? 'Checklist',
                 onPressed: () => _toggleLinePrefix('- [ ] '),
               ),
               // Link
@@ -143,7 +145,7 @@ class NoteFormattingToolbar extends StatelessWidget {
                 key: const ValueKey('fmt_link'),
                 icon: const Icon(PhosphorIconsRegular.linkSimple, size: 20),
                 color: iconColor,
-                tooltip: 'Insert Link',
+                tooltip: l10n?.insertLinkTooltip ?? 'Insert Link',
                 onPressed: () => _wrapSelection('[', '](https://)'),
               ),
             ],

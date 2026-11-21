@@ -179,5 +179,151 @@
 
   "widgetTodayProgress": "Orbit Today Progress",
   "widgetQuickCheckin": "Quick Habit Check-in",
-  "widgetTasksGlance": "Pending Tasks at a Glance"
+  "widgetTasksGlance": "Pending Tasks at a Glance",
+
+  "dayStartBoundarySubtitle": "Habit check-ins before this hour count towards previous day",
+  "reduceTransparencySubtitle": "Solid background cards for reduced GPU load or high contrast",
+  "hapticFeedbackSubtitle": "Tactile vibration on habit rings, checkboxes and gestures",
+  "remindersHealthCheckSubtitle": "Verify notification permissions, exact alarms & One UI battery rules",
+  "sendTestAlert": "Send Test Alert",
+  "syncSchedule": "Sync Schedule",
+  "displayLanguage": "Display Language",
+  "displayLanguageSubtitle": "Supports English, Hindi (हिन्दी), and Urdu (اردو) with native fonts and RTL direction",
+  "autoDailyBackupsActive": "Automatic Daily Backups Active",
+  "autoDailyBackupsSubtitle": "Rolling retention keeps the last 7 daily snapshots safely.",
+  "deleteAllDataSubtitle": "Permanently erase habits, entries, tasks, and notes",
+  "deleteAllDataDialogTitle": "Delete All Data?",
+  "deleteAllDataDialogContent": "This will wipe all habits, entries, tasks, and notes.\n\nA safety backup snapshot will be created automatically before wiping so you can recover if needed.",
+  "finalConfirmationTitle": "Final Confirmation",
+  "finalConfirmationContent": "Are you completely sure? This action will reset your active workspace.",
+  "keepMyData": "Keep My Data",
+  "wipeEverything": "Wipe Everything",
+  "importDialogTitle": "Import Data / Loop CSV",
+  "importDialogContent": "Paste JSON backup content or Loop Habit Tracker CSV data below:",
+  "inspectAndImport": "Inspect & Import",
+  "cancel": "Cancel",
+  "proceed": "Proceed",
+  "understood": "Understood",
+  "notificationPermissionTitle": "Notification Permission",
+  "notificationPermissionSubtitle": "Allows Poswal Orbit to display alerts in your status bar and lock screen.",
+  "openNotificationSettings": "Open Notification Settings",
+  "exactAlarmSchedulingTitle": "Exact Alarm Scheduling",
+  "exactAlarmSchedulingSubtitle": "Allows reminders to fire at the exact minute rather than being batched or delayed by Android battery management.",
+  "manageAlarmPermission": "Manage Alarm Permission",
+  "samsungBatteryExemptionTitle": "Samsung Battery Exemption",
+  "samsungBatteryExemptionSubtitle": "One UI automatically sleeps apps not used for a few days. Exempting Orbit guarantees streak prompts survive.",
+  "howToSetUnrestricted": "How to set \"Unrestricted\"",
+  "rollingWindowStatusTitle": "Rolling 7-Day Window",
+  "rollingWindowStatusSubtitle": "{count} scheduled reminders active in OS queue.",
+  "@rollingWindowStatusSubtitle": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "refillBtn": "Refill",
+  "sendTestNotificationBtn": "Send Test Notification",
+  "dispatching": "Dispatching...",
+  "granted": "Granted",
+  "restricted": "Restricted",
+  "samsungGuideTitle": "Samsung One UI Battery Guide",
+  "samsungGuideIntro": "Samsung phones aggressively close background apps to preserve battery. To prevent missing habit streaks:",
+  "habitsDoneCount": "Habits Done",
+  "tasksFinishedCount": "Tasks Finished",
+  "bestStreakCount": "Best Streak",
+  "peakMomentum": "Peak Momentum",
+  "observedPattern": "Observed Pattern",
+  "correlationDisclaimer": "We never jump to conclusions on limited data. Keep tracking to reveal true correlations.",
+  "overallHeatmap": "Overall Activity Heatmap",
+  "last8Weeks": "Last 8 Weeks",
+  "heatmapLess": "Less",
+  "heatmapMore": "More",
+  "shareWeeklyRhythm": "My weekly rhythm on Poswal Orbit 🚀",
+  "shareFailed": "Failed to share: {error}",
+  "@shareFailed": {
+    "placeholders": {
+      "error": {"type": "String"}
+    }
+  },
+
+  "restoreHabitTooltip": "Restore Habit",
+  "deletePermanentlyTooltip": "Delete Permanently",
+  "habitNotePlaceholder": "e.g. Felt great today, did 20 extra minutes",
+  "searchNotesPlaceholder": "Filter notes by title or content...",
+  "addTagPlaceholder": "e.g. project, ideas",
+  "addTag": "Add",
+  "colorLabelTooltip": "Color Label",
+  "linkHabitTaskTooltip": "Link to Habit/Task",
+  "addTagTooltip": "Add Tag",
+  "headingTooltip": "Heading",
+  "boldTooltip": "Bold",
+  "italicTooltip": "Italic",
+  "bulletListTooltip": "Bullet List",
+  "checklistTooltip": "Checklist",
+  "insertLinkTooltip": "Insert Link",
+  "globalSearchPlaceholder": "Search habits, tasks, notes...",
+  "searchTasksPlaceholder": "Search tasks...",
+  "noHabitLinked": "No Habit Linked",
+  "taskDeletedNamed": "Task \"{title}\" deleted",
+  "@taskDeletedNamed": {
+    "placeholders": {
+      "title": {"type": "String"}
+    }
+  },
+  "searchTooltip": "Search",
+  "settingsTooltip": "Settings",
+  "designPlaygroundTooltip": "Design Playground",
+  "mondayShort": "Mon",
+  "sundayShort": "Sun",
+  "saving": "Saving...",
+  "availableBackups": "Available Backups (Last 7)",
+  "noBackupsYet": "No backup snapshots yet. Tap \"Back Up Now\" to save your first snapshot.",
+  "restore": "Restore",
+  "resetOrClearData": "Reset or Clear Data",
+  "backupFullJson": "Full Database Snapshot (JSON)",
+  "backupFullJsonSubtitle": "Complete portable backup with habits, tasks & notes",
+  "exportHabitsCsv": "Habits & Check-ins (CSV)",
+  "exportTasksCsv": "Tasks & Subtasks (CSV)",
+  "exportNotesCsv": "Notes & Journal (CSV)",
+  "importPreview": "Import Preview",
+  "importFormat": "Format: {format}",
+  "@importFormat": {
+    "placeholders": {
+      "format": {"type": "String"}
+    }
+  },
+  "importSafetyNote": "A safety backup will be created automatically before importing to protect your current database.",
+  "importPlaceholder": "Paste JSON backup or Loop CSV data...",
+  "applyImport": "Apply Import",
+  "allDataClearedToast": "All data cleared. Pre-wipe safety snapshot was preserved in backups.",
+  "fullJsonCopiedToast": "Full JSON backup copied to clipboard ({bytes} bytes)",
+  "@fullJsonCopiedToast": {
+    "placeholders": {
+      "bytes": {"type": "int"}
+    }
+  },
+  "habitsCsvCopiedToast": "Habits CSV copied to clipboard",
+  "tasksCsvCopiedToast": "Tasks CSV copied to clipboard",
+  "notesCsvCopiedToast": "Notes CSV copied to clipboard",
+  "importSuccessToast": "Successfully imported {habits} habits, {tasks} tasks, {notes} notes",
+  "@importSuccessToast": {
+    "placeholders": {
+      "habits": {"type": "int"},
+      "tasks": {"type": "int"},
+      "notes": {"type": "int"}
+    }
+  },
+
+  "remindersHealthCheckTitle": "Reminders Health Check",
+  "remindersHealthCheckSubtitle": "Verify system permissions and Samsung One UI background rules to ensure 100% reliable streak reminders.",
+  "onboardingWelcomeTitle": "Welcome to Poswal Orbit",
+  "onboardingWelcomeDesc": "Your private, offline space for intentional habits, tasks, and reflections.",
+  "onboardingHabitsTitle": "Build Lasting Momentum",
+  "onboardingHabitsDesc": "Track daily rhythm with beautiful orbit rings, streaks, and zero guilt.",
+  "onboardingTasksTitle": "Calm, Focused Action",
+  "onboardingTasksDesc": "Smart lists, natural language due dates, and simple checklists keep you clear.",
+  "onboardingNotesTitle": "Private Thoughts & Journal",
+  "onboardingNotesDesc": "Markdown notes and daily journals stored safely on your device only.",
+  "getStarted": "Get Started",
+  "skip": "Skip",
+  "next": "Next"
 }

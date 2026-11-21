@@ -5,7 +5,9 @@ import 'package:poswal_orbit/domain/logic/widget_payload_codec.dart';
 
 class HomeWidgetService {
   static const String appGroupId = 'group.com.poswal.orbit';
-  static const String androidWidgetName = 'OrbitTodayWidgetProvider';
+  static const String androidTodayWidgetName = 'OrbitTodayWidgetProvider';
+  static const String androidHabitsWidgetName = 'OrbitHabitsWidgetProvider';
+  static const String androidTasksWidgetName = 'OrbitTasksWidgetProvider';
   static const String iOSWidgetName = 'OrbitWidget';
 
   HomeWidgetService() {
@@ -21,7 +23,7 @@ class HomeWidgetService {
     }
   }
 
-  /// Sync today habits and pending tasks payload to home screen widget
+  /// Sync today habits and pending tasks payload to all home screen widgets
   Future<void> updateWidgetData(WidgetPayload payload) async {
     try {
       final data = payload.toWidgetData();
@@ -29,22 +31,24 @@ class HomeWidgetService {
         await HomeWidget.saveWidgetData(entry.key, entry.value);
       }
 
-      await HomeWidget.updateWidget(
-        name: androidWidgetName,
-        iOSName: iOSWidgetName,
-      );
+      await Future.wait([
+        HomeWidget.updateWidget(name: androidTodayWidgetName, iOSName: iOSWidgetName),
+        HomeWidget.updateWidget(name: androidHabitsWidgetName, iOSName: iOSWidgetName),
+        HomeWidget.updateWidget(name: androidTasksWidgetName, iOSName: iOSWidgetName),
+      ]);
     } catch (e) {
       debugPrint('[HomeWidgetService] updateWidgetData error: $e');
     }
   }
 
-  /// Send test refresh to home widget
+  /// Send refresh to all home widgets
   Future<void> refresh() async {
     try {
-      await HomeWidget.updateWidget(
-        name: androidWidgetName,
-        iOSName: iOSWidgetName,
-      );
+      await Future.wait([
+        HomeWidget.updateWidget(name: androidTodayWidgetName, iOSName: iOSWidgetName),
+        HomeWidget.updateWidget(name: androidHabitsWidgetName, iOSName: iOSWidgetName),
+        HomeWidget.updateWidget(name: androidTasksWidgetName, iOSName: iOSWidgetName),
+      ]);
     } catch (e) {
       debugPrint('[HomeWidgetService] refresh error: $e');
     }
@@ -56,16 +60,16 @@ class HomeWidgetService {
 Future<void> homeWidgetBackgroundCallback(Uri? uri) async {
   if (uri == null) return;
 
-  // Expected uri: orbit://checkin?habitId=<id>&date=<yyyy-MM-dd>
+  // Expected uri: orbit://checkin?habitId=<id>
   if (uri.scheme == 'orbit' && uri.host == 'checkin') {
     final habitId = uri.queryParameters['habitId'];
     if (habitId != null && habitId.isNotEmpty) {
       debugPrint('[homeWidgetBackgroundCallback] Interactive checkin for habit: $habitId');
-      // When interactive widget action is clicked, we update the widget data immediately
-      await HomeWidget.updateWidget(
-        name: HomeWidgetService.androidWidgetName,
-        iOSName: HomeWidgetService.iOSWidgetName,
-      );
+      await Future.wait([
+        HomeWidget.updateWidget(name: HomeWidgetService.androidTodayWidgetName, iOSName: HomeWidgetService.iOSWidgetName),
+        HomeWidget.updateWidget(name: HomeWidgetService.androidHabitsWidgetName, iOSName: HomeWidgetService.iOSWidgetName),
+        HomeWidget.updateWidget(name: HomeWidgetService.androidTasksWidgetName, iOSName: HomeWidgetService.iOSWidgetName),
+      ]);
     }
   }
 }

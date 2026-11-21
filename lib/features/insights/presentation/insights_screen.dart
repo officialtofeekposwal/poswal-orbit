@@ -29,6 +29,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
 
   Future<void> _shareStatsCard(BuildContext context) async {
     if (_isSharing) return;
+    final l10n = context.mounted ? AppLocalizations.of(context) : null;
     setState(() => _isSharing = true);
     unawaited(HapticFeedback.mediumImpact());
 
@@ -53,14 +54,15 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
       await SharePlus.instance.share(
         ShareParams(
           files: [XFile(filePath)],
-          text: 'My weekly rhythm on Poswal Orbit 🚀',
+          text: l10n?.shareWeeklyRhythm ?? 'My weekly rhythm on Poswal Orbit 🚀',
         ),
       );
     } catch (e) {
       if (context.mounted) {
+        final l10n = AppLocalizations.of(context);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to share: $e', style: PoswalText.callout.copyWith(color: Colors.white)),
+            content: Text(l10n?.shareFailed(e.toString()) ?? 'Failed to share: $e', style: PoswalText.callout.copyWith(color: Colors.white)),
             backgroundColor: PoswalColors.danger,
             behavior: SnackBarBehavior.floating,
           ),
@@ -327,7 +329,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
               Expanded(
                 child: _buildMetricColumn(
                   '${state.weeklyReview.habitsCompleted}',
-                  'Habits Done',
+                  l10n?.habitsDoneCount ?? 'Habits Done',
                   PoswalColors.teal,
                   textMuted,
                 ),
@@ -335,7 +337,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
               Expanded(
                 child: _buildMetricColumn(
                   '${state.weeklyReview.tasksCompleted}',
-                  'Tasks Finished',
+                  l10n?.tasksFinishedCount ?? 'Tasks Finished',
                   PoswalColors.violet,
                   textMuted,
                 ),
@@ -343,7 +345,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
               Expanded(
                 child: _buildMetricColumn(
                   '${state.weeklyReview.bestStreak}d',
-                  'Best Streak',
+                  l10n?.bestStreakCount ?? 'Best Streak',
                   PoswalColors.coral,
                   textMuted,
                 ),
@@ -495,7 +497,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
               const Icon(PhosphorIconsRegular.clock, color: PoswalColors.teal, size: 20),
               const SizedBox(width: PoswalSpacing.xs),
               Text(
-                'Peak Momentum',
+                l10n?.peakMomentum ?? 'Peak Momentum',
                 style: PoswalText.headline.copyWith(color: textPrimary),
               ),
             ],
@@ -602,7 +604,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
                     borderRadius: BorderRadius.circular(PoswalRadii.pill),
                   ),
                   child: Text(
-                    'Observed Pattern',
+                    l10n?.observedPattern ?? 'Observed Pattern',
                     style: PoswalText.caption.copyWith(
                       color: PoswalColors.coral,
                       fontWeight: FontWeight.w600,
@@ -619,7 +621,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
           if (!corr.hasEnoughData) ...[
             const SizedBox(height: PoswalSpacing.xs),
             Text(
-              'We never jump to conclusions on limited data. Keep tracking to reveal true correlations.',
+              l10n?.correlationDisclaimer ?? 'We never jump to conclusions on limited data. Keep tracking to reveal true correlations.',
               style: PoswalText.caption.copyWith(color: textMuted),
             ),
           ],
@@ -665,13 +667,13 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
             children: [
               Expanded(
                 child: Text(
-                  'Overall Activity Heatmap',
+                  l10n?.overallHeatmap ?? 'Overall Activity Heatmap',
                   style: PoswalText.headline.copyWith(color: textPrimary),
                 ),
               ),
               const SizedBox(width: PoswalSpacing.xs),
               Text(
-                'Last 8 Weeks',
+                l10n?.last8Weeks ?? 'Last 8 Weeks',
                 style: PoswalText.caption.copyWith(color: textMuted),
               ),
             ],
@@ -727,7 +729,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text('Less', style: PoswalText.caption.copyWith(color: textMuted, fontSize: 10)),
+              Text(l10n?.heatmapLess ?? 'Less', style: PoswalText.caption.copyWith(color: textMuted, fontSize: 10)),
               const SizedBox(width: PoswalSpacing.xs),
               Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.05), borderRadius: BorderRadius.circular(2))),
               const SizedBox(width: 2),
@@ -737,7 +739,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
               const SizedBox(width: 2),
               Container(width: 8, height: 8, decoration: BoxDecoration(color: PoswalColors.teal, borderRadius: BorderRadius.circular(2))),
               const SizedBox(width: PoswalSpacing.xs),
-              Text('More', style: PoswalText.caption.copyWith(color: textMuted, fontSize: 10)),
+              Text(l10n?.heatmapMore ?? 'More', style: PoswalText.caption.copyWith(color: textMuted, fontSize: 10)),
             ],
           ),
         ],

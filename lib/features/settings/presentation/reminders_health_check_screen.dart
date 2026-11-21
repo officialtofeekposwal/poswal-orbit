@@ -8,6 +8,7 @@ import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/data/services/notification_service.dart';
 import 'package:poswal_orbit/domain/models/notification_models.dart';
+import 'package:poswal_orbit/l10n/app_localizations.dart';
 
 class RemindersHealthCheckScreen extends ConsumerStatefulWidget {
   const RemindersHealthCheckScreen({super.key});
@@ -121,18 +122,19 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
   }
 
   void _showBatteryGuideDialog() {
+    final l10n = AppLocalizations.of(context);
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: PoswalColors.surfaceDark,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.card)),
-        title: Text('Samsung One UI Battery Guide', style: PoswalText.title.copyWith(color: Colors.white)),
+        title: Text(l10n?.samsungGuideTitle ?? 'Samsung One UI Battery Guide', style: PoswalText.title.copyWith(color: Colors.white)),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Samsung phones aggressively close background apps to preserve battery. To prevent missing habit streaks:',
+              l10n?.samsungGuideIntro ?? 'Samsung phones aggressively close background apps to preserve battery. To prevent missing habit streaks:',
               style: PoswalText.bodyText.copyWith(color: PoswalColors.textMutedDark),
             ),
             const SizedBox(height: PoswalSpacing.md),
@@ -149,7 +151,7 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
           FilledButton(
             style: FilledButton.styleFrom(backgroundColor: PoswalColors.teal),
             onPressed: () => Navigator.of(ctx).pop(),
-            child: Text('Understood', style: PoswalText.callout.copyWith(color: Colors.white)),
+            child: Text(l10n?.understood ?? 'Understood', style: PoswalText.callout.copyWith(color: Colors.white)),
           ),
         ],
       ),
@@ -178,6 +180,7 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textPrimary = isDark ? Colors.white : PoswalColors.textOnLight;
     final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
@@ -192,7 +195,7 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
-          'Reminders Health Check',
+          l10n?.remindersHealthCheckTitle ?? 'Reminders Health Check',
           style: PoswalText.title.copyWith(color: textPrimary),
         ),
       ),
@@ -202,7 +205,7 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
               padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md, vertical: PoswalSpacing.sm),
               children: [
                 Text(
-                  'Verify system permissions and Samsung One UI background rules to ensure 100% reliable streak reminders.',
+                  l10n?.remindersHealthCheckSubtitle ?? 'Verify system permissions and Samsung One UI background rules to ensure 100% reliable streak reminders.',
                   style: PoswalText.bodyText.copyWith(color: textMuted),
                 ),
                 const SizedBox(height: PoswalSpacing.lg),
@@ -219,15 +222,15 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
                             children: [
                               const Icon(PhosphorIconsRegular.bell, color: PoswalColors.teal, size: 20),
                               const SizedBox(width: PoswalSpacing.sm),
-                              Text('Notification Permission', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                              Text(l10n?.notificationPermissionTitle ?? 'Notification Permission', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
                             ],
                           ),
-                          _buildBadge(_status?.notificationsGranted == true),
+                          _buildBadge(_status?.notificationsGranted == true, l10n),
                         ],
                       ),
                       const SizedBox(height: PoswalSpacing.xs),
                       Text(
-                        'Allows Poswal Orbit to display alerts in your status bar and lock screen.',
+                        l10n?.notificationPermissionSubtitle ?? 'Allows Poswal Orbit to display alerts in your status bar and lock screen.',
                         style: PoswalText.caption.copyWith(color: textMuted),
                       ),
                       const SizedBox(height: PoswalSpacing.sm),
@@ -239,7 +242,7 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
                         ),
                         onPressed: _openSystemNotificationSettings,
                         icon: const Icon(PhosphorIconsRegular.gear, size: 16, color: Colors.white),
-                        label: Text('Open Notification Settings', style: PoswalText.caption.copyWith(color: Colors.white)),
+                        label: Text(l10n?.openNotificationSettings ?? 'Open Notification Settings', style: PoswalText.caption.copyWith(color: Colors.white)),
                       ),
                     ],
                   ),
@@ -259,15 +262,15 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
                             children: [
                               const Icon(PhosphorIconsRegular.clockAfternoon, color: PoswalColors.gold, size: 20),
                               const SizedBox(width: PoswalSpacing.sm),
-                              Text('Exact Alarm Scheduling', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                              Text(l10n?.exactAlarmSchedulingTitle ?? 'Exact Alarm Scheduling', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
                             ],
                           ),
-                          _buildBadge(_status?.exactAlarmsAllowed == true),
+                          _buildBadge(_status?.exactAlarmsAllowed == true, l10n),
                         ],
                       ),
                       const SizedBox(height: PoswalSpacing.xs),
                       Text(
-                        'Allows reminders to fire at the exact minute rather than being batched or delayed by Android battery management.',
+                        l10n?.exactAlarmSchedulingSubtitle ?? 'Allows reminders to fire at the exact minute rather than being batched or delayed by Android battery management.',
                         style: PoswalText.caption.copyWith(color: textMuted),
                       ),
                       const SizedBox(height: PoswalSpacing.sm),
@@ -279,7 +282,7 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
                         ),
                         onPressed: _requestExactAlarms,
                         icon: const Icon(PhosphorIconsRegular.shieldCheck, size: 16, color: Colors.white),
-                        label: Text('Manage Alarm Permission', style: PoswalText.caption.copyWith(color: Colors.white)),
+                        label: Text(l10n?.manageAlarmPermission ?? 'Manage Alarm Permission', style: PoswalText.caption.copyWith(color: Colors.white)),
                       ),
                     ],
                   ),
@@ -296,12 +299,12 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
                         children: [
                           const Icon(PhosphorIconsRegular.batteryCharging, color: PoswalColors.violet, size: 20),
                           const SizedBox(width: PoswalSpacing.sm),
-                          Text('Samsung Battery Exemption', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                          Text(l10n?.samsungBatteryExemptionTitle ?? 'Samsung Battery Exemption', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
                         ],
                       ),
                       const SizedBox(height: PoswalSpacing.xs),
                       Text(
-                        'One UI automatically sleeps apps not used for a few days. Exempting Orbit guarantees streak prompts survive.',
+                        l10n?.samsungBatteryExemptionSubtitle ?? 'One UI automatically sleeps apps not used for a few days. Exempting Orbit guarantees streak prompts survive.',
                         style: PoswalText.caption.copyWith(color: textMuted),
                       ),
                       const SizedBox(height: PoswalSpacing.sm),
@@ -313,7 +316,7 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
                         ),
                         onPressed: _showBatteryGuideDialog,
                         icon: const Icon(PhosphorIconsRegular.info, size: 16, color: Colors.white),
-                        label: Text('How to set "Unrestricted"', style: PoswalText.caption.copyWith(color: Colors.white)),
+                        label: Text(l10n?.howToSetUnrestricted ?? 'How to set "Unrestricted"', style: PoswalText.caption.copyWith(color: Colors.white)),
                       ),
                     ],
                   ),
@@ -338,15 +341,15 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Rolling 7-Day Window', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
-                            Text('$_pendingCount scheduled reminders active in OS queue.', style: PoswalText.caption.copyWith(color: textMuted)),
+                            Text(l10n?.rollingWindowStatusTitle ?? 'Rolling 7-Day Window', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                            Text(l10n?.rollingWindowStatusSubtitle(_pendingCount) ?? '$_pendingCount scheduled reminders active in OS queue.', style: PoswalText.caption.copyWith(color: textMuted)),
                           ],
                         ),
                       ),
                       TextButton(
                         key: const ValueKey('refill_schedule_btn'),
                         onPressed: _refillWindow,
-                        child: Text('Refill', style: PoswalText.caption.copyWith(color: PoswalColors.teal, fontWeight: FontWeight.bold)),
+                        child: Text(l10n?.refillBtn ?? 'Refill', style: PoswalText.caption.copyWith(color: PoswalColors.teal, fontWeight: FontWeight.bold)),
                       ),
                     ],
                   ),
@@ -367,7 +370,7 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
                       ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
                       : const Icon(PhosphorIconsRegular.paperPlaneTilt, color: Colors.white),
                   label: Text(
-                    _isSendingTest ? 'Dispatching...' : 'Send Test Notification',
+                    _isSendingTest ? (l10n?.dispatching ?? 'Dispatching...') : (l10n?.sendTestNotificationBtn ?? 'Send Test Notification'),
                     style: PoswalText.callout.copyWith(color: Colors.white, fontWeight: FontWeight.w600),
                   ),
                 ),
@@ -378,9 +381,9 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
     );
   }
 
-  Widget _buildBadge(bool isGranted) {
+  Widget _buildBadge(bool isGranted, AppLocalizations? l10n) {
     final color = isGranted ? PoswalColors.teal : PoswalColors.danger;
-    final label = isGranted ? 'Granted' : 'Restricted';
+    final label = isGranted ? (l10n?.granted ?? 'Granted') : (l10n?.restricted ?? 'Restricted');
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.xs, vertical: 2),
       decoration: BoxDecoration(

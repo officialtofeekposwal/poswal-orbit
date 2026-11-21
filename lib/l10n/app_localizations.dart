@@ -927,6 +927,666 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Pending Tasks at a Glance'**
   String get widgetTasksGlance;
+
+  /// No description provided for @dayStartBoundarySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Habit check-ins before this hour count towards previous day'**
+  String get dayStartBoundarySubtitle;
+
+  /// No description provided for @reduceTransparencySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Solid background cards for reduced GPU load or high contrast'**
+  String get reduceTransparencySubtitle;
+
+  /// No description provided for @hapticFeedbackSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tactile vibration on habit rings, checkboxes and gestures'**
+  String get hapticFeedbackSubtitle;
+
+  /// No description provided for @remindersHealthCheckSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify system permissions and Samsung One UI background rules to ensure 100% reliable streak reminders.'**
+  String get remindersHealthCheckSubtitle;
+
+  /// No description provided for @sendTestAlert.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Test Alert'**
+  String get sendTestAlert;
+
+  /// No description provided for @syncSchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync Schedule'**
+  String get syncSchedule;
+
+  /// No description provided for @displayLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Display Language'**
+  String get displayLanguage;
+
+  /// No description provided for @displayLanguageSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Supports English, Hindi (हिन्दी), and Urdu (اردو) with native fonts and RTL direction'**
+  String get displayLanguageSubtitle;
+
+  /// No description provided for @autoDailyBackupsActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic Daily Backups Active'**
+  String get autoDailyBackupsActive;
+
+  /// No description provided for @autoDailyBackupsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rolling retention keeps the last 7 daily snapshots safely.'**
+  String get autoDailyBackupsSubtitle;
+
+  /// No description provided for @deleteAllDataSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Permanently erase habits, entries, tasks, and notes'**
+  String get deleteAllDataSubtitle;
+
+  /// No description provided for @deleteAllDataDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete All Data?'**
+  String get deleteAllDataDialogTitle;
+
+  /// No description provided for @deleteAllDataDialogContent.
+  ///
+  /// In en, this message translates to:
+  /// **'This will wipe all habits, entries, tasks, and notes.\n\nA safety backup snapshot will be created automatically before wiping so you can recover if needed.'**
+  String get deleteAllDataDialogContent;
+
+  /// No description provided for @finalConfirmationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Final Confirmation'**
+  String get finalConfirmationTitle;
+
+  /// No description provided for @finalConfirmationContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you completely sure? This action will reset your active workspace.'**
+  String get finalConfirmationContent;
+
+  /// No description provided for @keepMyData.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep My Data'**
+  String get keepMyData;
+
+  /// No description provided for @wipeEverything.
+  ///
+  /// In en, this message translates to:
+  /// **'Wipe Everything'**
+  String get wipeEverything;
+
+  /// No description provided for @importDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Import Data / Loop CSV'**
+  String get importDialogTitle;
+
+  /// No description provided for @importDialogContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste JSON backup content or Loop Habit Tracker CSV data below:'**
+  String get importDialogContent;
+
+  /// No description provided for @inspectAndImport.
+  ///
+  /// In en, this message translates to:
+  /// **'Inspect & Import'**
+  String get inspectAndImport;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @proceed.
+  ///
+  /// In en, this message translates to:
+  /// **'Proceed'**
+  String get proceed;
+
+  /// No description provided for @understood.
+  ///
+  /// In en, this message translates to:
+  /// **'Understood'**
+  String get understood;
+
+  /// No description provided for @notificationPermissionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Permission'**
+  String get notificationPermissionTitle;
+
+  /// No description provided for @notificationPermissionSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Allows Poswal Orbit to display alerts in your status bar and lock screen.'**
+  String get notificationPermissionSubtitle;
+
+  /// No description provided for @openNotificationSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Notification Settings'**
+  String get openNotificationSettings;
+
+  /// No description provided for @exactAlarmSchedulingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Exact Alarm Scheduling'**
+  String get exactAlarmSchedulingTitle;
+
+  /// No description provided for @exactAlarmSchedulingSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Allows reminders to fire at the exact minute rather than being batched or delayed by Android battery management.'**
+  String get exactAlarmSchedulingSubtitle;
+
+  /// No description provided for @manageAlarmPermission.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Alarm Permission'**
+  String get manageAlarmPermission;
+
+  /// No description provided for @samsungBatteryExemptionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Samsung Battery Exemption'**
+  String get samsungBatteryExemptionTitle;
+
+  /// No description provided for @samsungBatteryExemptionSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'One UI automatically sleeps apps not used for a few days. Exempting Orbit guarantees streak prompts survive.'**
+  String get samsungBatteryExemptionSubtitle;
+
+  /// No description provided for @howToSetUnrestricted.
+  ///
+  /// In en, this message translates to:
+  /// **'How to set \"Unrestricted\"'**
+  String get howToSetUnrestricted;
+
+  /// No description provided for @rollingWindowStatusTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rolling 7-Day Window'**
+  String get rollingWindowStatusTitle;
+
+  /// No description provided for @rollingWindowStatusSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} scheduled reminders active in OS queue.'**
+  String rollingWindowStatusSubtitle(int count);
+
+  /// No description provided for @refillBtn.
+  ///
+  /// In en, this message translates to:
+  /// **'Refill'**
+  String get refillBtn;
+
+  /// No description provided for @sendTestNotificationBtn.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Test Notification'**
+  String get sendTestNotificationBtn;
+
+  /// No description provided for @dispatching.
+  ///
+  /// In en, this message translates to:
+  /// **'Dispatching...'**
+  String get dispatching;
+
+  /// No description provided for @granted.
+  ///
+  /// In en, this message translates to:
+  /// **'Granted'**
+  String get granted;
+
+  /// No description provided for @restricted.
+  ///
+  /// In en, this message translates to:
+  /// **'Restricted'**
+  String get restricted;
+
+  /// No description provided for @samsungGuideTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Samsung One UI Battery Guide'**
+  String get samsungGuideTitle;
+
+  /// No description provided for @samsungGuideIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Samsung phones aggressively close background apps to preserve battery. To prevent missing habit streaks:'**
+  String get samsungGuideIntro;
+
+  /// No description provided for @habitsDoneCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Habits Done'**
+  String get habitsDoneCount;
+
+  /// No description provided for @tasksFinishedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks Finished'**
+  String get tasksFinishedCount;
+
+  /// No description provided for @bestStreakCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Best Streak'**
+  String get bestStreakCount;
+
+  /// No description provided for @peakMomentum.
+  ///
+  /// In en, this message translates to:
+  /// **'Peak Momentum'**
+  String get peakMomentum;
+
+  /// No description provided for @observedPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Observed Pattern'**
+  String get observedPattern;
+
+  /// No description provided for @correlationDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'We never jump to conclusions on limited data. Keep tracking to reveal true correlations.'**
+  String get correlationDisclaimer;
+
+  /// No description provided for @overallHeatmap.
+  ///
+  /// In en, this message translates to:
+  /// **'Overall Activity Heatmap'**
+  String get overallHeatmap;
+
+  /// No description provided for @last8Weeks.
+  ///
+  /// In en, this message translates to:
+  /// **'Last 8 Weeks'**
+  String get last8Weeks;
+
+  /// No description provided for @heatmapLess.
+  ///
+  /// In en, this message translates to:
+  /// **'Less'**
+  String get heatmapLess;
+
+  /// No description provided for @heatmapMore.
+  ///
+  /// In en, this message translates to:
+  /// **'More'**
+  String get heatmapMore;
+
+  /// No description provided for @shareWeeklyRhythm.
+  ///
+  /// In en, this message translates to:
+  /// **'My weekly rhythm on Poswal Orbit 🚀'**
+  String get shareWeeklyRhythm;
+
+  /// No description provided for @shareFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to share: {error}'**
+  String shareFailed(String error);
+
+  /// No description provided for @restoreHabitTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Habit'**
+  String get restoreHabitTooltip;
+
+  /// No description provided for @deletePermanentlyTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Permanently'**
+  String get deletePermanentlyTooltip;
+
+  /// No description provided for @habitNotePlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Felt great today, did 20 extra minutes'**
+  String get habitNotePlaceholder;
+
+  /// No description provided for @searchNotesPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter notes by title or content...'**
+  String get searchNotesPlaceholder;
+
+  /// No description provided for @addTagPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. project, ideas'**
+  String get addTagPlaceholder;
+
+  /// No description provided for @addTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get addTag;
+
+  /// No description provided for @colorLabelTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Color Label'**
+  String get colorLabelTooltip;
+
+  /// No description provided for @linkHabitTaskTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Link to Habit/Task'**
+  String get linkHabitTaskTooltip;
+
+  /// No description provided for @addTagTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Tag'**
+  String get addTagTooltip;
+
+  /// No description provided for @headingTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Heading'**
+  String get headingTooltip;
+
+  /// No description provided for @boldTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Bold'**
+  String get boldTooltip;
+
+  /// No description provided for @italicTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Italic'**
+  String get italicTooltip;
+
+  /// No description provided for @bulletListTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Bullet List'**
+  String get bulletListTooltip;
+
+  /// No description provided for @checklistTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Checklist'**
+  String get checklistTooltip;
+
+  /// No description provided for @insertLinkTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Insert Link'**
+  String get insertLinkTooltip;
+
+  /// No description provided for @globalSearchPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Search habits, tasks, notes...'**
+  String get globalSearchPlaceholder;
+
+  /// No description provided for @searchTasksPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Search tasks...'**
+  String get searchTasksPlaceholder;
+
+  /// No description provided for @noHabitLinked.
+  ///
+  /// In en, this message translates to:
+  /// **'No Habit Linked'**
+  String get noHabitLinked;
+
+  /// No description provided for @taskDeletedNamed.
+  ///
+  /// In en, this message translates to:
+  /// **'Task \"{title}\" deleted'**
+  String taskDeletedNamed(String title);
+
+  /// No description provided for @searchTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get searchTooltip;
+
+  /// No description provided for @settingsTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settingsTooltip;
+
+  /// No description provided for @designPlaygroundTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Design Playground'**
+  String get designPlaygroundTooltip;
+
+  /// No description provided for @mondayShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Mon'**
+  String get mondayShort;
+
+  /// No description provided for @sundayShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Sun'**
+  String get sundayShort;
+
+  /// No description provided for @saving.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving...'**
+  String get saving;
+
+  /// No description provided for @availableBackups.
+  ///
+  /// In en, this message translates to:
+  /// **'Available Backups (Last 7)'**
+  String get availableBackups;
+
+  /// No description provided for @noBackupsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No backup snapshots yet. Tap \"Back Up Now\" to save your first snapshot.'**
+  String get noBackupsYet;
+
+  /// No description provided for @restore.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore'**
+  String get restore;
+
+  /// No description provided for @resetOrClearData.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset or Clear Data'**
+  String get resetOrClearData;
+
+  /// No description provided for @backupFullJson.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Database Snapshot (JSON)'**
+  String get backupFullJson;
+
+  /// No description provided for @backupFullJsonSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete portable backup with habits, tasks & notes'**
+  String get backupFullJsonSubtitle;
+
+  /// No description provided for @exportHabitsCsv.
+  ///
+  /// In en, this message translates to:
+  /// **'Habits & Check-ins (CSV)'**
+  String get exportHabitsCsv;
+
+  /// No description provided for @exportTasksCsv.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks & Subtasks (CSV)'**
+  String get exportTasksCsv;
+
+  /// No description provided for @exportNotesCsv.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes & Journal (CSV)'**
+  String get exportNotesCsv;
+
+  /// No description provided for @importPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Import Preview'**
+  String get importPreview;
+
+  /// No description provided for @importFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'Format: {format}'**
+  String importFormat(String format);
+
+  /// No description provided for @importSafetyNote.
+  ///
+  /// In en, this message translates to:
+  /// **'A safety backup will be created automatically before importing to protect your current database.'**
+  String get importSafetyNote;
+
+  /// No description provided for @importPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste JSON backup or Loop CSV data...'**
+  String get importPlaceholder;
+
+  /// No description provided for @applyImport.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply Import'**
+  String get applyImport;
+
+  /// No description provided for @allDataClearedToast.
+  ///
+  /// In en, this message translates to:
+  /// **'All data cleared. Pre-wipe safety snapshot was preserved in backups.'**
+  String get allDataClearedToast;
+
+  /// No description provided for @fullJsonCopiedToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Full JSON backup copied to clipboard ({bytes} bytes)'**
+  String fullJsonCopiedToast(int bytes);
+
+  /// No description provided for @habitsCsvCopiedToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Habits CSV copied to clipboard'**
+  String get habitsCsvCopiedToast;
+
+  /// No description provided for @tasksCsvCopiedToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks CSV copied to clipboard'**
+  String get tasksCsvCopiedToast;
+
+  /// No description provided for @notesCsvCopiedToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes CSV copied to clipboard'**
+  String get notesCsvCopiedToast;
+
+  /// No description provided for @importSuccessToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Successfully imported {habits} habits, {tasks} tasks, {notes} notes'**
+  String importSuccessToast(int habits, int tasks, int notes);
+
+  /// No description provided for @remindersHealthCheckTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders Health Check'**
+  String get remindersHealthCheckTitle;
+
+  /// No description provided for @onboardingWelcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Poswal Orbit'**
+  String get onboardingWelcomeTitle;
+
+  /// No description provided for @onboardingWelcomeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Your private, offline space for intentional habits, tasks, and reflections.'**
+  String get onboardingWelcomeDesc;
+
+  /// No description provided for @onboardingHabitsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Build Lasting Momentum'**
+  String get onboardingHabitsTitle;
+
+  /// No description provided for @onboardingHabitsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Track daily rhythm with beautiful orbit rings, streaks, and zero guilt.'**
+  String get onboardingHabitsDesc;
+
+  /// No description provided for @onboardingTasksTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Calm, Focused Action'**
+  String get onboardingTasksTitle;
+
+  /// No description provided for @onboardingTasksDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart lists, natural language due dates, and simple checklists keep you clear.'**
+  String get onboardingTasksDesc;
+
+  /// No description provided for @onboardingNotesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Private Thoughts & Journal'**
+  String get onboardingNotesTitle;
+
+  /// No description provided for @onboardingNotesDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Markdown notes and daily journals stored safely on your device only.'**
+  String get onboardingNotesDesc;
+
+  /// No description provided for @getStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get getStarted;
+
+  /// No description provided for @skip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get skip;
+
+  /// No description provided for @next.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get next;
 }
 
 class _AppLocalizationsDelegate

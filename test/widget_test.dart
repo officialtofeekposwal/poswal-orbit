@@ -17,17 +17,25 @@ import 'package:poswal_orbit/features/habits/presentation/widgets/habit_checkin_
 import 'package:poswal_orbit/features/habits/presentation/widgets/habit_heatmap.dart';
 import 'package:poswal_orbit/features/habits/presentation/widgets/habit_month_calendar.dart';
 import 'package:poswal_orbit/features/habits/presentation/widgets/habit_stats_charts.dart';
+import 'package:poswal_orbit/features/onboarding/application/onboarding_providers.dart';
 import 'package:poswal_orbit/features/today/application/today_providers.dart';
 import 'package:poswal_orbit/features/today/presentation/today_screen.dart';
 import 'package:poswal_orbit/features/today/presentation/widgets/hero_orbit_card.dart';
 import 'package:poswal_orbit/main.dart';
 
+class _MockOnboardingNotifier extends OnboardingNotifier {
+  @override
+  bool build() => true;
+}
+
 void main() {
   late AppDatabase inMemoryDb;
 
   Future<void> seedDatabase(AppDatabase db) async {
-    final now = DateTime.now();
-    final todayStr = DateBoundary.toDateString(now);
+    const boundary = DateBoundary(dayStartHour: 4);
+    final logicalToday = boundary.getAppDate(DateTime.now());
+    final now = logicalToday.add(const Duration(hours: 12));
+    final todayStr = DateBoundary.toDateString(logicalToday);
 
     // Habit 1: Morning Meditation (Done today)
     await db.into(db.habitsTable).insert(
@@ -92,6 +100,7 @@ void main() {
   }
 
   setUp(() async {
+    driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
     inMemoryDb = AppDatabase(NativeDatabase.memory());
     await seedDatabase(inMemoryDb);
   });
@@ -105,6 +114,7 @@ void main() {
       ProviderScope(
         overrides: [
           databaseProvider.overrideWithValue(inMemoryDb),
+          onboardingCompletedProvider.overrideWith(_MockOnboardingNotifier.new),
         ],
         child: RepaintBoundary(
           key: repaintKey,

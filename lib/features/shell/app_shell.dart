@@ -11,6 +11,8 @@ import 'package:poswal_orbit/features/habits/presentation/habits_screen.dart';
 import 'package:poswal_orbit/features/insights/presentation/insights_screen.dart';
 import 'package:poswal_orbit/features/notes/presentation/note_editor_screen.dart';
 import 'package:poswal_orbit/features/notes/presentation/notes_screen.dart';
+import 'package:poswal_orbit/features/onboarding/application/onboarding_providers.dart';
+import 'package:poswal_orbit/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:poswal_orbit/features/security/application/biometric_lock_providers.dart';
 import 'package:poswal_orbit/features/security/presentation/biometric_lock_screen.dart';
 import 'package:poswal_orbit/features/tasks/presentation/tasks_screen.dart';
@@ -75,6 +77,11 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
 
   @override
   Widget build(BuildContext context) {
+    final onboardingDone = ref.watch(onboardingCompletedProvider);
+    if (!onboardingDone) {
+      return const OnboardingScreen();
+    }
+
     final lockState = ref.watch(biometricLockProvider);
 
     return Scaffold(

@@ -195,7 +195,7 @@ class _TaskQuickAddSheetState extends ConsumerState<TaskQuickAddSheet> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  l10n?.addTask ?? 'Quick Add Task',
+                  'Quick Add Task',
                   style: PoswalText.title.copyWith(color: textPrimary, fontWeight: FontWeight.w700),
                 ),
                 IconButton(

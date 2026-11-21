@@ -214,21 +214,25 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.lg),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
                     icon: const Icon(PhosphorIconsRegular.x),
                     onPressed: () => Navigator.pop(context),
                   ),
-                  Text(
-                    'Task Details',
-                    style: PoswalText.title.copyWith(color: textPrimary, fontWeight: FontWeight.w700),
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        'Task Details',
+                        style: PoswalText.title.copyWith(color: textPrimary, fontWeight: FontWeight.w700),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
                   ),
                   AppGlassButton(
                     isPrimary: true,
                     padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md, vertical: 8),
                     onPressed: _saveChanges,
-                    child: Text(l10n?.saveChanges ?? 'Save'),
+                    child: Text(l10n?.saveChanges ?? 'Save Changes'),
                   ),
                 ],
               ),
@@ -456,7 +460,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                           contentPadding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md, vertical: 10),
                         ),
                         items: [
-                          const DropdownMenuItem(value: null, child: Text('No Habit Linked')),
+                          DropdownMenuItem(value: null, child: Text(l10n?.noHabitLinked ?? 'No Habit Linked')),
                           for (final h in habits)
                             DropdownMenuItem(value: h.id, child: Text(h.name)),
                         ],

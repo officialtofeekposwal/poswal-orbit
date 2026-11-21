@@ -132,7 +132,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
                     controller: _searchController,
                     style: PoswalText.callout.copyWith(color: textPrimary),
                     decoration: InputDecoration(
-                      hintText: 'Search tasks...',
+                      hintText: l10n?.searchTasksPlaceholder ?? 'Search tasks...',
                       hintStyle: PoswalText.callout.copyWith(color: textMuted),
                       border: InputBorder.none,
                       icon: const Icon(PhosphorIconsRegular.magnifyingGlass, size: 18),

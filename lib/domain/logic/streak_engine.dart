@@ -46,6 +46,10 @@ class StreakEngine {
     required DateTime referenceDate,
     required int availableFreezes,
   }) {
+    if (entries.isEmpty) {
+      return const StreakCalculation(currentStreak: 0, bestStreak: 0);
+    }
+
     // Map entries by YYYY-MM-DD
     final Map<String, HabitEntry> entryMap = {
       for (final e in entries) e.entryDate: e,
@@ -173,6 +177,10 @@ class StreakEngine {
     List<HabitEntry> entries,
     DateTime referenceDate,
   ) {
+    if (entries.isEmpty) {
+      return const StreakCalculation(currentStreak: 0, bestStreak: 0);
+    }
+
     final Map<String, int> weeklyCompletions = {};
     for (final entry in entries) {
       if (_isEntryCompleted(habit, entry)) {

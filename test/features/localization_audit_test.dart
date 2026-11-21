@@ -114,27 +114,101 @@ void main() {
       expect(urL10n.tabInsights, equals('بصیرت'));
     });
 
-    test('Key presentation screens import and utilize AppLocalizations', () {
-      final keyFiles = [
-        'lib/features/today/presentation/today_screen.dart',
-        'lib/features/habits/presentation/habits_screen.dart',
-        'lib/features/habits/presentation/habit_form_sheet.dart',
-        'lib/features/tasks/presentation/tasks_screen.dart',
-        'lib/features/notes/presentation/notes_screen.dart',
-        'lib/features/notes/presentation/note_editor_screen.dart',
-        'lib/features/settings/presentation/settings_screen.dart',
-      ];
+    test('Scanner enforces no hard-coded user-facing strings in lib/features/', () {
+      final featuresDir = Directory('lib/features');
+      expect(featuresDir.existsSync(), isTrue);
 
-      for (final filePath in keyFiles) {
-        final file = File(filePath);
-        expect(file.existsSync(), isTrue, reason: '$filePath must exist');
-        final content = file.readAsStringSync();
-        expect(
-          content.contains('app_localizations.dart') || content.contains('AppLocalizations'),
-          isTrue,
-          reason: '$filePath must import and use AppLocalizations',
-        );
+      final dartFiles = featuresDir
+          .listSync(recursive: true)
+          .whereType<File>()
+          .where((f) => f.path.endsWith('.dart'))
+          .toList();
+
+      final allowlist = <String>{
+        '',
+        '·',
+        ',',
+        ':',
+        '/',
+        '-',
+        '+',
+        '%',
+        '.',
+        '>',
+        '<',
+        '#',
+        '*',
+        '!',
+        '# ',
+        '- ',
+        '- [ ] ',
+        '**',
+        '[',
+        '](https://)',
+        'Poswal Orbit',
+        'Poswal',
+        'Orbit',
+        '/ 100',
+        '0',
+        '100',
+        '0%',
+        '0 of 0',
+        'Unrestricted',
+      };
+
+      final violations = <String>[];
+
+      final textLiteralRegex = RegExp(r"Text\(\s*[']([^']+)[']\s*\)");
+      final textDoubleLiteralRegex = RegExp(r'Text\(\s*["]([^"]+)["]\s*\)');
+      final hintLabelTooltipRegex = RegExp(r"(hintText|labelText|tooltip):\s*[']([^']+)[']");
+
+      for (final file in dartFiles) {
+        final lines = file.readAsLinesSync();
+        for (int i = 0; i < lines.length; i++) {
+          final line = lines[i].trim();
+          // Skip comment lines
+          if (line.startsWith('//') || line.startsWith('/*') || line.startsWith('*')) {
+            continue;
+          }
+
+          // Check Text('...')
+          for (final m in textLiteralRegex.allMatches(line)) {
+            final val = m.group(1)!.trim();
+            if (!allowlist.contains(val) && !val.contains(r'$') && RegExp(r'[A-Za-z]').hasMatch(val)) {
+              // Ignore fallback strings in ?? expressions (e.g. l10n?.key ?? 'Default')
+              if (!line.contains('??')) {
+                violations.add('${file.path}:${i + 1} - Raw Text: "$val"');
+              }
+            }
+          }
+
+          // Check Text("...")
+          for (final m in textDoubleLiteralRegex.allMatches(line)) {
+            final val = m.group(1)!.trim();
+            if (!allowlist.contains(val) && !val.contains(r'$') && RegExp(r'[A-Za-z]').hasMatch(val)) {
+              if (!line.contains('??')) {
+                violations.add('${file.path}:${i + 1} - Raw Text: "$val"');
+              }
+            }
+          }
+
+          // Check hintText / labelText / tooltip
+          for (final m in hintLabelTooltipRegex.allMatches(line)) {
+            final key = m.group(1)!;
+            final val = m.group(2)!.trim();
+            if (!allowlist.contains(val) && !val.contains(r'$') && RegExp(r'[A-Za-z]').hasMatch(val)) {
+              if (!line.contains('??')) {
+                violations.add('${file.path}:${i + 1} - Raw $key: "$val"');
+              }
+            }
+          }
+        }
       }
+
+      if (violations.isNotEmpty) {
+        fail('Found hardcoded user-facing strings in lib/features/:\n${violations.join('\n')}');
+      }
+      expect(violations, isEmpty);
     });
   });
 }

@@ -445,4 +445,370 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get widgetTasksGlance => 'Pending Tasks at a Glance';
+
+  @override
+  String get dayStartBoundarySubtitle =>
+      'Habit check-ins before this hour count towards previous day';
+
+  @override
+  String get reduceTransparencySubtitle =>
+      'Solid background cards for reduced GPU load or high contrast';
+
+  @override
+  String get hapticFeedbackSubtitle =>
+      'Tactile vibration on habit rings, checkboxes and gestures';
+
+  @override
+  String get remindersHealthCheckSubtitle =>
+      'Verify system permissions and Samsung One UI background rules to ensure 100% reliable streak reminders.';
+
+  @override
+  String get sendTestAlert => 'Send Test Alert';
+
+  @override
+  String get syncSchedule => 'Sync Schedule';
+
+  @override
+  String get displayLanguage => 'Display Language';
+
+  @override
+  String get displayLanguageSubtitle =>
+      'Supports English, Hindi (हिन्दी), and Urdu (اردو) with native fonts and RTL direction';
+
+  @override
+  String get autoDailyBackupsActive => 'Automatic Daily Backups Active';
+
+  @override
+  String get autoDailyBackupsSubtitle =>
+      'Rolling retention keeps the last 7 daily snapshots safely.';
+
+  @override
+  String get deleteAllDataSubtitle =>
+      'Permanently erase habits, entries, tasks, and notes';
+
+  @override
+  String get deleteAllDataDialogTitle => 'Delete All Data?';
+
+  @override
+  String get deleteAllDataDialogContent =>
+      'This will wipe all habits, entries, tasks, and notes.\n\nA safety backup snapshot will be created automatically before wiping so you can recover if needed.';
+
+  @override
+  String get finalConfirmationTitle => 'Final Confirmation';
+
+  @override
+  String get finalConfirmationContent =>
+      'Are you completely sure? This action will reset your active workspace.';
+
+  @override
+  String get keepMyData => 'Keep My Data';
+
+  @override
+  String get wipeEverything => 'Wipe Everything';
+
+  @override
+  String get importDialogTitle => 'Import Data / Loop CSV';
+
+  @override
+  String get importDialogContent =>
+      'Paste JSON backup content or Loop Habit Tracker CSV data below:';
+
+  @override
+  String get inspectAndImport => 'Inspect & Import';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get proceed => 'Proceed';
+
+  @override
+  String get understood => 'Understood';
+
+  @override
+  String get notificationPermissionTitle => 'Notification Permission';
+
+  @override
+  String get notificationPermissionSubtitle =>
+      'Allows Poswal Orbit to display alerts in your status bar and lock screen.';
+
+  @override
+  String get openNotificationSettings => 'Open Notification Settings';
+
+  @override
+  String get exactAlarmSchedulingTitle => 'Exact Alarm Scheduling';
+
+  @override
+  String get exactAlarmSchedulingSubtitle =>
+      'Allows reminders to fire at the exact minute rather than being batched or delayed by Android battery management.';
+
+  @override
+  String get manageAlarmPermission => 'Manage Alarm Permission';
+
+  @override
+  String get samsungBatteryExemptionTitle => 'Samsung Battery Exemption';
+
+  @override
+  String get samsungBatteryExemptionSubtitle =>
+      'One UI automatically sleeps apps not used for a few days. Exempting Orbit guarantees streak prompts survive.';
+
+  @override
+  String get howToSetUnrestricted => 'How to set \"Unrestricted\"';
+
+  @override
+  String get rollingWindowStatusTitle => 'Rolling 7-Day Window';
+
+  @override
+  String rollingWindowStatusSubtitle(int count) {
+    return '$count scheduled reminders active in OS queue.';
+  }
+
+  @override
+  String get refillBtn => 'Refill';
+
+  @override
+  String get sendTestNotificationBtn => 'Send Test Notification';
+
+  @override
+  String get dispatching => 'Dispatching...';
+
+  @override
+  String get granted => 'Granted';
+
+  @override
+  String get restricted => 'Restricted';
+
+  @override
+  String get samsungGuideTitle => 'Samsung One UI Battery Guide';
+
+  @override
+  String get samsungGuideIntro =>
+      'Samsung phones aggressively close background apps to preserve battery. To prevent missing habit streaks:';
+
+  @override
+  String get habitsDoneCount => 'Habits Done';
+
+  @override
+  String get tasksFinishedCount => 'Tasks Finished';
+
+  @override
+  String get bestStreakCount => 'Best Streak';
+
+  @override
+  String get peakMomentum => 'Peak Momentum';
+
+  @override
+  String get observedPattern => 'Observed Pattern';
+
+  @override
+  String get correlationDisclaimer =>
+      'We never jump to conclusions on limited data. Keep tracking to reveal true correlations.';
+
+  @override
+  String get overallHeatmap => 'Overall Activity Heatmap';
+
+  @override
+  String get last8Weeks => 'Last 8 Weeks';
+
+  @override
+  String get heatmapLess => 'Less';
+
+  @override
+  String get heatmapMore => 'More';
+
+  @override
+  String get shareWeeklyRhythm => 'My weekly rhythm on Poswal Orbit 🚀';
+
+  @override
+  String shareFailed(String error) {
+    return 'Failed to share: $error';
+  }
+
+  @override
+  String get restoreHabitTooltip => 'Restore Habit';
+
+  @override
+  String get deletePermanentlyTooltip => 'Delete Permanently';
+
+  @override
+  String get habitNotePlaceholder =>
+      'e.g. Felt great today, did 20 extra minutes';
+
+  @override
+  String get searchNotesPlaceholder => 'Filter notes by title or content...';
+
+  @override
+  String get addTagPlaceholder => 'e.g. project, ideas';
+
+  @override
+  String get addTag => 'Add';
+
+  @override
+  String get colorLabelTooltip => 'Color Label';
+
+  @override
+  String get linkHabitTaskTooltip => 'Link to Habit/Task';
+
+  @override
+  String get addTagTooltip => 'Add Tag';
+
+  @override
+  String get headingTooltip => 'Heading';
+
+  @override
+  String get boldTooltip => 'Bold';
+
+  @override
+  String get italicTooltip => 'Italic';
+
+  @override
+  String get bulletListTooltip => 'Bullet List';
+
+  @override
+  String get checklistTooltip => 'Checklist';
+
+  @override
+  String get insertLinkTooltip => 'Insert Link';
+
+  @override
+  String get globalSearchPlaceholder => 'Search habits, tasks, notes...';
+
+  @override
+  String get searchTasksPlaceholder => 'Search tasks...';
+
+  @override
+  String get noHabitLinked => 'No Habit Linked';
+
+  @override
+  String taskDeletedNamed(String title) {
+    return 'Task \"$title\" deleted';
+  }
+
+  @override
+  String get searchTooltip => 'Search';
+
+  @override
+  String get settingsTooltip => 'Settings';
+
+  @override
+  String get designPlaygroundTooltip => 'Design Playground';
+
+  @override
+  String get mondayShort => 'Mon';
+
+  @override
+  String get sundayShort => 'Sun';
+
+  @override
+  String get saving => 'Saving...';
+
+  @override
+  String get availableBackups => 'Available Backups (Last 7)';
+
+  @override
+  String get noBackupsYet =>
+      'No backup snapshots yet. Tap \"Back Up Now\" to save your first snapshot.';
+
+  @override
+  String get restore => 'Restore';
+
+  @override
+  String get resetOrClearData => 'Reset or Clear Data';
+
+  @override
+  String get backupFullJson => 'Full Database Snapshot (JSON)';
+
+  @override
+  String get backupFullJsonSubtitle =>
+      'Complete portable backup with habits, tasks & notes';
+
+  @override
+  String get exportHabitsCsv => 'Habits & Check-ins (CSV)';
+
+  @override
+  String get exportTasksCsv => 'Tasks & Subtasks (CSV)';
+
+  @override
+  String get exportNotesCsv => 'Notes & Journal (CSV)';
+
+  @override
+  String get importPreview => 'Import Preview';
+
+  @override
+  String importFormat(String format) {
+    return 'Format: $format';
+  }
+
+  @override
+  String get importSafetyNote =>
+      'A safety backup will be created automatically before importing to protect your current database.';
+
+  @override
+  String get importPlaceholder => 'Paste JSON backup or Loop CSV data...';
+
+  @override
+  String get applyImport => 'Apply Import';
+
+  @override
+  String get allDataClearedToast =>
+      'All data cleared. Pre-wipe safety snapshot was preserved in backups.';
+
+  @override
+  String fullJsonCopiedToast(int bytes) {
+    return 'Full JSON backup copied to clipboard ($bytes bytes)';
+  }
+
+  @override
+  String get habitsCsvCopiedToast => 'Habits CSV copied to clipboard';
+
+  @override
+  String get tasksCsvCopiedToast => 'Tasks CSV copied to clipboard';
+
+  @override
+  String get notesCsvCopiedToast => 'Notes CSV copied to clipboard';
+
+  @override
+  String importSuccessToast(int habits, int tasks, int notes) {
+    return 'Successfully imported $habits habits, $tasks tasks, $notes notes';
+  }
+
+  @override
+  String get remindersHealthCheckTitle => 'Reminders Health Check';
+
+  @override
+  String get onboardingWelcomeTitle => 'Welcome to Poswal Orbit';
+
+  @override
+  String get onboardingWelcomeDesc =>
+      'Your private, offline space for intentional habits, tasks, and reflections.';
+
+  @override
+  String get onboardingHabitsTitle => 'Build Lasting Momentum';
+
+  @override
+  String get onboardingHabitsDesc =>
+      'Track daily rhythm with beautiful orbit rings, streaks, and zero guilt.';
+
+  @override
+  String get onboardingTasksTitle => 'Calm, Focused Action';
+
+  @override
+  String get onboardingTasksDesc =>
+      'Smart lists, natural language due dates, and simple checklists keep you clear.';
+
+  @override
+  String get onboardingNotesTitle => 'Private Thoughts & Journal';
+
+  @override
+  String get onboardingNotesDesc =>
+      'Markdown notes and daily journals stored safely on your device only.';
+
+  @override
+  String get getStarted => 'Get Started';
+
+  @override
+  String get skip => 'Skip';
+
+  @override
+  String get next => 'Next';
 }

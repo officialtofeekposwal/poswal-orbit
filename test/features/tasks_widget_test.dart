@@ -10,16 +10,23 @@ import 'package:poswal_orbit/core/theme/poswal_theme.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/data/database/database.dart';
 import 'package:poswal_orbit/data/repositories/task_repository.dart';
+import 'package:poswal_orbit/domain/logic/date_boundary.dart';
 import 'package:poswal_orbit/domain/models/task_models.dart';
 import 'package:poswal_orbit/features/tasks/presentation/tasks_screen.dart';
 import 'package:poswal_orbit/features/tasks/presentation/widgets/task_detail_sheet.dart';
 import 'package:poswal_orbit/features/tasks/presentation/widgets/task_quick_add_sheet.dart';
 import 'package:poswal_orbit/features/today/application/today_providers.dart';
 import 'package:poswal_orbit/features/today/presentation/today_screen.dart';
+import 'package:poswal_orbit/l10n/app_localizations.dart';
 
 void main() {
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
   late AppDatabase inMemoryDb;
+
+  DateTime getTodayNow() {
+    final appDate = const DateBoundary(dayStartHour: 4).getAppDate(DateTime.now());
+    return appDate.add(const Duration(hours: 12));
+  }
 
   setUp(() {
     inMemoryDb = AppDatabase(NativeDatabase.memory());
@@ -32,6 +39,8 @@ void main() {
           databaseProvider.overrideWithValue(db ?? inMemoryDb),
         ],
         child: MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           theme: PoswalTheme.getTheme(AppThemeMode.dark),
           home: Scaffold(
             body: child,
@@ -73,7 +82,7 @@ void main() {
       tester.view.physicalSize = const Size(1080, 2400);
       tester.view.devicePixelRatio = 2.0;
 
-      final now = DateTime.now();
+      final now = getTodayNow();
       final repo = TaskRepository(inMemoryDb);
       final task = Task(
         id: 'task-test-1',
@@ -111,7 +120,7 @@ void main() {
       tester.view.physicalSize = const Size(1080, 2400);
       tester.view.devicePixelRatio = 2.0;
 
-      final now = DateTime.now();
+      final now = getTodayNow();
       final repo = TaskRepository(inMemoryDb);
       final task = Task(
         id: 'task-test-delete',
@@ -198,7 +207,7 @@ void main() {
       tester.view.physicalSize = const Size(1080, 2400);
       tester.view.devicePixelRatio = 2.0;
 
-      final now = DateTime.now();
+      final now = getTodayNow();
       final repo = TaskRepository(inMemoryDb);
       final parentTask = Task(
         id: 'parent-1',
@@ -254,7 +263,7 @@ void main() {
       tester.view.physicalSize = const Size(1080, 2400);
       tester.view.devicePixelRatio = 2.0;
 
-      final now = DateTime.now();
+      final now = getTodayNow();
       final repo = TaskRepository(inMemoryDb);
       await repo.createProject(
         Project(id: 'proj-work', name: 'Work', colorValue: 0xFF14B8A6, createdAt: now, updatedAt: now),
@@ -309,7 +318,7 @@ void main() {
       tester.view.physicalSize = const Size(1080, 2400);
       tester.view.devicePixelRatio = 2.0;
 
-      final now = DateTime.now();
+      final now = getTodayNow();
       final repo = TaskRepository(inMemoryDb);
       await inMemoryDb.into(inMemoryDb.habitsTable).insert(
         HabitsTableCompanion.insert(
@@ -358,7 +367,7 @@ void main() {
       tester.view.physicalSize = const Size(1080, 2400);
       tester.view.devicePixelRatio = 2.0;
 
-      final now = DateTime.now();
+      final now = getTodayNow();
       final repo = TaskRepository(inMemoryDb);
       await repo.createProject(
         Project(id: 'proj-design', name: 'Design System', colorValue: 0xFF14B8A6, createdAt: now, updatedAt: now),
