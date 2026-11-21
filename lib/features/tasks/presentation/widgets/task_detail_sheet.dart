@@ -7,6 +7,7 @@ import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/domain/models/task_models.dart';
+import 'package:poswal_orbit/data/services/notification_service.dart';
 import 'package:poswal_orbit/features/tasks/application/task_providers.dart';
 import 'package:poswal_orbit/features/today/application/today_providers.dart';
 
@@ -145,6 +146,13 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
 
     await repo.updateTask(updated);
 
+    try {
+      if (finalDue != null) {
+        await ref.read(notificationServiceProvider).requestPermissionContextual();
+      }
+      await ref.read(notificationServiceProvider).refillRollingWindow();
+    } catch (_) {}
+
     if (mounted) {
       Navigator.of(context).pop();
     }
@@ -154,6 +162,10 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
     await HapticFeedback.mediumImpact();
     final repo = ref.read(taskRepositoryProvider);
     await repo.deleteTask(widget.task.id);
+
+    try {
+      await ref.read(notificationServiceProvider).refillRollingWindow();
+    } catch (_) {}
 
     if (mounted) {
       Navigator.of(context).pop();

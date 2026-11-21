@@ -256,4 +256,79 @@ class HabitDetailedStats {
     required this.entries,
     required this.weekdayCompletions,
   });
+
+  HabitDetailedStats copyWith({
+    Habit? habit,
+    int? currentStreak,
+    int? bestStreak,
+    double? habitScore,
+    double? completionRate,
+    int? totalScheduled,
+    int? totalCompleted,
+    int? totalSkipped,
+    List<HabitEntry>? entries,
+    Map<int, int>? weekdayCompletions,
+  }) {
+    return HabitDetailedStats(
+      habit: habit ?? this.habit,
+      currentStreak: currentStreak ?? this.currentStreak,
+      bestStreak: bestStreak ?? this.bestStreak,
+      habitScore: habitScore ?? this.habitScore,
+      completionRate: completionRate ?? this.completionRate,
+      totalScheduled: totalScheduled ?? this.totalScheduled,
+      totalCompleted: totalCompleted ?? this.totalCompleted,
+      totalSkipped: totalSkipped ?? this.totalSkipped,
+      entries: entries ?? this.entries,
+      weekdayCompletions: weekdayCompletions ?? this.weekdayCompletions,
+    );
+  }
 }
+
+class HabitReminder {
+  final String id;
+  final String parentId;
+  final String parentType; // 'habit' or 'task'
+  final String timeString; // HH:mm
+  final String daysOfWeek; // e.g. '1,2,3,4,5' or ''
+  final bool isEnabled;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final DateTime? deletedAt;
+
+  const HabitReminder({
+    required this.id,
+    required this.parentId,
+    this.parentType = 'habit',
+    required this.timeString,
+    this.daysOfWeek = '',
+    this.isEnabled = true,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+  });
+
+  HabitReminder copyWith({
+    String? id,
+    String? parentId,
+    String? parentType,
+    String? timeString,
+    String? daysOfWeek,
+    bool? isEnabled,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    DateTime? deletedAt,
+  }) {
+    return HabitReminder(
+      id: id ?? this.id,
+      parentId: parentId ?? this.parentId,
+      parentType: parentType ?? this.parentType,
+      timeString: timeString ?? this.timeString,
+      daysOfWeek: daysOfWeek ?? this.daysOfWeek,
+      isEnabled: isEnabled ?? this.isEnabled,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+    );
+  }
+}
+

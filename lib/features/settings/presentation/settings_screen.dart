@@ -7,9 +7,11 @@ import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/core/widgets/aurora_background.dart';
 import 'package:poswal_orbit/data/services/data_safety_service.dart';
+import 'package:poswal_orbit/data/services/notification_service.dart';
 import 'package:poswal_orbit/domain/models/data_safety_models.dart';
 import 'package:poswal_orbit/features/settings/application/settings_providers.dart';
 import 'package:poswal_orbit/features/settings/domain/settings_preferences.dart';
+import 'package:poswal_orbit/features/settings/presentation/reminders_health_check_screen.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -533,7 +535,77 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
             const SizedBox(height: PoswalSpacing.lg),
 
-            // --- SECTION 4: DATA SAFETY & BACKUPS ---
+            // --- SECTION 4: REMINDERS & NOTIFICATIONS ---
+            _buildSectionHeader('Reminders & Notifications', PhosphorIconsRegular.bell, textPrimary),
+            const SizedBox(height: PoswalSpacing.xs),
+            AppGlassCard(
+              child: Column(
+                children: [
+                  ListTile(
+                    key: const ValueKey('reminders_health_check_tile'),
+                    contentPadding: EdgeInsets.zero,
+                    leading: Container(
+                      padding: const EdgeInsets.all(PoswalSpacing.xs),
+                      decoration: BoxDecoration(
+                        color: PoswalColors.teal.withValues(alpha: 0.15),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(PhosphorIconsRegular.heartbeat, color: PoswalColors.teal, size: 20),
+                    ),
+                    title: Text('Reminders Health Check', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                    subtitle: Text('Verify notification permissions, exact alarms & One UI battery rules', style: PoswalText.caption.copyWith(color: textMuted)),
+                    trailing: const Icon(PhosphorIconsRegular.caretRight, size: 16, color: Colors.white54),
+                    onTap: () => RemindersHealthCheckScreen.push(context),
+                  ),
+                  const Divider(color: Colors.white12, height: 20),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedButton.icon(
+                          key: const ValueKey('settings_send_test_notif_btn'),
+                          style: OutlinedButton.styleFrom(
+                            side: BorderSide(color: Colors.white.withValues(alpha: 0.2)),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.chip)),
+                          ),
+                          onPressed: () async {
+                            final notifService = ref.read(notificationServiceProvider);
+                            await notifService.sendTestNotification();
+                            if (context.mounted) {
+                              _showToast('Test notification dispatched. Check your status bar!');
+                            }
+                          },
+                          icon: const Icon(PhosphorIconsRegular.paperPlaneTilt, size: 16, color: Colors.white),
+                          label: Text('Send Test Alert', style: PoswalText.caption.copyWith(color: Colors.white)),
+                        ),
+                      ),
+                      const SizedBox(width: PoswalSpacing.sm),
+                      Expanded(
+                        child: OutlinedButton.icon(
+                          key: const ValueKey('settings_refill_schedule_btn'),
+                          style: OutlinedButton.styleFrom(
+                            side: BorderSide(color: Colors.white.withValues(alpha: 0.2)),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.chip)),
+                          ),
+                          onPressed: () async {
+                            final notifService = ref.read(notificationServiceProvider);
+                            final count = await notifService.refillRollingWindow();
+                            if (context.mounted) {
+                              _showToast('Rolling window synced ($count reminders).');
+                            }
+                          },
+                          icon: const Icon(PhosphorIconsRegular.arrowsClockwise, size: 16, color: Colors.white),
+                          label: Text('Sync Schedule', style: PoswalText.caption.copyWith(color: Colors.white)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: PoswalSpacing.lg),
+
+            // --- SECTION 5: DATA SAFETY & BACKUPS ---
             _buildSectionHeader('Data Safety & Backups', PhosphorIconsRegular.shieldCheck, textPrimary),
             const SizedBox(height: PoswalSpacing.xs),
             AppGlassCard(

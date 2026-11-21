@@ -120,7 +120,7 @@
 - [x] **Phase 1.5: Habit Detail & Analytics** — Hero stats (current/best streak, EWMA score, completion rate), 14-week GitHub heatmap, interactive monthly calendar with past days editing, weekly performance bars, consistency trend line, long-press check-in sheet (numeric +/- stepper, skip, notes), and reorderable habits with streak freeze.
 - [x] **Phase 2: Tasks System** — Smart lists (Today, Upcoming, All, Done), priorities (Urgent, High, Medium, Low), subtasks checklist, recurrence rules, and live NLP quick-add.
 - [x] **Phase 3: Notes & Global Search** — Markdown-lite notes editor with floating glass toolbar, autosave engine, checklist toggling, pins, color tags, RTL support (Urdu/Hindi), and unified multi-entity global search.
-- [ ] **Phase 4: Notifications & Data Safety** — Battery-safe notifications, reminders health check, auto-backups, and CSV/JSON import-export.
+- [x] **Phase 4: Data Safety & Notifications** — 7-day automatic backup rotation, full JSON & CSV import/export, Loop Habit Tracker migration, Settings screen, battery-safe 7-day rolling notifications engine, exact alarms, boot/timezone reschedule receiver, and Reminders Health Check.
 - [ ] **Phase 5: Insights, Widgets & Localization** — Visual habit heatmaps, Home screen widgets, and multilingual support (English, Hindi, Urdu RTL).
 - [ ] **Phase 6: Polish & Release** — Multi-device profiling, accessibility audit, and production store builds.
 

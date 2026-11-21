@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
+import 'package:poswal_orbit/data/services/notification_service.dart';
 import 'package:poswal_orbit/core/widgets/icon_helper.dart';
 import 'package:poswal_orbit/domain/models/habit_models.dart';
 import 'package:poswal_orbit/features/today/application/today_providers.dart';
@@ -84,6 +85,11 @@ class _HabitFormSheetState extends ConsumerState<HabitFormSheet> {
     } else {
       await repo.updateHabit(habit);
     }
+
+    try {
+      await ref.read(notificationServiceProvider).requestPermissionContextual();
+      await ref.read(notificationServiceProvider).refillRollingWindow();
+    } catch (_) {}
 
     if (mounted) {
       Navigator.of(context).pop();

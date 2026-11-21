@@ -5,6 +5,7 @@ import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/data/services/data_safety_service.dart';
+import 'package:poswal_orbit/data/services/notification_service.dart';
 import 'package:poswal_orbit/features/habits/presentation/habit_form_sheet.dart';
 import 'package:poswal_orbit/features/habits/presentation/habits_screen.dart';
 import 'package:poswal_orbit/features/notes/presentation/note_editor_screen.dart';
@@ -20,15 +21,36 @@ class AppShell extends ConsumerStatefulWidget {
   ConsumerState<AppShell> createState() => _AppShellState();
 }
 
-class _AppShellState extends ConsumerState<AppShell> {
+class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver {
   int _currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(dataSafetyServiceProvider).runDailyBackupOnLaunch();
+      try {
+        ref.read(dataSafetyServiceProvider).runDailyBackupOnLaunch();
+      } catch (_) {}
+      try {
+        ref.read(notificationServiceProvider).refillRollingWindow();
+      } catch (_) {}
     });
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      try {
+        ref.read(notificationServiceProvider).refillRollingWindow();
+      } catch (_) {}
+    }
   }
 
   void _openCreateSheet() {

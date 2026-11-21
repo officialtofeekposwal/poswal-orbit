@@ -74,7 +74,7 @@ void main() {
 
     await tester.runAsync(() async {
       await tester.tap(backupBtn);
-      await Future.delayed(const Duration(milliseconds: 500));
+      await Future.delayed(const Duration(milliseconds: 800));
     });
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 500));

@@ -5,6 +5,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   analyze_and_test:
@@ -25,6 +26,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.50.1'
           channel: 'stable'
           cache: true
 
@@ -38,4 +40,41 @@ jobs:
         run: flutter analyze --fatal-infos --fatal-warnings
 
       - name: Run test suite
-        run: flutter test --coverage
+        run: flutter test --no-test-assets
+
+  build_debug_apk:
+    name: Build Debug APK
+    runs-on: ubuntu-latest
+    needs: analyze_and_test
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.50.1'
+          channel: 'stable'
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Android Debug APK
+        run: flutter build apk --debug
+
+      - name: Upload Debug APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: poswal-orbit-debug-apk
+          path: build/app/outputs/flutter-apk/app-debug.apk
+          if-no-files-found: error
+          retention-days: 14

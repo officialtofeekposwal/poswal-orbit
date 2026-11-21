@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:drift/drift.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,13 +34,19 @@ class DataSafetyService {
         await backupDir.create(recursive: true);
       }
       return backupDir;
-    } catch (_) {
-      // Fallback for test or headless environments where path_provider channel is not mocked
-      final tempDir = Directory('${Directory.systemTemp.path}${Platform.pathSeparator}poswal_backups');
-      if (!tempDir.existsSync()) {
-        tempDir.createSync(recursive: true);
+    } catch (e) {
+      // Allow fallback ONLY in automated test environments where platform channels are unmocked
+      final isTestEnv = Platform.environment.containsKey('FLUTTER_TEST') ||
+          WidgetsBinding.instance.runtimeType.toString().contains('TestWidgetsFlutterBinding');
+      if (isTestEnv) {
+        final tempDir = Directory('${Directory.systemTemp.path}${Platform.pathSeparator}poswal_backups');
+        if (!tempDir.existsSync()) {
+          tempDir.createSync(recursive: true);
+        }
+        return tempDir;
       }
-      return tempDir;
+      // On real devices, rethrow so the error is never swallowed or diverted to volatile storage
+      rethrow;
     }
   }
 
