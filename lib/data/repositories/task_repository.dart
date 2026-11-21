@@ -349,6 +349,8 @@ class TaskRepository {
     }
   }
 
+  Future<void> softDeleteTask(String taskId) => deleteTask(taskId, soft: true);
+
   Future<void> restoreTask(String taskId) async {
     final now = DateTime.now();
     await (_db.update(_db.tasksTable)..where((tbl) => tbl.id.equals(taskId))).write(

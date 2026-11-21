@@ -124,6 +124,7 @@ class Task {
   });
 
   bool get isSubtask => parentId != null && parentId!.isNotEmpty;
+  bool get isDeleted => deletedAt != null;
 
   Task copyWith({
     String? id,

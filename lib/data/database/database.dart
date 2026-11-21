@@ -161,23 +161,39 @@ class TaskTagsTable extends Table {
   Set<Column> get primaryKey => {taskId, tagId};
 }
 
-// Phase 3 Stub: Notes
+// Phase 3: Notes & NoteTags Tables
 @DataClassName('NoteRow')
 class NotesTable extends Table {
   @override
   String get tableName => 'notes';
 
   TextColumn get id => text()();
-  TextColumn get title => text()();
-  TextColumn get content => text().withDefault(const Constant(''))();
+  TextColumn get title => text().withDefault(const Constant(''))();
+  TextColumn get body => text().withDefault(const Constant(''))();
+  IntColumn get colorLabel => integer().withDefault(const Constant(0))();
   BoolColumn get isPinned => boolean().withDefault(const Constant(false))();
-  IntColumn get colorValue => integer().withDefault(const Constant(0))();
+  BoolColumn get isJournal => boolean().withDefault(const Constant(false))();
+  TextColumn get journalDate => text().nullable()(); // YYYY-MM-DD
+  TextColumn get linkedTaskId => text().nullable()();
+  TextColumn get linkedHabitId => text().nullable()();
   DateTimeColumn get createdAt => dateTime()();
   DateTimeColumn get updatedAt => dateTime()();
   DateTimeColumn get deletedAt => dateTime().nullable()();
 
   @override
   Set<Column> get primaryKey => {id};
+}
+
+@DataClassName('NoteTagRow')
+class NoteTagsTable extends Table {
+  @override
+  String get tableName => 'note_tags';
+
+  TextColumn get noteId => text()();
+  TextColumn get tagId => text()();
+
+  @override
+  Set<Column> get primaryKey => {noteId, tagId};
 }
 
 @DriftDatabase(tables: [
@@ -190,12 +206,13 @@ class NotesTable extends Table {
   TagsTable,
   TaskTagsTable,
   NotesTable,
+  NoteTagsTable,
 ])
 class AppDatabase extends _$AppDatabase {
   AppDatabase(super.e);
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -210,6 +227,11 @@ class AppDatabase extends _$AppDatabase {
       await customStatement('CREATE INDEX IF NOT EXISTS idx_tasks_project_id ON tasks (project_id);');
       await customStatement('CREATE INDEX IF NOT EXISTS idx_tasks_parent_id ON tasks (parent_id);');
       await customStatement('CREATE INDEX IF NOT EXISTS idx_tasks_completed ON tasks (is_completed);');
+      // Note indexes
+      await customStatement('CREATE INDEX IF NOT EXISTS idx_notes_pinned ON notes (is_pinned);');
+      await customStatement('CREATE INDEX IF NOT EXISTS idx_notes_journal_date ON notes (journal_date);');
+      await customStatement('CREATE INDEX IF NOT EXISTS idx_notes_deleted_at ON notes (deleted_at);');
+      await customStatement('CREATE INDEX IF NOT EXISTS idx_note_tags_tag_id ON note_tags (tag_id);');
     },
     onUpgrade: (Migrator m, int from, int to) async {
       if (from < 2) {
@@ -225,11 +247,38 @@ class AppDatabase extends _$AppDatabase {
         await m.createTable(tagsTable);
         await m.createTable(taskTagsTable);
 
-        // Create indexes
+        // Create task indexes
         await customStatement('CREATE INDEX IF NOT EXISTS idx_tasks_due_at ON tasks (due_at);');
         await customStatement('CREATE INDEX IF NOT EXISTS idx_tasks_project_id ON tasks (project_id);');
         await customStatement('CREATE INDEX IF NOT EXISTS idx_tasks_parent_id ON tasks (parent_id);');
         await customStatement('CREATE INDEX IF NOT EXISTS idx_tasks_completed ON tasks (is_completed);');
+      }
+
+      if (from < 3) {
+        // Upgrade notes table from v1/v2 stub to full v3 schema
+        await customStatement(r"ALTER TABLE notes ADD COLUMN body TEXT NOT NULL DEFAULT '';");
+        await customStatement(r'ALTER TABLE notes ADD COLUMN color_label INTEGER NOT NULL DEFAULT 0;');
+        await customStatement(r'ALTER TABLE notes ADD COLUMN is_journal INTEGER NOT NULL DEFAULT 0;');
+        await customStatement(r'ALTER TABLE notes ADD COLUMN journal_date TEXT;');
+        await customStatement(r'ALTER TABLE notes ADD COLUMN linked_task_id TEXT;');
+        await customStatement(r'ALTER TABLE notes ADD COLUMN linked_habit_id TEXT;');
+
+        // Copy legacy content and color_value data if present in v1/v2 rows
+        try {
+          await customStatement(r"UPDATE notes SET body = content WHERE content IS NOT NULL AND body = '';");
+        } catch (_) {}
+        try {
+          await customStatement(r'UPDATE notes SET color_label = color_value WHERE color_value IS NOT NULL AND color_label = 0;');
+        } catch (_) {}
+
+        // Create note_tags table
+        await m.createTable(noteTagsTable);
+
+        // Create note indexes
+        await customStatement('CREATE INDEX IF NOT EXISTS idx_notes_pinned ON notes (is_pinned);');
+        await customStatement('CREATE INDEX IF NOT EXISTS idx_notes_journal_date ON notes (journal_date);');
+        await customStatement('CREATE INDEX IF NOT EXISTS idx_notes_deleted_at ON notes (deleted_at);');
+        await customStatement('CREATE INDEX IF NOT EXISTS idx_note_tags_tag_id ON note_tags (tag_id);');
       }
     },
   );

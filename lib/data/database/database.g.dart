@@ -4551,19 +4551,30 @@ class $NotesTableTable extends NotesTable
     aliasedName,
     false,
     type: DriftSqlType.string,
-    requiredDuringInsert: true,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
   );
-  static const VerificationMeta _contentMeta = const VerificationMeta(
-    'content',
-  );
+  static const VerificationMeta _bodyMeta = const VerificationMeta('body');
   @override
-  late final GeneratedColumn<String> content = GeneratedColumn<String>(
-    'content',
+  late final GeneratedColumn<String> body = GeneratedColumn<String>(
+    'body',
     aliasedName,
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
     defaultValue: const Constant(''),
+  );
+  static const VerificationMeta _colorLabelMeta = const VerificationMeta(
+    'colorLabel',
+  );
+  @override
+  late final GeneratedColumn<int> colorLabel = GeneratedColumn<int>(
+    'color_label',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
   );
   static const VerificationMeta _isPinnedMeta = const VerificationMeta(
     'isPinned',
@@ -4580,17 +4591,53 @@ class $NotesTableTable extends NotesTable
     ),
     defaultValue: const Constant(false),
   );
-  static const VerificationMeta _colorValueMeta = const VerificationMeta(
-    'colorValue',
+  static const VerificationMeta _isJournalMeta = const VerificationMeta(
+    'isJournal',
   );
   @override
-  late final GeneratedColumn<int> colorValue = GeneratedColumn<int>(
-    'color_value',
+  late final GeneratedColumn<bool> isJournal = GeneratedColumn<bool>(
+    'is_journal',
     aliasedName,
     false,
-    type: DriftSqlType.int,
+    type: DriftSqlType.bool,
     requiredDuringInsert: false,
-    defaultValue: const Constant(0),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_journal" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _journalDateMeta = const VerificationMeta(
+    'journalDate',
+  );
+  @override
+  late final GeneratedColumn<String> journalDate = GeneratedColumn<String>(
+    'journal_date',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _linkedTaskIdMeta = const VerificationMeta(
+    'linkedTaskId',
+  );
+  @override
+  late final GeneratedColumn<String> linkedTaskId = GeneratedColumn<String>(
+    'linked_task_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _linkedHabitIdMeta = const VerificationMeta(
+    'linkedHabitId',
+  );
+  @override
+  late final GeneratedColumn<String> linkedHabitId = GeneratedColumn<String>(
+    'linked_habit_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
   );
   static const VerificationMeta _createdAtMeta = const VerificationMeta(
     'createdAt',
@@ -4629,9 +4676,13 @@ class $NotesTableTable extends NotesTable
   List<GeneratedColumn> get $columns => [
     id,
     title,
-    content,
+    body,
+    colorLabel,
     isPinned,
-    colorValue,
+    isJournal,
+    journalDate,
+    linkedTaskId,
+    linkedHabitId,
     createdAt,
     updatedAt,
     deletedAt,
@@ -4658,13 +4709,17 @@ class $NotesTableTable extends NotesTable
         _titleMeta,
         title.isAcceptableOrUnknown(data['title']!, _titleMeta),
       );
-    } else if (isInserting) {
-      context.missing(_titleMeta);
     }
-    if (data.containsKey('content')) {
+    if (data.containsKey('body')) {
       context.handle(
-        _contentMeta,
-        content.isAcceptableOrUnknown(data['content']!, _contentMeta),
+        _bodyMeta,
+        body.isAcceptableOrUnknown(data['body']!, _bodyMeta),
+      );
+    }
+    if (data.containsKey('color_label')) {
+      context.handle(
+        _colorLabelMeta,
+        colorLabel.isAcceptableOrUnknown(data['color_label']!, _colorLabelMeta),
       );
     }
     if (data.containsKey('is_pinned')) {
@@ -4673,10 +4728,37 @@ class $NotesTableTable extends NotesTable
         isPinned.isAcceptableOrUnknown(data['is_pinned']!, _isPinnedMeta),
       );
     }
-    if (data.containsKey('color_value')) {
+    if (data.containsKey('is_journal')) {
       context.handle(
-        _colorValueMeta,
-        colorValue.isAcceptableOrUnknown(data['color_value']!, _colorValueMeta),
+        _isJournalMeta,
+        isJournal.isAcceptableOrUnknown(data['is_journal']!, _isJournalMeta),
+      );
+    }
+    if (data.containsKey('journal_date')) {
+      context.handle(
+        _journalDateMeta,
+        journalDate.isAcceptableOrUnknown(
+          data['journal_date']!,
+          _journalDateMeta,
+        ),
+      );
+    }
+    if (data.containsKey('linked_task_id')) {
+      context.handle(
+        _linkedTaskIdMeta,
+        linkedTaskId.isAcceptableOrUnknown(
+          data['linked_task_id']!,
+          _linkedTaskIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('linked_habit_id')) {
+      context.handle(
+        _linkedHabitIdMeta,
+        linkedHabitId.isAcceptableOrUnknown(
+          data['linked_habit_id']!,
+          _linkedHabitIdMeta,
+        ),
       );
     }
     if (data.containsKey('created_at')) {
@@ -4718,18 +4800,34 @@ class $NotesTableTable extends NotesTable
         DriftSqlType.string,
         data['${effectivePrefix}title'],
       )!,
-      content: attachedDatabase.typeMapping.read(
+      body: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
-        data['${effectivePrefix}content'],
+        data['${effectivePrefix}body'],
+      )!,
+      colorLabel: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}color_label'],
       )!,
       isPinned: attachedDatabase.typeMapping.read(
         DriftSqlType.bool,
         data['${effectivePrefix}is_pinned'],
       )!,
-      colorValue: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}color_value'],
+      isJournal: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_journal'],
       )!,
+      journalDate: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}journal_date'],
+      ),
+      linkedTaskId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}linked_task_id'],
+      ),
+      linkedHabitId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}linked_habit_id'],
+      ),
       createdAt: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
         data['${effectivePrefix}created_at'],
@@ -4754,18 +4852,26 @@ class $NotesTableTable extends NotesTable
 class NoteRow extends DataClass implements Insertable<NoteRow> {
   final String id;
   final String title;
-  final String content;
+  final String body;
+  final int colorLabel;
   final bool isPinned;
-  final int colorValue;
+  final bool isJournal;
+  final String? journalDate;
+  final String? linkedTaskId;
+  final String? linkedHabitId;
   final DateTime createdAt;
   final DateTime updatedAt;
   final DateTime? deletedAt;
   const NoteRow({
     required this.id,
     required this.title,
-    required this.content,
+    required this.body,
+    required this.colorLabel,
     required this.isPinned,
-    required this.colorValue,
+    required this.isJournal,
+    this.journalDate,
+    this.linkedTaskId,
+    this.linkedHabitId,
     required this.createdAt,
     required this.updatedAt,
     this.deletedAt,
@@ -4775,9 +4881,19 @@ class NoteRow extends DataClass implements Insertable<NoteRow> {
     final map = <String, Expression>{};
     map['id'] = Variable<String>(id);
     map['title'] = Variable<String>(title);
-    map['content'] = Variable<String>(content);
+    map['body'] = Variable<String>(body);
+    map['color_label'] = Variable<int>(colorLabel);
     map['is_pinned'] = Variable<bool>(isPinned);
-    map['color_value'] = Variable<int>(colorValue);
+    map['is_journal'] = Variable<bool>(isJournal);
+    if (!nullToAbsent || journalDate != null) {
+      map['journal_date'] = Variable<String>(journalDate);
+    }
+    if (!nullToAbsent || linkedTaskId != null) {
+      map['linked_task_id'] = Variable<String>(linkedTaskId);
+    }
+    if (!nullToAbsent || linkedHabitId != null) {
+      map['linked_habit_id'] = Variable<String>(linkedHabitId);
+    }
     map['created_at'] = Variable<DateTime>(createdAt);
     map['updated_at'] = Variable<DateTime>(updatedAt);
     if (!nullToAbsent || deletedAt != null) {
@@ -4790,9 +4906,19 @@ class NoteRow extends DataClass implements Insertable<NoteRow> {
     return NotesTableCompanion(
       id: Value(id),
       title: Value(title),
-      content: Value(content),
+      body: Value(body),
+      colorLabel: Value(colorLabel),
       isPinned: Value(isPinned),
-      colorValue: Value(colorValue),
+      isJournal: Value(isJournal),
+      journalDate: journalDate == null && nullToAbsent
+          ? const Value.absent()
+          : Value(journalDate),
+      linkedTaskId: linkedTaskId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(linkedTaskId),
+      linkedHabitId: linkedHabitId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(linkedHabitId),
       createdAt: Value(createdAt),
       updatedAt: Value(updatedAt),
       deletedAt: deletedAt == null && nullToAbsent
@@ -4809,9 +4935,13 @@ class NoteRow extends DataClass implements Insertable<NoteRow> {
     return NoteRow(
       id: serializer.fromJson<String>(json['id']),
       title: serializer.fromJson<String>(json['title']),
-      content: serializer.fromJson<String>(json['content']),
+      body: serializer.fromJson<String>(json['body']),
+      colorLabel: serializer.fromJson<int>(json['colorLabel']),
       isPinned: serializer.fromJson<bool>(json['isPinned']),
-      colorValue: serializer.fromJson<int>(json['colorValue']),
+      isJournal: serializer.fromJson<bool>(json['isJournal']),
+      journalDate: serializer.fromJson<String?>(json['journalDate']),
+      linkedTaskId: serializer.fromJson<String?>(json['linkedTaskId']),
+      linkedHabitId: serializer.fromJson<String?>(json['linkedHabitId']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
       deletedAt: serializer.fromJson<DateTime?>(json['deletedAt']),
@@ -4823,9 +4953,13 @@ class NoteRow extends DataClass implements Insertable<NoteRow> {
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'title': serializer.toJson<String>(title),
-      'content': serializer.toJson<String>(content),
+      'body': serializer.toJson<String>(body),
+      'colorLabel': serializer.toJson<int>(colorLabel),
       'isPinned': serializer.toJson<bool>(isPinned),
-      'colorValue': serializer.toJson<int>(colorValue),
+      'isJournal': serializer.toJson<bool>(isJournal),
+      'journalDate': serializer.toJson<String?>(journalDate),
+      'linkedTaskId': serializer.toJson<String?>(linkedTaskId),
+      'linkedHabitId': serializer.toJson<String?>(linkedHabitId),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
       'deletedAt': serializer.toJson<DateTime?>(deletedAt),
@@ -4835,18 +4969,28 @@ class NoteRow extends DataClass implements Insertable<NoteRow> {
   NoteRow copyWith({
     String? id,
     String? title,
-    String? content,
+    String? body,
+    int? colorLabel,
     bool? isPinned,
-    int? colorValue,
+    bool? isJournal,
+    Value<String?> journalDate = const Value.absent(),
+    Value<String?> linkedTaskId = const Value.absent(),
+    Value<String?> linkedHabitId = const Value.absent(),
     DateTime? createdAt,
     DateTime? updatedAt,
     Value<DateTime?> deletedAt = const Value.absent(),
   }) => NoteRow(
     id: id ?? this.id,
     title: title ?? this.title,
-    content: content ?? this.content,
+    body: body ?? this.body,
+    colorLabel: colorLabel ?? this.colorLabel,
     isPinned: isPinned ?? this.isPinned,
-    colorValue: colorValue ?? this.colorValue,
+    isJournal: isJournal ?? this.isJournal,
+    journalDate: journalDate.present ? journalDate.value : this.journalDate,
+    linkedTaskId: linkedTaskId.present ? linkedTaskId.value : this.linkedTaskId,
+    linkedHabitId: linkedHabitId.present
+        ? linkedHabitId.value
+        : this.linkedHabitId,
     createdAt: createdAt ?? this.createdAt,
     updatedAt: updatedAt ?? this.updatedAt,
     deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
@@ -4855,11 +4999,21 @@ class NoteRow extends DataClass implements Insertable<NoteRow> {
     return NoteRow(
       id: data.id.present ? data.id.value : this.id,
       title: data.title.present ? data.title.value : this.title,
-      content: data.content.present ? data.content.value : this.content,
+      body: data.body.present ? data.body.value : this.body,
+      colorLabel: data.colorLabel.present
+          ? data.colorLabel.value
+          : this.colorLabel,
       isPinned: data.isPinned.present ? data.isPinned.value : this.isPinned,
-      colorValue: data.colorValue.present
-          ? data.colorValue.value
-          : this.colorValue,
+      isJournal: data.isJournal.present ? data.isJournal.value : this.isJournal,
+      journalDate: data.journalDate.present
+          ? data.journalDate.value
+          : this.journalDate,
+      linkedTaskId: data.linkedTaskId.present
+          ? data.linkedTaskId.value
+          : this.linkedTaskId,
+      linkedHabitId: data.linkedHabitId.present
+          ? data.linkedHabitId.value
+          : this.linkedHabitId,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
       deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
@@ -4871,9 +5025,13 @@ class NoteRow extends DataClass implements Insertable<NoteRow> {
     return (StringBuffer('NoteRow(')
           ..write('id: $id, ')
           ..write('title: $title, ')
-          ..write('content: $content, ')
+          ..write('body: $body, ')
+          ..write('colorLabel: $colorLabel, ')
           ..write('isPinned: $isPinned, ')
-          ..write('colorValue: $colorValue, ')
+          ..write('isJournal: $isJournal, ')
+          ..write('journalDate: $journalDate, ')
+          ..write('linkedTaskId: $linkedTaskId, ')
+          ..write('linkedHabitId: $linkedHabitId, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt, ')
           ..write('deletedAt: $deletedAt')
@@ -4885,9 +5043,13 @@ class NoteRow extends DataClass implements Insertable<NoteRow> {
   int get hashCode => Object.hash(
     id,
     title,
-    content,
+    body,
+    colorLabel,
     isPinned,
-    colorValue,
+    isJournal,
+    journalDate,
+    linkedTaskId,
+    linkedHabitId,
     createdAt,
     updatedAt,
     deletedAt,
@@ -4898,9 +5060,13 @@ class NoteRow extends DataClass implements Insertable<NoteRow> {
       (other is NoteRow &&
           other.id == this.id &&
           other.title == this.title &&
-          other.content == this.content &&
+          other.body == this.body &&
+          other.colorLabel == this.colorLabel &&
           other.isPinned == this.isPinned &&
-          other.colorValue == this.colorValue &&
+          other.isJournal == this.isJournal &&
+          other.journalDate == this.journalDate &&
+          other.linkedTaskId == this.linkedTaskId &&
+          other.linkedHabitId == this.linkedHabitId &&
           other.createdAt == this.createdAt &&
           other.updatedAt == this.updatedAt &&
           other.deletedAt == this.deletedAt);
@@ -4909,9 +5075,13 @@ class NoteRow extends DataClass implements Insertable<NoteRow> {
 class NotesTableCompanion extends UpdateCompanion<NoteRow> {
   final Value<String> id;
   final Value<String> title;
-  final Value<String> content;
+  final Value<String> body;
+  final Value<int> colorLabel;
   final Value<bool> isPinned;
-  final Value<int> colorValue;
+  final Value<bool> isJournal;
+  final Value<String?> journalDate;
+  final Value<String?> linkedTaskId;
+  final Value<String?> linkedHabitId;
   final Value<DateTime> createdAt;
   final Value<DateTime> updatedAt;
   final Value<DateTime?> deletedAt;
@@ -4919,9 +5089,13 @@ class NotesTableCompanion extends UpdateCompanion<NoteRow> {
   const NotesTableCompanion({
     this.id = const Value.absent(),
     this.title = const Value.absent(),
-    this.content = const Value.absent(),
+    this.body = const Value.absent(),
+    this.colorLabel = const Value.absent(),
     this.isPinned = const Value.absent(),
-    this.colorValue = const Value.absent(),
+    this.isJournal = const Value.absent(),
+    this.journalDate = const Value.absent(),
+    this.linkedTaskId = const Value.absent(),
+    this.linkedHabitId = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
     this.deletedAt = const Value.absent(),
@@ -4929,24 +5103,31 @@ class NotesTableCompanion extends UpdateCompanion<NoteRow> {
   });
   NotesTableCompanion.insert({
     required String id,
-    required String title,
-    this.content = const Value.absent(),
+    this.title = const Value.absent(),
+    this.body = const Value.absent(),
+    this.colorLabel = const Value.absent(),
     this.isPinned = const Value.absent(),
-    this.colorValue = const Value.absent(),
+    this.isJournal = const Value.absent(),
+    this.journalDate = const Value.absent(),
+    this.linkedTaskId = const Value.absent(),
+    this.linkedHabitId = const Value.absent(),
     required DateTime createdAt,
     required DateTime updatedAt,
     this.deletedAt = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
-       title = Value(title),
        createdAt = Value(createdAt),
        updatedAt = Value(updatedAt);
   static Insertable<NoteRow> custom({
     Expression<String>? id,
     Expression<String>? title,
-    Expression<String>? content,
+    Expression<String>? body,
+    Expression<int>? colorLabel,
     Expression<bool>? isPinned,
-    Expression<int>? colorValue,
+    Expression<bool>? isJournal,
+    Expression<String>? journalDate,
+    Expression<String>? linkedTaskId,
+    Expression<String>? linkedHabitId,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? updatedAt,
     Expression<DateTime>? deletedAt,
@@ -4955,9 +5136,13 @@ class NotesTableCompanion extends UpdateCompanion<NoteRow> {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (title != null) 'title': title,
-      if (content != null) 'content': content,
+      if (body != null) 'body': body,
+      if (colorLabel != null) 'color_label': colorLabel,
       if (isPinned != null) 'is_pinned': isPinned,
-      if (colorValue != null) 'color_value': colorValue,
+      if (isJournal != null) 'is_journal': isJournal,
+      if (journalDate != null) 'journal_date': journalDate,
+      if (linkedTaskId != null) 'linked_task_id': linkedTaskId,
+      if (linkedHabitId != null) 'linked_habit_id': linkedHabitId,
       if (createdAt != null) 'created_at': createdAt,
       if (updatedAt != null) 'updated_at': updatedAt,
       if (deletedAt != null) 'deleted_at': deletedAt,
@@ -4968,9 +5153,13 @@ class NotesTableCompanion extends UpdateCompanion<NoteRow> {
   NotesTableCompanion copyWith({
     Value<String>? id,
     Value<String>? title,
-    Value<String>? content,
+    Value<String>? body,
+    Value<int>? colorLabel,
     Value<bool>? isPinned,
-    Value<int>? colorValue,
+    Value<bool>? isJournal,
+    Value<String?>? journalDate,
+    Value<String?>? linkedTaskId,
+    Value<String?>? linkedHabitId,
     Value<DateTime>? createdAt,
     Value<DateTime>? updatedAt,
     Value<DateTime?>? deletedAt,
@@ -4979,9 +5168,13 @@ class NotesTableCompanion extends UpdateCompanion<NoteRow> {
     return NotesTableCompanion(
       id: id ?? this.id,
       title: title ?? this.title,
-      content: content ?? this.content,
+      body: body ?? this.body,
+      colorLabel: colorLabel ?? this.colorLabel,
       isPinned: isPinned ?? this.isPinned,
-      colorValue: colorValue ?? this.colorValue,
+      isJournal: isJournal ?? this.isJournal,
+      journalDate: journalDate ?? this.journalDate,
+      linkedTaskId: linkedTaskId ?? this.linkedTaskId,
+      linkedHabitId: linkedHabitId ?? this.linkedHabitId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       deletedAt: deletedAt ?? this.deletedAt,
@@ -4998,14 +5191,26 @@ class NotesTableCompanion extends UpdateCompanion<NoteRow> {
     if (title.present) {
       map['title'] = Variable<String>(title.value);
     }
-    if (content.present) {
-      map['content'] = Variable<String>(content.value);
+    if (body.present) {
+      map['body'] = Variable<String>(body.value);
+    }
+    if (colorLabel.present) {
+      map['color_label'] = Variable<int>(colorLabel.value);
     }
     if (isPinned.present) {
       map['is_pinned'] = Variable<bool>(isPinned.value);
     }
-    if (colorValue.present) {
-      map['color_value'] = Variable<int>(colorValue.value);
+    if (isJournal.present) {
+      map['is_journal'] = Variable<bool>(isJournal.value);
+    }
+    if (journalDate.present) {
+      map['journal_date'] = Variable<String>(journalDate.value);
+    }
+    if (linkedTaskId.present) {
+      map['linked_task_id'] = Variable<String>(linkedTaskId.value);
+    }
+    if (linkedHabitId.present) {
+      map['linked_habit_id'] = Variable<String>(linkedHabitId.value);
     }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
@@ -5027,12 +5232,224 @@ class NotesTableCompanion extends UpdateCompanion<NoteRow> {
     return (StringBuffer('NotesTableCompanion(')
           ..write('id: $id, ')
           ..write('title: $title, ')
-          ..write('content: $content, ')
+          ..write('body: $body, ')
+          ..write('colorLabel: $colorLabel, ')
           ..write('isPinned: $isPinned, ')
-          ..write('colorValue: $colorValue, ')
+          ..write('isJournal: $isJournal, ')
+          ..write('journalDate: $journalDate, ')
+          ..write('linkedTaskId: $linkedTaskId, ')
+          ..write('linkedHabitId: $linkedHabitId, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt, ')
           ..write('deletedAt: $deletedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $NoteTagsTableTable extends NoteTagsTable
+    with TableInfo<$NoteTagsTableTable, NoteTagRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $NoteTagsTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _noteIdMeta = const VerificationMeta('noteId');
+  @override
+  late final GeneratedColumn<String> noteId = GeneratedColumn<String>(
+    'note_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _tagIdMeta = const VerificationMeta('tagId');
+  @override
+  late final GeneratedColumn<String> tagId = GeneratedColumn<String>(
+    'tag_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [noteId, tagId];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'note_tags';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<NoteTagRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('note_id')) {
+      context.handle(
+        _noteIdMeta,
+        noteId.isAcceptableOrUnknown(data['note_id']!, _noteIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_noteIdMeta);
+    }
+    if (data.containsKey('tag_id')) {
+      context.handle(
+        _tagIdMeta,
+        tagId.isAcceptableOrUnknown(data['tag_id']!, _tagIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_tagIdMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {noteId, tagId};
+  @override
+  NoteTagRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return NoteTagRow(
+      noteId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}note_id'],
+      )!,
+      tagId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}tag_id'],
+      )!,
+    );
+  }
+
+  @override
+  $NoteTagsTableTable createAlias(String alias) {
+    return $NoteTagsTableTable(attachedDatabase, alias);
+  }
+}
+
+class NoteTagRow extends DataClass implements Insertable<NoteTagRow> {
+  final String noteId;
+  final String tagId;
+  const NoteTagRow({required this.noteId, required this.tagId});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['note_id'] = Variable<String>(noteId);
+    map['tag_id'] = Variable<String>(tagId);
+    return map;
+  }
+
+  NoteTagsTableCompanion toCompanion(bool nullToAbsent) {
+    return NoteTagsTableCompanion(noteId: Value(noteId), tagId: Value(tagId));
+  }
+
+  factory NoteTagRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return NoteTagRow(
+      noteId: serializer.fromJson<String>(json['noteId']),
+      tagId: serializer.fromJson<String>(json['tagId']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'noteId': serializer.toJson<String>(noteId),
+      'tagId': serializer.toJson<String>(tagId),
+    };
+  }
+
+  NoteTagRow copyWith({String? noteId, String? tagId}) =>
+      NoteTagRow(noteId: noteId ?? this.noteId, tagId: tagId ?? this.tagId);
+  NoteTagRow copyWithCompanion(NoteTagsTableCompanion data) {
+    return NoteTagRow(
+      noteId: data.noteId.present ? data.noteId.value : this.noteId,
+      tagId: data.tagId.present ? data.tagId.value : this.tagId,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('NoteTagRow(')
+          ..write('noteId: $noteId, ')
+          ..write('tagId: $tagId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(noteId, tagId);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is NoteTagRow &&
+          other.noteId == this.noteId &&
+          other.tagId == this.tagId);
+}
+
+class NoteTagsTableCompanion extends UpdateCompanion<NoteTagRow> {
+  final Value<String> noteId;
+  final Value<String> tagId;
+  final Value<int> rowid;
+  const NoteTagsTableCompanion({
+    this.noteId = const Value.absent(),
+    this.tagId = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  NoteTagsTableCompanion.insert({
+    required String noteId,
+    required String tagId,
+    this.rowid = const Value.absent(),
+  }) : noteId = Value(noteId),
+       tagId = Value(tagId);
+  static Insertable<NoteTagRow> custom({
+    Expression<String>? noteId,
+    Expression<String>? tagId,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (noteId != null) 'note_id': noteId,
+      if (tagId != null) 'tag_id': tagId,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  NoteTagsTableCompanion copyWith({
+    Value<String>? noteId,
+    Value<String>? tagId,
+    Value<int>? rowid,
+  }) {
+    return NoteTagsTableCompanion(
+      noteId: noteId ?? this.noteId,
+      tagId: tagId ?? this.tagId,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (noteId.present) {
+      map['note_id'] = Variable<String>(noteId.value);
+    }
+    if (tagId.present) {
+      map['tag_id'] = Variable<String>(tagId.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('NoteTagsTableCompanion(')
+          ..write('noteId: $noteId, ')
+          ..write('tagId: $tagId, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -5054,6 +5471,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $TagsTableTable tagsTable = $TagsTableTable(this);
   late final $TaskTagsTableTable taskTagsTable = $TaskTagsTableTable(this);
   late final $NotesTableTable notesTable = $NotesTableTable(this);
+  late final $NoteTagsTableTable noteTagsTable = $NoteTagsTableTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -5068,6 +5486,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     tagsTable,
     taskTagsTable,
     notesTable,
+    noteTagsTable,
   ];
 }
 
@@ -7404,10 +7823,14 @@ typedef $$TaskTagsTableTableProcessedTableManager =
     >;
 typedef $$NotesTableTableCreateCompanionBuilder = NotesTableCompanion Function({
   required String id,
-  required String title,
-  Value<String> content,
+  Value<String> title,
+  Value<String> body,
+  Value<int> colorLabel,
   Value<bool> isPinned,
-  Value<int> colorValue,
+  Value<bool> isJournal,
+  Value<String?> journalDate,
+  Value<String?> linkedTaskId,
+  Value<String?> linkedHabitId,
   required DateTime createdAt,
   required DateTime updatedAt,
   Value<DateTime?> deletedAt,
@@ -7416,9 +7839,13 @@ typedef $$NotesTableTableCreateCompanionBuilder = NotesTableCompanion Function({
 typedef $$NotesTableTableUpdateCompanionBuilder = NotesTableCompanion Function({
   Value<String> id,
   Value<String> title,
-  Value<String> content,
+  Value<String> body,
+  Value<int> colorLabel,
   Value<bool> isPinned,
-  Value<int> colorValue,
+  Value<bool> isJournal,
+  Value<String?> journalDate,
+  Value<String?> linkedTaskId,
+  Value<String?> linkedHabitId,
   Value<DateTime> createdAt,
   Value<DateTime> updatedAt,
   Value<DateTime?> deletedAt,
@@ -7444,8 +7871,13 @@ class $$NotesTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<String> get content => $composableBuilder(
-    column: $table.content,
+  ColumnFilters<String> get body => $composableBuilder(
+    column: $table.body,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get colorLabel => $composableBuilder(
+    column: $table.colorLabel,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -7454,8 +7886,23 @@ class $$NotesTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<int> get colorValue => $composableBuilder(
-    column: $table.colorValue,
+  ColumnFilters<bool> get isJournal => $composableBuilder(
+    column: $table.isJournal,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get journalDate => $composableBuilder(
+    column: $table.journalDate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get linkedTaskId => $composableBuilder(
+    column: $table.linkedTaskId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get linkedHabitId => $composableBuilder(
+    column: $table.linkedHabitId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -7494,8 +7941,13 @@ class $$NotesTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get content => $composableBuilder(
-    column: $table.content,
+  ColumnOrderings<String> get body => $composableBuilder(
+    column: $table.body,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get colorLabel => $composableBuilder(
+    column: $table.colorLabel,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -7504,8 +7956,23 @@ class $$NotesTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<int> get colorValue => $composableBuilder(
-    column: $table.colorValue,
+  ColumnOrderings<bool> get isJournal => $composableBuilder(
+    column: $table.isJournal,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get journalDate => $composableBuilder(
+    column: $table.journalDate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get linkedTaskId => $composableBuilder(
+    column: $table.linkedTaskId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get linkedHabitId => $composableBuilder(
+    column: $table.linkedHabitId,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -7540,14 +8007,32 @@ class $$NotesTableTableAnnotationComposer
   GeneratedColumn<String> get title =>
       $composableBuilder(column: $table.title, builder: (column) => column);
 
-  GeneratedColumn<String> get content =>
-      $composableBuilder(column: $table.content, builder: (column) => column);
+  GeneratedColumn<String> get body =>
+      $composableBuilder(column: $table.body, builder: (column) => column);
+
+  GeneratedColumn<int> get colorLabel => $composableBuilder(
+    column: $table.colorLabel,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<bool> get isPinned =>
       $composableBuilder(column: $table.isPinned, builder: (column) => column);
 
-  GeneratedColumn<int> get colorValue => $composableBuilder(
-    column: $table.colorValue,
+  GeneratedColumn<bool> get isJournal =>
+      $composableBuilder(column: $table.isJournal, builder: (column) => column);
+
+  GeneratedColumn<String> get journalDate => $composableBuilder(
+    column: $table.journalDate,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get linkedTaskId => $composableBuilder(
+    column: $table.linkedTaskId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get linkedHabitId => $composableBuilder(
+    column: $table.linkedHabitId,
     builder: (column) => column,
   );
 
@@ -7591,9 +8076,13 @@ class $$NotesTableTableTableManager
               ({
                 Value<String> id = const Value.absent(),
                 Value<String> title = const Value.absent(),
-                Value<String> content = const Value.absent(),
+                Value<String> body = const Value.absent(),
+                Value<int> colorLabel = const Value.absent(),
                 Value<bool> isPinned = const Value.absent(),
-                Value<int> colorValue = const Value.absent(),
+                Value<bool> isJournal = const Value.absent(),
+                Value<String?> journalDate = const Value.absent(),
+                Value<String?> linkedTaskId = const Value.absent(),
+                Value<String?> linkedHabitId = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
                 Value<DateTime?> deletedAt = const Value.absent(),
@@ -7601,9 +8090,13 @@ class $$NotesTableTableTableManager
               }) => NotesTableCompanion(
                 id: id,
                 title: title,
-                content: content,
+                body: body,
+                colorLabel: colorLabel,
                 isPinned: isPinned,
-                colorValue: colorValue,
+                isJournal: isJournal,
+                journalDate: journalDate,
+                linkedTaskId: linkedTaskId,
+                linkedHabitId: linkedHabitId,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
                 deletedAt: deletedAt,
@@ -7612,10 +8105,14 @@ class $$NotesTableTableTableManager
           createCompanionCallback:
               ({
                 required String id,
-                required String title,
-                Value<String> content = const Value.absent(),
+                Value<String> title = const Value.absent(),
+                Value<String> body = const Value.absent(),
+                Value<int> colorLabel = const Value.absent(),
                 Value<bool> isPinned = const Value.absent(),
-                Value<int> colorValue = const Value.absent(),
+                Value<bool> isJournal = const Value.absent(),
+                Value<String?> journalDate = const Value.absent(),
+                Value<String?> linkedTaskId = const Value.absent(),
+                Value<String?> linkedHabitId = const Value.absent(),
                 required DateTime createdAt,
                 required DateTime updatedAt,
                 Value<DateTime?> deletedAt = const Value.absent(),
@@ -7623,9 +8120,13 @@ class $$NotesTableTableTableManager
               }) => NotesTableCompanion.insert(
                 id: id,
                 title: title,
-                content: content,
+                body: body,
+                colorLabel: colorLabel,
                 isPinned: isPinned,
-                colorValue: colorValue,
+                isJournal: isJournal,
+                journalDate: journalDate,
+                linkedTaskId: linkedTaskId,
+                linkedHabitId: linkedHabitId,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
                 deletedAt: deletedAt,
@@ -7662,6 +8163,158 @@ typedef $$NotesTableTableProcessedTableManager =
       NoteRow,
       PrefetchHooks Function()
     >;
+typedef $$NoteTagsTableTableCreateCompanionBuilder =
+    NoteTagsTableCompanion Function({
+      required String noteId,
+      required String tagId,
+      Value<int> rowid,
+    });
+typedef $$NoteTagsTableTableUpdateCompanionBuilder =
+    NoteTagsTableCompanion Function({
+      Value<String> noteId,
+      Value<String> tagId,
+      Value<int> rowid,
+    });
+
+class $$NoteTagsTableTableFilterComposer
+    extends Composer<_$AppDatabase, $NoteTagsTableTable> {
+  $$NoteTagsTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get noteId => $composableBuilder(
+    column: $table.noteId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get tagId => $composableBuilder(
+    column: $table.tagId,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$NoteTagsTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $NoteTagsTableTable> {
+  $$NoteTagsTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get noteId => $composableBuilder(
+    column: $table.noteId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get tagId => $composableBuilder(
+    column: $table.tagId,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$NoteTagsTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $NoteTagsTableTable> {
+  $$NoteTagsTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get noteId =>
+      $composableBuilder(column: $table.noteId, builder: (column) => column);
+
+  GeneratedColumn<String> get tagId =>
+      $composableBuilder(column: $table.tagId, builder: (column) => column);
+}
+
+class $$NoteTagsTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $NoteTagsTableTable,
+          NoteTagRow,
+          $$NoteTagsTableTableFilterComposer,
+          $$NoteTagsTableTableOrderingComposer,
+          $$NoteTagsTableTableAnnotationComposer,
+          $$NoteTagsTableTableCreateCompanionBuilder,
+          $$NoteTagsTableTableUpdateCompanionBuilder,
+          (
+            NoteTagRow,
+            BaseReferences<_$AppDatabase, $NoteTagsTableTable, NoteTagRow>,
+          ),
+          NoteTagRow,
+          PrefetchHooks Function()
+        > {
+  $$NoteTagsTableTableTableManager(_$AppDatabase db, $NoteTagsTableTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$NoteTagsTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$NoteTagsTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$NoteTagsTableTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> noteId = const Value.absent(),
+                Value<String> tagId = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => NoteTagsTableCompanion(
+                noteId: noteId,
+                tagId: tagId,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String noteId,
+                required String tagId,
+                Value<int> rowid = const Value.absent(),
+              }) => NoteTagsTableCompanion.insert(
+                noteId: noteId,
+                tagId: tagId,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$NoteTagsTableTable, NoteTagRow>(table),
+                  BaseReferences<
+                    _$AppDatabase,
+                    $NoteTagsTableTable,
+                    NoteTagRow
+                  >(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$NoteTagsTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $NoteTagsTableTable,
+      NoteTagRow,
+      $$NoteTagsTableTableFilterComposer,
+      $$NoteTagsTableTableOrderingComposer,
+      $$NoteTagsTableTableAnnotationComposer,
+      $$NoteTagsTableTableCreateCompanionBuilder,
+      $$NoteTagsTableTableUpdateCompanionBuilder,
+      (
+        NoteTagRow,
+        BaseReferences<_$AppDatabase, $NoteTagsTableTable, NoteTagRow>,
+      ),
+      NoteTagRow,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -7684,4 +8337,6 @@ class $AppDatabaseManager {
       $$TaskTagsTableTableTableManager(_db, _db.taskTagsTable);
   $$NotesTableTableTableManager get notesTable =>
       $$NotesTableTableTableManager(_db, _db.notesTable);
+  $$NoteTagsTableTableTableManager get noteTagsTable =>
+      $$NoteTagsTableTableTableManager(_db, _db.noteTagsTable);
 }
