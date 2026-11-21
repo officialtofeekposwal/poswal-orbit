@@ -88,20 +88,25 @@ class AppSettingsTable extends Table {
   Set<Column> get primaryKey => {key};
 }
 
-// Stubs for future phases (Phase 2 & 3)
+// Phase 2: Tasks, Projects & Tags Tables
 @DataClassName('TaskRow')
 class TasksTable extends Table {
   @override
   String get tableName => 'tasks';
 
   TextColumn get id => text()();
+  TextColumn get parentId => text().nullable()(); // Subtasks support
   TextColumn get title => text()();
   TextColumn get notes => text().nullable()();
-  TextColumn get parentId => text().nullable()();
   DateTimeColumn get dueAt => dateTime().nullable()();
-  IntColumn get priority => integer().withDefault(const Constant(0))();
+  BoolColumn get hasTime => boolean().withDefault(const Constant(false))();
+  IntColumn get priority => integer().withDefault(const Constant(4))(); // 1: Urgent/High, 2: Medium, 3: Low, 4: None
   TextColumn get projectId => text().nullable()();
+  TextColumn get repeatRule => text().nullable()(); // Serialized repeat rule
   BoolColumn get isCompleted => boolean().withDefault(const Constant(false))();
+  DateTimeColumn get completedAt => dateTime().nullable()();
+  TextColumn get linkedHabitId => text().nullable()();
+  IntColumn get sortOrder => integer().withDefault(const Constant(0))();
   DateTimeColumn get createdAt => dateTime()();
   DateTimeColumn get updatedAt => dateTime()();
   DateTimeColumn get deletedAt => dateTime().nullable()();
@@ -110,6 +115,53 @@ class TasksTable extends Table {
   Set<Column> get primaryKey => {id};
 }
 
+@DataClassName('ProjectRow')
+class ProjectsTable extends Table {
+  @override
+  String get tableName => 'projects';
+
+  TextColumn get id => text()();
+  TextColumn get name => text()();
+  TextColumn get iconName => text().withDefault(const Constant('folder'))();
+  IntColumn get colorValue => integer().withDefault(const Constant(0xFF14B8A6))();
+  IntColumn get sortOrder => integer().withDefault(const Constant(0))();
+  DateTimeColumn get createdAt => dateTime()();
+  DateTimeColumn get updatedAt => dateTime()();
+  DateTimeColumn get deletedAt => dateTime().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+@DataClassName('TagRow')
+class TagsTable extends Table {
+  @override
+  String get tableName => 'tags';
+
+  TextColumn get id => text()();
+  TextColumn get name => text()();
+  IntColumn get colorValue => integer().withDefault(const Constant(0xFF8B7CFF))();
+  DateTimeColumn get createdAt => dateTime()();
+  DateTimeColumn get updatedAt => dateTime()();
+  DateTimeColumn get deletedAt => dateTime().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+@DataClassName('TaskTagRow')
+class TaskTagsTable extends Table {
+  @override
+  String get tableName => 'task_tags';
+
+  TextColumn get taskId => text()();
+  TextColumn get tagId => text()();
+
+  @override
+  Set<Column> get primaryKey => {taskId, tagId};
+}
+
+// Phase 3 Stub: Notes
 @DataClassName('NoteRow')
 class NotesTable extends Table {
   @override
@@ -134,25 +186,51 @@ class NotesTable extends Table {
   RemindersTable,
   AppSettingsTable,
   TasksTable,
+  ProjectsTable,
+  TagsTable,
+  TaskTagsTable,
   NotesTable,
 ])
 class AppDatabase extends _$AppDatabase {
   AppDatabase(super.e);
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
     onCreate: (Migrator m) async {
       await m.createAll();
-      // Add indexes for date and habit queries
+      // Habit indexes
       await customStatement('CREATE INDEX IF NOT EXISTS idx_habit_entries_date ON habit_entries (entry_date);');
       await customStatement('CREATE INDEX IF NOT EXISTS idx_habit_entries_habit ON habit_entries (habit_id);');
       await customStatement('CREATE INDEX IF NOT EXISTS idx_habits_archived ON habits (is_archived);');
+      // Task indexes
+      await customStatement('CREATE INDEX IF NOT EXISTS idx_tasks_due_at ON tasks (due_at);');
+      await customStatement('CREATE INDEX IF NOT EXISTS idx_tasks_project_id ON tasks (project_id);');
+      await customStatement('CREATE INDEX IF NOT EXISTS idx_tasks_parent_id ON tasks (parent_id);');
+      await customStatement('CREATE INDEX IF NOT EXISTS idx_tasks_completed ON tasks (is_completed);');
     },
     onUpgrade: (Migrator m, int from, int to) async {
-      // Schema v1 is initial version
+      if (from < 2) {
+        // Upgrade tasks table from v1 to v2 schema
+        await m.addColumn(tasksTable, tasksTable.hasTime);
+        await m.addColumn(tasksTable, tasksTable.repeatRule);
+        await m.addColumn(tasksTable, tasksTable.completedAt);
+        await m.addColumn(tasksTable, tasksTable.linkedHabitId);
+        await m.addColumn(tasksTable, tasksTable.sortOrder);
+
+        // Create new projects, tags, task_tags tables
+        await m.createTable(projectsTable);
+        await m.createTable(tagsTable);
+        await m.createTable(taskTagsTable);
+
+        // Create indexes
+        await customStatement('CREATE INDEX IF NOT EXISTS idx_tasks_due_at ON tasks (due_at);');
+        await customStatement('CREATE INDEX IF NOT EXISTS idx_tasks_project_id ON tasks (project_id);');
+        await customStatement('CREATE INDEX IF NOT EXISTS idx_tasks_parent_id ON tasks (parent_id);');
+        await customStatement('CREATE INDEX IF NOT EXISTS idx_tasks_completed ON tasks (is_completed);');
+      }
     },
   );
 }

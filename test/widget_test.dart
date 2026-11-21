@@ -25,20 +25,17 @@ import 'package:poswal_orbit/main.dart';
 void main() {
   late AppDatabase inMemoryDb;
 
-  setUp(() async {
-    inMemoryDb = AppDatabase(NativeDatabase.memory());
-
-    // Seed test habits for Today Screen
+  Future<void> seedDatabase(AppDatabase db) async {
     final now = DateTime.now();
     final todayStr = DateBoundary.toDateString(now);
 
     // Habit 1: Morning Meditation (Done today)
-    await inMemoryDb.into(inMemoryDb.habitsTable).insert(
+    await db.into(db.habitsTable).insert(
       HabitsTableCompanion.insert(
         id: 'h-meditation',
         name: 'Morning Meditation',
         iconName: const Value('sparkle'),
-        colorValue: 0xFF14B8A6, // Teal
+        colorValue: 0xFF14B8A6,
         habitType: const Value('yesNo'),
         timeOfDay: const Value('morning'),
         scheduleType: const Value('daily'),
@@ -47,7 +44,7 @@ void main() {
         updatedAt: now,
       ),
     );
-    await inMemoryDb.into(inMemoryDb.habitEntriesTable).insert(
+    await db.into(db.habitEntriesTable).insert(
       HabitEntriesTableCompanion.insert(
         id: 'entry-meditation',
         habitId: 'h-meditation',
@@ -60,12 +57,12 @@ void main() {
     );
 
     // Habit 2: Drink 8 Glasses (Numeric, 4/8 done)
-    await inMemoryDb.into(inMemoryDb.habitsTable).insert(
+    await db.into(db.habitsTable).insert(
       HabitsTableCompanion.insert(
         id: 'h-water',
         name: 'Drink Water',
         iconName: const Value('drop'),
-        colorValue: 0xFF0284C7, // Sky
+        colorValue: 0xFF0284C7,
         habitType: const Value('numeric'),
         targetValue: const Value(8.0),
         unit: const Value('glasses'),
@@ -78,12 +75,12 @@ void main() {
     );
 
     // Habit 3: Read 20 Mins (Evening, Pending)
-    await inMemoryDb.into(inMemoryDb.habitsTable).insert(
+    await db.into(db.habitsTable).insert(
       HabitsTableCompanion.insert(
         id: 'h-read',
         name: 'Read 20 Mins',
         iconName: const Value('book'),
-        colorValue: 0xFF8B7CFF, // Violet
+        colorValue: 0xFF8B7CFF,
         habitType: const Value('yesNo'),
         timeOfDay: const Value('evening'),
         scheduleType: const Value('daily'),
@@ -92,23 +89,18 @@ void main() {
         updatedAt: now,
       ),
     );
+  }
+
+  setUp(() async {
+    inMemoryDb = AppDatabase(NativeDatabase.memory());
+    await seedDatabase(inMemoryDb);
   });
 
-  tearDown(() async {
-    // Database lifecycle managed within test via runAsync
-  });
-
-  testWidgets('Phase 1 AppShell, Today Screen, Habits & Screenshots', (WidgetTester tester) async {
-    // Set fixed portrait screen size matching modern mobile viewport (1080 x 2400 @ 2.0 ratio = 540 x 1200)
+  Future<GlobalKey> pumpApp(WidgetTester tester) async {
     tester.view.physicalSize = const Size(1080, 2400);
     tester.view.devicePixelRatio = 2.0;
-    addTearDown(() {
-      tester.view.resetPhysicalSize();
-      tester.view.resetDevicePixelRatio();
-    });
 
     final repaintKey = GlobalKey();
-
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
@@ -120,155 +112,182 @@ void main() {
         ),
       ),
     );
-
-    // Allow async DB streams and animations to settle
     await tester.pump(const Duration(milliseconds: 300));
     await tester.pumpAndSettle();
+    return repaintKey;
+  }
 
-    Future<void> capture(String name) async {
-      await tester.runAsync(() async {
-        final boundary = repaintKey.currentContext?.findRenderObject() as RenderRepaintBoundary?;
-        if (boundary != null) {
-          final image = await boundary.toImage(pixelRatio: 1.0);
-          final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-          if (byteData != null) {
-            final file = File('docs/screenshots/$name.png');
-            file.parent.createSync(recursive: true);
-            file.writeAsBytesSync(byteData.buffer.asUint8List());
-          }
-        }
-      });
-    }
-
-    // 1. Verify Today Screen Components
-    expect(find.byType(TodayScreen), findsOneWidget);
-    expect(find.byType(HeroOrbitCard), findsOneWidget);
-    expect(find.text('Morning Meditation'), findsOneWidget);
-    expect(find.text('Drink Water'), findsOneWidget);
-    expect(find.text('Read 20 Mins'), findsOneWidget);
-
-    // Verify Habit Progress "1 of 3"
-    expect(find.text('1 of 3'), findsOneWidget);
-
-    // Verify Floating Glass Tab Bar
-    expect(find.text('Today'), findsOneWidget);
-    expect(find.text('Habits'), findsOneWidget);
-    expect(find.text('Tasks'), findsOneWidget);
-    expect(find.text('Notes'), findsOneWidget);
-    expect(find.text('Insights'), findsOneWidget);
-
-    // Capture Dark Mode Today Screen
-    await capture('today-dark');
-
-    // 2. Long Press on 'Drink Water' row -> Opens HabitCheckinSheet
-    await tester.longPress(find.text('Drink Water'));
-    await tester.pump(const Duration(milliseconds: 300));
-    await tester.pumpAndSettle();
-
-    expect(find.byType(HabitCheckinSheet), findsOneWidget);
-    expect(find.text('CHECK-IN STATUS'), findsOneWidget);
-    expect(find.text('Done'), findsOneWidget);
-    expect(find.text('Skip'), findsOneWidget);
-    expect(find.text('Missed'), findsOneWidget);
-
-    // Capture Check-in Action Sheet
-    await capture('habit-checkin-sheet');
-
-    // Close check-in sheet
-    await tester.tap(find.byIcon(PhosphorIconsRegular.x));
-    await tester.pump(const Duration(milliseconds: 300));
-    await tester.pumpAndSettle();
-
-    // 3. Tap on 'Morning Meditation' row -> Opens HabitDetailScreen via Hero transition
-    await tester.tap(find.text('Morning Meditation'));
-    await tester.pump(const Duration(milliseconds: 300));
-    await tester.pumpAndSettle();
-
-    expect(find.byType(HabitDetailScreen), findsOneWidget);
-    expect(find.text('CURRENT STREAK'), findsOneWidget);
-    expect(find.text('BEST STREAK'), findsOneWidget);
-    expect(find.text('HABIT SCORE'), findsOneWidget);
-    expect(find.text('COMPLETION RATE'), findsOneWidget);
-    expect(find.byType(HabitHeatmap), findsOneWidget);
-    expect(find.byType(HabitMonthCalendar), findsOneWidget);
-
-    // Capture Habit Detail Screen in Dark Mode
-    await capture('habit-detail-dark');
-
-    // Scroll down to reveal Weekly Performance Bars and Trend Line
-    await tester.drag(find.byType(HabitDetailScreen), const Offset(0, -600));
-    await tester.pumpAndSettle();
-
-    expect(find.byType(HabitWeeklyBars), findsOneWidget);
-    expect(find.byType(HabitTrendLine), findsOneWidget);
-
-    // Scroll back up to top
-    await tester.drag(find.byType(HabitDetailScreen), const Offset(0, 600));
-    await tester.pumpAndSettle();
-
-    // Navigate back to Today Screen
-    await tester.tap(find.byIcon(PhosphorIconsRegular.arrowLeft));
-    await tester.pump(const Duration(milliseconds: 300));
-    await tester.pumpAndSettle();
-
-    // 4. Open Create Habit Sheet via Floating '+' FAB
-    await tester.tap(find.byKey(const ValueKey('app_fab_button')));
-    await tester.pump(const Duration(milliseconds: 300));
-    await tester.pumpAndSettle();
-
-    // Verify Create Habit Sheet is visible
-    expect(find.byType(HabitFormSheet), findsOneWidget);
-    expect(find.text('Create Habit'), findsAtLeastNWidgets(1));
-    expect(find.text('Live Preview'), findsOneWidget);
-
-    // Capture Create Habit Sheet
-    await capture('habit-create-sheet');
-
-    // Close the sheet
-    await tester.tap(find.byIcon(PhosphorIconsRegular.x));
-    await tester.pump(const Duration(milliseconds: 300));
-    await tester.pumpAndSettle();
-
-    // 5. Switch to Habits Tab (Tab 1)
-    await tester.tap(find.text('Habits'));
-    await tester.pump(const Duration(milliseconds: 300));
-    await tester.pumpAndSettle();
-
-    expect(find.byType(HabitsScreen), findsOneWidget);
-    expect(find.textContaining('Active ('), findsOneWidget);
-    expect(find.textContaining('Archived ('), findsOneWidget);
-    await capture('habits-list');
-
-    // Test Archived tab toggle
-    await tester.tap(find.textContaining('Archived ('));
-    await tester.pump(const Duration(milliseconds: 300));
-    await tester.pumpAndSettle();
-    expect(find.text('No Archived Habits'), findsOneWidget);
-
-    // Toggle back to Active
-    await tester.tap(find.textContaining('Active ('));
-    await tester.pump(const Duration(milliseconds: 300));
-    await tester.pumpAndSettle();
-
-    // 6. Test Light Mode
-    final element = tester.element(find.byType(PoswalOrbitApp));
-    final container = ProviderScope.containerOf(element);
-    container.read(appThemeModeProvider.notifier).setMode(AppThemeMode.light);
-    await tester.pump(const Duration(milliseconds: 300));
-    await tester.pumpAndSettle();
-
-    // Switch back to Today tab
-    await tester.tap(find.text('Today'));
-    await tester.pump(const Duration(milliseconds: 300));
-    await tester.pumpAndSettle();
-
-    await capture('today-light');
-
-    // Cleanly unmount and drain stream query timers
+  Future<void> tearDownApp(WidgetTester tester) async {
     await tester.pumpWidget(const SizedBox());
     await tester.pump(const Duration(milliseconds: 100));
     await tester.runAsync(() async {
       await inMemoryDb.close();
+    });
+    tester.view.resetPhysicalSize();
+    tester.view.resetDevicePixelRatio();
+  }
+
+  Future<void> capture(WidgetTester tester, GlobalKey repaintKey, String name) async {
+    await tester.runAsync(() async {
+      final boundary = repaintKey.currentContext?.findRenderObject() as RenderRepaintBoundary?;
+      if (boundary != null) {
+        final image = await boundary.toImage(pixelRatio: 1.0);
+        final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+        if (byteData != null) {
+          final file = File('docs/screenshots/$name.png');
+          file.parent.createSync(recursive: true);
+          file.writeAsBytesSync(byteData.buffer.asUint8List());
+        }
+      }
+    });
+  }
+
+  group('Poswal Orbit Widget Test Suite', () {
+    testWidgets('1. Today Screen displays habit cards, progress ring and floating tab bar', (WidgetTester tester) async {
+      final key = await pumpApp(tester);
+
+      expect(find.byType(TodayScreen), findsOneWidget);
+      expect(find.byType(HeroOrbitCard), findsOneWidget);
+      expect(find.text('Morning Meditation'), findsOneWidget);
+      expect(find.text('Drink Water'), findsOneWidget);
+      expect(find.text('Read 20 Mins'), findsOneWidget);
+      expect(find.text('1 of 3'), findsOneWidget);
+
+      expect(find.text('Today'), findsOneWidget);
+      expect(find.text('Habits'), findsOneWidget);
+      expect(find.text('Tasks'), findsOneWidget);
+      expect(find.text('Notes'), findsOneWidget);
+      expect(find.text('Insights'), findsOneWidget);
+
+      await capture(tester, key, 'today-dark');
+      await tearDownApp(tester);
+    });
+
+    testWidgets('2. Long press habit card opens HabitCheckinSheet with status, stepper & notes', (WidgetTester tester) async {
+      final key = await pumpApp(tester);
+
+      await tester.longPress(find.text('Drink Water'));
+      await tester.pump(const Duration(milliseconds: 300));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(HabitCheckinSheet), findsOneWidget);
+      expect(find.text('CHECK-IN STATUS'), findsOneWidget);
+      expect(find.text('Done'), findsOneWidget);
+      expect(find.text('Skip'), findsOneWidget);
+      expect(find.text('Missed'), findsOneWidget);
+
+      await capture(tester, key, 'habit-checkin-sheet');
+
+      // Close sheet
+      await tester.tap(find.byIcon(PhosphorIconsRegular.x));
+      await tester.pump(const Duration(milliseconds: 300));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(HabitCheckinSheet), findsNothing);
+      await tearDownApp(tester);
+    });
+
+    testWidgets('3. Tapping habit card navigates to HabitDetailScreen with stats, heatmap, calendar & charts', (WidgetTester tester) async {
+      final key = await pumpApp(tester);
+
+      await tester.tap(find.text('Morning Meditation'));
+      await tester.pump(const Duration(milliseconds: 300));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(HabitDetailScreen), findsOneWidget);
+      expect(find.text('CURRENT STREAK'), findsOneWidget);
+      expect(find.text('BEST STREAK'), findsOneWidget);
+      expect(find.text('HABIT SCORE'), findsOneWidget);
+      expect(find.text('COMPLETION RATE'), findsOneWidget);
+      expect(find.byType(HabitHeatmap), findsOneWidget);
+      expect(find.byType(HabitMonthCalendar), findsOneWidget);
+
+      await capture(tester, key, 'habit-detail-dark');
+
+      // Scroll down to reveal Weekly Performance Bars and Trend Line
+      await tester.drag(find.byType(HabitDetailScreen), const Offset(0, -600));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(HabitWeeklyBars), findsOneWidget);
+      expect(find.byType(HabitTrendLine), findsOneWidget);
+
+      // Scroll back up and navigate back
+      await tester.drag(find.byType(HabitDetailScreen), const Offset(0, 600));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byIcon(PhosphorIconsRegular.arrowLeft));
+      await tester.pump(const Duration(milliseconds: 300));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(HabitDetailScreen), findsNothing);
+      expect(find.byType(TodayScreen), findsOneWidget);
+      await tearDownApp(tester);
+    });
+
+    testWidgets('4. FAB button opens HabitFormSheet create flow with live preview', (WidgetTester tester) async {
+      final key = await pumpApp(tester);
+
+      await tester.tap(find.byKey(const ValueKey('app_fab_button')));
+      await tester.pump(const Duration(milliseconds: 300));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(HabitFormSheet), findsOneWidget);
+      expect(find.text('Create Habit'), findsAtLeastNWidgets(1));
+      expect(find.text('Live Preview'), findsOneWidget);
+
+      await capture(tester, key, 'habit-create-sheet');
+
+      await tester.tap(find.byIcon(PhosphorIconsRegular.x));
+      await tester.pump(const Duration(milliseconds: 300));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(HabitFormSheet), findsNothing);
+      await tearDownApp(tester);
+    });
+
+    testWidgets('5. Habits screen supports Active vs Archived segmented filtering', (WidgetTester tester) async {
+      final key = await pumpApp(tester);
+
+      await tester.tap(find.text('Habits'));
+      await tester.pump(const Duration(milliseconds: 300));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(HabitsScreen), findsOneWidget);
+      expect(find.textContaining('Active ('), findsOneWidget);
+      expect(find.textContaining('Archived ('), findsOneWidget);
+      await capture(tester, key, 'habits-list');
+
+      // Switch to Archived tab
+      await tester.tap(find.textContaining('Archived ('));
+      await tester.pump(const Duration(milliseconds: 300));
+      await tester.pumpAndSettle();
+      expect(find.text('No Archived Habits'), findsOneWidget);
+
+      // Switch back to Active tab
+      await tester.tap(find.textContaining('Active ('));
+      await tester.pump(const Duration(milliseconds: 300));
+      await tester.pumpAndSettle();
+      expect(find.text('Morning Meditation'), findsOneWidget);
+
+      await tearDownApp(tester);
+    });
+
+    testWidgets('6. Dynamic theme switching toggles between Dark and Light mode', (WidgetTester tester) async {
+      final key = await pumpApp(tester);
+
+      final element = tester.element(find.byType(PoswalOrbitApp));
+      final container = ProviderScope.containerOf(element);
+      container.read(appThemeModeProvider.notifier).setMode(AppThemeMode.light);
+      await tester.pump(const Duration(milliseconds: 300));
+      await tester.pumpAndSettle();
+
+      await capture(tester, key, 'today-light');
+
+      // Verify still rendered properly in Light theme
+      expect(find.byType(TodayScreen), findsOneWidget);
+      expect(find.text('Morning Meditation'), findsOneWidget);
+
+      await tearDownApp(tester);
     });
   });
 }

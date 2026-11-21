@@ -15,6 +15,11 @@ class DateBoundary {
     return DateTime(adjusted.year, adjusted.month, adjusted.day);
   }
 
+  /// Convenience static helper to get the effective calendar date with custom day start.
+  static DateTime getEffectiveDate(DateTime dateTime, {int dayStartHour = 4}) {
+    return DateBoundary(dayStartHour: dayStartHour).getAppDate(dateTime);
+  }
+
   /// Formats a [DateTime] into a clean ISO-8601 date string: "YYYY-MM-DD".
   static String toDateString(DateTime date) {
     final y = date.year.toString().padLeft(4, '0');
