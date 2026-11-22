@@ -15,11 +15,13 @@ import 'package:poswal_orbit/features/today/application/today_providers.dart';
 class HabitRowCard extends ConsumerWidget {
   final HabitWithEntry item;
   final VoidCallback? onEdit;
+  final bool inGroupedSection;
 
   const HabitRowCard({
     super.key,
     required this.item,
     this.onEdit,
+    this.inGroupedSection = false,
   });
 
   void _handleToggle(BuildContext context, WidgetRef ref) async {
@@ -72,26 +74,28 @@ class HabitRowCard extends ConsumerWidget {
     final scorePercent = HabitScoreCalculator.toPercentage(item.habitScore);
 
     return Container(
-      margin: const EdgeInsets.only(bottom: PoswalSpacing.md),
+      margin: inGroupedSection ? EdgeInsets.zero : const EdgeInsets.only(bottom: PoswalSpacing.md),
       padding: const EdgeInsets.all(PoswalSpacing.md),
-      decoration: BoxDecoration(
-        color: isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight,
-        borderRadius: BorderRadius.circular(PoswalRadii.card),
-        border: Border.all(
-          color: isDone
-              ? PoswalColors.teal.withValues(alpha: 0.35)
-              : (isDark ? Colors.white.withValues(alpha: 0.08) : Colors.black.withValues(alpha: 0.06)),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: isDark ? 0.20 : 0.04),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
+      decoration: inGroupedSection
+          ? const BoxDecoration(color: Colors.transparent)
+          : BoxDecoration(
+              color: isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight,
+              borderRadius: BorderRadius.circular(PoswalRadii.card),
+              border: Border.all(
+                color: isDone
+                    ? PoswalColors.teal.withValues(alpha: 0.35)
+                    : (isDark ? Colors.white.withValues(alpha: 0.08) : Colors.black.withValues(alpha: 0.06)),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: isDark ? 0.20 : 0.04),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
       child: InkWell(
-        borderRadius: BorderRadius.circular(PoswalRadii.card),
+        borderRadius: BorderRadius.circular(inGroupedSection ? 0 : PoswalRadii.card),
         onTap: () => _openDetail(context),
         onLongPress: () => _showActionSheet(context, ref),
         child: Row(

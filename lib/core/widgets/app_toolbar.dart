@@ -15,6 +15,7 @@ class AppToolbar extends ConsumerWidget {
   final bool showAddButton;
   final VoidCallback? onAddPressed;
   final String? addTooltip;
+  final Key? addKey;
 
   const AppToolbar({
     super.key,
@@ -24,6 +25,7 @@ class AppToolbar extends ConsumerWidget {
     this.showAddButton = false,
     this.onAddPressed,
     this.addTooltip,
+    this.addKey,
   });
 
   @override
@@ -46,6 +48,7 @@ class AppToolbar extends ConsumerWidget {
               if (showAddButton && onAddPressed != null) ...[
                 const SizedBox(width: PoswalSpacing.sm),
                 AppToolbarAddButton(
+                  buttonKey: addKey,
                   onPressed: onAddPressed!,
                   tooltip: addTooltip ?? 'Add Item',
                 ),
@@ -119,11 +122,13 @@ class AppToolbarButtonGroup extends ConsumerWidget {
 class AppToolbarAddButton extends ConsumerStatefulWidget {
   final VoidCallback onPressed;
   final String tooltip;
+  final Key? buttonKey;
 
   const AppToolbarAddButton({
     super.key,
     required this.onPressed,
     this.tooltip = 'Add',
+    this.buttonKey,
   });
 
   @override
@@ -205,7 +210,7 @@ class _AppToolbarAddButtonState extends ConsumerState<AppToolbarAddButton>
       child: Tooltip(
         message: widget.tooltip,
         child: GestureDetector(
-          key: const ValueKey('app_toolbar_add_btn'),
+          key: widget.buttonKey ?? const ValueKey('app_toolbar_add_btn'),
           onTap: _handleTap,
           behavior: HitTestBehavior.opaque,
           child: ScaleTransition(

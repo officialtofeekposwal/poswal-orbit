@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
+import 'package:poswal_orbit/core/widgets/app_sheet.dart';
 import 'package:poswal_orbit/data/services/notification_service.dart';
 import 'package:poswal_orbit/core/widgets/icon_helper.dart';
 import 'package:poswal_orbit/domain/models/habit_models.dart';
@@ -105,32 +106,14 @@ class _HabitFormSheetState extends ConsumerState<HabitFormSheet> {
     final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
     final cardBg = isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: isDark ? PoswalColors.surfaceDark : PoswalColors.mist,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(PoswalRadii.sheet)),
-      ),
-      child: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(PoswalSpacing.lg),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Sheet Header Handle
-              Center(
-                child: Container(
-                  width: 40,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: isDark ? Colors.white24 : Colors.black26,
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              ),
-              const SizedBox(height: PoswalSpacing.md),
-
-              // Title Bar
-              Row(
+    return AppSheet(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.lg),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Title Bar
+            Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -363,7 +346,6 @@ class _HabitFormSheetState extends ConsumerState<HabitFormSheet> {
             ],
           ),
         ),
-      ),
-    );
-  }
+      );
+    }
 }

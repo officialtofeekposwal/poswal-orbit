@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
+import 'package:poswal_orbit/core/widgets/app_toolbar.dart';
 import 'package:poswal_orbit/core/widgets/aurora_background.dart';
 import 'package:poswal_orbit/core/widgets/icon_helper.dart';
 import 'package:poswal_orbit/domain/logic/schedule_engine.dart';
@@ -99,29 +100,19 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
         child: SafeArea(
           child: Column(
             children: [
-              // Header
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: PoswalSpacing.lg,
-                  vertical: PoswalSpacing.md,
+              // Header with AppToolbar (Apple HIG Rule 6)
+              AppToolbar(
+                title: Text(
+                  l10n?.allHabits ?? 'Habits',
+                  style: PoswalText.largeTitle.copyWith(
+                    color: textPrimary,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      l10n?.allHabits ?? 'All Habits',
-                      style: PoswalText.largeTitle.copyWith(
-                        color: textPrimary,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    IconButton(
-                      icon: const Icon(PhosphorIconsBold.plus),
-                      color: PoswalColors.teal,
-                      onPressed: () => _openCreateSheet(context),
-                    ),
-                  ],
-                ),
+                showAddButton: true,
+                addTooltip: l10n?.addHabit ?? 'Add Habit',
+                addKey: const ValueKey('habits_toolbar_add_btn'),
+                onAddPressed: () => _openCreateSheet(context),
               ),
 
               // Segmented Filter (Active vs Archived)
@@ -147,14 +138,29 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
               ),
               const SizedBox(height: PoswalSpacing.md),
 
-              // Streak Freeze Banner (Master prompt 6.1: N per month)
+              // Streak Freeze Banner (Solid semi-solid surface on content, HIG Rule 2)
               if (_selectedTab == 0)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.lg),
-                  child: AppGlassCard(
+                  child: Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: PoswalSpacing.md,
                       vertical: PoswalSpacing.sm,
+                    ),
+                    decoration: BoxDecoration(
+                      color: isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight,
+                      borderRadius: BorderRadius.circular(PoswalRadii.card),
+                      border: Border.all(
+                        color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.black.withValues(alpha: 0.06),
+                        width: 1.0,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: isDark ? 0.20 : 0.04),
+                          blurRadius: 10,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
                     ),
                     child: Row(
                       children: [

@@ -4,7 +4,7 @@ import 'package:poswal_orbit/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
-import 'package:poswal_orbit/core/widgets/app_glass.dart';
+import 'package:poswal_orbit/core/widgets/app_toolbar.dart';
 import 'package:poswal_orbit/core/widgets/aurora_background.dart';
 import 'package:poswal_orbit/core/widgets/icon_helper.dart';
 import 'package:poswal_orbit/domain/logic/schedule_engine.dart';
@@ -88,49 +88,36 @@ class HabitDetailScreen extends ConsumerWidget {
 
               return CustomScrollView(
                 slivers: [
-                  // App Bar
+                  // App Bar with HIG Glass AppToolbar
                   SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: PoswalSpacing.lg,
-                        vertical: PoswalSpacing.md,
+                    child: AppToolbar(
+                      leading: IconButton(
+                        icon: const Icon(PhosphorIconsRegular.arrowLeft, size: 20),
+                        color: textPrimary,
+                        onPressed: () => Navigator.of(context).pop(),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          AppGlassButton(
-                            padding: const EdgeInsets.all(PoswalSpacing.sm),
-                            onPressed: () => Navigator.of(context).pop(),
-                            child: const Icon(PhosphorIconsRegular.arrowLeft, size: 20),
-                          ),
-                          Text(
-                            'Habit Orbit',
-                            style: PoswalText.title.copyWith(
-                              color: textPrimary,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              AppGlassButton(
-                                padding: const EdgeInsets.all(PoswalSpacing.sm),
-                                onPressed: () => _openEditSheet(context, habit),
-                                child: const Icon(PhosphorIconsRegular.pencilSimple, size: 20),
-                              ),
-                              const SizedBox(width: PoswalSpacing.xs),
-                              AppGlassButton(
-                                padding: const EdgeInsets.all(PoswalSpacing.sm),
-                                onPressed: () => _toggleArchive(context, ref, habit),
-                                child: Icon(
-                                  habit.isArchived ? PhosphorIconsRegular.archiveBox : PhosphorIconsRegular.archive,
-                                  size: 20,
-                                  color: habit.isArchived ? PoswalColors.teal : textMuted,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                      title: Text(
+                        'Habit Orbit',
+                        style: PoswalText.title.copyWith(
+                          color: textPrimary,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
+                      actions: [
+                        IconButton(
+                          icon: const Icon(PhosphorIconsRegular.pencilSimple, size: 18),
+                          color: textPrimary,
+                          onPressed: () => _openEditSheet(context, habit),
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            habit.isArchived ? PhosphorIconsRegular.archiveBox : PhosphorIconsRegular.archive,
+                            size: 18,
+                            color: habit.isArchived ? PoswalColors.teal : textMuted,
+                          ),
+                          onPressed: () => _toggleArchive(context, ref, habit),
+                        ),
+                      ],
                     ),
                   ),
 
@@ -241,7 +228,7 @@ class HabitDetailScreen extends ConsumerWidget {
                         padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.lg),
                         sliver: SliverList(
                           delegate: SliverChildListDelegate([
-                            // 1. 2x2 Hero Stats Grid
+                            // 1. 2x2 Hero Stats Grid (Solid surfaces on content layer, HIG Rule 2)
                             Row(
                               children: [
                                 Expanded(
@@ -253,6 +240,7 @@ class HabitDetailScreen extends ConsumerWidget {
                                     subtitle: 'consecutive occurrences',
                                     textPrimary: textPrimary,
                                     textMuted: textMuted,
+                                    isDark: isDark,
                                   ),
                                 ),
                                 const SizedBox(width: PoswalSpacing.sm),
@@ -265,6 +253,7 @@ class HabitDetailScreen extends ConsumerWidget {
                                     subtitle: 'historical record',
                                     textPrimary: textPrimary,
                                     textMuted: textMuted,
+                                    isDark: isDark,
                                   ),
                                 ),
                               ],
@@ -281,6 +270,7 @@ class HabitDetailScreen extends ConsumerWidget {
                                     subtitle: '14-day EWMA consistency',
                                     textPrimary: textPrimary,
                                     textMuted: textMuted,
+                                    isDark: isDark,
                                   ),
                                 ),
                                 const SizedBox(width: PoswalSpacing.sm),
@@ -293,6 +283,7 @@ class HabitDetailScreen extends ConsumerWidget {
                                     subtitle: '${stats.totalCompleted}/${stats.totalScheduled} scheduled',
                                     textPrimary: textPrimary,
                                     textMuted: textMuted,
+                                    isDark: isDark,
                                   ),
                                 ),
                               ],
@@ -333,8 +324,24 @@ class HabitDetailScreen extends ConsumerWidget {
 
                             const SizedBox(height: PoswalSpacing.lg),
 
-                            // 6. Check-in Notes History
-                            AppGlassCard(
+                            // 6. Check-in Notes History (Solid semi-solid surface, no glass on content)
+                            Container(
+                              padding: const EdgeInsets.all(PoswalSpacing.lg),
+                              decoration: BoxDecoration(
+                                color: isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight,
+                                borderRadius: BorderRadius.circular(PoswalRadii.card),
+                                border: Border.all(
+                                  color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.black.withValues(alpha: 0.06),
+                                  width: 1.0,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withValues(alpha: isDark ? 0.20 : 0.04),
+                                    blurRadius: 10,
+                                    offset: const Offset(0, 2),
+                                  ),
+                                ],
+                              ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -436,9 +443,25 @@ class HabitDetailScreen extends ConsumerWidget {
     required String subtitle,
     required Color textPrimary,
     required Color textMuted,
+    required bool isDark,
   }) {
-    return AppGlassCard(
+    return Container(
       padding: const EdgeInsets.all(PoswalSpacing.md),
+      decoration: BoxDecoration(
+        color: isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight,
+        borderRadius: BorderRadius.circular(PoswalRadii.card),
+        border: Border.all(
+          color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.black.withValues(alpha: 0.06),
+          width: 1.0,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: isDark ? 0.20 : 0.04),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

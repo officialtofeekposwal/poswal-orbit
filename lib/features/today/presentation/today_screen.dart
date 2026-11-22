@@ -6,6 +6,9 @@ import 'package:intl/intl.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
+import 'package:poswal_orbit/core/widgets/app_list_section.dart';
+import 'package:poswal_orbit/core/widgets/app_search_field.dart';
+import 'package:poswal_orbit/core/widgets/app_toolbar.dart';
 import 'package:poswal_orbit/core/widgets/aurora_background.dart';
 import 'package:poswal_orbit/domain/models/habit_models.dart';
 import 'package:poswal_orbit/features/habits/presentation/habit_form_sheet.dart';
@@ -63,59 +66,72 @@ class TodayScreen extends ConsumerWidget {
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
-            // 1. Top Bar with Safe Area Handling
+            // 1. Top Bar with Safe Area Handling (AppToolbar + Inline Search)
             SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: PoswalSpacing.lg,
-                  vertical: PoswalSpacing.md,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: AppToolbar(
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          _getGreeting(l10n),
-                          style: PoswalText.title.copyWith(
-                            color: textPrimary,
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: -0.5,
-                          ),
-                        ),
-                        const SizedBox(height: 2),
-                        Text(
-                          formattedDate,
-                          style: PoswalText.caption.copyWith(color: textMuted),
-                        ),
-                      ],
+                    Text(
+                      _getGreeting(l10n),
+                      style: PoswalText.title.copyWith(
+                        color: textPrimary,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: -0.5,
+                      ),
                     ),
-                    Row(
-                      children: [
-                        IconButton(
-                          key: const ValueKey('global_search_btn'),
-                          icon: const Icon(PhosphorIconsRegular.magnifyingGlass, size: 22),
-                          color: textPrimary,
-                          tooltip: l10n?.searchTooltip ?? 'Search',
-                          onPressed: () => GlobalSearchScreen.push(context),
-                        ),
-                        IconButton(
-                          key: const ValueKey('settings_btn'),
-                          icon: const Icon(PhosphorIconsRegular.gear, size: 22),
-                          color: textPrimary,
-                          tooltip: l10n?.settingsTooltip ?? 'Settings',
-                          onPressed: () => SettingsScreen.push(context),
-                        ),
-                        IconButton(
-                          icon: const Icon(PhosphorIconsRegular.palette, size: 22),
-                          color: textPrimary,
-                          tooltip: l10n?.designPlaygroundTooltip ?? 'Design Playground',
-                          onPressed: () => context.push('/playground'),
-                        ),
-                      ],
+                    const SizedBox(height: 2),
+                    Text(
+                      formattedDate,
+                      style: PoswalText.caption.copyWith(color: textMuted),
                     ),
                   ],
+                ),
+                actions: [
+                  IconButton(
+                    key: const ValueKey('global_search_btn'),
+                    icon: const Icon(PhosphorIconsRegular.magnifyingGlass, size: 20),
+                    color: textPrimary,
+                    tooltip: l10n?.searchTooltip ?? 'Search',
+                    onPressed: () => GlobalSearchScreen.push(context),
+                  ),
+                  IconButton(
+                    key: const ValueKey('settings_btn'),
+                    icon: const Icon(PhosphorIconsRegular.gear, size: 20),
+                    color: textPrimary,
+                    tooltip: l10n?.settingsTooltip ?? 'Settings',
+                    onPressed: () => SettingsScreen.push(context),
+                  ),
+                  IconButton(
+                    icon: const Icon(PhosphorIconsRegular.palette, size: 20),
+                    color: textPrimary,
+                    tooltip: l10n?.designPlaygroundTooltip ?? 'Design Playground',
+                    onPressed: () => context.push('/playground'),
+                  ),
+                ],
+                showAddButton: true,
+                addTooltip: 'Create new item',
+                addKey: const ValueKey('app_fab_button'),
+                onAddPressed: () => _openCreateSheet(context),
+              ),
+            ),
+
+            // Inline Expandable Search Field (HIG Search Pattern)
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(
+                  PoswalSpacing.lg,
+                  0,
+                  PoswalSpacing.lg,
+                  PoswalSpacing.sm,
+                ),
+                child: AppSearchField(
+                  hintText: l10n?.searchTooltip ?? 'Search habits, tasks, notes...',
+                  onChanged: (val) {
+                    if (val.trim().isNotEmpty) {
+                      GlobalSearchScreen.push(context);
+                    }
+                  },
                 ),
               ),
             ),
@@ -212,7 +228,7 @@ class TodayScreen extends ConsumerWidget {
                           ),
                         ),
 
-                      // Grouped Habits
+                      // Grouped Habits in Inset Grouped AppListSection (HIG Rule 9: Title Case Headers)
                       if (data.allScheduled.isNotEmpty) ...[
                         for (final group in [
                           TimeOfDayGroup.morning,
@@ -221,83 +237,27 @@ class TodayScreen extends ConsumerWidget {
                           TimeOfDayGroup.anytime,
                         ]) ...[
                           if (data.grouped[group]?.isNotEmpty ?? false) ...[
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                top: PoswalSpacing.md,
-                                bottom: PoswalSpacing.sm,
+                            AppListSection(
+                              title: _getGroupTitle(group),
+                              headerTrailing: Text(
+                                '(${data.grouped[group]!.length})',
+                                style: PoswalText.caption.copyWith(color: textMuted),
                               ),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    _getGroupIcon(group),
-                                    color: PoswalColors.teal,
-                                    size: 16,
+                              margin: const EdgeInsets.only(bottom: PoswalSpacing.md),
+                              children: [
+                                for (final item in data.grouped[group]!)
+                                  HabitRowCard(
+                                    item: item,
+                                    inGroupedSection: true,
+                                    onEdit: () => _openEditSheet(context, item.habit),
                                   ),
-                                  const SizedBox(width: PoswalSpacing.xs),
-                                  Text(
-                                    group.displayName,
-                                    style: PoswalText.caption.copyWith(
-                                      color: textPrimary,
-                                      fontWeight: FontWeight.w700,
-                                      letterSpacing: 0.5,
-                                    ),
-                                  ),
-                                  const SizedBox(width: PoswalSpacing.sm),
-                                  Text(
-                                    '(${data.grouped[group]!.length})',
-                                    style: PoswalText.caption.copyWith(color: textMuted),
-                                  ),
-                                ],
-                              ),
+                              ],
                             ),
-                            for (final item in data.grouped[group]!)
-                              HabitRowCard(
-                                item: item,
-                                onEdit: () => _openEditSheet(context, item.habit),
-                              ),
                           ],
                         ],
                       ],
 
-                      // 4. Tasks Due & Overdue Section
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: PoswalSpacing.xl,
-                          bottom: PoswalSpacing.sm,
-                        ),
-                        child: Row(
-                          children: [
-                            const Icon(
-                              PhosphorIconsBold.checkSquare,
-                              color: PoswalColors.teal,
-                              size: 18,
-                            ),
-                            const SizedBox(width: PoswalSpacing.xs),
-                            Text(
-                              l10n?.tasksTitle ?? 'Tasks',
-                              style: PoswalText.caption.copyWith(
-                                color: textPrimary,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 0.5,
-                              ),
-                            ),
-                            tasksAsync.maybeWhen(
-                              data: (tasks) {
-                                final pending = tasks.where((t) => !t.isCompleted).length;
-                                return Padding(
-                                  padding: const EdgeInsets.only(left: PoswalSpacing.sm),
-                                  child: Text(
-                                    l10n?.tasksDueCount(pending) ?? '($pending due)',
-                                    style: PoswalText.caption.copyWith(color: textMuted),
-                                  ),
-                                );
-                              },
-                              orElse: () => const SizedBox.shrink(),
-                            ),
-                          ],
-                        ),
-                      ),
-
+                      // 4. Tasks Due & Overdue Section in Inset Grouped AppListSection
                       tasksAsync.when(
                         loading: () => const Padding(
                           padding: EdgeInsets.symmetric(vertical: PoswalSpacing.md),
@@ -317,25 +277,35 @@ class TodayScreen extends ConsumerWidget {
                           ),
                         ),
                         data: (tasks) {
-                          if (tasks.isEmpty) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: PoswalSpacing.md),
-                              child: Center(
-                                child: Text(
-                                  l10n?.allClear ?? 'All clear. Enjoy the quiet.',
-                                  style: PoswalText.callout.copyWith(
-                                    color: textMuted,
-                                    fontStyle: FontStyle.italic,
-                                  ),
-                                ),
-                              ),
-                            );
-                          }
-                          return Column(
-                            children: [
-                              for (final task in tasks)
-                                TaskRowCard(task: task),
-                            ],
+                          final pending = tasks.where((t) => !t.isCompleted).length;
+                          return AppListSection(
+                            title: l10n?.tasksTitle ?? 'Tasks',
+                            headerTrailing: pending > 0
+                                ? Text(
+                                    l10n?.tasksDueCount(pending) ?? '($pending due)',
+                                    style: PoswalText.caption.copyWith(color: textMuted),
+                                  )
+                                : null,
+                            margin: const EdgeInsets.only(bottom: PoswalSpacing.md),
+                            children: tasks.isEmpty
+                                ? [
+                                    Padding(
+                                      padding: const EdgeInsets.all(PoswalSpacing.lg),
+                                      child: Center(
+                                        child: Text(
+                                          l10n?.allClear ?? 'All clear. Enjoy the quiet.',
+                                          style: PoswalText.callout.copyWith(
+                                            color: textMuted,
+                                            fontStyle: FontStyle.italic,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ]
+                                : [
+                                    for (final task in tasks)
+                                      TaskRowCard(task: task),
+                                  ],
                           );
                         },
                       ),
@@ -352,16 +322,16 @@ class TodayScreen extends ConsumerWidget {
     );
   }
 
-  IconData _getGroupIcon(TimeOfDayGroup group) {
+  String _getGroupTitle(TimeOfDayGroup group) {
     switch (group) {
       case TimeOfDayGroup.morning:
-        return PhosphorIconsRegular.sunHorizon;
+        return 'Morning Habits';
       case TimeOfDayGroup.afternoon:
-        return PhosphorIconsRegular.sun;
+        return 'Afternoon Habits';
       case TimeOfDayGroup.evening:
-        return PhosphorIconsRegular.moon;
+        return 'Evening Habits';
       case TimeOfDayGroup.anytime:
-        return PhosphorIconsRegular.clock;
+        return 'Anytime Habits';
     }
   }
 }

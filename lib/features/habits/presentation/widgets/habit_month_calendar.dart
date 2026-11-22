@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
-import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/domain/logic/date_boundary.dart';
 import 'package:poswal_orbit/domain/logic/schedule_engine.dart';
 import 'package:poswal_orbit/domain/models/habit_models.dart';
@@ -70,7 +69,25 @@ class _HabitMonthCalendarState extends State<HabitMonthCalendar> {
 
     final int totalCells = ((firstWeekdayOffset + daysInMonth + 6) ~/ 7) * 7;
 
-    return AppGlassCard(
+    final cardBg = isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight;
+    final borderColor = isDark
+        ? Colors.white.withValues(alpha: 0.08)
+        : Colors.black.withValues(alpha: 0.06);
+
+    return Container(
+      padding: const EdgeInsets.all(PoswalSpacing.lg),
+      decoration: BoxDecoration(
+        color: cardBg,
+        borderRadius: BorderRadius.circular(PoswalRadii.card),
+        border: Border.all(color: borderColor, width: 1.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: isDark ? 0.20 : 0.04),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

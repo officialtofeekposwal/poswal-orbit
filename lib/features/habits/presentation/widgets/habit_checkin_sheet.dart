@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
+import 'package:poswal_orbit/core/widgets/app_sheet.dart';
 import 'package:poswal_orbit/domain/logic/date_boundary.dart';
 import 'package:poswal_orbit/domain/models/habit_models.dart';
 import 'package:poswal_orbit/features/today/application/today_providers.dart';
@@ -95,44 +96,19 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
     final habitColor = Color(widget.habit.colorValue);
     final dateFormatted = DateFormat('EEEE, MMM d, yyyy').format(widget.checkinDate);
 
-    return Container(
-      decoration: BoxDecoration(
-        color: isDark ? PoswalColors.surfaceDark : PoswalColors.mist,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(PoswalRadii.sheet)),
-        border: Border(
-          top: BorderSide(
-            color: isDark ? Colors.white12 : Colors.black.withValues(alpha: 0.08),
-          ),
+    return AppSheet(
+      child: SingleChildScrollView(
+        padding: EdgeInsets.only(
+          left: PoswalSpacing.lg,
+          right: PoswalSpacing.lg,
+          bottom: MediaQuery.of(context).viewInsets.bottom + PoswalSpacing.md,
         ),
-      ),
-      padding: EdgeInsets.only(
-        left: PoswalSpacing.lg,
-        right: PoswalSpacing.lg,
-        top: PoswalSpacing.md,
-        bottom: MediaQuery.of(context).viewInsets.bottom + PoswalSpacing.xl,
-      ),
-      child: SafeArea(
-        top: false,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Handle
-              Center(
-                child: Container(
-                  width: 40,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: isDark ? Colors.white24 : Colors.black26,
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              ),
-              const SizedBox(height: PoswalSpacing.md),
-
-              // Header
-              Row(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Header
+            Row(
                 children: [
                   Container(
                     width: 44,
@@ -329,9 +305,8 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
             ],
           ),
         ),
-      ),
-    );
-  }
+      );
+    }
 
   Widget _buildStatusButton({
     required HabitEntryStatus status,

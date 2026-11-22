@@ -6,6 +6,7 @@ import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 /// HIG Inset Grouped Section for Lists, Tables, and Settings
 class AppListSection extends ConsumerWidget {
   final String? title;
+  final Widget? headerTrailing;
   final String? footer;
   final List<Widget> children;
   final EdgeInsetsGeometry margin;
@@ -14,6 +15,7 @@ class AppListSection extends ConsumerWidget {
   const AppListSection({
     super.key,
     this.title,
+    this.headerTrailing,
     this.footer,
     required this.children,
     this.margin = const EdgeInsets.symmetric(
@@ -48,13 +50,21 @@ class AppListSection extends ConsumerWidget {
                 left: PoswalSpacing.sm,
                 bottom: PoswalSpacing.xs,
               ),
-              child: Text(
-                title!,
-                style: PoswalText.footnote.copyWith(
-                  color: isDestructive ? PoswalColors.danger : headerColor,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: -0.1,
-                ),
+              child: Row(
+                children: [
+                  Text(
+                    title!,
+                    style: PoswalText.footnote.copyWith(
+                      color: isDestructive ? PoswalColors.danger : headerColor,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: -0.1,
+                    ),
+                  ),
+                  if (headerTrailing != null) ...[
+                    const SizedBox(width: PoswalSpacing.xs),
+                    headerTrailing!,
+                  ],
+                ],
               ),
             ),
           ],

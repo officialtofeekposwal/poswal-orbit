@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
-import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/core/widgets/poswal_orbit_ring.dart';
 
 class HeroOrbitCard extends StatelessWidget {
@@ -37,7 +36,25 @@ class HeroOrbitCard extends StatelessWidget {
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
     final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
 
-    return AppGlassCard(
+    final cardBg = isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight;
+    final borderColor = isDark
+        ? Colors.white.withValues(alpha: 0.08)
+        : Colors.black.withValues(alpha: 0.06);
+
+    return Container(
+      padding: const EdgeInsets.all(PoswalSpacing.lg),
+      decoration: BoxDecoration(
+        color: cardBg,
+        borderRadius: BorderRadius.circular(PoswalRadii.card),
+        border: Border.all(color: borderColor, width: 1.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: isDark ? 0.20 : 0.04),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
       child: Column(
         children: [
           Row(
