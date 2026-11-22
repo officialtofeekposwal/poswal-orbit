@@ -5,6 +5,7 @@ import 'package:poswal_orbit/domain/logic/date_boundary.dart';
 import 'package:poswal_orbit/domain/logic/schedule_engine.dart';
 import 'package:poswal_orbit/domain/models/habit_models.dart';
 import 'package:poswal_orbit/features/habits/presentation/widgets/habit_checkin_sheet.dart';
+import 'package:poswal_orbit/l10n/app_localizations.dart';
 
 class HabitHeatmap extends StatelessWidget {
   final Habit habit;
@@ -20,6 +21,7 @@ class HabitHeatmap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
     final habitColor = Color(widgetColor);
@@ -101,7 +103,7 @@ class HabitHeatmap extends StatelessWidget {
               children: [
                 // Day Labels (Mon, Wed, Fri)
                 Padding(
-                  padding: const EdgeInsets.only(right: 6, top: 2),
+                  padding: const EdgeInsetsDirectional.only(end: 6, top: 2),
                   child: Column(
                     children: [
                       _buildDayLabel('M', textMuted),
@@ -149,7 +151,7 @@ class HabitHeatmap extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text('Less', style: PoswalText.caption.copyWith(color: textMuted, fontSize: 10)),
+              Text(l10n?.heatmapLess ?? 'Less', style: PoswalText.micro.copyWith(color: textMuted)),
               const SizedBox(width: 4),
               _buildLegendBox(isDark ? Colors.white.withValues(alpha: 0.05) : Colors.black.withValues(alpha: 0.05)),
               const SizedBox(width: 3),
@@ -159,7 +161,7 @@ class HabitHeatmap extends StatelessWidget {
               const SizedBox(width: 3),
               _buildLegendBox(habitColor),
               const SizedBox(width: 4),
-              Text('More', style: PoswalText.caption.copyWith(color: textMuted, fontSize: 10)),
+              Text(l10n?.heatmapMore ?? 'More', style: PoswalText.micro.copyWith(color: textMuted)),
               const SizedBox(width: PoswalSpacing.md),
               Container(
                 width: 10,
@@ -171,7 +173,7 @@ class HabitHeatmap extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 4),
-              Text('Skipped', style: PoswalText.caption.copyWith(color: textMuted, fontSize: 10)),
+              Text(l10n?.heatmapSkipped ?? 'Skipped', style: PoswalText.micro.copyWith(color: textMuted)),
             ],
           ),
         ],
@@ -187,8 +189,7 @@ class HabitHeatmap extends StatelessWidget {
       child: Center(
         child: Text(
           text,
-          style: PoswalText.caption.copyWith(
-            fontSize: 9,
+          style: PoswalText.micro.copyWith(
             color: color,
             fontWeight: FontWeight.w600,
           ),
@@ -203,7 +204,7 @@ class HabitHeatmap extends StatelessWidget {
       height: 10,
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(2.5),
+        borderRadius: BorderRadius.circular(PoswalRadii.xxs),
       ),
     );
   }
@@ -266,7 +267,7 @@ class HabitHeatmap extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 2),
           decoration: BoxDecoration(
             color: cellColor,
-            borderRadius: BorderRadius.circular(3),
+            borderRadius: BorderRadius.circular(PoswalRadii.xxs),
             border: border,
           ),
         ),

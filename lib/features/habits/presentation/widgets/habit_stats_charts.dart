@@ -109,8 +109,7 @@ class HabitWeeklyBars extends StatelessWidget {
         if (count > 0)
           Text(
             count.toString(),
-            style: PoswalText.caption.copyWith(
-              fontSize: 10,
+            style: PoswalText.micro.copyWith(
               fontWeight: FontWeight.w700,
               color: textPrimary,
             ),
@@ -124,7 +123,7 @@ class HabitWeeklyBars extends StatelessWidget {
           width: 22,
           height: barHeight,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(6),
+            borderRadius: BorderRadius.circular(PoswalRadii.xs),
             gradient: LinearGradient(
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
@@ -149,8 +148,7 @@ class HabitWeeklyBars extends StatelessWidget {
         // Day label
         Text(
           dayLabel,
-          style: PoswalText.caption.copyWith(
-            fontSize: 11,
+          style: PoswalText.caption2.copyWith(
             color: count > 0 ? textPrimary : textMuted,
             fontWeight: count > 0 ? FontWeight.w600 : FontWeight.w400,
           ),

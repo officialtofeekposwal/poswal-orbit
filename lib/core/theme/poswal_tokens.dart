@@ -157,6 +157,15 @@ abstract final class PoswalDurations {
 
   /// Inset sheet and modal transition duration: 300ms
   static const sheet = Duration(milliseconds: 300);
+
+  /// Medium UI delay (e.g. refresh animations): 500ms
+  static const medium = Duration(milliseconds: 500);
+
+  /// Debounce and user typing pause duration: 600ms
+  static const debounce = Duration(milliseconds: 600);
+
+  /// Long continuous spin-up and ambient sweeps: 1200ms
+  static const slow = Duration(milliseconds: 1200);
 }
 
 /// HIG Standard Row & Touch Target Heights

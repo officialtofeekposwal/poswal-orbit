@@ -129,6 +129,7 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
   }
 
   void _showColorPicker(BuildContext context, Note note) {
+    final l10n = AppLocalizations.of(context);
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -136,7 +137,7 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
       builder: (ctx) {
         final isDark = Theme.of(context).brightness == Brightness.dark;
         return AppSheet(
-          title: 'Color Label',
+          title: l10n?.colorLabelTitle ?? 'Color Label',
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.lg, vertical: PoswalSpacing.md),
             child: Wrap(
@@ -364,7 +365,7 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                             child: Row(
                               children: [
                                 AppGlassChip(
-                                  label: 'All',
+                                  label: l10n?.allFilter ?? 'All',
                                   isSelected: selectedTag == null,
                                   onTap: () {
                                     ref.read(noteFilterTagProvider.notifier).setTag(null);

@@ -345,7 +345,7 @@ class AppLocalizationsUr extends AppLocalizations {
   String get settingsAppearance => 'ظاہری شکل';
 
   @override
-  String get settingsTheme => 'تھیم موڈ';
+  String get settingsTheme => 'تھیم';
 
   @override
   String get settingsAccent => 'نمایاں رنگ';
@@ -777,4 +777,107 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get next => 'آگے';
+
+  @override
+  String get restoreBackupDialogTitle => 'بیک اپ سے بحال کریں؟';
+
+  @override
+  String restoreBackupDialogBody(String date) {
+    return 'یہ آپ کے موجودہ ڈیٹا کو $date کے بیک اپ سے بدل دے گا۔\n\nبحال کرنے سے پہلے آپ کے موجودہ ڈیٹا بیس کا ایک حفاظتی سنیپ شاٹ لیا جائے گا تاکہ کچھ ضائع نہ ہو۔';
+  }
+
+  @override
+  String get restoreSafelyBtn => 'محفوظ طریقے سے بحال کریں';
+
+  @override
+  String get settingsAccentColor => 'لہجے کا رنگ';
+
+  @override
+  String get settingsGlassIntensity => 'شیشے کی شدت';
+
+  @override
+  String get settingsTimeBoundary => 'وقت اور مدار کی حد';
+
+  @override
+  String get settingsAbout => 'کے بارے میں';
+
+  @override
+  String get deleteTaskBtn => 'کام حذف کریں';
+
+  @override
+  String get taskDetailsTitle => 'کام کی تفصیلات';
+
+  @override
+  String get noMatchingResults => 'کوئی مماثل نتائج نہیں ملے';
+
+  @override
+  String searchSectionHabits(int count) {
+    return 'عادات ($count)';
+  }
+
+  @override
+  String searchSectionTasks(int count) {
+    return 'کام ($count)';
+  }
+
+  @override
+  String searchSectionNotes(int count) {
+    return 'نوٹس ($count)';
+  }
+
+  @override
+  String get colorLabelTitle => 'رنگ کا لیبل';
+
+  @override
+  String get allFilter => 'تمام';
+
+  @override
+  String get noteColorLabelTitle => 'نوٹ کے رنگ کا لیبل';
+
+  @override
+  String get linkHabitOrTaskTitle => 'عادت یا کام سے منسلک کریں';
+
+  @override
+  String get habitsSectionHeader => 'عادات';
+
+  @override
+  String get tasksSectionHeader => 'کام';
+
+  @override
+  String dailyJournalHeader(String date) {
+    return 'روزنامچہ • $date';
+  }
+
+  @override
+  String get linkedHabitLabel => 'منسلک عادت';
+
+  @override
+  String get linkedTaskLabel => 'منسلک کام';
+
+  @override
+  String get heatmapSkipped => 'چھوڑا گیا';
+
+  @override
+  String get habitConsecutiveOccurrences => 'مسلسل دن';
+
+  @override
+  String get habitHistoricalRecord => 'تاریخی ریکارڈ';
+
+  @override
+  String get habitEwmaConsistency => '14 دن کی مستقل مزاجی';
+
+  @override
+  String get testNotificationTitle => '🌟 پوسوال مدار ٹیسٹ اطلاع';
+
+  @override
+  String get testNotificationBody =>
+      'اس آلہ پر بالکل درست الارم اور اطلاعی چینلز ٹھیک کام کر رہے ہیں!';
+
+  @override
+  String get testNotificationSent =>
+      'ٹیسٹ اطلاع بھیج دی گئی! اپنی نوٹیفکیشن بار دیکھیں اور \"مکمل\" / \"10 منٹ بعد\" آزمائیں۔';
+
+  @override
+  String get calendarTapHint =>
+      'چیک ان میں ترمیم کرنے یا نوٹس شامل کرنے کے لیے کسی بھی دن ٹیپ کریں';
 }

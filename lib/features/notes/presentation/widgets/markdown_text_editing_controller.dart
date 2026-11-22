@@ -46,7 +46,7 @@ class MarkdownTextEditingController extends TextEditingController {
     final baseStyle = style ??
         TextStyle(
           color: isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight,
-          fontSize: 16,
+          fontSize: PoswalText.callout.fontSize ?? 16,
           height: 1.5,
         );
 

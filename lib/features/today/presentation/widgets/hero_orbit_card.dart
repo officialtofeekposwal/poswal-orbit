@@ -102,9 +102,8 @@ class HeroOrbitCard extends StatelessWidget {
                   children: [
                     Text(
                       totalDue == 0 ? '0 of 0' : '$totalDone of $totalDue',
-                      style: PoswalText.largeTitle.copyWith(
+                      style: PoswalText.title1.copyWith(
                         color: textPrimary,
-                        fontSize: 26,
                         fontWeight: FontWeight.w700,
                       ),
                     ),

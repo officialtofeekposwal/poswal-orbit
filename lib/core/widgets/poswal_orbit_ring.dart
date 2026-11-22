@@ -32,7 +32,7 @@ class _PoswalOrbitRingState extends State<PoswalOrbitRing>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1200),
+      duration: PoswalDurations.slow,
     );
     _animation = Tween<double>(
       begin: widget.animateOnStart ? 0.0 : widget.progress,

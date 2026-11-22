@@ -313,5 +313,63 @@
   "onboardingNotesDesc": "Markdown notes and daily journals stored safely on your device only.",
   "getStarted": "Get Started",
   "skip": "Skip",
-  "next": "Next"
+  "next": "Next",
+
+  "restoreBackupDialogTitle": "Restore from Backup?",
+  "restoreBackupDialogBody": "This will replace your current data with backup from {date}.\n\nA safety snapshot of your current database will be taken immediately before restoring so nothing is lost.",
+  "@restoreBackupDialogBody": {
+    "placeholders": {
+      "date": {"type": "String"}
+    }
+  },
+  "restoreSafelyBtn": "Restore Safely",
+  "settingsAppearance": "Appearance",
+  "settingsTheme": "Theme",
+  "settingsAccentColor": "Accent Color",
+  "settingsGlassIntensity": "Glass Intensity",
+  "settingsTimeBoundary": "Time & Orbit Boundary",
+  "settingsAbout": "About",
+  "deleteTaskBtn": "Delete Task",
+  "taskDetailsTitle": "Task Details",
+  "noMatchingResults": "No matching results found",
+  "searchSectionHabits": "Habits ({count})",
+  "@searchSectionHabits": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "searchSectionTasks": "Tasks ({count})",
+  "@searchSectionTasks": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "searchSectionNotes": "Notes ({count})",
+  "@searchSectionNotes": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "colorLabelTitle": "Color Label",
+  "allFilter": "All",
+  "noteColorLabelTitle": "Note Color Label",
+  "linkHabitOrTaskTitle": "Link to Habit or Task",
+  "habitsSectionHeader": "HABITS",
+  "tasksSectionHeader": "TASKS",
+  "dailyJournalHeader": "Daily Journal • {date}",
+  "@dailyJournalHeader": {
+    "placeholders": {
+      "date": {"type": "String"}
+    }
+  },
+  "linkedHabitLabel": "Linked Habit",
+  "linkedTaskLabel": "Linked Task",
+  "heatmapSkipped": "Skipped",
+  "habitConsecutiveOccurrences": "consecutive occurrences",
+  "habitHistoricalRecord": "historical record",
+  "habitEwmaConsistency": "14-day EWMA consistency",
+  "testNotificationTitle": "🌟 Poswal Orbit Test Notification",
+  "testNotificationBody": "Exact alarms & notification channels are working beautifully on this device!",
+  "testNotificationSent": "Test notification sent! Check your shade & test \"Mark Done\" / \"Snooze 10m\".",
+  "calendarTapHint": "Tap any day to edit check-in or add notes"
 }

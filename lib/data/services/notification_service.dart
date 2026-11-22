@@ -322,7 +322,7 @@ class NotificationService {
   }
 
   /// Sends an immediate test notification to verify channel, sound, icon, and actions on real device
-  Future<void> sendTestNotification() async {
+  Future<void> sendTestNotification({String? title, String? body}) async {
     await initialize();
 
     const androidDetails = AndroidNotificationDetails(
@@ -345,8 +345,8 @@ class NotificationService {
     try {
       await _plugin.show(
         id: 99999,
-        title: '🌟 Poswal Orbit Test Notification',
-        body: 'Exact alarms & notification channels are working beautifully on this device!',
+        title: title ?? '🌟 Poswal Orbit Test Notification',
+        body: body ?? 'Exact alarms & notification channels are working beautifully on this device!',
         notificationDetails: details,
         payload: jsonEncode({
           'notificationId': 99999,

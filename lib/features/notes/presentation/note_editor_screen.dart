@@ -140,7 +140,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
       });
     }
     _debounceTimer?.cancel();
-    _debounceTimer = Timer(const Duration(milliseconds: 600), () {
+    _debounceTimer = Timer(PoswalDurations.debounce, () {
       _saveNoteImmediate();
     });
   }
@@ -224,13 +224,14 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
 
   void _openColorPicker() {
     HapticFeedback.selectionClick();
+    final l10n = AppLocalizations.of(context);
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
       builder: (ctx) {
         final isDark = Theme.of(context).brightness == Brightness.dark;
         return AppSheet(
-          title: 'Note Color Label',
+          title: l10n?.noteColorLabelTitle ?? 'Note Color Label',
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md),
             child: Wrap(
@@ -336,8 +337,10 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
         final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
         final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
 
+        final l10n = AppLocalizations.of(context);
+
         return AppSheet(
-          title: 'Link to Habit or Task',
+          title: l10n?.linkHabitOrTaskTitle ?? 'Link to Habit or Task',
           isFullHeight: true,
           child: ListView(
             shrinkWrap: true,
@@ -346,7 +349,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
               if (habits.isNotEmpty) ...[
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md, vertical: PoswalSpacing.xs),
-                  child: Text('HABITS', style: PoswalText.caption.copyWith(color: textMuted)),
+                  child: Text(l10n?.habitsSectionHeader ?? 'HABITS', style: PoswalText.caption.copyWith(color: textMuted)),
                 ),
                 ...habits.map((h) => ListTile(
                       leading: Icon(PhosphorIconsRegular.sparkle, color: Color(h.colorValue)),
@@ -366,7 +369,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
               if (tasks.isNotEmpty) ...[
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md, vertical: PoswalSpacing.xs),
-                  child: Text('TASKS', style: PoswalText.caption.copyWith(color: textMuted)),
+                  child: Text(l10n?.tasksSectionHeader ?? 'TASKS', style: PoswalText.caption.copyWith(color: textMuted)),
                 ),
                 ...tasks.map((t) => ListTile(
                       leading: Icon(PhosphorIconsRegular.checkSquare, color: Color(t.priority.colorValue)),
@@ -529,7 +532,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
                                 children: [
                                   if (_isJournal)
                                     AppGlassChip(
-                                      label: 'Daily Journal • ${_journalDate ?? ""}',
+                                      label: l10n?.dailyJournalHeader(_journalDate ?? '') ?? 'Daily Journal • ${_journalDate ?? ""}',
                                       icon: const Icon(PhosphorIconsRegular.bookOpen, size: 14),
                                       isSelected: true,
                                       onTap: () {},
@@ -537,7 +540,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
                                   if (_linkedHabitId != null)
                                     AppGlassChip(
                                       key: const ValueKey('linked_habit_chip'),
-                                      label: 'Linked Habit',
+                                      label: l10n?.linkedHabitLabel ?? 'Linked Habit',
                                       icon: const Icon(PhosphorIconsRegular.sparkle, size: 14),
                                       isSelected: true,
                                       onTap: () {
@@ -551,7 +554,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
                                   if (_linkedTaskId != null)
                                     AppGlassChip(
                                       key: const ValueKey('linked_task_chip'),
-                                      label: 'Linked Task',
+                                      label: l10n?.linkedTaskLabel ?? 'Linked Task',
                                       icon: const Icon(PhosphorIconsRegular.checkSquare, size: 14),
                                       isSelected: true,
                                       onTap: () async {

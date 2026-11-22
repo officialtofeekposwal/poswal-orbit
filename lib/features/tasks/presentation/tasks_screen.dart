@@ -170,7 +170,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.lg),
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(right: PoswalSpacing.xs),
+                        padding: const EdgeInsetsDirectional.only(end: PoswalSpacing.xs),
                         child: ChoiceChip(
                           label: Text(l10n?.allProjects ?? 'All Projects'),
                           selected: selectedProjectId == null,
@@ -181,7 +181,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
                       ),
                       for (final proj in projects) ...[
                         Padding(
-                          padding: const EdgeInsets.only(right: PoswalSpacing.xs),
+                          padding: const EdgeInsetsDirectional.only(end: PoswalSpacing.xs),
                           child: ChoiceChip(
                             label: Text(proj.name),
                             selected: selectedProjectId == proj.id,

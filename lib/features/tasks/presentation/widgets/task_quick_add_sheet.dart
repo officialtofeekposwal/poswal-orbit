@@ -190,7 +190,7 @@ class _TaskQuickAddSheetState extends ConsumerState<TaskQuickAddSheet> {
             TextField(
               controller: _textController,
               focusNode: _focusNode,
-              style: PoswalText.headline.copyWith(color: textPrimary, fontSize: 16),
+              style: PoswalText.callout.copyWith(color: textPrimary),
               decoration: InputDecoration(
                 hintText: l10n?.quickAddTaskHint ?? 'e.g. Call mom tomorrow 6pm !high #family',
                 hintStyle: PoswalText.callout.copyWith(color: textMuted),
@@ -217,10 +217,9 @@ class _TaskQuickAddSheetState extends ConsumerState<TaskQuickAddSheet> {
                       due != null
                           ? '${DateFormat('EEE, MMM d').format(due)}${hasTime ? ' ${DateFormat('h:mm a').format(due)}' : ''}'
                           : (l10n?.dueDateLabel ?? 'Due Date'),
-                      style: TextStyle(
+                      style: PoswalText.caption.copyWith(
                         color: due != null ? PoswalColors.teal : textMuted,
                         fontWeight: due != null ? FontWeight.w700 : FontWeight.w500,
-                        fontSize: 12,
                       ),
                     ),
                     backgroundColor: due != null
@@ -241,10 +240,9 @@ class _TaskQuickAddSheetState extends ConsumerState<TaskQuickAddSheet> {
                         : Icon(PhosphorIconsRegular.flag, size: 14, color: textMuted),
                     label: Text(
                       priority != TaskPriority.none ? priority.label : (l10n?.priorityLabel ?? 'Priority'),
-                      style: TextStyle(
+                      style: PoswalText.caption.copyWith(
                         color: priority != TaskPriority.none ? Color(priority.colorValue) : textMuted,
                         fontWeight: priority != TaskPriority.none ? FontWeight.w700 : FontWeight.w500,
-                        fontSize: 12,
                       ),
                     ),
                     backgroundColor: priority != TaskPriority.none
@@ -260,7 +258,7 @@ class _TaskQuickAddSheetState extends ConsumerState<TaskQuickAddSheet> {
                       avatar: const Icon(PhosphorIconsRegular.tag, size: 14, color: PoswalColors.violet),
                       label: Text(
                         '#$project',
-                        style: const TextStyle(color: PoswalColors.violet, fontWeight: FontWeight.w600, fontSize: 12),
+                        style: PoswalText.caption.copyWith(color: PoswalColors.violet, fontWeight: FontWeight.w600),
                       ),
                       backgroundColor: PoswalColors.violet.withValues(alpha: 0.15),
                     ),

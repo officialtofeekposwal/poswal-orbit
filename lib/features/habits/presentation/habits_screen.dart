@@ -187,7 +187,7 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
                               ),
                               Text(
                                 l10n?.streakFreezeDescription ?? 'Protects one missed scheduled day per month.',
-                                style: PoswalText.caption.copyWith(color: textMuted, fontSize: 10),
+                                style: PoswalText.micro.copyWith(color: textMuted),
                               ),
                             ],
                           ),
@@ -309,9 +309,8 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
                           children: [
                             Text(
                               habit.name,
-                              style: PoswalText.headline.copyWith(
+                              style: PoswalText.callout.copyWith(
                                 color: textPrimary,
-                                fontSize: 16,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -419,9 +418,8 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
                       children: [
                         Text(
                           habit.name,
-                          style: PoswalText.headline.copyWith(
+                          style: PoswalText.callout.copyWith(
                             color: textMuted,
-                            fontSize: 16,
                             fontWeight: FontWeight.w600,
                             decoration: TextDecoration.lineThrough,
                           ),

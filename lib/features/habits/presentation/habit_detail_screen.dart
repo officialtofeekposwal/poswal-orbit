@@ -180,14 +180,13 @@ class HabitDetailScreen extends ConsumerWidget {
                                   padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                                   decoration: BoxDecoration(
                                     color: PoswalColors.gold.withValues(alpha: 0.20),
-                                    borderRadius: BorderRadius.circular(4),
+                                    borderRadius: BorderRadius.circular(PoswalRadii.xs),
                                   ),
                                   child: Text(
-                                    'Archived',
-                                    style: PoswalText.caption.copyWith(
+                                    l10n?.habitsArchived ?? 'Archived',
+                                    style: PoswalText.micro.copyWith(
                                       color: PoswalColors.gold,
                                       fontWeight: FontWeight.w700,
-                                      fontSize: 10,
                                     ),
                                   ),
                                 ),
@@ -237,7 +236,7 @@ class HabitDetailScreen extends ConsumerWidget {
                                     value: '${stats.currentStreak}d',
                                     icon: PhosphorIconsFill.fire,
                                     color: PoswalColors.gold,
-                                    subtitle: 'consecutive occurrences',
+                                    subtitle: l10n?.habitConsecutiveOccurrences ?? 'consecutive occurrences',
                                     textPrimary: textPrimary,
                                     textMuted: textMuted,
                                     isDark: isDark,
@@ -250,7 +249,7 @@ class HabitDetailScreen extends ConsumerWidget {
                                     value: '${stats.bestStreak}d',
                                     icon: PhosphorIconsFill.trophy,
                                     color: PoswalColors.violet,
-                                    subtitle: 'historical record',
+                                    subtitle: l10n?.habitHistoricalRecord ?? 'historical record',
                                     textPrimary: textPrimary,
                                     textMuted: textMuted,
                                     isDark: isDark,
@@ -267,7 +266,7 @@ class HabitDetailScreen extends ConsumerWidget {
                                     value: '$scorePercent%',
                                     icon: PhosphorIconsFill.chartLineUp,
                                     color: PoswalColors.teal,
-                                    subtitle: '14-day EWMA consistency',
+                                    subtitle: l10n?.habitEwmaConsistency ?? '14-day EWMA consistency',
                                     textPrimary: textPrimary,
                                     textMuted: textMuted,
                                     isDark: isDark,
@@ -470,9 +469,8 @@ class HabitDetailScreen extends ConsumerWidget {
             children: [
               Text(
                 title,
-                style: PoswalText.caption.copyWith(
+                style: PoswalText.micro.copyWith(
                   color: textMuted,
-                  fontSize: 10,
                   fontWeight: FontWeight.w700,
                   letterSpacing: 0.6,
                 ),
@@ -491,7 +489,7 @@ class HabitDetailScreen extends ConsumerWidget {
           const SizedBox(height: 2),
           Text(
             subtitle,
-            style: PoswalText.caption.copyWith(color: textMuted, fontSize: 10),
+            style: PoswalText.micro.copyWith(color: textMuted),
           ),
         ],
       ),

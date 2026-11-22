@@ -175,11 +175,10 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
             if (_isSearchExpanded)
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    PoswalSpacing.lg,
-                    0,
-                    PoswalSpacing.lg,
-                    PoswalSpacing.sm,
+                  padding: const EdgeInsetsDirectional.only(
+                    start: PoswalSpacing.lg,
+                    end: PoswalSpacing.lg,
+                    bottom: PoswalSpacing.sm,
                   ),
                   child: AppSearchField(
                     controller: _searchController,
@@ -371,6 +370,7 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
 
   List<Widget> _buildSearchResultsSlivers(bool isDark, Color textPrimary, Color textMuted) {
     final searchAsync = ref.watch(globalSearchResultsProvider);
+    final l10n = AppLocalizations.of(context);
     return [
       searchAsync.when(
         loading: () => const SliverToBoxAdapter(
@@ -399,7 +399,7 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                     children: [
                       Icon(PhosphorIconsRegular.magnifyingGlass, size: 40, color: textMuted),
                       const SizedBox(height: PoswalSpacing.md),
-                      Text('No matching results found', style: PoswalText.callout.copyWith(color: textMuted)),
+                      Text(l10n?.noMatchingResults ?? 'No matching results found', style: PoswalText.callout.copyWith(color: textMuted)),
                     ],
                   ),
                 ),
@@ -413,19 +413,19 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
               delegate: SliverChildListDelegate([
                 if (results.habits.isNotEmpty)
                   AppListSection(
-                    title: 'Habits (${results.habits.length})',
+                    title: l10n?.searchSectionHabits(results.habits.length) ?? 'Habits (${results.habits.length})',
                     margin: const EdgeInsets.only(bottom: PoswalSpacing.md),
                     children: results.habits.map((item) => _buildResultRow(item, isDark, textPrimary, textMuted)).toList(),
                   ),
                 if (results.tasks.isNotEmpty)
                   AppListSection(
-                    title: 'Tasks (${results.tasks.length})',
+                    title: l10n?.searchSectionTasks(results.tasks.length) ?? 'Tasks (${results.tasks.length})',
                     margin: const EdgeInsets.only(bottom: PoswalSpacing.md),
                     children: results.tasks.map((item) => _buildResultRow(item, isDark, textPrimary, textMuted)).toList(),
                   ),
                 if (results.notes.isNotEmpty)
                   AppListSection(
-                    title: 'Notes (${results.notes.length})',
+                    title: l10n?.searchSectionNotes(results.notes.length) ?? 'Notes (${results.notes.length})',
                     margin: const EdgeInsets.only(bottom: PoswalSpacing.md),
                     children: results.notes.map((item) => _buildResultRow(item, isDark, textPrimary, textMuted)).toList(),
                   ),

@@ -147,7 +147,7 @@ class _AppSearchFieldState extends ConsumerState<AppSearchField> {
               key: const ValueKey('app_search_input'),
               controller: _controller,
               focusNode: _focusNode,
-              style: PoswalText.bodyText.copyWith(color: textPrimary, fontSize: 15),
+              style: PoswalText.subheadline.copyWith(color: textPrimary),
               decoration: InputDecoration(
                 hintText: widget.hintText,
                 hintStyle: PoswalText.callout.copyWith(color: textMuted),

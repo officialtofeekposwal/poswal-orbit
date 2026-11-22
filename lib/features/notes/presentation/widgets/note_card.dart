@@ -124,10 +124,9 @@ class NoteCard extends StatelessWidget {
                                   const SizedBox(width: 4),
                                   Text(
                                     note.journalDate ?? 'Journal',
-                                    style: PoswalText.caption.copyWith(
+                                    style: PoswalText.micro.copyWith(
                                       color: PoswalColors.teal,
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 10,
                                     ),
                                   ),
                                 ],
@@ -241,9 +240,8 @@ class NoteCard extends StatelessWidget {
                           ),
                           child: Text(
                             '#$tag',
-                            style: PoswalText.caption.copyWith(
+                            style: PoswalText.micro.copyWith(
                               color: textMuted,
-                              fontSize: 10,
                               fontWeight: FontWeight.w500,
                             ),
                           ),

@@ -733,7 +733,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsTheme.
   ///
   /// In en, this message translates to:
-  /// **'Theme Mode'**
+  /// **'Theme'**
   String get settingsTheme;
 
   /// No description provided for @settingsAccent.
@@ -1521,6 +1521,186 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Next'**
   String get next;
+
+  /// No description provided for @restoreBackupDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore from Backup?'**
+  String get restoreBackupDialogTitle;
+
+  /// No description provided for @restoreBackupDialogBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This will replace your current data with backup from {date}.\n\nA safety snapshot of your current database will be taken immediately before restoring so nothing is lost.'**
+  String restoreBackupDialogBody(String date);
+
+  /// No description provided for @restoreSafelyBtn.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Safely'**
+  String get restoreSafelyBtn;
+
+  /// No description provided for @settingsAccentColor.
+  ///
+  /// In en, this message translates to:
+  /// **'Accent Color'**
+  String get settingsAccentColor;
+
+  /// No description provided for @settingsGlassIntensity.
+  ///
+  /// In en, this message translates to:
+  /// **'Glass Intensity'**
+  String get settingsGlassIntensity;
+
+  /// No description provided for @settingsTimeBoundary.
+  ///
+  /// In en, this message translates to:
+  /// **'Time & Orbit Boundary'**
+  String get settingsTimeBoundary;
+
+  /// No description provided for @settingsAbout.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get settingsAbout;
+
+  /// No description provided for @deleteTaskBtn.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Task'**
+  String get deleteTaskBtn;
+
+  /// No description provided for @taskDetailsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Task Details'**
+  String get taskDetailsTitle;
+
+  /// No description provided for @noMatchingResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No matching results found'**
+  String get noMatchingResults;
+
+  /// No description provided for @searchSectionHabits.
+  ///
+  /// In en, this message translates to:
+  /// **'Habits ({count})'**
+  String searchSectionHabits(int count);
+
+  /// No description provided for @searchSectionTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks ({count})'**
+  String searchSectionTasks(int count);
+
+  /// No description provided for @searchSectionNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes ({count})'**
+  String searchSectionNotes(int count);
+
+  /// No description provided for @colorLabelTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Color Label'**
+  String get colorLabelTitle;
+
+  /// No description provided for @allFilter.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get allFilter;
+
+  /// No description provided for @noteColorLabelTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Note Color Label'**
+  String get noteColorLabelTitle;
+
+  /// No description provided for @linkHabitOrTaskTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Link to Habit or Task'**
+  String get linkHabitOrTaskTitle;
+
+  /// No description provided for @habitsSectionHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'HABITS'**
+  String get habitsSectionHeader;
+
+  /// No description provided for @tasksSectionHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'TASKS'**
+  String get tasksSectionHeader;
+
+  /// No description provided for @dailyJournalHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Journal • {date}'**
+  String dailyJournalHeader(String date);
+
+  /// No description provided for @linkedHabitLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Linked Habit'**
+  String get linkedHabitLabel;
+
+  /// No description provided for @linkedTaskLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Linked Task'**
+  String get linkedTaskLabel;
+
+  /// No description provided for @heatmapSkipped.
+  ///
+  /// In en, this message translates to:
+  /// **'Skipped'**
+  String get heatmapSkipped;
+
+  /// No description provided for @habitConsecutiveOccurrences.
+  ///
+  /// In en, this message translates to:
+  /// **'consecutive occurrences'**
+  String get habitConsecutiveOccurrences;
+
+  /// No description provided for @habitHistoricalRecord.
+  ///
+  /// In en, this message translates to:
+  /// **'historical record'**
+  String get habitHistoricalRecord;
+
+  /// No description provided for @habitEwmaConsistency.
+  ///
+  /// In en, this message translates to:
+  /// **'14-day EWMA consistency'**
+  String get habitEwmaConsistency;
+
+  /// No description provided for @testNotificationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'🌟 Poswal Orbit Test Notification'**
+  String get testNotificationTitle;
+
+  /// No description provided for @testNotificationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Exact alarms & notification channels are working beautifully on this device!'**
+  String get testNotificationBody;
+
+  /// No description provided for @testNotificationSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Test notification sent! Check your shade & test \"Mark Done\" / \"Snooze 10m\".'**
+  String get testNotificationSent;
+
+  /// No description provided for @calendarTapHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap any day to edit check-in or add notes'**
+  String get calendarTapHint;
 }
 
 class _AppLocalizationsDelegate

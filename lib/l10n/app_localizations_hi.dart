@@ -346,7 +346,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get settingsAppearance => 'दिखावट';
 
   @override
-  String get settingsTheme => 'थीम मोड';
+  String get settingsTheme => 'थीम';
 
   @override
   String get settingsAccent => 'मुख्य रंग';
@@ -777,4 +777,107 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get next => 'आगे';
+
+  @override
+  String get restoreBackupDialogTitle => 'बैकअप से पुनर्स्थापित करें?';
+
+  @override
+  String restoreBackupDialogBody(String date) {
+    return 'यह आपके वर्तमान डेटा को $date के बैकअप से बदल देगा।\n\nपुनर्स्थापित करने से ठीक पहले आपके वर्तमान डेटाबेस का एक सुरक्षा स्नैपशॉट लिया जाएगा ताकि कुछ भी न खोए।';
+  }
+
+  @override
+  String get restoreSafelyBtn => 'सुरक्षित रूप से पुनर्स्थापित करें';
+
+  @override
+  String get settingsAccentColor => 'एक्सेंट रंग';
+
+  @override
+  String get settingsGlassIntensity => 'ग्लास तीव्रता';
+
+  @override
+  String get settingsTimeBoundary => 'समय और कक्षा सीमा';
+
+  @override
+  String get settingsAbout => 'के बारे में';
+
+  @override
+  String get deleteTaskBtn => 'कार्य हटाएं';
+
+  @override
+  String get taskDetailsTitle => 'कार्य विवरण';
+
+  @override
+  String get noMatchingResults => 'कोई मेल खाने वाले परिणाम नहीं मिले';
+
+  @override
+  String searchSectionHabits(int count) {
+    return 'आदतें ($count)';
+  }
+
+  @override
+  String searchSectionTasks(int count) {
+    return 'कार्य ($count)';
+  }
+
+  @override
+  String searchSectionNotes(int count) {
+    return 'नोट्स ($count)';
+  }
+
+  @override
+  String get colorLabelTitle => 'रंग लेबल';
+
+  @override
+  String get allFilter => 'सभी';
+
+  @override
+  String get noteColorLabelTitle => 'नोट का रंग लेबल';
+
+  @override
+  String get linkHabitOrTaskTitle => 'आदत या कार्य से जोड़ें';
+
+  @override
+  String get habitsSectionHeader => 'आदतें';
+
+  @override
+  String get tasksSectionHeader => 'कार्य';
+
+  @override
+  String dailyJournalHeader(String date) {
+    return 'दैनिक डायरी • $date';
+  }
+
+  @override
+  String get linkedHabitLabel => 'जुड़ी हुई आदत';
+
+  @override
+  String get linkedTaskLabel => 'जुड़ा हुआ कार्य';
+
+  @override
+  String get heatmapSkipped => 'छोड़ा गया';
+
+  @override
+  String get habitConsecutiveOccurrences => 'लगातार दिन';
+
+  @override
+  String get habitHistoricalRecord => 'ऐतिहासिक रिकॉर्ड';
+
+  @override
+  String get habitEwmaConsistency => '14-दिवसीय ईडब्ल्यूएमए निरंतरता';
+
+  @override
+  String get testNotificationTitle => '🌟 पोसवाल ऑर्बिट परीक्षण सूचना';
+
+  @override
+  String get testNotificationBody =>
+      'इस डिवाइस पर सटीक अलार्म और अधिसूचना चैनल ठीक से काम कर रहे हैं!';
+
+  @override
+  String get testNotificationSent =>
+      'परीक्षण सूचना भेज दी गई! अपनी सूचना पट्टी देखें और \"पूर्ण\" / \"10 मिनट बाद\" आज़माएं।';
+
+  @override
+  String get calendarTapHint =>
+      'चेक-इन संपादित करने या नोट्स जोड़ने के लिए किसी भी दिन टैप करें';
 }

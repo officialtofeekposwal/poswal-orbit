@@ -7,6 +7,7 @@ import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_theme.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
+import 'package:poswal_orbit/l10n/app_localizations.dart';
 
 /// Provider to track scroll direction for auto-minimizing navigation bars
 class ScrollMinimizerNotifier extends Notifier<bool> {
@@ -216,11 +217,20 @@ class _TabItemButton extends StatelessWidget {
   Widget build(BuildContext context) {
     const activeColor = PoswalColors.teal;
     final inactiveColor = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
+    final l10n = AppLocalizations.of(context);
+    final String label = switch (index) {
+      0 => l10n?.tabToday ?? item.label,
+      1 => l10n?.tabHabits ?? item.label,
+      2 => l10n?.tabTasks ?? item.label,
+      3 => l10n?.tabNotes ?? item.label,
+      4 => l10n?.tabInsights ?? item.label,
+      _ => item.label,
+    };
 
     return Semantics(
       button: true,
       selected: isSelected,
-      label: '${item.label} tab',
+      label: '$label tab',
       child: GestureDetector(
         key: ValueKey('tab_item_$index'),
         behavior: HitTestBehavior.opaque,
@@ -246,10 +256,9 @@ class _TabItemButton extends StatelessWidget {
               if (!isMinimized) ...[
                 const SizedBox(height: 2),
                 Text(
-                  item.label,
+                  label,
                   maxLines: 1,
-                  style: PoswalText.caption.copyWith(
-                    fontSize: 11,
+                  style: PoswalText.caption2.copyWith(
                     color: isSelected ? activeColor : inactiveColor,
                     fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
                   ),

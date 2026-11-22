@@ -78,3 +78,60 @@ jobs:
           path: build/app/outputs/flutter-apk/app-debug.apk
           if-no-files-found: error
           retention-days: 14
+
+  build_release_apk:
+    name: Build Release APK (R8 & Shrinking Verification)
+    runs-on: ubuntu-latest
+    needs: analyze_and_test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '21'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.50.1'
+          channel: 'stable'
+          cache: true
+
+      - name: Generate Throwaway Release Keystore for CI Verification
+        run: |
+          keytool -genkeypair -v \
+            -keystore android/ci-release.jks \
+            -alias cirelease \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 1 \
+            -storepass android \
+            -keypass android \
+            -dname "CN=CI Throwaway, OU=Verification, O=Poswal Orbit, C=IN"
+          
+          cat <<EOF > android/key.properties
+          storePassword=android
+          keyPassword=android
+          keyAlias=cirelease
+          storeFile=ci-release.jks
+          EOF
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Android Release APK (Minified & Shrunk)
+        run: flutter build apk --release
+
+      - name: Upload Release APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: poswal-orbit-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+          if-no-files-found: error
+          retention-days: 14

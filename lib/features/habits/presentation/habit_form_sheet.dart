@@ -164,7 +164,7 @@ class _HabitFormSheetState extends ConsumerState<HabitFormSheet> {
                         children: [
                           Text(
                             _nameController.text.isEmpty ? 'Your Habit Name' : _nameController.text,
-                            style: PoswalText.headline.copyWith(color: textPrimary, fontSize: 16),
+                            style: PoswalText.callout.copyWith(color: textPrimary),
                           ),
                           const SizedBox(height: 2),
                           Text(

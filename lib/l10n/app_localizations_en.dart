@@ -345,7 +345,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsAppearance => 'Appearance';
 
   @override
-  String get settingsTheme => 'Theme Mode';
+  String get settingsTheme => 'Theme';
 
   @override
   String get settingsAccent => 'Accent Color';
@@ -775,4 +775,106 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get next => 'Next';
+
+  @override
+  String get restoreBackupDialogTitle => 'Restore from Backup?';
+
+  @override
+  String restoreBackupDialogBody(String date) {
+    return 'This will replace your current data with backup from $date.\n\nA safety snapshot of your current database will be taken immediately before restoring so nothing is lost.';
+  }
+
+  @override
+  String get restoreSafelyBtn => 'Restore Safely';
+
+  @override
+  String get settingsAccentColor => 'Accent Color';
+
+  @override
+  String get settingsGlassIntensity => 'Glass Intensity';
+
+  @override
+  String get settingsTimeBoundary => 'Time & Orbit Boundary';
+
+  @override
+  String get settingsAbout => 'About';
+
+  @override
+  String get deleteTaskBtn => 'Delete Task';
+
+  @override
+  String get taskDetailsTitle => 'Task Details';
+
+  @override
+  String get noMatchingResults => 'No matching results found';
+
+  @override
+  String searchSectionHabits(int count) {
+    return 'Habits ($count)';
+  }
+
+  @override
+  String searchSectionTasks(int count) {
+    return 'Tasks ($count)';
+  }
+
+  @override
+  String searchSectionNotes(int count) {
+    return 'Notes ($count)';
+  }
+
+  @override
+  String get colorLabelTitle => 'Color Label';
+
+  @override
+  String get allFilter => 'All';
+
+  @override
+  String get noteColorLabelTitle => 'Note Color Label';
+
+  @override
+  String get linkHabitOrTaskTitle => 'Link to Habit or Task';
+
+  @override
+  String get habitsSectionHeader => 'HABITS';
+
+  @override
+  String get tasksSectionHeader => 'TASKS';
+
+  @override
+  String dailyJournalHeader(String date) {
+    return 'Daily Journal • $date';
+  }
+
+  @override
+  String get linkedHabitLabel => 'Linked Habit';
+
+  @override
+  String get linkedTaskLabel => 'Linked Task';
+
+  @override
+  String get heatmapSkipped => 'Skipped';
+
+  @override
+  String get habitConsecutiveOccurrences => 'consecutive occurrences';
+
+  @override
+  String get habitHistoricalRecord => 'historical record';
+
+  @override
+  String get habitEwmaConsistency => '14-day EWMA consistency';
+
+  @override
+  String get testNotificationTitle => '🌟 Poswal Orbit Test Notification';
+
+  @override
+  String get testNotificationBody =>
+      'Exact alarms & notification channels are working beautifully on this device!';
+
+  @override
+  String get testNotificationSent =>
+      'Test notification sent! Check your shade & test \"Mark Done\" / \"Snooze 10m\".';
+
+  @override
+  String get calendarTapHint => 'Tap any day to edit check-in or add notes';
 }

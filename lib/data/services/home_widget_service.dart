@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:home_widget/home_widget.dart';
 import 'package:poswal_orbit/domain/logic/widget_payload_codec.dart';
 
@@ -18,8 +17,8 @@ class HomeWidgetService {
     try {
       await HomeWidget.setAppGroupId(appGroupId);
       await HomeWidget.registerInteractivityCallback(homeWidgetBackgroundCallback);
-    } catch (e) {
-      debugPrint('[HomeWidgetService] init error: $e');
+    } catch (_) {
+      // Ignored for environments without home widget support
     }
   }
 
@@ -36,8 +35,8 @@ class HomeWidgetService {
         HomeWidget.updateWidget(name: androidHabitsWidgetName, iOSName: iOSWidgetName),
         HomeWidget.updateWidget(name: androidTasksWidgetName, iOSName: iOSWidgetName),
       ]);
-    } catch (e) {
-      debugPrint('[HomeWidgetService] updateWidgetData error: $e');
+    } catch (_) {
+      // Background or widget channel unavailable
     }
   }
 
@@ -49,8 +48,8 @@ class HomeWidgetService {
         HomeWidget.updateWidget(name: androidHabitsWidgetName, iOSName: iOSWidgetName),
         HomeWidget.updateWidget(name: androidTasksWidgetName, iOSName: iOSWidgetName),
       ]);
-    } catch (e) {
-      debugPrint('[HomeWidgetService] refresh error: $e');
+    } catch (_) {
+      // Background or widget channel unavailable
     }
   }
 }
@@ -64,7 +63,6 @@ Future<void> homeWidgetBackgroundCallback(Uri? uri) async {
   if (uri.scheme == 'orbit' && uri.host == 'checkin') {
     final habitId = uri.queryParameters['habitId'];
     if (habitId != null && habitId.isNotEmpty) {
-      debugPrint('[homeWidgetBackgroundCallback] Interactive checkin for habit: $habitId');
       await Future.wait([
         HomeWidget.updateWidget(name: HomeWidgetService.androidTodayWidgetName, iOSName: HomeWidgetService.iOSWidgetName),
         HomeWidget.updateWidget(name: HomeWidgetService.androidHabitsWidgetName, iOSName: HomeWidgetService.iOSWidgetName),

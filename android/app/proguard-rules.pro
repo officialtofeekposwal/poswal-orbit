@@ -7,6 +7,7 @@
 -keep class io.flutter.view.** { *; }
 -keep class io.flutter.** { *; }
 -keep class io.flutter.plugins.** { *; }
+-dontwarn com.google.android.play.core.**
 
 # Drift / SQLite / sqlite3 Native C-Bindings
 -keep class androidx.sqlite.db.** { *; }

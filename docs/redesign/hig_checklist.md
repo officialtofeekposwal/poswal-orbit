@@ -285,7 +285,7 @@
 | **Rule 3: Scroll-Edge Blur** | N/A | N/A | PageView horizontal carousel. |
 | **Rule 4: Concentric Geometry** | ✅ Test Screenshot | 🔲 NOT VERIFIED ON PHONE | Page indicator dots and primary capsule button adhere to concentric scaling. |
 | **Rule 5: Tab Bar Integrity** | N/A | N/A | Onboarding flow (pre-shell). |
-| **Rule 6: Primary Action** | ✅ Test Screenshot | 🔲 NOT VERIFIED ON PHONE | Large solid capsule primary button (`PoswalRadii.capsule`, 50dp height, white text on `PoswalColors.teal`). |
+| **Rule 6: Primary Action** | ✅ Test Screenshot | 🔲 NOT VERIFIED ON PHONE | Large solid capsule primary button (`PoswalRadii.capsule`, 50dp height, dark ink text on `PoswalColors.teal`, 7.91:1 AAA contrast). |
 | **Rule 7: Toolbars** | ✅ Test Screenshot | 🔲 NOT VERIFIED ON PHONE | Top trailing "Skip" button in clean callout style. |
 | **Rule 8: Sheets** | N/A | N/A | Full screen flow. |
 | **Rule 9: Lists & Inset Grouping** | N/A | N/A | Carousel presentation. |
@@ -320,5 +320,5 @@
 ## 📈 Verification Summary
 
 - **Total Screens / Surfaces Evaluated:** 14 / 14
-- **Automated Test & Screenshot Verification:** **14 / 14 PASS in test screenshot** (All 196 unit/widget tests passing; zero analyzer issues).
+- **Automated Test & Screenshot Verification:** **14 / 14 PASS in test screenshot** (All 221 unit/widget tests passing across 38 files; zero analyzer issues).
 - **Physical Device Verification:** **0 / 14 verified on real phone** (Awaiting physical APK installation and user verification).

@@ -121,7 +121,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     // Page 2: Tasks & Action
                     _buildPage(
                       context: context,
-                      heroVisual: _buildTasksVisual(isDark),
+                      heroVisual: _buildTasksVisual(isDark, l10n),
                       title: l10n?.onboardingTasksTitle ?? 'Calm, Focused Action',
                       description: l10n?.onboardingTasksDesc ??
                           'Smart lists, natural language due dates, and simple checklists keep you clear.',
@@ -195,9 +195,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                               _currentPage == 2
                                   ? (l10n?.getStarted ?? 'Get Started')
                                   : (l10n?.next ?? 'Next'),
-                              style: PoswalText.headline.copyWith(
+                              style: PoswalText.callout.copyWith(
                                 color: PoswalColors.ink,
-                                fontSize: 16,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
@@ -241,9 +240,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             Text(
               title,
               textAlign: TextAlign.center,
-              style: PoswalText.largeTitle.copyWith(
+              style: PoswalText.title1.copyWith(
                 color: textPrimary,
-                fontSize: 26,
                 fontWeight: FontWeight.w800,
                 letterSpacing: -0.5,
               ),
@@ -304,7 +302,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     );
   }
 
-  Widget _buildTasksVisual(bool isDark) {
+  Widget _buildTasksVisual(bool isDark, AppLocalizations? l10n) {
     return AppGlassCard(
       padding: const EdgeInsets.all(PoswalSpacing.lg),
       child: Column(
@@ -330,7 +328,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   color: PoswalColors.teal.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(PoswalRadii.chip),
                 ),
-                child: const Text('Today', style: TextStyle(color: PoswalColors.teal, fontSize: 11, fontWeight: FontWeight.w700)),
+                child: Text(l10n?.tabToday ?? 'Today', style: PoswalText.caption2.copyWith(color: PoswalColors.teal, fontWeight: FontWeight.w700)),
               ),
             ],
           ),
@@ -375,9 +373,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               const SizedBox(width: PoswalSpacing.sm),
               Text(
                 'Daily Journal',
-                style: PoswalText.headline.copyWith(
+                style: PoswalText.callout.copyWith(
                   color: isDark ? Colors.white : PoswalColors.textOnLight,
-                  fontSize: 16,
                   fontWeight: FontWeight.w700,
                 ),
               ),

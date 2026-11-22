@@ -66,10 +66,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   }
 
   Future<void> _handleRestoreBackup(BackupFileInfo backup) async {
+    final l10n = AppLocalizations.of(context);
     final confirmed = await AppSheet.show<bool>(
       context: context,
       builder: (ctx) => AppSheet(
-        title: 'Restore from Backup?',
+        title: l10n?.restoreBackupDialogTitle ?? 'Restore from Backup?',
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.lg, vertical: PoswalSpacing.md),
           child: Column(
@@ -77,7 +78,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                'This will replace your current data with backup from ${backup.formattedDate}.\n\nA safety snapshot of your current database will be taken immediately before restoring so nothing is lost.',
+                l10n?.restoreBackupDialogBody(backup.formattedDate) ??
+                    'This will replace your current data with backup from ${backup.formattedDate}.\n\nA safety snapshot of your current database will be taken immediately before restoring so nothing is lost.',
                 style: PoswalText.bodyText.copyWith(color: PoswalColors.textMutedDark),
               ),
               const SizedBox(height: PoswalSpacing.lg),
@@ -88,7 +90,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.capsule)),
                 ),
                 onPressed: () => Navigator.of(ctx).pop(true),
-                child: Text('Restore Safely', style: PoswalText.callout.copyWith(color: PoswalColors.ink, fontWeight: FontWeight.bold)),
+                child: Text(l10n?.restoreSafelyBtn ?? 'Restore Safely', style: PoswalText.callout.copyWith(color: PoswalColors.ink, fontWeight: FontWeight.bold)),
               ),
               const SizedBox(height: PoswalSpacing.sm),
               TextButton(
@@ -97,7 +99,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.capsule)),
                 ),
                 onPressed: () => Navigator.of(ctx).pop(false),
-                child: Text('Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
+                child: Text(l10n?.cancel ?? 'Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
               ),
             ],
           ),
@@ -440,14 +442,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           children: [
             // --- SECTION 1: APPEARANCE ---
             AppListSection(
-              title: 'Appearance',
+              title: l10n?.settingsAppearance ?? 'Appearance',
               children: [
                 Padding(
                   padding: const EdgeInsets.all(PoswalSpacing.md),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Theme', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                      Text(l10n?.settingsTheme ?? 'Theme', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
                       const SizedBox(height: PoswalSpacing.sm),
                       Wrap(
                         spacing: PoswalSpacing.sm,
@@ -467,7 +469,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         }).toList(),
                       ),
                       const Divider(color: Colors.white12, height: 28),
-                      Text('Accent Color', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                      Text(l10n?.settingsAccentColor ?? 'Accent Color', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
                       const SizedBox(height: PoswalSpacing.sm),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -499,7 +501,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Glass Intensity', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                          Text(l10n?.settingsGlassIntensity ?? 'Glass Intensity', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
                           Text('${(intensity * 100).toInt()}%', style: PoswalText.caption.copyWith(color: PoswalColors.teal, fontWeight: FontWeight.w700)),
                         ],
                       ),
@@ -537,7 +539,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
             // --- SECTION 2: TIME & DAY BOUNDARY ---
             AppListSection(
-              title: 'Time & Orbit Boundary',
+              title: l10n?.settingsTimeBoundary ?? 'Time & Orbit Boundary',
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md),
@@ -832,7 +834,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(b.name, style: PoswalText.caption.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
-                                          Text('${b.formattedDate} · ${b.formattedSize}', style: PoswalText.caption.copyWith(color: textMuted, fontSize: 11)),
+                                          Text('${b.formattedDate} · ${b.formattedSize}', style: PoswalText.caption2.copyWith(color: textMuted)),
                                         ],
                                       ),
                                     ),
@@ -898,7 +900,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
             // --- SECTION 8: ABOUT & PLAYGROUND ---
             AppListSection(
-              title: 'About',
+              title: l10n?.settingsAbout ?? 'About',
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md),

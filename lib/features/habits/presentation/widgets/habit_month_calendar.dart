@@ -7,6 +7,7 @@ import 'package:poswal_orbit/domain/logic/date_boundary.dart';
 import 'package:poswal_orbit/domain/logic/schedule_engine.dart';
 import 'package:poswal_orbit/domain/models/habit_models.dart';
 import 'package:poswal_orbit/features/habits/presentation/widgets/habit_checkin_sheet.dart';
+import 'package:poswal_orbit/l10n/app_localizations.dart';
 
 class HabitMonthCalendar extends StatefulWidget {
   final Habit habit;
@@ -48,6 +49,7 @@ class _HabitMonthCalendarState extends State<HabitMonthCalendar> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
     final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
@@ -133,8 +135,7 @@ class _HabitMonthCalendarState extends State<HabitMonthCalendar> {
                   child: Center(
                     child: Text(
                       dayName,
-                      style: PoswalText.caption.copyWith(
-                        fontSize: 11,
+                      style: PoswalText.caption2.copyWith(
                         color: textMuted,
                         fontWeight: FontWeight.w600,
                       ),
@@ -210,7 +211,6 @@ class _HabitMonthCalendarState extends State<HabitMonthCalendar> {
                     child: Text(
                       dayNum.toString(),
                       style: PoswalText.caption.copyWith(
-                        fontSize: 12,
                         color: textColor,
                         fontWeight: (entry?.isDone ?? false) || isToday ? FontWeight.w700 : FontWeight.w400,
                       ),
@@ -224,8 +224,8 @@ class _HabitMonthCalendarState extends State<HabitMonthCalendar> {
           const SizedBox(height: PoswalSpacing.sm),
           Center(
             child: Text(
-              'Tap any day to edit check-in or add notes',
-              style: PoswalText.caption.copyWith(color: textMuted, fontSize: 10),
+              l10n?.calendarTapHint ?? 'Tap any day to edit check-in or add notes',
+              style: PoswalText.micro.copyWith(color: textMuted),
             ),
           ),
         ],

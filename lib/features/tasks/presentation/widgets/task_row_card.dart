@@ -216,7 +216,7 @@ class TaskRowCard extends ConsumerWidget {
                             Container(
                               width: 8,
                               height: 8,
-                              margin: const EdgeInsets.only(right: PoswalSpacing.xs),
+                              margin: const EdgeInsetsDirectional.only(end: PoswalSpacing.xs),
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Color(task.priority.colorValue),
@@ -228,8 +228,7 @@ class TaskRowCard extends ConsumerWidget {
                               task.title,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: PoswalText.headline.copyWith(
-                                fontSize: 15,
+                              style: PoswalText.subheadline.copyWith(
                                 color: task.isCompleted ? textMuted : textPrimary,
                                 fontWeight: FontWeight.w600,
                                 decoration: task.isCompleted ? TextDecoration.lineThrough : null,
@@ -270,8 +269,7 @@ class TaskRowCard extends ConsumerWidget {
                                     const SizedBox(width: 3),
                                     Text(
                                       dueFormatted,
-                                      style: PoswalText.caption.copyWith(
-                                        fontSize: 11,
+                                      style: PoswalText.caption2.copyWith(
                                         fontWeight: FontWeight.w600,
                                         color: isOverdue
                                             ? PoswalColors.danger
@@ -298,7 +296,7 @@ class TaskRowCard extends ConsumerWidget {
                                     const SizedBox(width: 2),
                                     Text(
                                       '$completed/${subtasks.length}',
-                                      style: PoswalText.caption.copyWith(fontSize: 11, color: textMuted),
+                                      style: PoswalText.caption2.copyWith(color: textMuted),
                                     ),
                                     const SizedBox(width: PoswalSpacing.xs),
                                   ],

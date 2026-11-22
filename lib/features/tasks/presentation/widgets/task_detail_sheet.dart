@@ -203,7 +203,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                     Expanded(
                       child: Center(
                         child: Text(
-                          'Task Details',
+                          l10n?.taskDetailsTitle ?? 'Task Details',
                           style: PoswalText.title.copyWith(color: textPrimary, fontWeight: FontWeight.w700),
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -234,10 +234,10 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                   // 1. Title Input
                   TextField(
                     controller: _titleController,
-                    style: PoswalText.headline.copyWith(color: textPrimary, fontSize: 18),
+                    style: PoswalText.title3.copyWith(color: textPrimary),
                     decoration: InputDecoration(
                       hintText: l10n?.tasksTitle ?? 'Task Title',
-                      hintStyle: PoswalText.headline.copyWith(color: textMuted, fontSize: 18),
+                      hintStyle: PoswalText.title3.copyWith(color: textMuted),
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.zero,
                     ),
@@ -270,7 +270,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                       children: TaskPriority.values.map((p) {
                         final isSelected = _priority == p;
                         return Padding(
-                          padding: const EdgeInsets.only(right: PoswalSpacing.xs),
+                          padding: const EdgeInsetsDirectional.only(end: PoswalSpacing.xs),
                           child: ChoiceChip(
                             label: Text(p.label),
                             selected: isSelected,
@@ -309,7 +309,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                           icon: const Icon(PhosphorIconsRegular.calendar, size: 16),
                           label: Text(
                             _dueDate != null ? DateFormat('EEE, MMM d, yyyy').format(_dueDate!) : 'Set Date',
-                            style: const TextStyle(fontSize: 13),
+                            style: PoswalText.footnote,
                           ),
                           onPressed: _pickDueDate,
                         ),
@@ -320,7 +320,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                           icon: const Icon(PhosphorIconsRegular.clock, size: 16),
                           label: Text(
                             _dueTime != null ? _dueTime!.format(context) : 'Set Time',
-                            style: const TextStyle(fontSize: 13),
+                            style: PoswalText.footnote,
                           ),
                           onPressed: _pickDueTime,
                         ),
@@ -462,7 +462,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                   Center(
                     child: TextButton.icon(
                       icon: const Icon(PhosphorIconsRegular.trash, color: PoswalColors.danger),
-                      label: const Text('Delete Task', style: TextStyle(color: PoswalColors.danger)),
+                      label: Text(l10n?.deleteTaskBtn ?? 'Delete Task', style: const TextStyle(color: PoswalColors.danger)),
                       onPressed: _deleteTask,
                     ),
                   ),

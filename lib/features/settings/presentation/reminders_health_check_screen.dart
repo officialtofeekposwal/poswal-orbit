@@ -65,7 +65,7 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
       await androidImpl?.openAppNotificationSettings();
     }
     // Refresh after returning from settings
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(PoswalDurations.medium);
     await _loadHealthStatus();
   }
 
@@ -77,14 +77,18 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
           .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
       await androidImpl?.requestExactAlarmsPermission();
     }
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(PoswalDurations.medium);
     await _loadHealthStatus();
   }
 
   Future<void> _sendTest() async {
     setState(() => _isSendingTest = true);
+    final l10n = AppLocalizations.of(context);
     final service = ref.read(notificationServiceProvider);
-    await service.sendTestNotification();
+    await service.sendTestNotification(
+      title: l10n?.testNotificationTitle,
+      body: l10n?.testNotificationBody,
+    );
 
     if (mounted) {
       setState(() => _isSendingTest = false);
@@ -92,7 +96,7 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
         SnackBar(
           backgroundColor: PoswalColors.surfaceDark,
           content: Text(
-            'Test notification sent! Check your shade & test "Mark Done" / "Snooze 10m".',
+            l10n?.testNotificationSent ?? 'Test notification sent! Check your shade & test "Mark Done" / "Snooze 10m".',
             style: PoswalText.caption.copyWith(color: PoswalColors.teal),
           ),
           duration: const Duration(seconds: 4),
@@ -169,7 +173,7 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
             color: PoswalColors.teal,
             shape: BoxShape.circle,
           ),
-          child: Text(num, style: PoswalText.caption.copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11)),
+          child: Text(num, style: PoswalText.caption2.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
         ),
         const SizedBox(width: PoswalSpacing.sm),
         Expanded(child: Text(text, style: PoswalText.caption.copyWith(color: Colors.white))),
@@ -414,7 +418,7 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
       ),
       child: Text(
         label,
-        style: PoswalText.caption.copyWith(color: color, fontWeight: FontWeight.w700, fontSize: 11),
+        style: PoswalText.caption2.copyWith(color: color, fontWeight: FontWeight.w700),
       ),
     );
   }

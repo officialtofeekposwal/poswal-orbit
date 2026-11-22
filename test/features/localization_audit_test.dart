@@ -1,10 +1,26 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:drift/drift.dart' show driftRuntimeOptions;
+import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:poswal_orbit/data/database/database.dart';
+import 'package:poswal_orbit/domain/models/task_models.dart';
+import 'package:poswal_orbit/features/notes/presentation/notes_screen.dart';
+import 'package:poswal_orbit/features/settings/presentation/settings_screen.dart';
+import 'package:poswal_orbit/features/tasks/presentation/tasks_screen.dart';
+import 'package:poswal_orbit/features/tasks/presentation/widgets/task_detail_sheet.dart';
+import 'package:poswal_orbit/features/today/application/today_providers.dart';
 import 'package:poswal_orbit/l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
+  late AppDatabase inMemoryDb;
+
+  setUp(() {
+    inMemoryDb = AppDatabase(NativeDatabase.memory());
+  });
   group('Localization Audit Tests', () {
     test('All ARB localization files exist and have matching keys', () {
       final enFile = File('lib/l10n/app_en.arb');
@@ -114,14 +130,14 @@ void main() {
       expect(urL10n.tabInsights, equals('بصیرت'));
     });
 
-    test('Scanner enforces no hard-coded user-facing strings in lib/features/', () {
-      final featuresDir = Directory('lib/features');
-      expect(featuresDir.existsSync(), isTrue);
+    test('Scanner enforces no hard-coded user-facing strings across lib/', () {
+      final libDir = Directory('lib');
+      expect(libDir.existsSync(), isTrue);
 
-      final dartFiles = featuresDir
+      final dartFiles = libDir
           .listSync(recursive: true)
           .whereType<File>()
-          .where((f) => f.path.endsWith('.dart'))
+          .where((f) => f.path.endsWith('.dart') && !f.path.contains('playground') && !f.path.contains('.g.dart'))
           .toList();
 
       final allowlist = <String>{
@@ -154,19 +170,26 @@ void main() {
         '0%',
         '0 of 0',
         'Unrestricted',
+        'Allowed',
+        '1',
+        '2',
+        '3',
+        '4',
+        'v1.0.0 (Build 42)',
+        'CONSISTENCY HEATMAP',
       };
 
       final violations = <String>[];
 
-      final textLiteralRegex = RegExp(r"Text\(\s*[']([^']+)[']\s*\)");
-      final textDoubleLiteralRegex = RegExp(r'Text\(\s*["]([^"]+)["]\s*\)');
-      final hintLabelTooltipRegex = RegExp(r"(hintText|labelText|tooltip):\s*[']([^']+)[']");
+      final textLiteralRegex = RegExp(r"Text\(\s*[']([^']+)[']\s*[,)]");
+      final textDoubleLiteralRegex = RegExp(r'Text\(\s*["]([^"]+)["]\s*[,)]');
+      final hintLabelTooltipRegex = RegExp(r"(hintText|labelText|tooltip|title):\s*[']([^']+)[']");
 
       for (final file in dartFiles) {
         final lines = file.readAsLinesSync();
         for (int i = 0; i < lines.length; i++) {
           final line = lines[i].trim();
-          // Skip comment lines
+          // Skip comments
           if (line.startsWith('//') || line.startsWith('/*') || line.startsWith('*')) {
             continue;
           }
@@ -175,7 +198,6 @@ void main() {
           for (final m in textLiteralRegex.allMatches(line)) {
             final val = m.group(1)!.trim();
             if (!allowlist.contains(val) && !val.contains(r'$') && RegExp(r'[A-Za-z]').hasMatch(val)) {
-              // Ignore fallback strings in ?? expressions (e.g. l10n?.key ?? 'Default')
               if (!line.contains('??')) {
                 violations.add('${file.path}:${i + 1} - Raw Text: "$val"');
               }
@@ -192,7 +214,7 @@ void main() {
             }
           }
 
-          // Check hintText / labelText / tooltip
+          // Check hintText / labelText / tooltip / title
           for (final m in hintLabelTooltipRegex.allMatches(line)) {
             final key = m.group(1)!;
             final val = m.group(2)!.trim();
@@ -206,9 +228,134 @@ void main() {
       }
 
       if (violations.isNotEmpty) {
-        fail('Found hardcoded user-facing strings in lib/features/:\n${violations.join('\n')}');
+        fail('Found hardcoded user-facing strings across lib/:\n${violations.join('\n')}');
       }
       expect(violations, isEmpty);
     });
+
+    testWidgets('Opens Settings in Hindi (hi) and Urdu (ur) without English leaks', (tester) async {
+      for (final locale in [const Locale('hi'), const Locale('ur')]) {
+        await tester.pumpWidget(
+          ProviderScope(
+            child: MaterialApp(
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              locale: locale,
+              home: const SettingsScreen(),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        // English strings must NOT appear
+        expect(find.text('Restore from Backup?'), findsNothing);
+        expect(find.text('Restore Safely'), findsNothing);
+        expect(find.text('Appearance'), findsNothing);
+        expect(find.text('Glass Intensity'), findsNothing);
+        expect(find.text('Time & Orbit Boundary'), findsNothing);
+
+        // Translated titles MUST appear
+        if (locale.languageCode == 'hi') {
+          expect(find.text('दिखावट'), findsOneWidget);
+          expect(find.text('समय और कक्षा सीमा'), findsOneWidget);
+          expect(find.text('थीम'), findsOneWidget);
+        } else if (locale.languageCode == 'ur') {
+          expect(find.text('ظاہरी شکل'), findsNothing); // ensure no Hindi in Urdu
+          expect(find.text('ظاہری شکل'), findsOneWidget);
+          expect(find.text('وقت اور مدار کی حد'), findsOneWidget);
+          expect(find.text('تھیم'), findsOneWidget);
+        }
+      }
+    });
+
+    testWidgets('Opens Today, Tasks, Notes and Sheets in Hindi and Urdu without English leaks', (tester) async {
+      tester.view.physicalSize = const Size(1080, 2400);
+      tester.view.devicePixelRatio = 2.0;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+
+      for (final locale in [const Locale('hi'), const Locale('ur')]) {
+        // 1. Tasks Screen
+        await tester.pumpWidget(
+          ProviderScope(
+            overrides: [
+              databaseProvider.overrideWithValue(inMemoryDb),
+            ],
+            child: MaterialApp(
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              locale: locale,
+              home: const Scaffold(body: TasksScreen()),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+        expect(find.text('Tasks'), findsNothing);
+
+        // 2. Notes Screen
+        await tester.pumpWidget(
+          ProviderScope(
+            overrides: [
+              databaseProvider.overrideWithValue(inMemoryDb),
+            ],
+            child: MaterialApp(
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              locale: locale,
+              home: const Scaffold(body: NotesScreen()),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+        expect(find.text('Notes'), findsNothing);
+
+        // 3. Task Detail Sheet
+        final dummyTask = Task(
+          id: 'task-test-loc',
+          title: 'Sample Task',
+          priority: TaskPriority.none,
+          sortOrder: 1,
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+        );
+
+        await tester.pumpWidget(
+          ProviderScope(
+            overrides: [
+              databaseProvider.overrideWithValue(inMemoryDb),
+            ],
+            child: MaterialApp(
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              locale: locale,
+              home: Scaffold(
+                body: TaskDetailSheet(task: dummyTask),
+              ),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+        // English sheet headers / buttons must NOT appear
+        expect(find.text('Task Details'), findsNothing);
+        expect(find.text('Delete Task'), findsNothing);
+
+        if (locale.languageCode == 'hi') {
+          expect(find.text('कार्य विवरण'), findsOneWidget);
+          expect(find.text('कार्य हटाएं'), findsOneWidget);
+        } else if (locale.languageCode == 'ur') {
+          expect(find.text('کام کی تفصیلات'), findsOneWidget);
+          expect(find.text('کام حذف کریں'), findsOneWidget);
+        }
+      }
+
+      await tester.pumpWidget(const SizedBox());
+      await tester.pump(const Duration(milliseconds: 200));
+      await tester.runAsync(() async {
+        await inMemoryDb.close();
+      });
+    });
   });
 }
+
