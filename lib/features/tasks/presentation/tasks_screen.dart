@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
+import 'package:poswal_orbit/core/widgets/app_search_field.dart';
+import 'package:poswal_orbit/core/widgets/app_toolbar.dart';
 import 'package:poswal_orbit/domain/models/task_models.dart';
 import 'package:poswal_orbit/features/tasks/application/task_providers.dart';
 import 'package:poswal_orbit/features/tasks/presentation/widgets/task_quick_add_sheet.dart';
@@ -66,87 +68,74 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
         bottom: false,
         child: Column(
           children: [
-            // 1. App Bar Header
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: PoswalSpacing.lg,
-                vertical: PoswalSpacing.md,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // 1. Navigation / Control Layer: AppToolbar with Title Case header & top trailing '+'
+            AppToolbar(
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        l10n?.tasksTitle ?? 'Tasks',
-                        style: PoswalText.largeTitle.copyWith(
-                          fontSize: 26,
-                          color: textPrimary,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      Text(
-                        l10n?.keepDayInMotion ?? 'Keep your day in motion',
-                        style: PoswalText.caption.copyWith(color: textMuted),
-                      ),
-                    ],
+                  Text(
+                    l10n?.tasksTitle ?? 'Tasks',
+                    style: PoswalText.largeTitle.copyWith(
+                      fontSize: 26,
+                      color: textPrimary,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: Icon(
-                          _isSearchExpanded ? PhosphorIconsRegular.x : PhosphorIconsRegular.magnifyingGlass,
-                          color: textPrimary,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _isSearchExpanded = !_isSearchExpanded;
-                            if (!_isSearchExpanded) {
-                              _searchController.clear();
-                              ref.read(taskSearchQueryProvider.notifier).setQuery('');
-                            }
-                          });
-                        },
-                      ),
-                      const SizedBox(width: PoswalSpacing.xs),
-                      AppGlassButton(
-                        isPrimary: true,
-                        padding: const EdgeInsets.all(PoswalSpacing.sm),
-                        onPressed: _openQuickAdd,
-                        child: const Icon(PhosphorIconsBold.plus, size: 20),
-                      ),
-                    ],
+                  Text(
+                    l10n?.keepDayInMotion ?? 'Keep your day in motion',
+                    style: PoswalText.caption.copyWith(color: textMuted),
                   ),
                 ],
               ),
+              actions: [
+                IconButton(
+                  key: const ValueKey('tasks_search_toggle_btn'),
+                  icon: Icon(
+                    _isSearchExpanded ? PhosphorIconsRegular.x : PhosphorIconsRegular.magnifyingGlass,
+                    size: 20,
+                    color: textPrimary,
+                  ),
+                  tooltip: l10n?.searchTooltip ?? 'Search',
+                  onPressed: () {
+                    setState(() {
+                      _isSearchExpanded = !_isSearchExpanded;
+                      if (!_isSearchExpanded) {
+                        _searchController.clear();
+                        ref.read(taskSearchQueryProvider.notifier).setQuery('');
+                      }
+                    });
+                  },
+                ),
+              ],
+              showAddButton: true,
+              addTooltip: l10n?.addTask ?? 'Quick Add Task',
+              addKey: const ValueKey('tasks_toolbar_add_btn'),
+              onAddPressed: _openQuickAdd,
             ),
 
-            // 2. Search Bar (Expandable)
+            // 2. Expandable Inline Search Field (HIG Pattern)
             if (_isSearchExpanded) ...[
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.lg),
-                child: AppGlassCard(
-                  padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md),
-                  child: TextField(
-                    controller: _searchController,
-                    style: PoswalText.callout.copyWith(color: textPrimary),
-                    decoration: InputDecoration(
-                      hintText: l10n?.searchTasksPlaceholder ?? 'Search tasks...',
-                      hintStyle: PoswalText.callout.copyWith(color: textMuted),
-                      border: InputBorder.none,
-                      icon: const Icon(PhosphorIconsRegular.magnifyingGlass, size: 18),
-                    ),
-                    onChanged: (val) {
-                      ref.read(taskSearchQueryProvider.notifier).setQuery(val);
-                    },
-                  ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: PoswalSpacing.lg,
+                  vertical: PoswalSpacing.xs,
+                ),
+                child: AppSearchField(
+                  controller: _searchController,
+                  hintText: l10n?.searchTasksPlaceholder ?? 'Search tasks...',
+                  onChanged: (val) {
+                    ref.read(taskSearchQueryProvider.notifier).setQuery(val);
+                  },
+                  onCancelled: () {
+                    _searchController.clear();
+                    ref.read(taskSearchQueryProvider.notifier).setQuery('');
+                  },
                 ),
               ),
-              const SizedBox(height: PoswalSpacing.sm),
+              const SizedBox(height: PoswalSpacing.xs),
             ],
 
-            // 3. Glass Segmented Filter
+            // 3. Segmented Filter Control (Grouped Pills on Single Surface)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.lg),
               child: AppGlassSegmentedControl<TaskSmartFilter>(
@@ -210,7 +199,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
             ),
             const SizedBox(height: PoswalSpacing.xs),
 
-            // 5. Tasks List
+            // 5. Tasks Content Layer (Solid surfaces, no glass on content)
             Expanded(
               child: tasksAsync.when(
                 loading: () => const Center(child: CircularProgressIndicator(color: PoswalColors.teal)),
@@ -261,10 +250,20 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
                               style: PoswalText.callout.copyWith(color: textMuted),
                             ),
                             const SizedBox(height: PoswalSpacing.lg),
-                            AppGlassButton(
-                              isPrimary: true,
+                            FilledButton(
+                              style: FilledButton.styleFrom(
+                                backgroundColor: PoswalColors.teal,
+                                foregroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(PoswalRadii.capsule),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: PoswalSpacing.xl,
+                                  vertical: PoswalSpacing.md,
+                                ),
+                              ),
                               onPressed: _openQuickAdd,
-                              child: Text(l10n?.addTask ?? 'Add Task'),
+                              child: Text(l10n?.addTask ?? 'Add Task', style: PoswalText.callout.copyWith(fontWeight: FontWeight.w600, color: Colors.white)),
                             ),
                           ],
                         ),

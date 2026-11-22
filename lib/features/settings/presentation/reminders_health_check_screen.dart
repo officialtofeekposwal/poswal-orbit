@@ -5,7 +5,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
-import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/data/services/notification_service.dart';
 import 'package:poswal_orbit/domain/models/notification_models.dart';
 import 'package:poswal_orbit/l10n/app_localizations.dart';
@@ -211,7 +210,8 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
                 const SizedBox(height: PoswalSpacing.lg),
 
                 // Card 1: Notification Permission
-                AppGlassCard(
+                _buildCard(
+                  isDark: isDark,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -251,7 +251,8 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
                 const SizedBox(height: PoswalSpacing.md),
 
                 // Card 2: Exact Alarm Permission
-                AppGlassCard(
+                _buildCard(
+                  isDark: isDark,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -291,7 +292,8 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
                 const SizedBox(height: PoswalSpacing.md),
 
                 // Card 3: Samsung One UI Battery Optimization
-                AppGlassCard(
+                _buildCard(
+                  isDark: isDark,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -325,7 +327,8 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
                 const SizedBox(height: PoswalSpacing.md),
 
                 // Card 4: Rolling Window Status
-                AppGlassCard(
+                _buildCard(
+                  isDark: isDark,
                   child: Row(
                     children: [
                       Container(
@@ -363,7 +366,7 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
                   style: FilledButton.styleFrom(
                     backgroundColor: PoswalColors.teal,
                     padding: const EdgeInsets.symmetric(vertical: PoswalSpacing.md),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.chip)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.capsule)),
                   ),
                   onPressed: _isSendingTest ? null : _sendTest,
                   icon: _isSendingTest
@@ -378,6 +381,24 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
                 const SizedBox(height: PoswalSpacing.xl),
               ],
             ),
+    );
+  }
+
+  Widget _buildCard({
+    required Widget child,
+    required bool isDark,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(PoswalSpacing.md),
+      decoration: BoxDecoration(
+        color: isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight,
+        borderRadius: BorderRadius.circular(PoswalRadii.card),
+        border: Border.all(
+          color: (isDark ? Colors.white : Colors.black).withValues(alpha: isDark ? 0.08 : 0.06),
+          width: 1.0,
+        ),
+      ),
+      child: child,
     );
   }
 

@@ -173,13 +173,20 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     ),
                     const SizedBox(height: PoswalSpacing.xl),
 
-                    // Primary Action Button (Next / Get Started)
+                    // Primary Action Button (Next / Get Started) - HIG Solid Capsule CTA
                     SizedBox(
                       width: double.infinity,
-                      child: AppGlassButton(
+                      height: 50,
+                      child: FilledButton(
                         key: const ValueKey('onboarding_next_btn'),
-                        isPrimary: true,
-                        padding: const EdgeInsets.symmetric(vertical: PoswalSpacing.md),
+                        style: FilledButton.styleFrom(
+                          backgroundColor: PoswalColors.teal,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(PoswalRadii.capsule),
+                          ),
+                          elevation: 0,
+                          splashFactory: InkRipple.splashFactory,
+                        ),
                         onPressed: _nextPage,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,

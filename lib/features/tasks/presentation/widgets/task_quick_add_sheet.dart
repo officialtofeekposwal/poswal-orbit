@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
+import 'package:poswal_orbit/core/widgets/app_sheet.dart';
 import 'package:poswal_orbit/domain/logic/task_nlp_parser.dart';
 import 'package:poswal_orbit/domain/models/task_models.dart';
 import 'package:poswal_orbit/features/tasks/application/task_providers.dart';
@@ -155,56 +156,35 @@ class _TaskQuickAddSheetState extends ConsumerState<TaskQuickAddSheet> {
     final priority = _effectivePriority;
     final project = _effectiveProject;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: isDark ? PoswalColors.surfaceDark : PoswalColors.mist,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(PoswalRadii.sheet)),
-        border: Border(
-          top: BorderSide(
-            color: isDark ? Colors.white12 : Colors.black.withValues(alpha: 0.08),
-          ),
-        ),
-      ),
-      padding: EdgeInsets.only(
-        left: PoswalSpacing.lg,
-        right: PoswalSpacing.lg,
-        top: PoswalSpacing.md,
-        bottom: MediaQuery.of(context).viewInsets.bottom + PoswalSpacing.lg,
-      ),
+    return AppSheet(
       child: SafeArea(
         top: false,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Handle bar
-            Center(
-              child: Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: isDark ? Colors.white24 : Colors.black26,
-                  borderRadius: BorderRadius.circular(2),
-                ),
+        child: Padding(
+          padding: EdgeInsets.only(
+            left: PoswalSpacing.lg,
+            right: PoswalSpacing.lg,
+            top: PoswalSpacing.xs,
+            bottom: MediaQuery.of(context).viewInsets.bottom + PoswalSpacing.lg,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Header title
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Quick Add Task',
+                    style: PoswalText.title.copyWith(color: textPrimary, fontWeight: FontWeight.w700),
+                  ),
+                  IconButton(
+                    icon: const Icon(PhosphorIconsRegular.x),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: PoswalSpacing.md),
-
-            // Header title
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Quick Add Task',
-                  style: PoswalText.title.copyWith(color: textPrimary, fontWeight: FontWeight.w700),
-                ),
-                IconButton(
-                  icon: const Icon(PhosphorIconsRegular.x),
-                  onPressed: () => Navigator.pop(context),
-                ),
-              ],
-            ),
-            const SizedBox(height: PoswalSpacing.xs),
+              const SizedBox(height: PoswalSpacing.xs),
 
             // Text input
             TextField(
@@ -312,6 +292,7 @@ class _TaskQuickAddSheetState extends ConsumerState<TaskQuickAddSheet> {
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 }

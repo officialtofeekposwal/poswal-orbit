@@ -6,6 +6,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
+import 'package:poswal_orbit/core/widgets/app_search_field.dart';
+import 'package:poswal_orbit/core/widgets/app_sheet.dart';
+import 'package:poswal_orbit/core/widgets/app_toolbar.dart';
 import 'package:poswal_orbit/core/widgets/aurora_background.dart';
 import 'package:poswal_orbit/domain/logic/date_boundary.dart';
 import 'package:poswal_orbit/domain/models/note_models.dart';
@@ -46,82 +49,79 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
     HapticFeedback.mediumImpact();
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
-
     final l10n = AppLocalizations.of(context);
 
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
       builder: (ctx) {
-        return Padding(
-          padding: const EdgeInsetsDirectional.all(PoswalSpacing.md),
-          child: AppGlassCard(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ListTile(
-                  key: const ValueKey('note_action_pin'),
-                  leading: Icon(
-                    note.isPinned ? PhosphorIconsFill.pushPin : PhosphorIconsRegular.pushPin,
-                    color: PoswalColors.gold,
-                  ),
-                  title: Text(
-                    note.isPinned ? (l10n?.unpinNote ?? 'Unpin Note') : (l10n?.pinNote ?? 'Pin Note'),
-                    style: TextStyle(color: textPrimary, fontWeight: FontWeight.w600),
-                  ),
-                  onTap: () {
-                    Navigator.pop(ctx);
-                    ref.read(noteRepositoryProvider).setPinned(note.id, !note.isPinned);
-                  },
+        return AppSheet(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                key: const ValueKey('note_action_pin'),
+                leading: Icon(
+                  note.isPinned ? PhosphorIconsFill.pushPin : PhosphorIconsRegular.pushPin,
+                  color: PoswalColors.gold,
                 ),
-                ListTile(
-                  key: const ValueKey('note_action_color'),
-                  leading: const Icon(PhosphorIconsRegular.palette, color: PoswalColors.violet),
-                  title: Text(
-                    l10n?.changeColorLabel ?? 'Change Color Label',
-                    style: TextStyle(color: textPrimary, fontWeight: FontWeight.w600),
-                  ),
-                  onTap: () {
-                    Navigator.pop(ctx);
-                    _showColorPicker(context, note);
-                  },
+                title: Text(
+                  note.isPinned ? (l10n?.unpinNote ?? 'Unpin Note') : (l10n?.pinNote ?? 'Pin Note'),
+                  style: TextStyle(color: textPrimary, fontWeight: FontWeight.w600),
                 ),
-                const Divider(),
-                ListTile(
-                  key: const ValueKey('note_action_delete'),
-                  leading: const Icon(PhosphorIconsRegular.trash, color: PoswalColors.danger),
-                  title: Text(
-                    l10n?.deleteNote ?? 'Delete Note',
-                    style: const TextStyle(color: PoswalColors.danger, fontWeight: FontWeight.w600),
-                  ),
-                  onTap: () async {
-                    Navigator.pop(ctx);
-                    final repo = ref.read(noteRepositoryProvider);
-                    await repo.softDeleteNote(note.id);
+                onTap: () {
+                  Navigator.pop(ctx);
+                  ref.read(noteRepositoryProvider).setPinned(note.id, !note.isPinned);
+                },
+              ),
+              ListTile(
+                key: const ValueKey('note_action_color'),
+                leading: const Icon(PhosphorIconsRegular.palette, color: PoswalColors.violet),
+                title: Text(
+                  l10n?.changeColorLabel ?? 'Change Color Label',
+                  style: TextStyle(color: textPrimary, fontWeight: FontWeight.w600),
+                ),
+                onTap: () {
+                  Navigator.pop(ctx);
+                  _showColorPicker(context, note);
+                },
+              ),
+              const Divider(),
+              ListTile(
+                key: const ValueKey('note_action_delete'),
+                leading: const Icon(PhosphorIconsRegular.trash, color: PoswalColors.danger),
+                title: Text(
+                  l10n?.deleteNote ?? 'Delete Note',
+                  style: const TextStyle(color: PoswalColors.danger, fontWeight: FontWeight.w600),
+                ),
+                onTap: () async {
+                  Navigator.pop(ctx);
+                  final repo = ref.read(noteRepositoryProvider);
+                  await repo.softDeleteNote(note.id);
 
-                    if (context.mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          backgroundColor: isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight,
-                          content: Text(
-                            l10n?.noteDeletedToast ?? 'Note deleted',
-                            style: TextStyle(color: textPrimary),
-                          ),
-                          action: SnackBarAction(
-                            label: l10n?.undoButton ?? 'Undo',
-                            textColor: PoswalColors.teal,
-                            onPressed: () {
-                              repo.restoreNote(note.id);
-                            },
-                          ),
-                          duration: const Duration(seconds: 4),
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight,
+                        content: Text(
+                          l10n?.noteDeletedToast ?? 'Note deleted',
+                          style: TextStyle(color: textPrimary),
                         ),
-                      );
-                    }
-                  },
-                ),
-              ],
-            ),
+                        action: SnackBarAction(
+                          label: l10n?.undoButton ?? 'Undo',
+                          textColor: PoswalColors.teal,
+                          onPressed: () {
+                            repo.restoreNote(note.id);
+                          },
+                        ),
+                        duration: const Duration(seconds: 4),
+                      ),
+                    );
+                  }
+                },
+              ),
+            ],
           ),
         );
       },
@@ -132,11 +132,13 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
       builder: (ctx) {
         final isDark = Theme.of(context).brightness == Brightness.dark;
-        return Padding(
-          padding: const EdgeInsetsDirectional.all(PoswalSpacing.md),
-          child: AppGlassCard(
+        return AppSheet(
+          title: 'Color Label',
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.lg, vertical: PoswalSpacing.md),
             child: Wrap(
               spacing: 12,
               runSpacing: 12,
@@ -150,8 +152,8 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                     Navigator.pop(ctx);
                   },
                   child: Container(
-                    width: 40,
-                    height: 40,
+                    width: 44,
+                    height: 44,
                     decoration: BoxDecoration(
                       color: label == NoteColorLabel.none
                           ? (isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight)
@@ -162,6 +164,15 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                         width: 2.5,
                       ),
                     ),
+                    child: isSelected
+                        ? Icon(
+                            PhosphorIconsBold.check,
+                            size: 18,
+                            color: label == NoteColorLabel.none
+                                ? (isDark ? Colors.white : Colors.black)
+                                : Colors.white,
+                          )
+                        : null,
                   ),
                 );
               }).toList(),
@@ -199,94 +210,80 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
-            // 1. Top Bar with Search & Journal Shortcut
+            // 1. Navigation / Control Layer: AppToolbar
             SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsetsDirectional.symmetric(
-                  horizontal: PoswalSpacing.lg,
-                  vertical: PoswalSpacing.md,
+              child: AppToolbar(
+                title: Text(
+                  l10n?.tabNotes ?? 'Notes',
+                  style: PoswalText.largeTitle.copyWith(
+                    color: textPrimary,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: -0.5,
+                  ),
                 ),
-                child: Column(
-                  children: [
-                    Row(
+                actions: [
+                  IconButton(
+                    key: const ValueKey('notes_search_toggle'),
+                    icon: Icon(
+                      _isSearchOpen ? PhosphorIconsRegular.x : PhosphorIconsRegular.magnifyingGlass,
+                      size: 20,
+                      color: textPrimary,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _isSearchOpen = !_isSearchOpen;
+                        if (!_isSearchOpen) {
+                          _searchController.clear();
+                          _searchQuery = '';
+                        }
+                      });
+                    },
+                  ),
+                  AppGlassButton(
+                    key: const ValueKey('today_journal_btn'),
+                    padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md, vertical: PoswalSpacing.xs),
+                    onPressed: () => _openTodayJournal(context),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(
-                          l10n?.tabNotes ?? 'Notes',
-                          style: PoswalText.largeTitle.copyWith(
-                            color: textPrimary,
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: -0.5,
-                          ),
-                        ),
-                        const Spacer(),
-
-                        // Search Toggle
-                        IconButton(
-                          key: const ValueKey('notes_search_toggle'),
-                          icon: Icon(
-                            _isSearchOpen ? PhosphorIconsRegular.x : PhosphorIconsRegular.magnifyingGlass,
-                            size: 22,
-                            color: textPrimary,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _isSearchOpen = !_isSearchOpen;
-                              if (!_isSearchOpen) {
-                                _searchController.clear();
-                              }
-                            });
-                          },
-                        ),
-
-                        const SizedBox(width: PoswalSpacing.xs),
-
-                        // "Today's Journal" Shortcut Button
-                        AppGlassButton(
-                          key: const ValueKey('today_journal_btn'),
-                          padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md, vertical: PoswalSpacing.xs),
-                          onPressed: () => _openTodayJournal(context),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Icon(PhosphorIconsRegular.bookOpen, size: 14),
-                              const SizedBox(width: 4),
-                              Text(l10n?.tabToday ?? 'Today', style: PoswalText.caption),
-                            ],
-                          ),
-                        ),
+                        const Icon(PhosphorIconsRegular.bookOpen, size: 14),
+                        const SizedBox(width: 4),
+                        Text(l10n?.tabToday ?? 'Today', style: PoswalText.caption),
                       ],
                     ),
-
-                    // Expandable Search Bar
-                    if (_isSearchOpen) ...[
-                      const SizedBox(height: PoswalSpacing.sm),
-                      Container(
-                        padding: const EdgeInsetsDirectional.symmetric(horizontal: PoswalSpacing.md),
-                        decoration: BoxDecoration(
-                          color: isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight,
-                          borderRadius: BorderRadius.circular(PoswalRadii.button),
-                          border: Border.all(
-                            color: isDark ? Colors.white.withValues(alpha: 0.12) : Colors.black.withValues(alpha: 0.08),
-                          ),
-                        ),
-                        child: TextField(
-                          key: const ValueKey('notes_search_field'),
-                          controller: _searchController,
-                          autofocus: true,
-                          style: TextStyle(color: textPrimary),
-                          decoration: InputDecoration(
-                            icon: Icon(PhosphorIconsRegular.magnifyingGlass, color: textMuted, size: 18),
-                            hintText: l10n?.searchNotesPlaceholder ?? 'Filter notes by title or content...',
-                            hintStyle: TextStyle(color: textMuted),
-                            border: InputBorder.none,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ],
-                ),
+                  ),
+                ],
+                showAddButton: true,
+                addTooltip: 'Create Note',
+                addKey: const ValueKey('notes_toolbar_add_btn'),
+                onAddPressed: () => NoteEditorScreen.push(context),
               ),
             ),
+
+            // Expandable Search Bar (HIG AppSearchField)
+            if (_isSearchOpen)
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.lg, vertical: PoswalSpacing.xs),
+                  child: AppSearchField(
+                    key: const ValueKey('notes_search_field'),
+                    controller: _searchController,
+                    hintText: l10n?.searchNotesPlaceholder ?? 'Filter notes by title or content...',
+                    onChanged: (val) {
+                      setState(() {
+                        _searchQuery = val.trim().toLowerCase();
+                      });
+                    },
+                    onCancelled: () {
+                      setState(() {
+                        _isSearchOpen = false;
+                        _searchController.clear();
+                        _searchQuery = '';
+                      });
+                    },
+                  ),
+                ),
+              ),
 
             // 2. Main Content
             notesAsync.when(

@@ -74,57 +74,60 @@ class AppSheet extends ConsumerWidget {
           ),
         ],
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Drag Handle
-          const SizedBox(height: PoswalSpacing.sm),
-          Center(
-            child: Container(
-              width: 38,
-              height: 4,
-              decoration: BoxDecoration(
-                color: (isDark ? Colors.white : Colors.black).withValues(alpha: 0.20),
-                borderRadius: BorderRadius.circular(PoswalRadii.pill),
+      child: Material(
+        color: Colors.transparent,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Drag Handle
+            const SizedBox(height: PoswalSpacing.sm),
+            Center(
+              child: Container(
+                width: 38,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: (isDark ? Colors.white : Colors.black).withValues(alpha: 0.20),
+                  borderRadius: BorderRadius.circular(PoswalRadii.pill),
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: PoswalSpacing.xs),
+            const SizedBox(height: PoswalSpacing.xs),
 
-          // Optional Title Header
-          if (title != null) ...[
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: PoswalSpacing.lg,
-                vertical: PoswalSpacing.xs,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    title!,
-                    style: PoswalText.headline.copyWith(
-                      color: textPrimary,
-                      fontWeight: FontWeight.w700,
+            // Optional Title Header
+            if (title != null) ...[
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: PoswalSpacing.lg,
+                  vertical: PoswalSpacing.xs,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      title!,
+                      style: PoswalText.headline.copyWith(
+                        color: textPrimary,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                  ),
-                  ?trailing,
-                ],
+                    ?trailing,
+                  ],
+                ),
               ),
-            ),
-            const Divider(height: 1, thickness: 0.5),
-          ],
+              const Divider(height: 1, thickness: 0.5),
+            ],
 
-          // Sheet Content
-          Flexible(
-            child: Padding(
-              padding: EdgeInsets.only(
-                bottom: bottomInset > 0 ? bottomInset : PoswalSpacing.md,
+            // Sheet Content
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  bottom: bottomInset > 0 ? bottomInset : PoswalSpacing.md,
+                ),
+                child: child,
               ),
-              child: child,
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
 

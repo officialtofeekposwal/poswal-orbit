@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
-import 'package:poswal_orbit/core/widgets/app_glass.dart';
+import 'package:poswal_orbit/core/widgets/app_sheet.dart';
 import 'package:poswal_orbit/domain/models/task_models.dart';
 import 'package:poswal_orbit/data/services/notification_service.dart';
 import 'package:poswal_orbit/features/tasks/application/task_providers.dart';
@@ -183,64 +183,51 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
     final subtasksAsync = ref.watch(taskSubtasksStreamProvider(widget.task.id));
     final habitsAsync = ref.watch(activeHabitsStreamProvider);
 
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.88,
-      decoration: BoxDecoration(
-        color: isDark ? PoswalColors.surfaceDark : PoswalColors.mist,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(PoswalRadii.sheet)),
-        border: Border(
-          top: BorderSide(
-            color: isDark ? Colors.white12 : Colors.black.withValues(alpha: 0.08),
-          ),
-        ),
-      ),
+    return AppSheet(
+      isFullHeight: true,
       child: SafeArea(
         top: false,
-        child: Column(
-          children: [
-            // Handle bar
-            const SizedBox(height: PoswalSpacing.sm),
-            Container(
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: isDark ? Colors.white24 : Colors.black26,
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-            const SizedBox(height: PoswalSpacing.sm),
-
-            // Sheet App Bar
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.lg),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(PhosphorIconsRegular.x),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  Expanded(
-                    child: Center(
-                      child: Text(
-                        'Task Details',
-                        style: PoswalText.title.copyWith(color: textPrimary, fontWeight: FontWeight.w700),
-                        overflow: TextOverflow.ellipsis,
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height * 0.88,
+          child: Column(
+            children: [
+              // Sheet App Bar
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.lg, vertical: PoswalSpacing.xs),
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(PhosphorIconsRegular.x),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                    Expanded(
+                      child: Center(
+                        child: Text(
+                          'Task Details',
+                          style: PoswalText.title.copyWith(color: textPrimary, fontWeight: FontWeight.w700),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
-                  ),
-                  AppGlassButton(
-                    isPrimary: true,
-                    padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md, vertical: 8),
-                    onPressed: _saveChanges,
-                    child: Text(l10n?.saveChanges ?? 'Save Changes'),
-                  ),
-                ],
+                    FilledButton(
+                      style: FilledButton.styleFrom(
+                        backgroundColor: PoswalColors.teal,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(PoswalRadii.capsule),
+                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md, vertical: 8),
+                      ),
+                      onPressed: _saveChanges,
+                      child: Text(l10n?.saveChanges ?? 'Save Changes'),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const Divider(height: 1),
+              const Divider(height: 1),
 
-            // Scrollable Content
-            Expanded(
+              // Scrollable Content
+              Expanded(
               child: ListView(
                 padding: const EdgeInsets.all(PoswalSpacing.lg),
                 children: [
@@ -485,6 +472,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 }

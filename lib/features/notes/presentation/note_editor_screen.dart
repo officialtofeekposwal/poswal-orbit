@@ -6,6 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
+import 'package:poswal_orbit/core/widgets/app_sheet.dart';
+import 'package:poswal_orbit/core/widgets/app_toolbar.dart';
 import 'package:poswal_orbit/core/widgets/aurora_background.dart';
 import 'package:poswal_orbit/data/repositories/note_repository.dart';
 import 'package:poswal_orbit/domain/logic/markdown_editor_engine.dart';
@@ -227,64 +229,51 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
       backgroundColor: Colors.transparent,
       builder: (ctx) {
         final isDark = Theme.of(context).brightness == Brightness.dark;
-        return Padding(
-          padding: const EdgeInsetsDirectional.all(PoswalSpacing.md),
-          child: AppGlassCard(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Note Color Label',
-                  style: PoswalText.headline.copyWith(
-                    color: isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(height: PoswalSpacing.md),
-                Wrap(
-                  spacing: 12,
-                  runSpacing: 12,
-                  children: NoteColorLabel.values.map((label) {
-                    final colorVal = NoteColorLabel.toColorValue(label);
-                    final isSelected = _colorLabel == label;
+        return AppSheet(
+          title: 'Note Color Label',
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md),
+            child: Wrap(
+              spacing: 12,
+              runSpacing: 12,
+              children: NoteColorLabel.values.map((label) {
+                final colorVal = NoteColorLabel.toColorValue(label);
+                final isSelected = _colorLabel == label;
 
-                    return GestureDetector(
-                      onTap: () {
-                        HapticFeedback.selectionClick();
-                        setState(() {
-                          _colorLabel = label;
-                        });
-                        _onTextChanged();
-                        Navigator.pop(ctx);
-                      },
-                      child: Container(
-                        width: 36,
-                        height: 36,
-                        decoration: BoxDecoration(
-                          color: label == NoteColorLabel.none
-                              ? (isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight)
-                              : Color(colorVal),
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: isSelected ? Colors.white : Colors.transparent,
-                            width: isSelected ? 2.5 : 1.0,
-                          ),
-                        ),
-                        child: isSelected
-                            ? Icon(
-                                PhosphorIconsBold.check,
-                                size: 16,
-                                color: label == NoteColorLabel.none
-                                    ? (isDark ? Colors.white : Colors.black)
-                                    : Colors.white,
-                              )
-                            : null,
+                return GestureDetector(
+                  onTap: () {
+                    HapticFeedback.selectionClick();
+                    setState(() {
+                      _colorLabel = label;
+                    });
+                    _onTextChanged();
+                    Navigator.pop(ctx);
+                  },
+                  child: Container(
+                    width: 36,
+                    height: 36,
+                    decoration: BoxDecoration(
+                      color: label == NoteColorLabel.none
+                          ? (isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight)
+                          : Color(colorVal),
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: isSelected ? Colors.white : Colors.transparent,
+                        width: isSelected ? 2.5 : 1.0,
                       ),
-                    );
-                  }).toList(),
-                ),
-              ],
+                    ),
+                    child: isSelected
+                        ? Icon(
+                            PhosphorIconsBold.check,
+                            size: 16,
+                            color: label == NoteColorLabel.none
+                                ? (isDark ? Colors.white : Colors.black)
+                                : Colors.white,
+                          )
+                        : null,
+                  ),
+                );
+              }).toList(),
             ),
           ),
         );
@@ -347,63 +336,52 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
         final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
         final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
 
-        return DraggableScrollableSheet(
-          initialChildSize: 0.6,
-          maxChildSize: 0.85,
-          minChildSize: 0.4,
-          builder: (_, scrollCtrl) {
-            return Padding(
-              padding: const EdgeInsetsDirectional.all(PoswalSpacing.md),
-              child: AppGlassCard(
-                child: ListView(
-                  controller: scrollCtrl,
-                  children: [
-                    Text(
-                      'Link to Habit or Task',
-                      style: PoswalText.headline.copyWith(
-                        color: textPrimary,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    const SizedBox(height: PoswalSpacing.md),
-
-                    // Active Habits
-                    if (habits.isNotEmpty) ...[
-                      Text('HABITS', style: PoswalText.caption.copyWith(color: textMuted)),
-                      ...habits.map((h) => ListTile(
-                            leading: Icon(PhosphorIconsRegular.sparkle, color: Color(h.colorValue)),
-                            title: Text(h.name, style: TextStyle(color: textPrimary)),
-                            onTap: () {
-                              setState(() {
-                                _linkedHabitId = h.id;
-                              });
-                              _onTextChanged();
-                              Navigator.pop(ctx);
-                            },
-                          )),
-                      const Divider(),
-                    ],
-
-                    // Active Tasks
-                    if (tasks.isNotEmpty) ...[
-                      Text('TASKS', style: PoswalText.caption.copyWith(color: textMuted)),
-                      ...tasks.map((t) => ListTile(
-                            leading: Icon(PhosphorIconsRegular.checkSquare, color: Color(t.priority.colorValue)),
-                            title: Text(t.title, style: TextStyle(color: textPrimary)),
-                            onTap: () {
-                              setState(() {
-                                _linkedTaskId = t.id;
-                              });
-                              _onTextChanged();
-                              Navigator.pop(ctx);
-                            },
-                          )),
-                    ],
-                  ],
+        return AppSheet(
+          title: 'Link to Habit or Task',
+          isFullHeight: true,
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              // Active Habits
+              if (habits.isNotEmpty) ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md, vertical: PoswalSpacing.xs),
+                  child: Text('HABITS', style: PoswalText.caption.copyWith(color: textMuted)),
                 ),
-              ),
-            );
-          },
+                ...habits.map((h) => ListTile(
+                      leading: Icon(PhosphorIconsRegular.sparkle, color: Color(h.colorValue)),
+                      title: Text(h.name, style: TextStyle(color: textPrimary)),
+                      onTap: () {
+                        setState(() {
+                          _linkedHabitId = h.id;
+                        });
+                        _onTextChanged();
+                        Navigator.pop(ctx);
+                      },
+                    )),
+                const Divider(),
+              ],
+
+              // Active Tasks
+              if (tasks.isNotEmpty) ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md, vertical: PoswalSpacing.xs),
+                  child: Text('TASKS', style: PoswalText.caption.copyWith(color: textMuted)),
+                ),
+                ...tasks.map((t) => ListTile(
+                      leading: Icon(PhosphorIconsRegular.checkSquare, color: Color(t.priority.colorValue)),
+                      title: Text(t.title, style: TextStyle(color: textPrimary)),
+                      onTap: () {
+                        setState(() {
+                          _linkedTaskId = t.id;
+                        });
+                        _onTextChanged();
+                        Navigator.pop(ctx);
+                      },
+                    )),
+              ],
+            ],
+          ),
         );
       },
     ));
@@ -472,59 +450,57 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
 
                       const Spacer(),
 
-                      // Pin toggle
-                      IconButton(
-                        key: const ValueKey('note_pin_btn'),
-                        icon: Icon(
-                          _isPinned ? PhosphorIconsFill.pushPin : PhosphorIconsRegular.pushPin,
-                          size: 20,
-                          color: _isPinned ? PoswalColors.gold : textMuted,
-                        ),
-                        tooltip: _isPinned ? 'Unpin' : 'Pin',
-                        onPressed: () {
-                          HapticFeedback.selectionClick();
-                          setState(() {
-                            _isPinned = !_isPinned;
-                          });
-                          _onTextChanged();
-                        },
-                      ),
-
-                      // Color label picker
-                      IconButton(
-                        key: const ValueKey('note_color_btn'),
-                        icon: Icon(
-                          PhosphorIconsRegular.palette,
-                          size: 20,
-                          color: _colorLabel != NoteColorLabel.none
-                              ? Color(NoteColorLabel.toColorValue(_colorLabel))
-                              : textMuted,
-                        ),
-                        tooltip: l10n?.colorLabelTooltip ?? 'Color Label',
-                        onPressed: _openColorPicker,
-                      ),
-
-                      // Link item
-                      IconButton(
-                        key: const ValueKey('note_link_btn'),
-                        icon: Icon(
-                          PhosphorIconsRegular.link,
-                          size: 20,
-                          color: (_linkedTaskId != null || _linkedHabitId != null)
-                              ? PoswalColors.violet
-                              : textMuted,
-                        ),
-                        tooltip: l10n?.linkHabitTaskTooltip ?? 'Link to Habit/Task',
-                        onPressed: _openLinkItemPicker,
-                      ),
-
-                      // Tag button
-                      IconButton(
-                        key: const ValueKey('note_tag_btn'),
-                        icon: const Icon(PhosphorIconsRegular.tag, size: 20),
-                        color: textMuted,
-                        tooltip: l10n?.addTagTooltip ?? 'Add Tag',
-                        onPressed: _openAddTagDialog,
+                      // Grouped actions capsule (HIG AppToolbarButtonGroup)
+                      AppToolbarButtonGroup(
+                        buttons: [
+                          IconButton(
+                            key: const ValueKey('note_pin_btn'),
+                            icon: Icon(
+                              _isPinned ? PhosphorIconsFill.pushPin : PhosphorIconsRegular.pushPin,
+                              size: 20,
+                              color: _isPinned ? PoswalColors.gold : textMuted,
+                            ),
+                            tooltip: _isPinned ? 'Unpin' : 'Pin',
+                            onPressed: () {
+                              HapticFeedback.selectionClick();
+                              setState(() {
+                                _isPinned = !_isPinned;
+                              });
+                              _onTextChanged();
+                            },
+                          ),
+                          IconButton(
+                            key: const ValueKey('note_color_btn'),
+                            icon: Icon(
+                              PhosphorIconsRegular.palette,
+                              size: 20,
+                              color: _colorLabel != NoteColorLabel.none
+                                  ? Color(NoteColorLabel.toColorValue(_colorLabel))
+                                  : textMuted,
+                            ),
+                            tooltip: l10n?.colorLabelTooltip ?? 'Color Label',
+                            onPressed: _openColorPicker,
+                          ),
+                          IconButton(
+                            key: const ValueKey('note_link_btn'),
+                            icon: Icon(
+                              PhosphorIconsRegular.link,
+                              size: 20,
+                              color: (_linkedTaskId != null || _linkedHabitId != null)
+                                  ? PoswalColors.violet
+                                  : textMuted,
+                            ),
+                            tooltip: l10n?.linkHabitTaskTooltip ?? 'Link to Habit/Task',
+                            onPressed: _openLinkItemPicker,
+                          ),
+                          IconButton(
+                            key: const ValueKey('note_tag_btn'),
+                            icon: const Icon(PhosphorIconsRegular.tag, size: 20),
+                            color: textMuted,
+                            tooltip: l10n?.addTagTooltip ?? 'Add Tag',
+                            onPressed: _openAddTagDialog,
+                          ),
+                        ],
                       ),
                     ],
                   ),

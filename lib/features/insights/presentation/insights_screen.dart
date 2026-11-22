@@ -9,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
+import 'package:poswal_orbit/core/widgets/app_toolbar.dart';
 import 'package:poswal_orbit/core/widgets/aurora_background.dart';
 import 'package:poswal_orbit/domain/logic/date_boundary.dart';
 import 'package:poswal_orbit/features/habits/presentation/widgets/habit_heatmap.dart';
@@ -90,63 +91,56 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
           child: CustomScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             slivers: [
-              // 1. Header Bar
+              // 1. Navigation / Control Layer: AppToolbar
               SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: PoswalSpacing.lg,
-                    vertical: PoswalSpacing.md,
+                child: AppToolbar(
+                  title: Text(
+                    l10n?.insightsTitle ?? 'Insights',
+                    style: PoswalText.largeTitle.copyWith(color: textPrimary),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        l10n?.insightsTitle ?? 'Insights',
-                        style: PoswalText.largeTitle.copyWith(color: textPrimary),
-                      ),
-                      insightsAsync.maybeWhen(
-                        data: (state) => state.hasAnyData
-                            ? AppGlassButton(
-                                key: const ValueKey('share_insights_button'),
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: PoswalSpacing.md,
-                                  vertical: PoswalSpacing.sm,
-                                ),
-                                onPressed: () => _shareStatsCard(context),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    if (_isSharing)
-                                      const SizedBox(
-                                        width: 16,
-                                        height: 16,
-                                        child: CircularProgressIndicator(
-                                          strokeWidth: 2,
-                                          color: PoswalColors.teal,
-                                        ),
-                                      )
-                                    else
-                                      const Icon(
-                                        PhosphorIconsRegular.shareNetwork,
-                                        size: 18,
+                  actions: [
+                    insightsAsync.maybeWhen(
+                      data: (state) => state.hasAnyData
+                          ? AppGlassButton(
+                              key: const ValueKey('share_insights_button'),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: PoswalSpacing.md,
+                                vertical: PoswalSpacing.xs,
+                              ),
+                              onPressed: () => _shareStatsCard(context),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  if (_isSharing)
+                                    const SizedBox(
+                                      width: 14,
+                                      height: 14,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
                                         color: PoswalColors.teal,
                                       ),
-                                    const SizedBox(width: PoswalSpacing.xs),
-                                    Text(
-                                      l10n?.shareCard ?? 'Share',
-                                      style: PoswalText.caption.copyWith(
-                                        color: PoswalColors.teal,
-                                        fontWeight: FontWeight.w700,
-                                      ),
+                                    )
+                                  else
+                                    const Icon(
+                                      PhosphorIconsRegular.shareNetwork,
+                                      size: 16,
+                                      color: PoswalColors.teal,
                                     ),
-                                  ],
-                                ),
-                              )
-                            : const SizedBox.shrink(),
-                        orElse: () => const SizedBox.shrink(),
-                      ),
-                    ],
-                  ),
+                                  const SizedBox(width: PoswalSpacing.xs),
+                                  Text(
+                                    l10n?.shareCard ?? 'Share',
+                                    style: PoswalText.caption.copyWith(
+                                      color: PoswalColors.teal,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : const SizedBox.shrink(),
+                      orElse: () => const SizedBox.shrink(),
+                    ),
+                  ],
                 ),
               ),
 
@@ -172,8 +166,9 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
                       child: Center(
                         child: Padding(
                           padding: const EdgeInsets.all(PoswalSpacing.xl),
-                          child: AppGlassCard(
+                          child: _buildContentCard(
                             key: const ValueKey('insights_empty_state_card'),
+                            isDark: isDark,
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -292,8 +287,10 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
     Color textPrimary,
     Color textMuted,
   ) {
-    return AppGlassCard(
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return _buildContentCard(
       key: const ValueKey('insights_weekly_review_card'),
+      isDark: isDark,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -395,8 +392,11 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
       gradeColor = textMuted;
     }
 
-    return AppGlassCard(
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return _buildContentCard(
       key: const ValueKey('insights_productivity_score_card'),
+      isDark: isDark,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -485,10 +485,12 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
     Color textPrimary,
     Color textMuted,
   ) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final timing = state.bestTiming;
 
-    return AppGlassCard(
+    return _buildContentCard(
       key: const ValueKey('insights_best_timing_card'),
+      isDark: isDark,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -576,10 +578,12 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
     Color textPrimary,
     Color textMuted,
   ) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final corr = state.correlation;
 
-    return AppGlassCard(
+    return _buildContentCard(
       key: const ValueKey('insights_correlation_card'),
+      isDark: isDark,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -658,8 +662,11 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
       columns.add(week);
     }
 
-    return AppGlassCard(
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return _buildContentCard(
       key: const ValueKey('insights_overall_heatmap_card'),
+      isDark: isDark,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -744,6 +751,26 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildContentCard({
+    Key? key,
+    required Widget child,
+    required bool isDark,
+  }) {
+    return Container(
+      key: key,
+      padding: const EdgeInsets.all(PoswalSpacing.lg),
+      decoration: BoxDecoration(
+        color: isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight,
+        borderRadius: BorderRadius.circular(PoswalRadii.card),
+        border: Border.all(
+          color: (isDark ? Colors.white : Colors.black).withValues(alpha: isDark ? 0.08 : 0.06),
+          width: 1.0,
+        ),
+      ),
+      child: child,
     );
   }
 }

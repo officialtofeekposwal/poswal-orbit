@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:poswal_orbit/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
@@ -101,12 +100,6 @@ class TodayScreen extends ConsumerWidget {
                     color: textPrimary,
                     tooltip: l10n?.settingsTooltip ?? 'Settings',
                     onPressed: () => SettingsScreen.push(context),
-                  ),
-                  IconButton(
-                    icon: const Icon(PhosphorIconsRegular.palette, size: 20),
-                    color: textPrimary,
-                    tooltip: l10n?.designPlaygroundTooltip ?? 'Design Playground',
-                    onPressed: () => context.push('/playground'),
                   ),
                 ],
                 showAddButton: true,

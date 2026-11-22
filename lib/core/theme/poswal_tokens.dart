@@ -114,9 +114,41 @@ abstract final class PoswalSpacing {
   static const sm = 8.0;
   static const md = 12.0;
   static const lg = 16.0;
+  static const lg2 = 20.0;
   static const xl = 24.0;
   static const xxl = 32.0;
   static const huge = 48.0;
+  static const massive = 64.0;
+}
+
+/// HIG Touch Target Breathing Room
+abstract final class PoswalTouchPadding {
+  /// Generous padding around bordered interactive controls (12pt)
+  static const bordered = 12.0;
+
+  /// Minimum clear breathing room around borderless interactive controls (24pt)
+  static const borderless = 24.0;
+}
+
+/// HIG Transition Timing & Curves
+abstract final class PoswalCurves {
+  /// Standard ease curve for simple, non-interactive state transitions.
+  /// (Note: For physical gesture interactions like sheets, checkoffs, or morphs, use real spring physics simulations).
+  static const standard = Cubic(0.25, 0.1, 0.25, 1.0);
+  static const easeOut = Curves.easeOutCubic;
+  static const easeIn = Curves.easeInCubic;
+}
+
+/// HIG Standard Durations
+abstract final class PoswalDurations {
+  /// Micro-feedback transitions (icons, highlights, toggles): 150ms
+  static const micro = Duration(milliseconds: 150);
+
+  /// Standard element transition duration: 250ms
+  static const standard = Duration(milliseconds: 250);
+
+  /// Inset sheet and modal transition duration: 300ms
+  static const sheet = Duration(milliseconds: 300);
 }
 
 /// HIG Standard Row & Touch Target Heights
@@ -199,17 +231,44 @@ abstract final class PoswalGlass {
   }
 }
 
-/// Typography Scale (HIG Hierarchy with Scalable System Metrics)
+/// Typography Scale (HIG Hierarchy with Scalable System Metrics & Optical Tracking)
 abstract final class PoswalText {
   static const heading = 'PlusJakartaSans';
   static const body = 'Inter';
+
+  /// Calculates optical letterSpacing in logical pixels from em units.
+  /// For non-Latin scripts (Hindi / Urdu), negative tracking is set to 0.0
+  /// to prevent breaking complex consonant conjuncts and joined Nastaliq curves.
+  static double opticalTracking(double em, double fontSize, {String? languageCode}) {
+    if (languageCode == 'hi' || languageCode == 'ur') {
+      return 0.0;
+    }
+    return em * fontSize;
+  }
+
+  /// Returns a localized variant of the provided [style], stripping negative
+  /// letter-spacing for Hindi and Urdu text.
+  static TextStyle localized(TextStyle style, {String? languageCode}) {
+    if (languageCode == 'hi' || languageCode == 'ur') {
+      return style.copyWith(letterSpacing: 0.0);
+    }
+    return style;
+  }
 
   static const largeTitle = TextStyle(
     fontFamily: heading,
     fontSize: 34,
     fontWeight: FontWeight.w700,
     height: 1.15,
-    letterSpacing: -0.8,
+    letterSpacing: -0.75, // -0.022em optical tracking
+  );
+
+  static const title1 = TextStyle(
+    fontFamily: heading,
+    fontSize: 28,
+    fontWeight: FontWeight.w700,
+    height: 1.2,
+    letterSpacing: -0.53, // -0.019em optical tracking
   );
 
   static const title = TextStyle(
@@ -217,7 +276,15 @@ abstract final class PoswalText {
     fontSize: 22,
     fontWeight: FontWeight.w700,
     height: 1.2,
-    letterSpacing: -0.4,
+    letterSpacing: -0.33, // -0.015em optical tracking
+  );
+
+  static const title3 = TextStyle(
+    fontFamily: heading,
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+    height: 1.25,
+    letterSpacing: -0.24, // -0.012em optical tracking
   );
 
   static const headline = TextStyle(
@@ -225,7 +292,7 @@ abstract final class PoswalText {
     fontSize: 17,
     fontWeight: FontWeight.w600,
     height: 1.3,
-    letterSpacing: -0.2,
+    letterSpacing: -0.17, // -0.010em optical tracking
   );
 
   static const bodyText = TextStyle(
@@ -233,6 +300,7 @@ abstract final class PoswalText {
     fontSize: 17,
     fontWeight: FontWeight.w400,
     height: 1.4,
+    letterSpacing: -0.14, // -0.008em optical tracking
   );
 
   static const callout = TextStyle(
@@ -240,6 +308,7 @@ abstract final class PoswalText {
     fontSize: 15,
     fontWeight: FontWeight.w400,
     height: 1.35,
+    letterSpacing: -0.08, // -0.005em optical tracking
   );
 
   static const subheadline = TextStyle(
@@ -247,6 +316,7 @@ abstract final class PoswalText {
     fontSize: 14,
     fontWeight: FontWeight.w500,
     height: 1.3,
+    letterSpacing: 0.0,
   );
 
   static const footnote = TextStyle(
@@ -254,6 +324,7 @@ abstract final class PoswalText {
     fontSize: 13,
     fontWeight: FontWeight.w400,
     height: 1.25,
+    letterSpacing: 0.06, // +0.005em optical tracking
   );
 
   static const caption = TextStyle(
@@ -261,6 +332,14 @@ abstract final class PoswalText {
     fontSize: 12,
     fontWeight: FontWeight.w500,
     height: 1.2,
-    letterSpacing: 0.2,
+    letterSpacing: 0.12, // +0.010em optical tracking
+  );
+
+  static const caption2 = TextStyle(
+    fontFamily: body,
+    fontSize: 11,
+    fontWeight: FontWeight.w400,
+    height: 1.2,
+    letterSpacing: 0.16, // +0.015em optical tracking
   );
 }

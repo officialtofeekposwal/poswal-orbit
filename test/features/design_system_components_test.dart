@@ -300,5 +300,57 @@ void main() {
       // Under reduceTransparency, BackdropFilter is omitted
       expect(find.byType(BackdropFilter), findsNothing);
     });
+
+    // 10. Optical Typography Tracking Helper (Unit Test)
+    test('10. PoswalText.opticalTracking converts em to logical pixels and zeroes out for Hindi and Urdu', () {
+      // Latin: -0.022em on 34px = -0.748 logical pixels
+      final latinTracking = PoswalText.opticalTracking(-0.022, 34);
+      expect(latinTracking, closeTo(-0.748, 0.001));
+
+      // Hindi (Devanagari): must be 0.0 to prevent breaking joined matras and conjuncts
+      final hindiTracking = PoswalText.opticalTracking(-0.022, 34, languageCode: 'hi');
+      expect(hindiTracking, equals(0.0));
+
+      // Urdu (Nastaliq): must be 0.0 to preserve cursive ligatures
+      final urduTracking = PoswalText.opticalTracking(-0.022, 34, languageCode: 'ur');
+      expect(urduTracking, equals(0.0));
+    });
+
+    // 11. Localized Typography Helper (Unit Test)
+    test('11. PoswalText.localized preserves tracking on Latin and strips negative tracking on Hindi/Urdu', () {
+      const latinStyle = PoswalText.largeTitle;
+      expect(latinStyle.letterSpacing, isNotNull);
+      expect(latinStyle.letterSpacing!, lessThan(0.0));
+
+      final hindiStyle = PoswalText.localized(latinStyle, languageCode: 'hi');
+      expect(hindiStyle.letterSpacing, equals(0.0));
+
+      final urduStyle = PoswalText.localized(latinStyle, languageCode: 'ur');
+      expect(urduStyle.letterSpacing, equals(0.0));
+
+      final enStyle = PoswalText.localized(latinStyle, languageCode: 'en');
+      expect(enStyle.letterSpacing, equals(latinStyle.letterSpacing));
+    });
+
+    // 12. Standard Curves, Durations, Spacing, and Touch Padding Tokens (Unit Test)
+    test('12. PoswalCurves, PoswalDurations, PoswalSpacing, and PoswalTouchPadding provide consistent scale metrics', () {
+      // Standard ease curve
+      expect(PoswalCurves.standard, equals(const Cubic(0.25, 0.1, 0.25, 1.0)));
+
+      // Durations
+      expect(PoswalDurations.micro.inMilliseconds, equals(150));
+      expect(PoswalDurations.standard.inMilliseconds, equals(250));
+      expect(PoswalDurations.sheet.inMilliseconds, equals(300));
+
+      // Spacing scale
+      expect(PoswalSpacing.xxs, equals(2.0));
+      expect(PoswalSpacing.xs, equals(4.0));
+      expect(PoswalSpacing.lg2, equals(20.0));
+      expect(PoswalSpacing.massive, equals(64.0));
+
+      // Touch padding
+      expect(PoswalTouchPadding.bordered, equals(12.0));
+      expect(PoswalTouchPadding.borderless, equals(24.0));
+    });
   });
 }

@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
+import 'package:poswal_orbit/core/widgets/app_list_section.dart';
 import 'package:poswal_orbit/core/widgets/aurora_background.dart';
 import 'package:poswal_orbit/data/services/data_safety_service.dart';
 import 'package:poswal_orbit/data/services/notification_service.dart';
@@ -383,109 +384,113 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           ),
         ),
         body: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.lg, vertical: PoswalSpacing.md),
+          padding: const EdgeInsets.symmetric(vertical: PoswalSpacing.md),
           physics: const BouncingScrollPhysics(),
           children: [
             // --- SECTION 1: APPEARANCE ---
-            _buildSectionHeader('Appearance', PhosphorIconsRegular.paintBrush, textPrimary),
-            const SizedBox(height: PoswalSpacing.xs),
-            AppGlassCard(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Theme', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
-                  const SizedBox(height: PoswalSpacing.sm),
-                  Wrap(
-                    spacing: PoswalSpacing.sm,
-                    runSpacing: PoswalSpacing.xs,
-                    children: ThemeModeOption.values.map((mode) {
-                      final isSelected = settings.themeMode == mode;
-                      return ChoiceChip(
-                        label: Text(mode.label),
-                        selected: isSelected,
-                        selectedColor: PoswalColors.teal.withValues(alpha: 0.3),
-                        labelStyle: PoswalText.caption.copyWith(
-                          color: isSelected ? PoswalColors.teal : textMuted,
-                          fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                        ),
-                        onSelected: (_) => settingsNotifier.updateThemeMode(mode),
-                      );
-                    }).toList(),
-                  ),
-                  const Divider(color: Colors.white12, height: 28),
-                  Text('Accent Color', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
-                  const SizedBox(height: PoswalSpacing.sm),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: AccentColorOption.values.map((accent) {
-                      final isSelected = settings.accent == accent;
-                      return GestureDetector(
-                        onTap: () => settingsNotifier.updateAccent(accent),
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 150),
-                          width: 38,
-                          height: 38,
-                          decoration: BoxDecoration(
-                            color: accent.color,
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: isSelected ? Colors.white : Colors.transparent,
-                              width: 3,
-                            ),
-                            boxShadow: isSelected
-                                ? [BoxShadow(color: accent.color.withValues(alpha: 0.6), blurRadius: 8, spreadRadius: 1)]
-                                : null,
-                          ),
-                          child: isSelected ? const Icon(Icons.check, size: 20, color: Colors.white) : null,
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                  const Divider(color: Colors.white12, height: 28),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            AppListSection(
+              title: 'Appearance',
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(PoswalSpacing.md),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Glass Intensity', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
-                      Text('${(intensity * 100).toInt()}%', style: PoswalText.caption.copyWith(color: PoswalColors.teal, fontWeight: FontWeight.w700)),
+                      Text('Theme', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                      const SizedBox(height: PoswalSpacing.sm),
+                      Wrap(
+                        spacing: PoswalSpacing.sm,
+                        runSpacing: PoswalSpacing.xs,
+                        children: ThemeModeOption.values.map((mode) {
+                          final isSelected = settings.themeMode == mode;
+                          return ChoiceChip(
+                            label: Text(mode.label),
+                            selected: isSelected,
+                            selectedColor: PoswalColors.teal.withValues(alpha: 0.3),
+                            labelStyle: PoswalText.caption.copyWith(
+                              color: isSelected ? PoswalColors.teal : textMuted,
+                              fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                            ),
+                            onSelected: (_) => settingsNotifier.updateThemeMode(mode),
+                          );
+                        }).toList(),
+                      ),
+                      const Divider(color: Colors.white12, height: 28),
+                      Text('Accent Color', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                      const SizedBox(height: PoswalSpacing.sm),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: AccentColorOption.values.map((accent) {
+                          final isSelected = settings.accent == accent;
+                          return GestureDetector(
+                            onTap: () => settingsNotifier.updateAccent(accent),
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 150),
+                              width: 38,
+                              height: 38,
+                              decoration: BoxDecoration(
+                                color: accent.color,
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: isSelected ? Colors.white : Colors.transparent,
+                                  width: 3,
+                                ),
+                                boxShadow: isSelected
+                                    ? [BoxShadow(color: accent.color.withValues(alpha: 0.6), blurRadius: 8, spreadRadius: 1)]
+                                    : null,
+                              ),
+                              child: isSelected ? const Icon(Icons.check, size: 20, color: Colors.white) : null,
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                      const Divider(color: Colors.white12, height: 28),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Glass Intensity', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                          Text('${(intensity * 100).toInt()}%', style: PoswalText.caption.copyWith(color: PoswalColors.teal, fontWeight: FontWeight.w700)),
+                        ],
+                      ),
+                      Slider(
+                        value: intensity,
+                        min: 0.1,
+                        max: 1.0,
+                        divisions: 9,
+                        activeColor: PoswalColors.teal,
+                        inactiveColor: Colors.white12,
+                        onChanged: (val) {
+                          ref.read(glassIntensityProvider.notifier).setIntensity(val);
+                          settingsNotifier.updateGlassIntensity(val);
+                        },
+                      ),
+                      const Divider(color: Colors.white12, height: 28),
+                      SwitchListTile.adaptive(
+                        contentPadding: EdgeInsets.zero,
+                        title: Text(l10n?.settingsReduceTransparency ?? 'Reduce Transparency', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                        subtitle: Text(l10n?.reduceTransparencySubtitle ?? 'Solid background cards for reduced GPU load or high contrast', style: PoswalText.caption.copyWith(color: textMuted)),
+                        value: reduceTransparency,
+                        activeColor: PoswalColors.teal,
+                        onChanged: (val) {
+                          ref.read(reduceTransparencyProvider.notifier).setReduce(val);
+                          settingsNotifier.updateReduceTransparency(val);
+                        },
+                      ),
                     ],
                   ),
-                  Slider(
-                    value: intensity,
-                    min: 0.1,
-                    max: 1.0,
-                    divisions: 9,
-                    activeColor: PoswalColors.teal,
-                    inactiveColor: Colors.white12,
-                    onChanged: (val) {
-                      ref.read(glassIntensityProvider.notifier).setIntensity(val);
-                      settingsNotifier.updateGlassIntensity(val);
-                    },
-                  ),
-                  const Divider(color: Colors.white12, height: 28),
-                  SwitchListTile.adaptive(
-                    contentPadding: EdgeInsets.zero,
-                    title: Text(l10n?.settingsReduceTransparency ?? 'Reduce Transparency', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
-                    subtitle: Text(l10n?.reduceTransparencySubtitle ?? 'Solid background cards for reduced GPU load or high contrast', style: PoswalText.caption.copyWith(color: textMuted)),
-                    value: reduceTransparency,
-                    activeColor: PoswalColors.teal,
-                    onChanged: (val) {
-                      ref.read(reduceTransparencyProvider.notifier).setReduce(val);
-                      settingsNotifier.updateReduceTransparency(val);
-                    },
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
 
-            const SizedBox(height: PoswalSpacing.lg),
+            const SizedBox(height: PoswalSpacing.md),
 
             // --- SECTION 2: TIME & DAY BOUNDARY ---
-            _buildSectionHeader(l10n?.settingsTime ?? 'Time & Orbit Boundary', PhosphorIconsRegular.clock, textPrimary),
-            const SizedBox(height: PoswalSpacing.xs),
-            AppGlassCard(
-              child: Column(
-                children: [
-                  ListTile(
+            AppListSection(
+              title: 'Time & Orbit Boundary',
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md),
+                  child: ListTile(
                     contentPadding: EdgeInsets.zero,
                     title: Text(l10n?.settingsDayStart ?? 'Day-Start Boundary', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
                     subtitle: Text(
@@ -508,8 +513,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       },
                     ),
                   ),
-                  const Divider(color: Colors.white12, height: 20),
-                  ListTile(
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md),
+                  child: ListTile(
                     contentPadding: EdgeInsets.zero,
                     title: Text(l10n?.settingsFirstDayOfWeek ?? 'First Day of Week', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
                     trailing: SegmentedButton<int>(
@@ -521,35 +528,39 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       onSelectionChanged: (set) => settingsNotifier.updateFirstDayOfWeek(set.first),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
 
-            const SizedBox(height: PoswalSpacing.lg),
+            const SizedBox(height: PoswalSpacing.md),
 
             // --- SECTION 3: FEEDBACK ---
-            _buildSectionHeader(l10n?.settingsHaptics ?? 'Haptics & Motion', PhosphorIconsRegular.vibrate, textPrimary),
-            const SizedBox(height: PoswalSpacing.xs),
-            AppGlassCard(
-              child: SwitchListTile.adaptive(
-                contentPadding: EdgeInsets.zero,
-                title: Text(l10n?.settingsHaptics ?? 'Haptic Feedback', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
-                subtitle: Text(l10n?.hapticFeedbackSubtitle ?? 'Tactile vibration on habit rings, checkboxes and gestures', style: PoswalText.caption.copyWith(color: textMuted)),
-                value: settings.hapticsEnabled,
-                activeColor: PoswalColors.teal,
-                onChanged: (val) => settingsNotifier.updateHaptics(val),
-              ),
+            AppListSection(
+              title: l10n?.settingsHaptics ?? 'Haptics & Motion',
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md),
+                  child: SwitchListTile.adaptive(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text(l10n?.settingsHaptics ?? 'Haptic Feedback', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                    subtitle: Text(l10n?.hapticFeedbackSubtitle ?? 'Tactile vibration on habit rings, checkboxes and gestures', style: PoswalText.caption.copyWith(color: textMuted)),
+                    value: settings.hapticsEnabled,
+                    activeColor: PoswalColors.teal,
+                    onChanged: (val) => settingsNotifier.updateHaptics(val),
+                  ),
+                ),
+              ],
             ),
 
-            const SizedBox(height: PoswalSpacing.lg),
+            const SizedBox(height: PoswalSpacing.md),
 
             // --- SECTION 4: REMINDERS & NOTIFICATIONS ---
-            _buildSectionHeader(l10n?.settingsNotifications ?? 'Reminders & Notifications', PhosphorIconsRegular.bell, textPrimary),
-            const SizedBox(height: PoswalSpacing.xs),
-            AppGlassCard(
-              child: Column(
-                children: [
-                  ListTile(
+            AppListSection(
+              title: l10n?.settingsNotifications ?? 'Reminders & Notifications',
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md),
+                  child: ListTile(
                     key: const ValueKey('reminders_health_check_tile'),
                     contentPadding: EdgeInsets.zero,
                     leading: Container(
@@ -565,8 +576,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     trailing: const Icon(PhosphorIconsRegular.caretRight, size: 16, color: Colors.white54),
                     onTap: () => RemindersHealthCheckScreen.push(context),
                   ),
-                  const Divider(color: Colors.white12, height: 20),
-                  Row(
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(PoswalSpacing.md),
+                  child: Row(
                     children: [
                       Expanded(
                         child: OutlinedButton.icon(
@@ -607,275 +620,271 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
 
-            const SizedBox(height: PoswalSpacing.lg),
+            const SizedBox(height: PoswalSpacing.md),
 
             // --- SECTION 5: LANGUAGE & LOCALIZATION ---
-            _buildSectionHeader(l10n?.settingsLanguage ?? 'Language', PhosphorIconsRegular.globe, textPrimary),
-            const SizedBox(height: PoswalSpacing.xs),
-            AppGlassCard(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(l10n?.displayLanguage ?? 'Display Language', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
-                  const SizedBox(height: PoswalSpacing.xs),
-                  Text(l10n?.displayLanguageSubtitle ?? 'Supports English, Hindi (हिन्दी), and Urdu (اردو) with native fonts and RTL direction', style: PoswalText.caption.copyWith(color: textMuted)),
-                  const SizedBox(height: PoswalSpacing.md),
-                  Wrap(
-                    spacing: PoswalSpacing.sm,
-                    runSpacing: PoswalSpacing.xs,
-                    children: AppLanguageOption.values.map((lang) {
-                      final isSelected = settings.language == lang;
-                      return ChoiceChip(
-                        key: ValueKey('lang_chip_${lang.name}'),
-                        label: Text(
-                          lang.nativeName,
-                          style: PoswalText.callout.copyWith(
-                            color: isSelected ? PoswalColors.teal : textMuted,
-                            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                          ),
-                        ),
-                        selected: isSelected,
-                        selectedColor: PoswalColors.teal.withValues(alpha: 0.15),
-                        backgroundColor: Colors.white.withValues(alpha: 0.05),
-                        side: BorderSide(
-                          color: isSelected ? PoswalColors.teal : Colors.white12,
-                        ),
-                        onSelected: (_) {
-                          unawaited(HapticFeedback.selectionClick());
-                          settingsNotifier.updateLanguage(lang);
-                        },
-                      );
-                    }).toList(),
-                  ),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: PoswalSpacing.lg),
-
-            // --- SECTION 6: DATA SAFETY & BACKUPS ---
-            _buildSectionHeader(l10n?.settingsDataSafety ?? 'Data Safety & Backups', PhosphorIconsRegular.shieldCheck, textPrimary),
-            const SizedBox(height: PoswalSpacing.xs),
-            AppGlassCard(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+            AppListSection(
+              title: l10n?.settingsLanguage ?? 'Language',
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(PoswalSpacing.md),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        padding: const EdgeInsets.all(PoswalSpacing.xs),
-                        decoration: BoxDecoration(
-                          color: PoswalColors.teal.withValues(alpha: 0.15),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(PhosphorIconsRegular.checkCircle, color: PoswalColors.teal, size: 20),
-                      ),
-                      const SizedBox(width: PoswalSpacing.sm),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(l10n?.autoDailyBackupsActive ?? 'Automatic Daily Backups Active', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
-                            Text(l10n?.autoDailyBackupsSubtitle ?? 'Rolling retention keeps the last 7 daily snapshots safely.', style: PoswalText.caption.copyWith(color: textMuted)),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: PoswalSpacing.md),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: FilledButton.icon(
-                          key: const ValueKey('backup_now_btn'),
-                          style: FilledButton.styleFrom(
-                            backgroundColor: PoswalColors.teal,
-                            padding: const EdgeInsets.symmetric(vertical: PoswalSpacing.sm),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.chip)),
-                          ),
-                          onPressed: _isBackingUp ? null : _handleManualBackup,
-                          icon: _isBackingUp
-                              ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-                              : const Icon(PhosphorIconsRegular.floppyDisk, size: 18),
-                          label: Text(_isBackingUp ? (l10n?.saving ?? 'Saving...') : (l10n?.settingsBackupNow ?? 'Back Up Now'), style: PoswalText.callout.copyWith(color: Colors.white, fontWeight: FontWeight.w600)),
-                        ),
-                      ),
-                      const SizedBox(width: PoswalSpacing.sm),
-                      OutlinedButton.icon(
-                        key: const ValueKey('export_btn'),
-                        style: OutlinedButton.styleFrom(
-                          side: BorderSide(color: Colors.white.withValues(alpha: 0.2)),
-                          padding: const EdgeInsets.symmetric(vertical: PoswalSpacing.sm, horizontal: PoswalSpacing.md),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.chip)),
-                        ),
-                        onPressed: _showExportOptions,
-                        icon: const Icon(PhosphorIconsRegular.export, size: 18, color: Colors.white),
-                        label: Text(l10n?.settingsExport ?? 'Export', style: PoswalText.callout.copyWith(color: Colors.white)),
-                      ),
-                      const SizedBox(width: PoswalSpacing.sm),
-                      OutlinedButton.icon(
-                        key: const ValueKey('import_btn'),
-                        style: OutlinedButton.styleFrom(
-                          side: BorderSide(color: Colors.white.withValues(alpha: 0.2)),
-                          padding: const EdgeInsets.symmetric(vertical: PoswalSpacing.sm, horizontal: PoswalSpacing.md),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.chip)),
-                        ),
-                        onPressed: _showImportDialog,
-                        icon: const Icon(PhosphorIconsRegular.downloadSimple, size: 18, color: Colors.white),
-                        label: Text(l10n?.settingsImport ?? 'Import', style: PoswalText.callout.copyWith(color: Colors.white)),
-                      ),
-                    ],
-                  ),
-
-                  const Divider(color: Colors.white12, height: 28),
-
-                  Text(l10n?.availableBackups ?? 'Available Backups (Last 7)', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
-                  const SizedBox(height: PoswalSpacing.xs),
-
-                  backupsAsync.when(
-                    loading: () => const Center(child: Padding(padding: EdgeInsets.all(16), child: CircularProgressIndicator(strokeWidth: 2, color: PoswalColors.teal))),
-                    error: (e, _) => Text('Could not load backups: $e', style: PoswalText.caption.copyWith(color: PoswalColors.danger)),
-                    data: (backups) {
-                      if (backups.isEmpty) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: PoswalSpacing.md),
-                          child: Text(l10n?.noBackupsYet ?? 'No backup snapshots yet. Tap "Back Up Now" to save your first snapshot.', style: PoswalText.caption.copyWith(color: textMuted)),
-                        );
-                      }
-                      return Column(
-                        children: backups.map((b) {
-                          return Container(
-                            margin: const EdgeInsets.only(top: PoswalSpacing.xs),
-                            padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.sm, vertical: PoswalSpacing.xs),
-                            decoration: BoxDecoration(
-                              color: Colors.white.withValues(alpha: 0.04),
-                              borderRadius: BorderRadius.circular(PoswalRadii.chip),
+                      Text(l10n?.displayLanguage ?? 'Display Language', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                      const SizedBox(height: PoswalSpacing.xs),
+                      Text(l10n?.displayLanguageSubtitle ?? 'Supports English, Hindi (हिन्दी), and Urdu (اردو) with native fonts and RTL direction', style: PoswalText.caption.copyWith(color: textMuted)),
+                      const SizedBox(height: PoswalSpacing.md),
+                      Wrap(
+                        spacing: PoswalSpacing.sm,
+                        runSpacing: PoswalSpacing.xs,
+                        children: AppLanguageOption.values.map((lang) {
+                          final isSelected = settings.language == lang;
+                          return ChoiceChip(
+                            key: ValueKey('lang_chip_${lang.name}'),
+                            label: Text(
+                              lang.nativeName,
+                              style: PoswalText.callout.copyWith(
+                                color: isSelected ? PoswalColors.teal : textMuted,
+                                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                              ),
                             ),
-                            child: Row(
-                              children: [
-                                const Icon(PhosphorIconsRegular.fileArchive, size: 20, color: PoswalColors.teal),
-                                const SizedBox(width: PoswalSpacing.sm),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(b.name, style: PoswalText.caption.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
-                                      Text('${b.formattedDate} · ${b.formattedSize}', style: PoswalText.caption.copyWith(color: textMuted, fontSize: 11)),
-                                    ],
-                                  ),
-                                ),
-                                TextButton.icon(
-                                  key: ValueKey('restore_${b.name}'),
-                                  style: TextButton.styleFrom(
-                                    padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.xs),
-                                  ),
-                                  onPressed: _isRestoring ? null : () => _handleRestoreBackup(b),
-                                  icon: const Icon(PhosphorIconsRegular.arrowCounterClockwise, size: 16, color: PoswalColors.teal),
-                                  label: Text(l10n?.restore ?? 'Restore', style: PoswalText.caption.copyWith(color: PoswalColors.teal, fontWeight: FontWeight.w700)),
-                                ),
-                              ],
+                            selected: isSelected,
+                            selectedColor: PoswalColors.teal.withValues(alpha: 0.15),
+                            backgroundColor: Colors.white.withValues(alpha: 0.05),
+                            side: BorderSide(
+                              color: isSelected ? PoswalColors.teal : Colors.white12,
                             ),
+                            onSelected: (_) {
+                              unawaited(HapticFeedback.selectionClick());
+                              settingsNotifier.updateLanguage(lang);
+                            },
                           );
                         }).toList(),
-                      );
-                    },
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
 
-            const SizedBox(height: PoswalSpacing.lg),
+            const SizedBox(height: PoswalSpacing.md),
 
-            // --- SECTION 5: DANGER ZONE ---
-            _buildSectionHeader(l10n?.settingsDanger ?? 'Danger Zone', PhosphorIconsRegular.warningOctagon, PoswalColors.danger),
-            const SizedBox(height: PoswalSpacing.xs),
-            AppGlassCard(
-              tintColor: PoswalColors.danger,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(l10n?.resetOrClearData ?? 'Reset or Clear Data', style: PoswalText.callout.copyWith(color: Colors.white, fontWeight: FontWeight.w600)),
-                  const SizedBox(height: PoswalSpacing.xs),
-                  Text(
-                    l10n?.deleteAllDataSubtitle ?? 'Wipes all active habits, tasks, and notes. A pre-wipe snapshot is automatically taken to guarantee data safety.',
-                    style: PoswalText.caption.copyWith(color: PoswalColors.textMutedDark),
+            // --- SECTION 6: DATA SAFETY & BACKUPS ---
+            AppListSection(
+              title: l10n?.settingsDataSafety ?? 'Data Safety & Backups',
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(PoswalSpacing.md),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(PoswalSpacing.xs),
+                            decoration: BoxDecoration(
+                              color: PoswalColors.teal.withValues(alpha: 0.15),
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(PhosphorIconsRegular.checkCircle, color: PoswalColors.teal, size: 20),
+                          ),
+                          const SizedBox(width: PoswalSpacing.sm),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(l10n?.autoDailyBackupsActive ?? 'Automatic Daily Backups Active', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                                Text(l10n?.autoDailyBackupsSubtitle ?? 'Rolling retention keeps the last 7 daily snapshots safely.', style: PoswalText.caption.copyWith(color: textMuted)),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: PoswalSpacing.md),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: FilledButton.icon(
+                              key: const ValueKey('backup_now_btn'),
+                              style: FilledButton.styleFrom(
+                                backgroundColor: PoswalColors.teal,
+                                padding: const EdgeInsets.symmetric(vertical: PoswalSpacing.sm),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.chip)),
+                              ),
+                              onPressed: _isBackingUp ? null : _handleManualBackup,
+                              icon: _isBackingUp
+                                  ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                                  : const Icon(PhosphorIconsRegular.floppyDisk, size: 18),
+                              label: Text(_isBackingUp ? (l10n?.saving ?? 'Saving...') : (l10n?.settingsBackupNow ?? 'Back Up Now'), style: PoswalText.callout.copyWith(color: Colors.white, fontWeight: FontWeight.w600)),
+                            ),
+                          ),
+                          const SizedBox(width: PoswalSpacing.sm),
+                          OutlinedButton.icon(
+                            key: const ValueKey('export_btn'),
+                            style: OutlinedButton.styleFrom(
+                              side: BorderSide(color: Colors.white.withValues(alpha: 0.2)),
+                              padding: const EdgeInsets.symmetric(vertical: PoswalSpacing.sm, horizontal: PoswalSpacing.md),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.chip)),
+                            ),
+                            onPressed: _showExportOptions,
+                            icon: const Icon(PhosphorIconsRegular.export, size: 18, color: Colors.white),
+                            label: Text(l10n?.settingsExport ?? 'Export', style: PoswalText.callout.copyWith(color: Colors.white)),
+                          ),
+                          const SizedBox(width: PoswalSpacing.sm),
+                          OutlinedButton.icon(
+                            key: const ValueKey('import_btn'),
+                            style: OutlinedButton.styleFrom(
+                              side: BorderSide(color: Colors.white.withValues(alpha: 0.2)),
+                              padding: const EdgeInsets.symmetric(vertical: PoswalSpacing.sm, horizontal: PoswalSpacing.md),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.chip)),
+                            ),
+                            onPressed: _showImportDialog,
+                            icon: const Icon(PhosphorIconsRegular.downloadSimple, size: 18, color: Colors.white),
+                            label: Text(l10n?.settingsImport ?? 'Import', style: PoswalText.callout.copyWith(color: Colors.white)),
+                          ),
+                        ],
+                      ),
+                      const Divider(color: Colors.white12, height: 28),
+                      Text(l10n?.availableBackups ?? 'Available Backups (Last 7)', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                      const SizedBox(height: PoswalSpacing.xs),
+                      backupsAsync.when(
+                        loading: () => const Center(child: Padding(padding: EdgeInsets.all(16), child: CircularProgressIndicator(strokeWidth: 2, color: PoswalColors.teal))),
+                        error: (e, _) => Text('Could not load backups: $e', style: PoswalText.caption.copyWith(color: PoswalColors.danger)),
+                        data: (backups) {
+                          if (backups.isEmpty) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: PoswalSpacing.md),
+                              child: Text(l10n?.noBackupsYet ?? 'No backup snapshots yet. Tap "Back Up Now" to save your first snapshot.', style: PoswalText.caption.copyWith(color: textMuted)),
+                            );
+                          }
+                          return Column(
+                            children: backups.map((b) {
+                              return Container(
+                                margin: const EdgeInsets.only(top: PoswalSpacing.xs),
+                                padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.sm, vertical: PoswalSpacing.xs),
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withValues(alpha: 0.04),
+                                  borderRadius: BorderRadius.circular(PoswalRadii.chip),
+                                ),
+                                child: Row(
+                                  children: [
+                                    const Icon(PhosphorIconsRegular.fileArchive, size: 20, color: PoswalColors.teal),
+                                    const SizedBox(width: PoswalSpacing.sm),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(b.name, style: PoswalText.caption.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                                          Text('${b.formattedDate} · ${b.formattedSize}', style: PoswalText.caption.copyWith(color: textMuted, fontSize: 11)),
+                                        ],
+                                      ),
+                                    ),
+                                    TextButton.icon(
+                                      key: ValueKey('restore_${b.name}'),
+                                      style: TextButton.styleFrom(
+                                        padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.xs),
+                                      ),
+                                      onPressed: _isRestoring ? null : () => _handleRestoreBackup(b),
+                                      icon: const Icon(PhosphorIconsRegular.arrowCounterClockwise, size: 16, color: PoswalColors.teal),
+                                      label: Text(l10n?.restore ?? 'Restore', style: PoswalText.caption.copyWith(color: PoswalColors.teal, fontWeight: FontWeight.w700)),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }).toList(),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: PoswalSpacing.md),
-                  OutlinedButton.icon(
-                    key: const ValueKey('delete_all_data_btn'),
-                    style: OutlinedButton.styleFrom(
-                      side: const BorderSide(color: PoswalColors.danger),
-                      padding: const EdgeInsets.symmetric(vertical: PoswalSpacing.sm, horizontal: PoswalSpacing.md),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.chip)),
-                    ),
-                    onPressed: _handleDeleteAllData,
-                    icon: const Icon(PhosphorIconsRegular.trash, color: PoswalColors.danger, size: 18),
-                    label: Text(l10n?.settingsDeleteAll ?? 'Delete All Data', style: PoswalText.callout.copyWith(color: PoswalColors.danger, fontWeight: FontWeight.w600)),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
 
-            const SizedBox(height: PoswalSpacing.lg),
+            const SizedBox(height: PoswalSpacing.md),
+
+            // --- SECTION 7: DANGER ZONE ---
+            AppListSection(
+              title: l10n?.settingsDanger ?? 'Danger Zone',
+              isDestructive: true,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(PoswalSpacing.md),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(l10n?.resetOrClearData ?? 'Reset or Clear Data', style: PoswalText.callout.copyWith(color: Colors.white, fontWeight: FontWeight.w600)),
+                      const SizedBox(height: PoswalSpacing.xs),
+                      Text(
+                        l10n?.deleteAllDataSubtitle ?? 'Wipes all active habits, tasks, and notes. A pre-wipe snapshot is automatically taken to guarantee data safety.',
+                        style: PoswalText.caption.copyWith(color: PoswalColors.textMutedDark),
+                      ),
+                      const SizedBox(height: PoswalSpacing.md),
+                      OutlinedButton.icon(
+                        key: const ValueKey('delete_all_data_btn'),
+                        style: OutlinedButton.styleFrom(
+                          side: const BorderSide(color: PoswalColors.danger),
+                          padding: const EdgeInsets.symmetric(vertical: PoswalSpacing.sm, horizontal: PoswalSpacing.md),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.chip)),
+                        ),
+                        onPressed: _handleDeleteAllData,
+                        icon: const Icon(PhosphorIconsRegular.trash, color: PoswalColors.danger, size: 18),
+                        label: Text(l10n?.settingsDeleteAll ?? 'Delete All Data', style: PoswalText.callout.copyWith(color: PoswalColors.danger, fontWeight: FontWeight.w600)),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: PoswalSpacing.md),
 
             // --- SECTION 8: ABOUT & PLAYGROUND ---
-            _buildSectionHeader(l10n?.settingsTitle ?? 'About', PhosphorIconsRegular.info, textPrimary),
-            const SizedBox(height: PoswalSpacing.xs),
-            AppGlassCard(
-              child: ListTile(
-                key: const ValueKey('settings_version_tile'),
-                contentPadding: EdgeInsets.zero,
-                leading: Container(
-                  padding: const EdgeInsets.all(PoswalSpacing.xs),
-                  decoration: BoxDecoration(
-                    color: PoswalColors.teal.withValues(alpha: 0.15),
-                    shape: BoxShape.circle,
+            AppListSection(
+              title: l10n?.settingsTitle ?? 'About',
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md),
+                  child: ListTile(
+                    key: const ValueKey('settings_version_tile'),
+                    contentPadding: EdgeInsets.zero,
+                    leading: Container(
+                      padding: const EdgeInsets.all(PoswalSpacing.xs),
+                      decoration: BoxDecoration(
+                        color: PoswalColors.teal.withValues(alpha: 0.15),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(PhosphorIconsRegular.atom, color: PoswalColors.teal, size: 20),
+                    ),
+                    title: Text(l10n?.appTitle ?? 'Poswal Orbit', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                    subtitle: Text('v1.0.0 (Build 42)', style: PoswalText.caption.copyWith(color: textMuted)),
+                    trailing: const Icon(PhosphorIconsRegular.caretRight, size: 16, color: Colors.white54),
+                    onTap: () {
+                      _versionTapCount++;
+                      if (_versionTapCount >= 7) {
+                        _versionTapCount = 0;
+                        _showToast('Design Playground Unlocked!');
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (_) => const DesignPlaygroundScreen()),
+                        );
+                      } else if (_versionTapCount >= 3) {
+                        _showToast('${7 - _versionTapCount} more taps to open Playground');
+                      }
+                    },
                   ),
-                  child: const Icon(PhosphorIconsRegular.atom, color: PoswalColors.teal, size: 20),
                 ),
-                title: Text(l10n?.appTitle ?? 'Poswal Orbit', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
-                subtitle: Text((l10n != null ? 'v1.0.0 (Build 42) • Tap 7 times for Playground' : null) ?? 'v1.0.0', style: PoswalText.caption.copyWith(color: textMuted)),
-                trailing: const Icon(PhosphorIconsRegular.caretRight, size: 16, color: Colors.white54),
-                onTap: () {
-                  _versionTapCount++;
-                  if (_versionTapCount >= 7) {
-                    _versionTapCount = 0;
-                    _showToast('Design Playground Unlocked!');
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => const DesignPlaygroundScreen()),
-                    );
-                  } else if (_versionTapCount >= 3) {
-                    _showToast('${7 - _versionTapCount} more taps to open Playground');
-                  }
-                },
-              ),
+              ],
             ),
 
             const SizedBox(height: PoswalSpacing.xxl),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildSectionHeader(String title, IconData icon, Color color) {
-    return Row(
-      children: [
-        Icon(icon, size: 18, color: color),
-        const SizedBox(width: PoswalSpacing.xs),
-        Text(
-          title,
-          style: PoswalText.caption.copyWith(
-            color: color,
-            fontWeight: FontWeight.w700,
-            letterSpacing: 0.5,
-          ),
-        ),
-      ],
     );
   }
 }
