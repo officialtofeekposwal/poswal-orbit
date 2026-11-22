@@ -77,3 +77,18 @@ GitHub Actions will automatically:
 
 `android/app/build.gradle.kts` automatically detects if `android/key.properties` is present.
 If it is absent, `flutter build apk --release` seamlessly falls back to debug signing so that open-source contributors can build and test release binaries locally without needing production secrets.
+
+---
+
+## ⚠️ 6. Debug vs Release Signature Mismatch (Important!)
+
+If you have already installed a **debug build** (e.g. from `flutter run` or CI debug APK) on your physical Android phone:
+- Android strictly enforces that all updates to an existing app must be signed with the exact same cryptographic key certificate.
+- When you attempt to install a **signed release APK** over an existing debug APK, Android will reject the install with:
+  ```
+  INSTALL_FAILED_UPDATE_INCOMPATIBLE: Package com.poswal.orbit signatures do not match previously installed version
+  ```
+- **How to resolve**:
+  1. Open Settings on your phone or long-press Poswal Orbit on your home screen and select **Uninstall**.
+  2. If you have active test data, export a backup JSON or CSV from Settings first.
+  3. Install the signed release APK cleanly. Subsequent release updates will install seamlessly without requiring an uninstall.

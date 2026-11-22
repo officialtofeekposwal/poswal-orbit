@@ -88,7 +88,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.capsule)),
                 ),
                 onPressed: () => Navigator.of(ctx).pop(true),
-                child: Text('Restore Safely', style: PoswalText.callout.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+                child: Text('Restore Safely', style: PoswalText.callout.copyWith(color: PoswalColors.ink, fontWeight: FontWeight.bold)),
               ),
               const SizedBox(height: PoswalSpacing.sm),
               TextButton(
@@ -261,7 +261,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   Navigator.of(ctx).pop();
                   await _processImportContent(content);
                 },
-                child: Text(l10n?.inspectAndImport ?? 'Inspect & Import', style: PoswalText.callout.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+                child: Text(l10n?.inspectAndImport ?? 'Inspect & Import', style: PoswalText.callout.copyWith(color: PoswalColors.ink, fontWeight: FontWeight.bold)),
               ),
               const SizedBox(height: PoswalSpacing.sm),
               TextButton(
@@ -318,7 +318,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.capsule)),
                 ),
                 onPressed: () => Navigator.of(ctx).pop(true),
-                child: Text(l10n?.applyImport ?? 'Apply Import', style: PoswalText.callout.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+                child: Text(l10n?.applyImport ?? 'Apply Import', style: PoswalText.callout.copyWith(color: PoswalColors.ink, fontWeight: FontWeight.bold)),
               ),
               const SizedBox(height: PoswalSpacing.sm),
               TextButton(
@@ -459,7 +459,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                             selected: isSelected,
                             selectedColor: PoswalColors.teal.withValues(alpha: 0.3),
                             labelStyle: PoswalText.caption.copyWith(
-                              color: isSelected ? PoswalColors.teal : textMuted,
+                              color: isSelected ? (isDark ? PoswalColors.teal : PoswalColors.tealLight) : textMuted,
                               fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
                             ),
                             onSelected: (_) => settingsNotifier.updateThemeMode(mode),
@@ -700,7 +700,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                             label: Text(
                               lang.nativeName,
                               style: PoswalText.callout.copyWith(
-                                color: isSelected ? PoswalColors.teal : textMuted,
+                                color: isSelected ? (isDark ? PoswalColors.teal : PoswalColors.tealLight) : textMuted,
                                 fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
                               ),
                             ),
@@ -764,14 +764,15 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                               key: const ValueKey('backup_now_btn'),
                               style: FilledButton.styleFrom(
                                 backgroundColor: PoswalColors.teal,
+                                foregroundColor: PoswalColors.ink,
                                 padding: const EdgeInsets.symmetric(vertical: PoswalSpacing.sm),
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.chip)),
                               ),
                               onPressed: _isBackingUp ? null : _handleManualBackup,
                               icon: _isBackingUp
-                                  ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-                                  : const Icon(PhosphorIconsRegular.floppyDisk, size: 18),
-                              label: Text(_isBackingUp ? (l10n?.saving ?? 'Saving...') : (l10n?.settingsBackupNow ?? 'Back Up Now'), style: PoswalText.callout.copyWith(color: Colors.white, fontWeight: FontWeight.w600)),
+                                  ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2, color: PoswalColors.ink))
+                                  : const Icon(PhosphorIconsRegular.floppyDisk, size: 18, color: PoswalColors.ink),
+                              label: Text(_isBackingUp ? (l10n?.saving ?? 'Saving...') : (l10n?.settingsBackupNow ?? 'Back Up Now'), style: PoswalText.callout.copyWith(color: PoswalColors.ink, fontWeight: FontWeight.w600)),
                             ),
                           ),
                           const SizedBox(width: PoswalSpacing.sm),

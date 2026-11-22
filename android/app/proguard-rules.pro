@@ -25,6 +25,9 @@
 -keep class com.poswal.orbit.OrbitTasksWidgetProvider { *; }
 -keep class android.appwidget.AppWidgetProvider { *; }
 
+# Share Plus
+-keep class dev.fluttercommunity.plus.share.** { *; }
+
 # Serialization & Desugaring
 -keepattributes *Annotation*
 -keepattributes Signature

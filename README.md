@@ -247,7 +247,8 @@ Stay on top of your day without opening the app using native Android `AppWidgetP
 We welcome community contributions, bug reports, and suggestions!
 1. Check out our [Good First Issues](docs/GOOD_FIRST_ISSUES.md) for beginner-friendly tasks.
 2. Ideas for contributors:
-   - **Optional App Lock**: A clean, fail-safe lock design that must never lock users out even if biometric hardware or OS prompts fail.
+   - **iOS WidgetKit Extension**: Swift AppGroup widget extension for Home Screen habit orbit progress.
+   - **Tablet / Large Screen Layouts**: Adaptive wide-screen navigation rail for iPadOS and Android tablets.
 3. Read the [Releasing Guide](docs/RELEASING.md) to understand build and release standards.
 4. Ensure all changes pass analysis and test gates:
    ```bash
@@ -265,5 +266,10 @@ We welcome community contributions, bug reports, and suggestions!
   - [Inter](https://github.com/rsms/inter) by Rasmus Andersson (SIL Open Font License 1.1)
   - [Noto Sans Devanagari](https://fonts.google.com/noto/specimen/Noto+Sans+Devanagari) by Google Fonts (SIL Open Font License 1.1)
   - [Noto Nastaliq Urdu](https://fonts.google.com/noto/specimen/Noto+Nastaliq+Urdu) by Google Fonts (SIL Open Font License 1.1)
-- **Inspiration**: Built with respect for privacy-centric community trackers including Habo, Loop Habit Tracker, and Table Habit.
+- **Icons**:
+  - [Phosphor Icons](https://phosphoricons.com) by Phosphor Icons (MIT License) via `phosphor_flutter`
+- **Design Inspiration**:
+  - Apple Human Interface Guidelines (HIG) and Liquid Glass visual architecture
+  - Design tokens, curves, and tactile ratio references from [super-apple-design](https://github.com/officialtofeekposwal/super-apple-design) by Tofeek Poswal
+  - Built with respect for privacy-centric community trackers including Habo, Loop Habit Tracker, and Table Habit.
 - **License**: Poswal Orbit is released under the [MIT License](LICENSE) © 2026 Poswal Orbit contributors.

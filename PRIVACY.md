@@ -33,7 +33,7 @@ Poswal Orbit is built on a simple, uncompromising foundation: **Your data belong
 
 ## 🤝 5. Open Source Auditability
 Poswal Orbit is open-source software licensed under the MIT License. Anyone can inspect, build, and verify the source code and dependencies to confirm that zero tracking, telemetry, or network communication exists:
-[https://github.com/officialtofeekposwal/Poswal](https://github.com/officialtofeekposwal/Poswal)
+[https://github.com/officialtofeekposwal/poswal-orbit](https://github.com/officialtofeekposwal/poswal-orbit)
 
 ---
 

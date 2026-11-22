@@ -150,7 +150,7 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
           FilledButton(
             style: FilledButton.styleFrom(backgroundColor: PoswalColors.teal),
             onPressed: () => Navigator.of(ctx).pop(),
-            child: Text(l10n?.understood ?? 'Understood', style: PoswalText.callout.copyWith(color: Colors.white)),
+            child: Text(l10n?.understood ?? 'Understood', style: PoswalText.callout.copyWith(color: PoswalColors.ink)),
           ),
         ],
       ),
@@ -370,11 +370,11 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
                   ),
                   onPressed: _isSendingTest ? null : _sendTest,
                   icon: _isSendingTest
-                      ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-                      : const Icon(PhosphorIconsRegular.paperPlaneTilt, color: Colors.white),
+                      ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2, color: PoswalColors.ink))
+                      : const Icon(PhosphorIconsRegular.paperPlaneTilt, color: PoswalColors.ink),
                   label: Text(
                     _isSendingTest ? (l10n?.dispatching ?? 'Dispatching...') : (l10n?.sendTestNotificationBtn ?? 'Send Test Notification'),
-                    style: PoswalText.callout.copyWith(color: Colors.white, fontWeight: FontWeight.w600),
+                    style: PoswalText.callout.copyWith(color: PoswalColors.ink, fontWeight: FontWeight.w600),
                   ),
                 ),
 

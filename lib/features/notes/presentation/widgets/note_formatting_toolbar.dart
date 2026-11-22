@@ -114,7 +114,7 @@ class NoteFormattingToolbar extends StatelessWidget {
               },
               child: Text(
                 l10n?.proceed ?? 'Insert',
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: PoswalColors.ink),
               ),
             ),
           ],

@@ -52,6 +52,7 @@ Poswal Orbit is a calm, beautiful, and strictly offline-first habit tracker, to-
   - 3 native Android AppWidgets (Kotlin & XML): Today Orbit Progress Ring, Habit Check-off Widget, and Task List Widget.
 - **Quality, Accessibility & Release Engineering (Phase 6):**
   - Transactional SQLite migrations with `SAVEPOINT` rollback, metadata inspection (`PRAGMA table_info`, `sqlite_master`), and pre-migration `.bak` copies.
-  - Screen reader accessibility semantics (`Semantics`) on all interactive rings, tabs, FAB, and switches with minimum $44\times 44$ tap targets.
+  - Screen reader accessibility semantics (`Semantics`) on all interactive rings, tabs, toolbars, action buttons, and switches with minimum $44\times 44$ tap targets.
+  - Apple Human Interface Guidelines redesign (Gates H1-H3): concentric radii, inset modal sheets (`AppSheet`), floating tab bar (`AppTabBar`), top trailing action toolbar, inline expandable multi-entity search, and light-mode accessible tokens (`tealLight`, `successLight`, `warningLight`, `dangerLight`, `violetLight`).
   - Automated GitHub Actions CI workflow for test validation and Ubuntu debug APK builds.
   - Release workflow (`.github/workflows/release.yml`) for tag-triggered signed release APK & AAB generation.

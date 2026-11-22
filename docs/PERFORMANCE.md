@@ -24,7 +24,27 @@ Liquid Glass visual effects can impose severe shader GPU overhead if misapplied 
 
 ---
 
-## 2. BackdropFilter Inventory per Screen (Strict $\le 2$ Limit)
+## 2. Measured on a Real Phone: Not Yet (Static Code Budget vs Physical Profiling)
+
+> ⚠️ **Important Notice on Hardware Verification**:  
+> The BackdropFilter count below ($\le 2$ simultaneous instances) is an **architectural static analysis count** derived from widget tree inspection. **Actual hardware frame times (UI/Raster thread millisecond metrics) have NOT yet been measured on a real phone.** Physical verification on target devices (e.g., Samsung Galaxy M36 5G or physical iPhone) must be executed using the profile commands below.
+
+### Exact Terminal Commands for Real-Device Profiling:
+```bash
+# 1. Connect physical device via ADB (or USB cable)
+adb devices
+
+# 2. Run the application in Flutter Profile mode (AOT compiled with profiling hooks)
+cd D:\Desktop\Poswal
+flutter run --profile -d <device-id>
+
+# 3. Press 'P' in the terminal to toggle the on-screen Performance Overlay directly on your phone
+# 4. Press 'v' in the terminal to launch Flutter DevTools in your browser for frame-by-frame raster timelines
+```
+
+---
+
+## 3. BackdropFilter Inventory per Screen (Strict $\le 2$ Limit)
 
 A comprehensive audit of active `BackdropFilter` widgets across the app proves compliance with the Apple HIG GPU budget:
 
@@ -41,7 +61,7 @@ A comprehensive audit of active `BackdropFilter` widgets across the app proves c
 
 ---
 
-## 3. Background Lifecycle & Energy Efficiency
+## 4. Background Lifecycle & Energy Efficiency
 
 Poswal Orbit strictly respects the Android / iOS application lifecycle to guarantee **zero battery drain**:
 
@@ -56,7 +76,7 @@ Poswal Orbit strictly respects the Android / iOS application lifecycle to guaran
 
 ---
 
-## 4. Physical Device Profiling Guide (Samsung Galaxy M36 5G & iPhone)
+## 5. Physical Device Profiling Guide (Samsung Galaxy M36 5G & iPhone)
 
 To verify frame times, GPU raster metrics, and memory consumption on physical hardware:
 

@@ -91,13 +91,13 @@ class PoswalTheme {
       scaffoldBackgroundColor: background,
       colorScheme: ColorScheme(
         brightness: brightness,
-        primary: PoswalColors.teal,
-        onPrimary: Colors.white,
-        secondary: PoswalColors.violet,
+        primary: isDark ? PoswalColors.teal : PoswalColors.tealLight,
+        onPrimary: isDark ? PoswalColors.ink : Colors.white,
+        secondary: isDark ? PoswalColors.violet : PoswalColors.violetLight,
         onSecondary: Colors.white,
         tertiary: PoswalColors.coral,
         onTertiary: Colors.white,
-        error: PoswalColors.danger,
+        error: isDark ? PoswalColors.danger : PoswalColors.dangerLight,
         onError: Colors.white,
         surface: surface,
         onSurface: textPrimary,
@@ -195,6 +195,15 @@ class PoswalTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(PoswalRadii.card),
           side: BorderSide(color: border),
+        ),
+      ),
+      chipTheme: ChipThemeData(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.capsule)),
+        selectedColor: (isDark ? PoswalColors.teal : PoswalColors.tealLight).withValues(alpha: 0.2),
+        labelStyle: PoswalText.caption.copyWith(color: textPrimary),
+        secondaryLabelStyle: PoswalText.caption.copyWith(
+          color: isDark ? PoswalColors.teal : PoswalColors.tealLight,
+          fontWeight: FontWeight.w600,
         ),
       ),
     );

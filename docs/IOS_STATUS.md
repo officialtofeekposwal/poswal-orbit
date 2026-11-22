@@ -31,8 +31,8 @@ If you have a Mac and an iPhone or Xcode Simulator:
 
 1. **Clone and Install:**
    ```bash
-   git clone https://github.com/officialtofeekposwal/Poswal.git
-   cd Poswal
+   git clone https://github.com/officialtofeekposwal/poswal-orbit.git
+   cd poswal-orbit
    flutter pub get
    cd ios && pod install && cd ..
    ```

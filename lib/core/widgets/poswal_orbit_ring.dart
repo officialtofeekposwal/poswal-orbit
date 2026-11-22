@@ -39,7 +39,7 @@ class _PoswalOrbitRingState extends State<PoswalOrbitRing>
       end: widget.progress,
     ).animate(CurvedAnimation(
       parent: _controller,
-      curve: Curves.easeOutCubic,
+      curve: PoswalCurves.easeOut,
     ));
 
     if (widget.animateOnStart) {
@@ -56,7 +56,7 @@ class _PoswalOrbitRingState extends State<PoswalOrbitRing>
         end: widget.progress,
       ).animate(CurvedAnimation(
         parent: _controller,
-        curve: Curves.easeOutCubic,
+        curve: PoswalCurves.easeOut,
       ));
       _controller
         ..reset()

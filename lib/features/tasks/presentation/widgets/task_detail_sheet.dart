@@ -212,7 +212,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                     FilledButton(
                       style: FilledButton.styleFrom(
                         backgroundColor: PoswalColors.teal,
-                        foregroundColor: Colors.white,
+                        foregroundColor: PoswalColors.ink,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(PoswalRadii.capsule),
                         ),

@@ -196,7 +196,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                                   ? (l10n?.getStarted ?? 'Get Started')
                                   : (l10n?.next ?? 'Next'),
                               style: PoswalText.headline.copyWith(
-                                color: Colors.white,
+                                color: PoswalColors.ink,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700,
                               ),
@@ -204,7 +204,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                             const SizedBox(width: PoswalSpacing.xs),
                             const Icon(
                               PhosphorIconsRegular.caretRight,
-                              color: Colors.white,
+                              color: PoswalColors.ink,
                               size: 18,
                             ),
                           ],

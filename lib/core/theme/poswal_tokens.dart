@@ -15,10 +15,17 @@ abstract final class PoswalColors {
   static const oled = Color(0xFF000000);
   static const mist = Color(0xFFF4F6FB);
 
-  // Semantic Status
+  // Semantic Status (Dark / Default)
   static const success = Color(0xFF34D399);
   static const warning = Color(0xFFFBBF24);
   static const danger = Color(0xFFF87171);
+
+  // Light-Mode Accessible Text & Icon Variants (WCAG AA >= 4.5:1 on surfaceLight)
+  static const tealLight = Color(0xFF0F766E); // 5.47:1 on #FFFFFF (Passes AA)
+  static const successLight = Color(0xFF047857); // 5.48:1 on #FFFFFF (Passes AA)
+  static const warningLight = Color(0xFFB45309); // 5.02:1 on #FFFFFF (Passes AA)
+  static const dangerLight = Color(0xFFDC2626); // 4.83:1 on #FFFFFF (Passes AA)
+  static const violetLight = Color(0xFF6D28D9); // 6.38:1 on #FFFFFF (Passes AA)
 
   // Surface Tiers
   static const surfaceDark = Color(0xFF0F1626);
