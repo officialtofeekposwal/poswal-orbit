@@ -51,14 +51,17 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
           if [ -n "$KEYSTORE_BASE64" ]; then
-            echo "$KEYSTORE_BASE64" | base64 --decode > android/app/upload-keystore.jks
-            cat <<EOF > android/key.properties
-            storePassword=$KEYSTORE_PASSWORD
-            keyPassword=$KEY_PASSWORD
-            keyAlias=$KEY_ALIAS
-            storeFile=upload-keystore.jks
-            EOF
-            echo "Release keystore configured successfully."
+            if echo "$KEYSTORE_BASE64" | base64 -d > android/app/upload-keystore.jks 2>/dev/null; then
+              cat <<EOF > android/key.properties
+              storePassword=$KEYSTORE_PASSWORD
+              keyPassword=$KEY_PASSWORD
+              keyAlias=$KEY_ALIAS
+              storeFile=upload-keystore.jks
+              EOF
+              echo "Release keystore configured successfully."
+            else
+              echo "Warning: KEYSTORE_BASE64 could not be decoded. Falling back to default signing."
+            fi
           else
             echo "No release keystore secret provided. Building with fallback signing."
           fi
@@ -93,6 +96,8 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/') || github.event.inputs.tag_name != ''
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           name: Poswal Orbit ${{ github.ref_name || github.event.inputs.tag_name }}
           tag_name: ${{ github.ref_name || github.event.inputs.tag_name }}
