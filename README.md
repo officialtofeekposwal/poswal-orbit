@@ -8,6 +8,7 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/officialtofeekposwal/poswal-orbit/releases"><img src="https://img.shields.io/github/v/release/officialtofeekposwal/poswal-orbit?color=teal&label=release" alt="Latest Release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-teal.svg" alt="License: MIT"></a>
   <a href="https://flutter.dev"><img src="https://img.shields.io/badge/Flutter-3.x-02569B.svg?logo=flutter" alt="Flutter"></a>
   <a href="https://github.com/officialtofeekposwal/poswal-orbit/actions"><img src="https://img.shields.io/github/actions/workflow/status/officialtofeekposwal/poswal-orbit/ci.yml?branch=main&label=CI" alt="CI Status"></a>
@@ -19,6 +20,11 @@
 ## 🌟 Overview
 
 **Poswal Orbit** is an all-in-one, 100% offline-first productivity application for **iOS** and **Android**, built with Flutter. It brings daily habit tracking, task management, and markdown notes together into a unified, calm workspace rendered with a modern **Liquid Glass** aesthetic.
+
+### 📥 Download & Install
+Download the ready-to-run APK directly from our official releases:
+- 🚀 **Latest Release**: [Download Poswal Orbit v1.0.0 APK](https://github.com/officialtofeekposwal/poswal-orbit/releases/latest)
+- 📦 **All Versions & Binaries**: [GitHub Releases](https://github.com/officialtofeekposwal/poswal-orbit/releases)
 
 ### Why Poswal Orbit?
 - **Unified Today Screen**: Track today's habits, overdue/upcoming tasks, and pinned notes all in one glance.
