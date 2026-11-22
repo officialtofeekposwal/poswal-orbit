@@ -438,6 +438,33 @@ class AppLocalizationsEn extends AppLocalizations {
   String get unlockWithPasscode => 'Use Device Passcode';
 
   @override
+  String get testBiometrics => 'Test Authentication';
+
+  @override
+  String get testBiometricsSubtitle =>
+      'Verify biometric hardware and device passcode on this phone';
+
+  @override
+  String get emergencyDisableLock => 'Turn off App Lock (Hardware Unavailable)';
+
+  @override
+  String get disableLockDialogTitle => 'Disable App Lock?';
+
+  @override
+  String get disableLockDialogMessage =>
+      'Device authentication is not available or not enrolled on this phone. Do you want to disable App Lock to access your data?';
+
+  @override
+  String get authTestSuccessTitle => 'Authentication Successful';
+
+  @override
+  String get authTestSuccessMessage =>
+      'Biometrics and device passcode are working properly on this phone.';
+
+  @override
+  String get authTestFailedTitle => 'Authentication Failed';
+
+  @override
   String get widgetTodayProgress => 'Orbit Today Progress';
 
   @override
@@ -669,6 +696,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get insertLinkTooltip => 'Insert Link';
+
+  @override
+  String get linkTextLabel => 'Link Text';
+
+  @override
+  String get linkUrlLabel => 'URL (https://...)';
 
   @override
   String get globalSearchPlaceholder => 'Search habits, tasks, notes...';

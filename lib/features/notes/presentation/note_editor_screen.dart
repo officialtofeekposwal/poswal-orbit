@@ -8,6 +8,7 @@ import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/core/widgets/aurora_background.dart';
 import 'package:poswal_orbit/data/repositories/note_repository.dart';
+import 'package:poswal_orbit/domain/logic/markdown_editor_engine.dart';
 import 'package:poswal_orbit/domain/logic/markdown_lite.dart';
 import 'package:poswal_orbit/domain/models/note_models.dart';
 import 'package:poswal_orbit/features/habits/presentation/habit_detail_screen.dart';
@@ -15,6 +16,7 @@ import 'package:poswal_orbit/features/notes/application/note_providers.dart';
 import 'package:poswal_orbit/features/tasks/application/task_providers.dart';
 import 'package:poswal_orbit/features/tasks/presentation/widgets/task_detail_sheet.dart';
 import 'package:poswal_orbit/features/today/application/today_providers.dart';
+import 'package:poswal_orbit/features/notes/presentation/widgets/markdown_text_editing_controller.dart';
 import 'package:poswal_orbit/features/notes/presentation/widgets/note_formatting_toolbar.dart';
 
 class NoteEditorScreen extends ConsumerStatefulWidget {
@@ -41,7 +43,7 @@ class NoteEditorScreen extends ConsumerStatefulWidget {
 
 class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with WidgetsBindingObserver {
   late final TextEditingController _titleController;
-  late final TextEditingController _bodyController;
+  late final MarkdownTextEditingController _bodyController;
   final FocusNode _bodyFocusNode = FocusNode();
 
   String _currentNoteId = '';
@@ -69,7 +71,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
     final note = widget.initialNote;
     _currentNoteId = widget.noteId ?? note?.id ?? '';
     _titleController = TextEditingController(text: note?.title ?? '');
-    _bodyController = TextEditingController(text: note?.body ?? '');
+    _bodyController = MarkdownTextEditingController(text: note?.body ?? '');
 
     if (note != null) {
       _colorLabel = note.colorLabel;
@@ -192,60 +194,29 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
   // --- Smart Enter in Lists ---
 
   void _handleSmartEnter(String text, TextSelection selection) {
-    if (selection.start <= 0) return;
-    final cursor = selection.start;
-    final beforeCursor = text.substring(0, cursor);
-    final lastNewline = beforeCursor.lastIndexOf('\n');
-    final currentLine = beforeCursor.substring(lastNewline == -1 ? 0 : lastNewline + 1);
-
-    // Checklist item
-    final checklistMatch = RegExp(r'^(\s*[-*]\s+\[\s\]\s*)(.*)$').firstMatch(currentLine);
-    if (checklistMatch != null) {
-      final prefix = checklistMatch.group(1)!;
-      final content = checklistMatch.group(2)!.trim();
-
-      if (content.isEmpty) {
-        // Empty checklist item: exit checklist
-        final lineStart = lastNewline == -1 ? 0 : lastNewline + 1;
-        final newText = text.replaceRange(lineStart, cursor, '');
-        _bodyController.value = TextEditingValue(
-          text: newText,
-          selection: TextSelection.collapsed(offset: lineStart),
-        );
-      } else {
-        // Continue checklist on new line
-        final newText = text.replaceRange(cursor, cursor, '\n$prefix');
-        _bodyController.value = TextEditingValue(
-          text: newText,
-          selection: TextSelection.collapsed(offset: cursor + 1 + prefix.length),
-        );
-      }
-      return;
+    final result = MarkdownEditorEngine.handleSmartEnter(text, selection);
+    if (result != null) {
+      _bodyController.value = TextEditingValue(
+        text: result.text,
+        selection: result.selection,
+      );
+      _onTextChanged();
     }
+  }
 
-    // Bullet item
-    final bulletMatch = RegExp(r'^(\s*[-*•]\s+)(.*)$').firstMatch(currentLine);
-    if (bulletMatch != null) {
-      final prefix = bulletMatch.group(1)!;
-      final content = bulletMatch.group(2)!.trim();
-
-      if (content.isEmpty) {
-        // Empty bullet: exit bullet list
-        final lineStart = lastNewline == -1 ? 0 : lastNewline + 1;
-        final newText = text.replaceRange(lineStart, cursor, '');
+  void _onEditorTap() {
+    final text = _bodyController.text;
+    final selection = _bodyController.selection;
+    if (selection.isCollapsed && selection.start >= 0) {
+      final result = MarkdownEditorEngine.toggleChecklistStateAtCursor(text, selection.start);
+      if (result != null) {
+        unawaited(HapticFeedback.lightImpact());
         _bodyController.value = TextEditingValue(
-          text: newText,
-          selection: TextSelection.collapsed(offset: lineStart),
+          text: result.text,
+          selection: result.selection,
         );
-      } else {
-        // Continue bullet on new line
-        final newText = text.replaceRange(cursor, cursor, '\n$prefix');
-        _bodyController.value = TextEditingValue(
-          text: newText,
-          selection: TextSelection.collapsed(offset: cursor + 1 + prefix.length),
-        );
+        _onTextChanged();
       }
-      return;
     }
   }
 
@@ -690,6 +661,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
                             ),
                             maxLines: null,
                             keyboardType: TextInputType.multiline,
+                            onTap: _onEditorTap,
                             onChanged: (text) {
                               // Check if Enter key was hit at end of a checklist/bullet line
                               final selection = _bodyController.selection;

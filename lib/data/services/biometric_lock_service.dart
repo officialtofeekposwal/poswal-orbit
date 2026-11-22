@@ -43,19 +43,44 @@ class BiometricLockService {
     }
   }
 
-  /// Perform authentication prompt with device passcode fallback
-  Future<bool> authenticate({
+  /// Perform authentication prompt with device passcode fallback returning detailed result
+  Future<BiometricAuthResult> authenticateDetailed({
     String localizedReason = 'Unlock Poswal Orbit to view your habits and notes',
   }) async {
     try {
-      return await _localAuth.authenticate(
+      final success = await _localAuth.authenticate(
         localizedReason: localizedReason,
         biometricOnly: false, // Allows device PIN/passcode fallback
         persistAcrossBackgrounding: true,
       );
+      if (success) {
+        return const BiometricAuthResult(status: BiometricAuthStatus.success);
+      } else {
+        return const BiometricAuthResult(
+          status: BiometricAuthStatus.failed,
+          errorMessage: 'Authentication was not successful. Please try again or use your passcode.',
+        );
+      }
     } catch (e) {
       debugPrint('[BiometricLockService] authenticate error: $e');
-      return false;
+      return BiometricAuthResult.fromException(e);
+    }
+  }
+
+  /// Perform authentication prompt with device passcode fallback
+  Future<bool> authenticate({
+    String localizedReason = 'Unlock Poswal Orbit to view your habits and notes',
+  }) async {
+    final res = await authenticateDetailed(localizedReason: localizedReason);
+    return res.isSuccess;
+  }
+
+  /// Emergency disable lock in storage when hardware is unavailable
+  Future<void> emergencyDisableLock() async {
+    try {
+      await _storage.write(key: _keyEnabled, value: 'false');
+    } catch (e) {
+      debugPrint('[BiometricLockService] emergencyDisableLock error: $e');
     }
   }
 

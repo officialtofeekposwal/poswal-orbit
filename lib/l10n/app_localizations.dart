@@ -910,6 +910,54 @@ abstract class AppLocalizations {
   /// **'Use Device Passcode'**
   String get unlockWithPasscode;
 
+  /// No description provided for @testBiometrics.
+  ///
+  /// In en, this message translates to:
+  /// **'Test Authentication'**
+  String get testBiometrics;
+
+  /// No description provided for @testBiometricsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify biometric hardware and device passcode on this phone'**
+  String get testBiometricsSubtitle;
+
+  /// No description provided for @emergencyDisableLock.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn off App Lock (Hardware Unavailable)'**
+  String get emergencyDisableLock;
+
+  /// No description provided for @disableLockDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable App Lock?'**
+  String get disableLockDialogTitle;
+
+  /// No description provided for @disableLockDialogMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Device authentication is not available or not enrolled on this phone. Do you want to disable App Lock to access your data?'**
+  String get disableLockDialogMessage;
+
+  /// No description provided for @authTestSuccessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication Successful'**
+  String get authTestSuccessTitle;
+
+  /// No description provided for @authTestSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometrics and device passcode are working properly on this phone.'**
+  String get authTestSuccessMessage;
+
+  /// No description provided for @authTestFailedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication Failed'**
+  String get authTestFailedTitle;
+
   /// No description provided for @widgetTodayProgress.
   ///
   /// In en, this message translates to:
@@ -1335,6 +1383,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Insert Link'**
   String get insertLinkTooltip;
+
+  /// No description provided for @linkTextLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Link Text'**
+  String get linkTextLabel;
+
+  /// No description provided for @linkUrlLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'URL (https://...)'**
+  String get linkUrlLabel;
 
   /// No description provided for @globalSearchPlaceholder.
   ///

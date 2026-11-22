@@ -439,6 +439,33 @@ class AppLocalizationsHi extends AppLocalizations {
   String get unlockWithPasscode => 'डिवाइस पासकोड उपयोग करें';
 
   @override
+  String get testBiometrics => 'प्रमाणीकरण परीक्षण करें';
+
+  @override
+  String get testBiometricsSubtitle =>
+      'इस फोन पर बायोमेट्रिक और डिवाइस पासकोड सत्यापित करें';
+
+  @override
+  String get emergencyDisableLock => 'ऐप लॉक बंद करें (हार्डवेयर अनुपलब्ध)';
+
+  @override
+  String get disableLockDialogTitle => 'ऐप लॉक बंद करें?';
+
+  @override
+  String get disableLockDialogMessage =>
+      'इस फोन पर डिवाइस प्रमाणीकरण उपलब्ध या नामांकित नहीं है। क्या आप डेटा एक्सेस करने के लिए ऐप लॉक बंद करना चाहते हैं?';
+
+  @override
+  String get authTestSuccessTitle => 'प्रमाणीकरण सफल';
+
+  @override
+  String get authTestSuccessMessage =>
+      'बायोमेट्रिक और डिवाइस पासकोड इस फोन पर ठीक से काम कर रहे हैं।';
+
+  @override
+  String get authTestFailedTitle => 'प्रमाणीकरण विफल';
+
+  @override
   String get widgetTodayProgress => 'ऑर्बिट आज की प्रगति';
 
   @override
@@ -671,6 +698,12 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get insertLinkTooltip => 'लिंक डालें';
+
+  @override
+  String get linkTextLabel => 'लिंक का टेक्स्ट';
+
+  @override
+  String get linkUrlLabel => 'यूआरएल (https://...)';
 
   @override
   String get globalSearchPlaceholder => 'आदतें, कार्य, नोट्स खोजें...';

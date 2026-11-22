@@ -354,6 +354,61 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     );
   }
 
+  void _showAuthTestResultDialog(BuildContext context, BiometricAuthResult result, AppLocalizations? l10n) {
+    showDialog<void>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: PoswalColors.surfaceDark,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.card)),
+        icon: Icon(
+          result.isSuccess ? PhosphorIconsRegular.checkCircle : PhosphorIconsRegular.warningCircle,
+          color: result.isSuccess ? PoswalColors.teal : PoswalColors.danger,
+          size: 40,
+        ),
+        title: Text(
+          result.isSuccess
+              ? (l10n?.authTestSuccessTitle ?? 'Authentication Successful')
+              : (l10n?.authTestFailedTitle ?? 'Authentication Failed'),
+          style: PoswalText.title.copyWith(
+            color: result.isSuccess ? PoswalColors.teal : PoswalColors.danger,
+          ),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              result.isSuccess
+                  ? (l10n?.authTestSuccessMessage ?? 'Biometrics and device passcode are working properly on this phone.')
+                  : (result.errorMessage ?? 'Authentication could not be completed.'),
+              style: PoswalText.bodyText.copyWith(color: PoswalColors.textMutedDark),
+            ),
+            if (!result.isSuccess && result.errorCode != null) ...[
+              const SizedBox(height: PoswalSpacing.sm),
+              Text(
+                'Error code: ${result.errorCode}',
+                style: PoswalText.caption.copyWith(
+                  color: PoswalColors.textMutedDark,
+                  fontFamily: 'monospace',
+                  fontSize: 11,
+                ),
+              ),
+            ],
+          ],
+        ),
+        actions: [
+          FilledButton(
+            style: FilledButton.styleFrom(
+              backgroundColor: result.isSuccess ? PoswalColors.teal : PoswalColors.surfaceDark2,
+            ),
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: Text('OK', style: PoswalText.callout.copyWith(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -557,9 +612,19 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     subtitle: Text(l10n?.biometricLockSubtitle ?? 'Require Face ID, fingerprint or device PIN on launch', style: PoswalText.caption.copyWith(color: textMuted)),
                     value: lockState.isEnabled,
                     activeColor: PoswalColors.teal,
-                    onChanged: (val) {
+                    onChanged: (val) async {
                       unawaited(HapticFeedback.selectionClick());
-                      ref.read(biometricLockProvider.notifier).toggleEnabled(val);
+                      if (val) {
+                        final result = await ref.read(biometricLockProvider.notifier).testAuthentication();
+                        if (!context.mounted) return;
+                        if (!result.isSuccess) {
+                          _showAuthTestResultDialog(context, result, l10n);
+                          return;
+                        }
+                        await ref.read(biometricLockProvider.notifier).toggleEnabled(true);
+                      } else {
+                        await ref.read(biometricLockProvider.notifier).toggleEnabled(false);
+                      }
                     },
                   ),
                   if (lockState.isEnabled) ...[
@@ -614,6 +679,35 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     onChanged: (val) {
                       unawaited(HapticFeedback.selectionClick());
                       ref.read(biometricLockProvider.notifier).toggleHideRecents(val);
+                    },
+                  ),
+                  const Divider(color: Colors.white12, height: 20),
+                  ListTile(
+                    key: const ValueKey('test_biometrics_tile'),
+                    contentPadding: EdgeInsets.zero,
+                    leading: Container(
+                      padding: const EdgeInsets.all(PoswalSpacing.xs),
+                      decoration: BoxDecoration(
+                        color: PoswalColors.teal.withValues(alpha: 0.15),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(PhosphorIconsRegular.fingerprint, color: PoswalColors.teal, size: 20),
+                    ),
+                    title: Text(
+                      l10n?.testBiometrics ?? 'Test Authentication',
+                      style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600),
+                    ),
+                    subtitle: Text(
+                      l10n?.testBiometricsSubtitle ?? 'Verify biometric hardware and device passcode on this phone',
+                      style: PoswalText.caption.copyWith(color: textMuted),
+                    ),
+                    trailing: const Icon(PhosphorIconsRegular.caretRight, size: 16, color: Colors.white54),
+                    onTap: () async {
+                      unawaited(HapticFeedback.selectionClick());
+                      final result = await ref.read(biometricLockProvider.notifier).testAuthentication();
+                      if (context.mounted) {
+                        _showAuthTestResultDialog(context, result, l10n);
+                      }
                     },
                   ),
                 ],

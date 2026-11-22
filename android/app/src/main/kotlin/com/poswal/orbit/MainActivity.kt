@@ -1,11 +1,11 @@
 package com.poswal.orbit
 
 import android.view.WindowManager
-import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.android.FlutterFragmentActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 
-class MainActivity : FlutterActivity() {
+class MainActivity : FlutterFragmentActivity() {
     private val SECURITY_CHANNEL = "com.poswal.orbit/security"
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {

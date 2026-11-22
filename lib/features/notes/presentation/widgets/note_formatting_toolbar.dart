@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
+import 'package:poswal_orbit/domain/logic/markdown_editor_engine.dart';
 import 'package:poswal_orbit/l10n/app_localizations.dart';
 
 class NoteFormattingToolbar extends StatelessWidget {
@@ -15,69 +17,129 @@ class NoteFormattingToolbar extends StatelessWidget {
     required this.focusNode,
   });
 
-  void _insertAtCursor(String textToInsert, {int cursorOffset = 0}) {
-    HapticFeedback.selectionClick();
+  void _applyEdit(MarkdownEditResult Function(String text, TextSelection selection) editFn) {
+    unawaited(HapticFeedback.selectionClick());
     final text = controller.text;
     final selection = controller.selection;
-
-    if (selection.start < 0) {
-      // Append if no selection
-      final newText = text + textToInsert;
-      controller.value = TextEditingValue(
-        text: newText,
-        selection: TextSelection.collapsed(offset: newText.length),
-      );
-      return;
-    }
-
-    final newText = text.replaceRange(selection.start, selection.end, textToInsert);
-    final newOffset = selection.start + textToInsert.length + cursorOffset;
+    final result = editFn(text, selection);
 
     controller.value = TextEditingValue(
-      text: newText,
-      selection: TextSelection.collapsed(offset: newOffset.clamp(0, newText.length)),
+      text: result.text,
+      selection: result.selection,
     );
+
+    // Keep editor focused without dismissing soft keyboard
+    if (!focusNode.hasFocus) {
+      focusNode.requestFocus();
+    }
   }
 
-  void _wrapSelection(String prefix, String suffix) {
-    HapticFeedback.selectionClick();
+  Future<void> _handleLinkTap(BuildContext context) async {
+    unawaited(HapticFeedback.selectionClick());
     final text = controller.text;
     final selection = controller.selection;
+    final hasSelection = !selection.isCollapsed &&
+        selection.start >= 0 &&
+        selection.end <= text.length &&
+        selection.start < selection.end;
+    final initialText = hasSelection ? text.substring(selection.start, selection.end) : '';
 
-    if (selection.start < 0 || selection.start == selection.end) {
-      _insertAtCursor('$prefix$suffix', cursorOffset: -suffix.length);
-      return;
+    final textController = TextEditingController(text: initialText);
+    final urlController = TextEditingController(text: 'https://');
+
+    final inserted = await showDialog<bool>(
+      context: context,
+      builder: (ctx) {
+        final l10n = AppLocalizations.of(ctx);
+        return AlertDialog(
+          backgroundColor: PoswalColors.surfaceDark,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.card)),
+          title: Text(
+            l10n?.insertLinkTooltip ?? 'Insert Link',
+            style: PoswalText.title.copyWith(color: Colors.white),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: textController,
+                autofocus: !hasSelection,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  labelText: l10n?.linkTextLabel ?? 'Link Text',
+                  labelStyle: const TextStyle(color: PoswalColors.textMutedDark),
+                  filled: true,
+                  fillColor: Colors.black26,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(PoswalRadii.chip),
+                    borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
+                  ),
+                ),
+              ),
+              const SizedBox(height: PoswalSpacing.md),
+              TextField(
+                controller: urlController,
+                autofocus: hasSelection,
+                style: const TextStyle(color: Colors.white),
+                keyboardType: TextInputType.url,
+                decoration: InputDecoration(
+                  labelText: l10n?.linkUrlLabel ?? 'URL (https://...)',
+                  labelStyle: const TextStyle(color: PoswalColors.textMutedDark),
+                  filled: true,
+                  fillColor: Colors.black26,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(PoswalRadii.chip),
+                    borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(false),
+              child: Text(
+                l10n?.cancel ?? 'Cancel',
+                style: const TextStyle(color: PoswalColors.textMutedDark),
+              ),
+            ),
+            FilledButton(
+              style: FilledButton.styleFrom(backgroundColor: PoswalColors.teal),
+              onPressed: () {
+                final linkText = textController.text.trim();
+                final url = urlController.text.trim();
+                if (linkText.isNotEmpty && url.isNotEmpty && url != 'https://') {
+                  Navigator.of(ctx).pop(true);
+                }
+              },
+              child: Text(
+                l10n?.proceed ?? 'Insert',
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (inserted == true) {
+      final linkText = textController.text.trim();
+      final url = urlController.text.trim();
+      if (linkText.isNotEmpty && url.isNotEmpty) {
+        final result = MarkdownEditorEngine.insertLink(
+          text,
+          selection,
+          linkText: linkText,
+          url: url,
+        );
+        controller.value = TextEditingValue(
+          text: result.text,
+          selection: result.selection,
+        );
+      }
     }
 
-    final selected = text.substring(selection.start, selection.end);
-    final replacement = '$prefix$selected$suffix';
-    final newText = text.replaceRange(selection.start, selection.end, replacement);
-
-    controller.value = TextEditingValue(
-      text: newText,
-      selection: TextSelection(
-        baseOffset: selection.start + prefix.length,
-        extentOffset: selection.start + prefix.length + selected.length,
-      ),
-    );
-  }
-
-  void _toggleLinePrefix(String prefix) {
-    HapticFeedback.selectionClick();
-    final text = controller.text;
-    final selection = controller.selection;
-    final cursor = selection.start >= 0 ? selection.start : text.length;
-
-    // Find the start of the current line
-    final lineStart = text.lastIndexOf('\n', cursor > 0 ? cursor - 1 : 0);
-    final start = lineStart == -1 ? 0 : lineStart + 1;
-
-    // Insert prefix at start of line
-    final newText = text.replaceRange(start, start, prefix);
-    controller.value = TextEditingValue(
-      text: newText,
-      selection: TextSelection.collapsed(offset: cursor + prefix.length),
-    );
+    focusNode.requestFocus();
   }
 
   @override
@@ -97,58 +159,62 @@ class NoteFormattingToolbar extends StatelessWidget {
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           physics: const BouncingScrollPhysics(),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Heading
-              IconButton(
-                key: const ValueKey('fmt_heading'),
-                icon: const Icon(PhosphorIconsRegular.textH, size: 20),
-                color: iconColor,
-                tooltip: l10n?.headingTooltip ?? 'Heading',
-                onPressed: () => _toggleLinePrefix('# '),
-              ),
-              // Bold
-              IconButton(
-                key: const ValueKey('fmt_bold'),
-                icon: const Icon(PhosphorIconsRegular.textB, size: 20),
-                color: iconColor,
-                tooltip: l10n?.boldTooltip ?? 'Bold',
-                onPressed: () => _wrapSelection('**', '**'),
-              ),
-              // Italic
-              IconButton(
-                key: const ValueKey('fmt_italic'),
-                icon: const Icon(PhosphorIconsRegular.textItalic, size: 20),
-                color: iconColor,
-                tooltip: l10n?.italicTooltip ?? 'Italic',
-                onPressed: () => _wrapSelection('*', '*'),
-              ),
-              // Bullet List
-              IconButton(
-                key: const ValueKey('fmt_bullet'),
-                icon: const Icon(PhosphorIconsRegular.listBullets, size: 20),
-                color: iconColor,
-                tooltip: l10n?.bulletListTooltip ?? 'Bullet List',
-                onPressed: () => _toggleLinePrefix('- '),
-              ),
-              // Checklist
-              IconButton(
-                key: const ValueKey('fmt_checklist'),
-                icon: const Icon(PhosphorIconsRegular.checkSquare, size: 20),
-                color: iconColor,
-                tooltip: l10n?.checklistTooltip ?? 'Checklist',
-                onPressed: () => _toggleLinePrefix('- [ ] '),
-              ),
-              // Link
-              IconButton(
-                key: const ValueKey('fmt_link'),
-                icon: const Icon(PhosphorIconsRegular.linkSimple, size: 20),
-                color: iconColor,
-                tooltip: l10n?.insertLinkTooltip ?? 'Insert Link',
-                onPressed: () => _wrapSelection('[', '](https://)'),
-              ),
-            ],
+          // ExcludeFocus ensures toolbar buttons NEVER steal focus from the TextField!
+          child: ExcludeFocus(
+            excluding: true,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Heading: cycles none -> # -> ## -> ### -> none
+                IconButton(
+                  key: const ValueKey('fmt_heading'),
+                  icon: const Icon(PhosphorIconsRegular.textH, size: 20),
+                  color: iconColor,
+                  tooltip: l10n?.headingTooltip ?? 'Heading',
+                  onPressed: () => _applyEdit(MarkdownEditorEngine.cycleHeading),
+                ),
+                // Bold: wraps or toggles **
+                IconButton(
+                  key: const ValueKey('fmt_bold'),
+                  icon: const Icon(PhosphorIconsRegular.textB, size: 20),
+                  color: iconColor,
+                  tooltip: l10n?.boldTooltip ?? 'Bold',
+                  onPressed: () => _applyEdit(MarkdownEditorEngine.toggleBold),
+                ),
+                // Italic: wraps or toggles *
+                IconButton(
+                  key: const ValueKey('fmt_italic'),
+                  icon: const Icon(PhosphorIconsRegular.textItalic, size: 20),
+                  color: iconColor,
+                  tooltip: l10n?.italicTooltip ?? 'Italic',
+                  onPressed: () => _applyEdit(MarkdownEditorEngine.toggleItalic),
+                ),
+                // Bullet List: toggles or switches prefix to -
+                IconButton(
+                  key: const ValueKey('fmt_bullet'),
+                  icon: const Icon(PhosphorIconsRegular.listBullets, size: 20),
+                  color: iconColor,
+                  tooltip: l10n?.bulletListTooltip ?? 'Bullet List',
+                  onPressed: () => _applyEdit(MarkdownEditorEngine.toggleBullet),
+                ),
+                // Checklist: toggles or switches prefix to - [ ]
+                IconButton(
+                  key: const ValueKey('fmt_checklist'),
+                  icon: const Icon(PhosphorIconsRegular.checkSquare, size: 20),
+                  color: iconColor,
+                  tooltip: l10n?.checklistTooltip ?? 'Checklist',
+                  onPressed: () => _applyEdit(MarkdownEditorEngine.toggleChecklist),
+                ),
+                // Link: prompts for text and URL
+                IconButton(
+                  key: const ValueKey('fmt_link'),
+                  icon: const Icon(PhosphorIconsRegular.linkSimple, size: 20),
+                  color: iconColor,
+                  tooltip: l10n?.insertLinkTooltip ?? 'Insert Link',
+                  onPressed: () => _handleLinkTap(context),
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -10,6 +10,9 @@ class BiometricLockState {
   final LockTimeout timeout;
   final bool hideContentInRecents;
   final bool isDeviceSupported;
+  final bool isAuthenticating;
+  final bool isPromptActive;
+  final BiometricAuthResult? lastAuthResult;
 
   const BiometricLockState({
     this.isEnabled = false,
@@ -17,6 +20,9 @@ class BiometricLockState {
     this.timeout = LockTimeout.immediate,
     this.hideContentInRecents = false,
     this.isDeviceSupported = false,
+    this.isAuthenticating = false,
+    this.isPromptActive = false,
+    this.lastAuthResult,
   });
 
   BiometricLockState copyWith({
@@ -25,6 +31,9 @@ class BiometricLockState {
     LockTimeout? timeout,
     bool? hideContentInRecents,
     bool? isDeviceSupported,
+    bool? isAuthenticating,
+    bool? isPromptActive,
+    BiometricAuthResult? Function()? lastAuthResult,
   }) {
     return BiometricLockState(
       isEnabled: isEnabled ?? this.isEnabled,
@@ -32,6 +41,9 @@ class BiometricLockState {
       timeout: timeout ?? this.timeout,
       hideContentInRecents: hideContentInRecents ?? this.hideContentInRecents,
       isDeviceSupported: isDeviceSupported ?? this.isDeviceSupported,
+      isAuthenticating: isAuthenticating ?? this.isAuthenticating,
+      isPromptActive: isPromptActive ?? this.isPromptActive,
+      lastAuthResult: lastAuthResult != null ? lastAuthResult() : this.lastAuthResult,
     );
   }
 }
@@ -60,8 +72,12 @@ class BiometricLockNotifier extends Notifier<BiometricLockState> {
     _engine.timeout = timeout;
     _engine.hideContentInRecents = hideRecents;
 
-    // If enabled, lock on fresh start
-    if (enabled) {
+    // Auto-recovery rule: if lock is enabled but hardware cannot support authentication at all,
+    // do not trap the user.
+    if (enabled && !supported) {
+      debugPrint('[BiometricLockNotifier] Auto-recovery: device does not support auth, unlocking.');
+      _engine.isLocked = false;
+    } else if (enabled) {
       _engine.isLocked = true;
     }
 
@@ -81,6 +97,9 @@ class BiometricLockNotifier extends Notifier<BiometricLockState> {
   void onAppLifecycleChanged(AppLifecycleState lifecycle) {
     if (!state.isEnabled) return;
 
+    // CRITICAL: Ignore lifecycle changes while the system authentication dialog is active
+    if (state.isPromptActive || _engine.isPromptActive) return;
+
     if (lifecycle == AppLifecycleState.paused || lifecycle == AppLifecycleState.inactive) {
       _engine.onAppPaused();
       if (_engine.isLocked != state.isLocked) {
@@ -95,13 +114,80 @@ class BiometricLockNotifier extends Notifier<BiometricLockState> {
   }
 
   Future<bool> authenticate() async {
-    final success = await _service.authenticate();
-    if (success) {
-      _engine.unlock();
-      state = state.copyWith(isLocked: false);
-      return true;
+    if (state.isAuthenticating) return false;
+
+    state = state.copyWith(
+      isAuthenticating: true,
+      isPromptActive: true,
+      lastAuthResult: () => null,
+    );
+    _engine.isPromptActive = true;
+
+    try {
+      final result = await _service.authenticateDetailed();
+      _engine.isPromptActive = false;
+
+      if (result.isSuccess) {
+        _engine.unlock();
+        state = state.copyWith(
+          isLocked: false,
+          isAuthenticating: false,
+          isPromptActive: false,
+          lastAuthResult: () => result,
+        );
+        return true;
+      } else {
+        state = state.copyWith(
+          isAuthenticating: false,
+          isPromptActive: false,
+          lastAuthResult: () => result,
+        );
+        return false;
+      }
+    } catch (e) {
+      _engine.isPromptActive = false;
+      final result = BiometricAuthResult.fromException(e);
+      state = state.copyWith(
+        isAuthenticating: false,
+        isPromptActive: false,
+        lastAuthResult: () => result,
+      );
+      return false;
     }
-    return false;
+  }
+
+  /// Runs real test authentication without altering app locked status
+  Future<BiometricAuthResult> testAuthentication() async {
+    _engine.isPromptActive = true;
+    try {
+      final result = await _service.authenticateDetailed(
+        localizedReason: 'Test biometric and device passcode authentication for Poswal Orbit',
+      );
+      return result;
+    } finally {
+      _engine.isPromptActive = false;
+    }
+  }
+
+  /// Emergency safe-disable: allowed ONLY when authentication is reported unavailable by the device
+  Future<bool> emergencyDisableLock() async {
+    final result = state.lastAuthResult;
+    final canDisable = !state.isDeviceSupported || (result != null && result.isHardwareUnavailable);
+    if (!canDisable) {
+      debugPrint('[BiometricLockNotifier] Emergency disable refused: authentication hardware is available.');
+      return false;
+    }
+
+    await _service.emergencyDisableLock();
+    _engine.safeDisable();
+    state = state.copyWith(
+      isEnabled: false,
+      isLocked: false,
+      isAuthenticating: false,
+      isPromptActive: false,
+      lastAuthResult: () => null,
+    );
+    return true;
   }
 
   Future<void> toggleEnabled(bool enabled) async {
@@ -109,7 +195,11 @@ class BiometricLockNotifier extends Notifier<BiometricLockState> {
     _engine.isEnabled = enabled;
     if (!enabled) {
       _engine.unlock();
-      state = state.copyWith(isEnabled: false, isLocked: false);
+      state = state.copyWith(
+        isEnabled: false,
+        isLocked: false,
+        lastAuthResult: () => null,
+      );
     } else {
       state = state.copyWith(isEnabled: true);
     }

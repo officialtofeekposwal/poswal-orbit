@@ -53,13 +53,16 @@ class _BiometricLockScreenState extends ConsumerState<BiometricLockScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
     final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
+    final lockState = ref.watch(biometricLockProvider);
+    final isAuthenticating = lockState.isAuthenticating || _isAuthenticating;
+    final lastResult = lockState.lastAuthResult;
 
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: AuroraBackground(
         child: SafeArea(
           child: Center(
-            child: Padding(
+            child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.xl),
               child: AppGlassCard(
                 padding: const EdgeInsets.symmetric(
@@ -125,11 +128,11 @@ class _BiometricLockScreenState extends ConsumerState<BiometricLockScreen> {
                         key: const ValueKey('biometric_unlock_btn'),
                         isPrimary: true,
                         padding: const EdgeInsets.symmetric(vertical: PoswalSpacing.md),
-                        onPressed: _isAuthenticating ? null : _triggerAuth,
+                        onPressed: isAuthenticating ? null : _triggerAuth,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            if (_isAuthenticating) ...[
+                            if (isAuthenticating) ...[
                               const SizedBox(
                                 width: 18,
                                 height: 18,
@@ -157,13 +160,92 @@ class _BiometricLockScreenState extends ConsumerState<BiometricLockScreen> {
                     // Device Passcode Fallback Option
                     TextButton.icon(
                       key: const ValueKey('passcode_fallback_btn'),
-                      onPressed: _isAuthenticating ? null : _triggerAuth,
+                      onPressed: isAuthenticating ? null : _triggerAuth,
                       icon: Icon(PhosphorIconsRegular.password, size: 16, color: textMuted),
                       label: Text(
                         l10n?.unlockWithPasscode ?? 'Use Device Passcode',
                         style: PoswalText.caption.copyWith(color: textMuted, fontWeight: FontWeight.w600),
                       ),
                     ),
+
+                    // Detailed error banner if authentication failed or has issue
+                    if (lastResult != null && !lastResult.isSuccess) ...[
+                      const SizedBox(height: PoswalSpacing.lg),
+                      Container(
+                        key: const ValueKey('auth_error_container'),
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(PoswalSpacing.md),
+                        decoration: BoxDecoration(
+                          color: (lastResult.isHardwareUnavailable
+                                  ? PoswalColors.danger
+                                  : PoswalColors.warning)
+                              .withValues(alpha: 0.12),
+                          borderRadius: BorderRadius.circular(PoswalRadii.card),
+                          border: Border.all(
+                            color: (lastResult.isHardwareUnavailable
+                                    ? PoswalColors.danger
+                                    : PoswalColors.warning)
+                                .withValues(alpha: 0.35),
+                          ),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  lastResult.isHardwareUnavailable
+                                      ? PhosphorIconsRegular.shieldWarning
+                                      : PhosphorIconsRegular.warningCircle,
+                                  size: 18,
+                                  color: lastResult.isHardwareUnavailable
+                                      ? PoswalColors.danger
+                                      : PoswalColors.warning,
+                                ),
+                                const SizedBox(width: PoswalSpacing.xs),
+                                Expanded(
+                                  child: Text(
+                                    lastResult.errorMessage ?? 'Authentication failed',
+                                    style: PoswalText.caption.copyWith(
+                                      color: textPrimary,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            if (lastResult.errorCode != null) ...[
+                              const SizedBox(height: PoswalSpacing.xs),
+                              Text(
+                                'Error code: ${lastResult.errorCode}',
+                                style: PoswalText.caption.copyWith(
+                                  color: textMuted,
+                                  fontSize: 11,
+                                  fontFamily: 'monospace',
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                    ],
+
+                    // Emergency Safe-Disable Action: Allowed ONLY if authentication cannot work on this phone
+                    if (lastResult?.isHardwareUnavailable == true || !lockState.isDeviceSupported) ...[
+                      const SizedBox(height: PoswalSpacing.md),
+                      TextButton.icon(
+                        key: const ValueKey('emergency_disable_lock_btn'),
+                        onPressed: () => _showEmergencyDisableDialog(context, l10n),
+                        icon: const Icon(PhosphorIconsRegular.shieldSlash, size: 16, color: PoswalColors.danger),
+                        label: Text(
+                          l10n?.emergencyDisableLock ?? 'Turn off App Lock (Hardware Unavailable)',
+                          style: PoswalText.caption.copyWith(
+                            color: PoswalColors.danger,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),
@@ -172,5 +254,39 @@ class _BiometricLockScreenState extends ConsumerState<BiometricLockScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _showEmergencyDisableDialog(BuildContext context, AppLocalizations? l10n) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: PoswalColors.surfaceDark,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.card)),
+        title: Text(
+          l10n?.disableLockDialogTitle ?? 'Disable App Lock?',
+          style: PoswalText.title.copyWith(color: PoswalColors.danger),
+        ),
+        content: Text(
+          l10n?.disableLockDialogMessage ??
+              'Device authentication is not available or not enrolled on this phone. Do you want to disable App Lock to access your data?',
+          style: PoswalText.bodyText.copyWith(color: PoswalColors.textMutedDark),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(false),
+            child: Text(l10n?.cancel ?? 'Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
+          ),
+          FilledButton(
+            style: FilledButton.styleFrom(backgroundColor: PoswalColors.danger),
+            onPressed: () => Navigator.of(ctx).pop(true),
+            child: Text(l10n?.emergencyDisableLock ?? 'Turn Off', style: PoswalText.callout.copyWith(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true && mounted) {
+      await ref.read(biometricLockProvider.notifier).emergencyDisableLock();
+    }
   }
 }

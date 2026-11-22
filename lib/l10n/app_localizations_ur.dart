@@ -438,6 +438,33 @@ class AppLocalizationsUr extends AppLocalizations {
   String get unlockWithPasscode => 'ڈیوائس پاس کوڈ استعمال کریں';
 
   @override
+  String get testBiometrics => 'تصدیق کی جانچ کریں';
+
+  @override
+  String get testBiometricsSubtitle =>
+      'اس فون پر بایومیٹرک اور ڈیوائس پاس کوڈ کی توثیق کریں';
+
+  @override
+  String get emergencyDisableLock => 'ایپ لاک بند کریں (ہارڈ ویئر دستیاب نہیں)';
+
+  @override
+  String get disableLockDialogTitle => 'ایپ لاک غیر فعال کریں؟';
+
+  @override
+  String get disableLockDialogMessage =>
+      'اس فون پر ڈیوائس تصدیق دستیاب نہیں یا درج نہیں ہے۔ کیا آپ ڈیٹا حاصل کرنے کے لیے ایپ لاک بند کرنا چاہتے ہیں؟';
+
+  @override
+  String get authTestSuccessTitle => 'تصدیق کامیاب';
+
+  @override
+  String get authTestSuccessMessage =>
+      'اس فون پر بایومیٹرکس اور ڈیوائس پاس کوڈ بالکل درست کام کر رہے ہیں۔';
+
+  @override
+  String get authTestFailedTitle => 'تصدیق ناکام ہو گئی';
+
+  @override
   String get widgetTodayProgress => 'مدار کی آج کی پیش رفت';
 
   @override
@@ -670,6 +697,12 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get insertLinkTooltip => 'لنک داخل کریں';
+
+  @override
+  String get linkTextLabel => 'لنک متن';
+
+  @override
+  String get linkUrlLabel => 'یو آر ایل (https://...)';
 
   @override
   String get globalSearchPlaceholder => 'عادات، کام، نوٹس تلاش کریں...';

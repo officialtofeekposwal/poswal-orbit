@@ -208,14 +208,17 @@ class NoteCard extends StatelessWidget {
                       }).toList(),
                     )
                   else if (note.body.trim().isNotEmpty)
-                    Text(
-                      note.body.trim(),
+                    Text.rich(
+                      buildRichPreviewSpan(
+                        note.body.trim(),
+                        baseStyle: PoswalText.caption.copyWith(
+                          color: textMuted,
+                          height: 1.35,
+                        ),
+                        isDark: isDark,
+                      ),
                       maxLines: 4,
                       overflow: TextOverflow.ellipsis,
-                      style: PoswalText.caption.copyWith(
-                        color: textMuted,
-                        height: 1.35,
-                      ),
                     ),
 
                   // Tags Wrap
@@ -256,5 +259,70 @@ class NoteCard extends StatelessWidget {
       ),
     ),
   );
+  }
+
+  static TextSpan buildRichPreviewSpan(
+    String markdown, {
+    required TextStyle baseStyle,
+    required bool isDark,
+  }) {
+    final blocks = MarkdownLite.parseBlocks(markdown);
+    if (blocks.isEmpty) return TextSpan(text: '', style: baseStyle);
+
+    final spans = <InlineSpan>[];
+    for (int i = 0; i < blocks.length; i++) {
+      final block = blocks[i];
+      if (block.contentText.isEmpty && block.rawText.isEmpty) {
+        if (i < blocks.length - 1) spans.add(const TextSpan(text: '\n'));
+        continue;
+      }
+
+      TextStyle blockStyle = baseStyle;
+      String prefix = '';
+      if (block.type == MarkdownBlockType.heading1) {
+        blockStyle = baseStyle.copyWith(
+          fontWeight: FontWeight.bold,
+          color: isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight,
+        );
+      } else if (block.type == MarkdownBlockType.heading2 || block.type == MarkdownBlockType.heading3) {
+        blockStyle = baseStyle.copyWith(
+          fontWeight: FontWeight.w600,
+          color: isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight,
+        );
+      } else if (block.type == MarkdownBlockType.bullet) {
+        prefix = '• ';
+      }
+
+      if (prefix.isNotEmpty) {
+        spans.add(TextSpan(
+          text: prefix,
+          style: blockStyle.copyWith(color: PoswalColors.teal, fontWeight: FontWeight.bold),
+        ));
+      }
+
+      if (block.spans.isEmpty) {
+        spans.add(TextSpan(text: block.contentText, style: blockStyle));
+      } else {
+        for (final s in block.spans) {
+          TextStyle spanStyle = blockStyle;
+          if (s.isBold && s.isItalic) {
+            spanStyle = spanStyle.copyWith(fontWeight: FontWeight.bold, fontStyle: FontStyle.italic);
+          } else if (s.isBold) {
+            spanStyle = spanStyle.copyWith(fontWeight: FontWeight.bold);
+          } else if (s.isItalic) {
+            spanStyle = spanStyle.copyWith(fontStyle: FontStyle.italic);
+          } else if (s.isLink) {
+            spanStyle = spanStyle.copyWith(color: PoswalColors.teal, decoration: TextDecoration.underline);
+          }
+          spans.add(TextSpan(text: s.text, style: spanStyle));
+        }
+      }
+
+      if (i < blocks.length - 1) {
+        spans.add(const TextSpan(text: '\n'));
+      }
+    }
+
+    return TextSpan(style: baseStyle, children: spans);
   }
 }
