@@ -12,7 +12,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-00B4D8.svg" alt="License: MIT"></a>
   <a href="https://flutter.dev"><img src="https://img.shields.io/badge/Flutter-3.50.1-02569B.svg?logo=flutter" alt="Flutter"></a>
   <a href="https://dart.dev"><img src="https://img.shields.io/badge/Dart-3.14-0175C2.svg?logo=dart" alt="Dart"></a>
-  <a href="https://github.com/officialtofeekposwal/poswal-orbit/actions/workflows/release.yml"><img src="https://img.shields.io/badge/tests-164%20passed-22C55E.svg?logo=checkmarx" alt="164 Tests Passed"></a>
+  <a href="https://github.com/officialtofeekposwal/poswal-orbit/actions/workflows/release.yml"><img src="https://img.shields.io/badge/tests-184%20passed-22C55E.svg?logo=checkmarx" alt="184 Tests Passed"></a>
   <a href="https://github.com/officialtofeekposwal/poswal-orbit/actions"><img src="https://img.shields.io/badge/flutter%20analyze-0%20issues-22C55E.svg" alt="Flutter Analyze Clean"></a>
   <img src="https://img.shields.io/badge/offline-100%25%20No%20Internet-7C3AED.svg" alt="100% Offline">
   <img src="https://img.shields.io/badge/telemetry-zero-0F172A.svg" alt="Zero Telemetry">
@@ -68,9 +68,12 @@ Unlike cloud trackers that demand account registrations, harvest personal data, 
 - **Flexible Smart Lists**: Filter by *Today*, *Upcoming*, *Completed*, or custom project categories.
 - **Subtasks & Recurrence**: Nested checklist items with live progress bars and repeating intervals (Daily, Weekly, Monthly).
 
-### 📝 Markdown-Lite Notes & Global Search
-- **Distraction-Free Editor**: Autosaving markdown workspace with floating glass formatting toolbar (headings, bold, lists, code, quotes).
-- **Interactive Checklists**: Tap checkboxes directly within notes without switching into edit mode.
+### 📝 Live Styled Notes & Global Search
+- **Live Styled Markdown Editor**: Real-time visual styling of Headings (H1/H2/H3), Bold, Italic, and Links with softly dimmed syntax markers (`#`, `**`, `*`) for an immersive, distraction-free writing experience.
+- **Intelligent Line-Level Formatting**: Pure-Dart markdown engine ensures Heading cycles, Bullets, and Checklists modify whole lines cleanly without prefix stacking.
+- **Focus & Selection Preservation**: Non-focusable toolbar architecture keeps the soft keyboard open and selection intact during formatting actions.
+- **Interactive Checklists**: Tap checkboxes directly within notes or list cards to toggle state (`[ ]` ↔ `[x]`) instantly.
+- **Multilingual IME Precision**: 100% character-length match preserving input method composing ranges for Hindi (Devanagari) and Urdu (Arabic/Nastaliq RTL) without cursor drift.
 - **Unified Global Search**: Instant, zero-latency full-text search across habits, tasks, and notes with entity badge filters.
 
 ### 📊 Weekly Insights & Momentum
@@ -126,7 +129,7 @@ lib/
 - **Local Notifications**: `flutter_local_notifications` + `timezone` (Battery-conscious 64-notification rolling window)
 - **Home Widgets**: `home_widget` (Android AppWidget glance providers for Today, Habits, and Tasks)
 - **Data Serialization**: [Freezed](https://pub.dev/packages/freezed) & `json_serializable`
-- **Quality Gates**: Zero `flutter analyze` warnings, 164 automated tests (unit, repository, widget, text scaling, and screen-reader semantics).
+- **Quality Gates**: Zero `flutter analyze` warnings, 184 automated tests (unit, repository, widget, text scaling, and screen-reader semantics).
 
 ---
 
@@ -234,7 +237,8 @@ Stay on top of your day without opening the app using native Android `AppWidgetP
 - [x] **Phase 4: Data Safety & Reminders** — 7-day automatic backup rotation, transactional JSON/CSV imports, Loop Habit Tracker migration, rolling notifications, and exact alarms.
 - [x] **Phase 5A: Insights & Languages** — Guilt-free weekly reviews, peak focus hours, habit-task correlations, stats cards sharing, and English/Hindi/Urdu RTL.
 - [x] **Phase 5B: Home Screen Glance Widgets** — Interactive home screen and lockscreen glance widgets for Today progress, habit quick check-in, and pending tasks.
-- [x] **Phase 6: Polish & Open-Source Release** — Transactional migrations with `SAVEPOINT` rollback, screen-reader `Semantics` ($\ge 44\times 44$ tap targets), ProGuard/R8 shrinking, release workflows, and open-source documentation.
+- [x] **Phase 6A: Live Markdown Editor Overhaul** — Pure-Dart `MarkdownEditorEngine`, live WYSIWYG-style `TextSpan` rendering, focus-isolated toolbar, direct checklist tap-toggle, and Devanagari/Urdu typing stability.
+- [x] **Phase 6B: Polish & Open-Source Release** — Transactional migrations with `SAVEPOINT` rollback, screen-reader `Semantics` ($\ge 44\times 44$ tap targets), ProGuard/R8 shrinking, release workflows, and open-source documentation.
 
 ---
 
@@ -245,12 +249,12 @@ We welcome community contributions, bug reports, and suggestions!
 2. Ideas for contributors:
    - **Optional App Lock**: A clean, fail-safe lock design that must never lock users out even if biometric hardware or OS prompts fail.
 3. Read the [Releasing Guide](docs/RELEASING.md) to understand build and release standards.
-3. Ensure all changes pass analysis and test gates:
+4. Ensure all changes pass analysis and test gates:
    ```bash
    flutter analyze
    flutter test --no-test-assets
    ```
-4. Open a pull request following standard conventional commits (`feat:`, `fix:`, `docs:`, `refactor:`).
+5. Open a pull request following standard conventional commits (`feat:`, `fix:`, `docs:`, `refactor:`).
 
 ---
 
