@@ -162,31 +162,43 @@ class TaskRowCard extends ConsumerWidget {
           ),
           child: Row(
             children: [
-              // 1. Checkbox Ring (Animated)
-              GestureDetector(
-                key: ValueKey('task_checkbox_${task.id}'),
-                behavior: HitTestBehavior.opaque,
-                onTap: () => _toggleComplete(context, ref),
+              // 1. Checkbox Ring (Min 44x44 touch target & screen reader Semantics)
+              Semantics(
+                button: true,
+                checked: task.isCompleted,
+                label: task.isCompleted
+                    ? 'Mark task ${task.title} incomplete'
+                    : 'Mark task ${task.title} complete',
+                child: GestureDetector(
+                  key: ValueKey('task_checkbox_${task.id}'),
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () => _toggleComplete(context, ref),
                   child: Container(
-                    width: 26,
-                    height: 26,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: task.isCompleted
-                            ? PoswalColors.teal
-                            : (task.priority != TaskPriority.none
-                                ? Color(task.priority.colorValue)
-                                : (isDark ? Colors.white38 : Colors.black38)),
-                        width: 2,
+                    width: 44,
+                    height: 44,
+                    alignment: Alignment.center,
+                    child: Container(
+                      width: 26,
+                      height: 26,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: task.isCompleted
+                              ? PoswalColors.teal
+                              : (task.priority != TaskPriority.none
+                                  ? Color(task.priority.colorValue)
+                                  : (isDark ? Colors.white38 : Colors.black38)),
+                          width: 2,
+                        ),
+                        color: task.isCompleted ? PoswalColors.teal : Colors.transparent,
                       ),
-                      color: task.isCompleted ? PoswalColors.teal : Colors.transparent,
+                      child: task.isCompleted
+                          ? const Icon(Icons.check, size: 16, color: Colors.white)
+                          : null,
                     ),
-                    child: task.isCompleted
-                        ? const Icon(Icons.check, size: 16, color: Colors.white)
-                        : null,
                   ),
                 ),
+              ),
                 const SizedBox(width: PoswalSpacing.md),
 
                 // 2. Title, Tags & Due Date

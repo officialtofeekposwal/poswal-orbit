@@ -166,34 +166,47 @@ class HabitRowCard extends ConsumerWidget {
             ),
             const SizedBox(width: PoswalSpacing.sm),
 
-            // Trailing: Animated Check Ring
-            GestureDetector(
-              onTap: () => _handleToggle(context, ref),
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 220),
-                curve: Curves.easeOutCubic,
-                width: 32,
-                height: 32,
-                decoration: BoxDecoration(
-                  gradient: isDone ? PoswalGradients.aurora : null,
-                  color: isSkipped
-                      ? PoswalColors.violet.withValues(alpha: 0.25)
-                      : (isDone ? null : Colors.transparent),
-                  shape: BoxShape.circle,
-                  border: isDone
-                      ? null
-                      : Border.all(
-                          color: isSkipped
-                              ? PoswalColors.violet
-                              : (isDark ? Colors.white30 : Colors.black26),
-                          width: 2,
-                        ),
+            // Trailing: Animated Check Ring (Min 44x44 touch target & screen reader Semantics)
+            Semantics(
+              button: true,
+              checked: isDone,
+              label: isDone
+                  ? 'Mark habit ${item.habit.name} incomplete'
+                  : 'Mark habit ${item.habit.name} complete',
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () => _handleToggle(context, ref),
+                child: Container(
+                  width: 44,
+                  height: 44,
+                  alignment: Alignment.center,
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 220),
+                    curve: Curves.easeOutCubic,
+                    width: 32,
+                    height: 32,
+                    decoration: BoxDecoration(
+                      gradient: isDone ? PoswalGradients.aurora : null,
+                      color: isSkipped
+                          ? PoswalColors.violet.withValues(alpha: 0.25)
+                          : (isDone ? null : Colors.transparent),
+                      shape: BoxShape.circle,
+                      border: isDone
+                          ? null
+                          : Border.all(
+                              color: isSkipped
+                                  ? PoswalColors.violet
+                                  : (isDark ? Colors.white30 : Colors.black26),
+                              width: 2,
+                            ),
+                    ),
+                    child: isDone
+                        ? const Icon(PhosphorIconsBold.check, size: 16, color: Colors.white)
+                        : (isSkipped
+                            ? const Icon(PhosphorIconsBold.arrowBendRightDown, size: 14, color: Colors.white)
+                            : null),
+                  ),
                 ),
-                child: isDone
-                    ? const Icon(PhosphorIconsBold.check, size: 16, color: Colors.white)
-                    : (isSkipped
-                        ? const Icon(PhosphorIconsBold.arrowBendRightDown, size: 14, color: Colors.white)
-                        : null),
               ),
             ),
           ],

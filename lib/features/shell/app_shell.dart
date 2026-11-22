@@ -133,27 +133,31 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
                     const SizedBox(width: PoswalSpacing.sm),
 
                     // 2. Floating Liquid Glass '+' FAB
-                    GestureDetector(
-                      key: const ValueKey('app_fab_button'),
-                      onTap: _openCreateSheet,
-                      child: Container(
-                        width: 52,
-                        height: 52,
-                        decoration: BoxDecoration(
-                          gradient: PoswalGradients.aurora,
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: PoswalColors.teal.withValues(alpha: 0.40),
-                              blurRadius: 14,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: const Icon(
-                          PhosphorIconsBold.plus,
-                          color: Colors.white,
-                          size: 24,
+                    Semantics(
+                      button: true,
+                      label: 'Create new item',
+                      child: GestureDetector(
+                        key: const ValueKey('app_fab_button'),
+                        onTap: _openCreateSheet,
+                        child: Container(
+                          width: 52,
+                          height: 52,
+                          decoration: BoxDecoration(
+                            gradient: PoswalGradients.aurora,
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color: PoswalColors.teal.withValues(alpha: 0.40),
+                                blurRadius: 14,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: const Icon(
+                            PhosphorIconsBold.plus,
+                            color: Colors.white,
+                            size: 24,
+                          ),
                         ),
                       ),
                     ),
@@ -177,40 +181,49 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Expanded(
-      child: GestureDetector(
-        onTap: () {
-          HapticFeedback.selectionClick();
-          setState(() => _currentIndex = index);
-        },
-        behavior: HitTestBehavior.opaque,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                isSelected ? activeIcon : icon,
-                size: 20,
-                color: isSelected
-                    ? PoswalColors.teal
-                    : (isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight),
-              ),
-              const SizedBox(height: 2),
-              FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  label,
-                  maxLines: 1,
-                  style: PoswalText.caption.copyWith(
-                    fontSize: 10,
+      child: Semantics(
+        selected: isSelected,
+        button: true,
+        label: '$label tab',
+        child: GestureDetector(
+          onTap: () {
+            HapticFeedback.selectionClick();
+            setState(() => _currentIndex = index);
+          },
+          behavior: HitTestBehavior.opaque,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 48, minWidth: 48),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    isSelected ? activeIcon : icon,
+                    size: 20,
                     color: isSelected
                         ? PoswalColors.teal
                         : (isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight),
-                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                   ),
-                ),
+                  const SizedBox(height: 2),
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      label,
+                      maxLines: 1,
+                      style: PoswalText.caption.copyWith(
+                        fontSize: 10,
+                        color: isSelected
+                            ? PoswalColors.teal
+                            : (isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight),
+                        fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),

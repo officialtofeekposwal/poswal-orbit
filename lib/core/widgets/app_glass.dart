@@ -174,6 +174,7 @@ class AppGlassButton extends ConsumerWidget {
           color: Colors.transparent,
           child: InkWell(
             borderRadius: BorderRadius.circular(borderRadius),
+            // Uses InkRipple because the custom glass shader asset is unavailable in the Windows test environment and InkRipple is simpler.
             splashFactory: InkRipple.splashFactory,
             onTap: onPressed == null
                 ? null

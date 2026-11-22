@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:drift/drift.dart';
 
 part 'database.g.dart';
@@ -214,6 +216,37 @@ class AppDatabase extends _$AppDatabase {
   @override
   int get schemaVersion => 3;
 
+  Future<void> _backupDatabaseFileBeforeMigration(int fromVersion) async {
+    try {
+      final dbList = await customSelect('PRAGMA database_list;').get();
+      final mainDb = dbList.firstWhere(
+        (r) => r.read<String>('name') == 'main',
+        orElse: () => dbList.first,
+      );
+      final filePath = mainDb.read<String?>('file');
+      if (filePath != null && filePath.isNotEmpty && filePath != '""') {
+        final dbFile = File(filePath);
+        if (await dbFile.exists()) {
+          final timestamp = DateTime.now().millisecondsSinceEpoch;
+          final backupPath = '$filePath.pre_migration_v${fromVersion}_$timestamp.bak';
+          await dbFile.copy(backupPath);
+        }
+      }
+    } catch (_) {
+      // In test or in-memory environments, proceed safely
+    }
+  }
+
+  Future<Set<String>> _getTableColumns(String tableName) async {
+    final rows = await customSelect("PRAGMA table_info('$tableName');").get();
+    return rows.map((r) => r.read<String>('name').toLowerCase()).toSet();
+  }
+
+  Future<Set<String>> _getTables() async {
+    final rows = await customSelect("SELECT name FROM sqlite_master WHERE type = 'table';").get();
+    return rows.map((r) => r.read<String>('name').toLowerCase()).toSet();
+  }
+
   @override
   MigrationStrategy get migration => MigrationStrategy(
     onCreate: (Migrator m) async {
@@ -234,66 +267,114 @@ class AppDatabase extends _$AppDatabase {
       await customStatement('CREATE INDEX IF NOT EXISTS idx_note_tags_tag_id ON note_tags (tag_id);');
     },
     onUpgrade: (Migrator m, int from, int to) async {
+      await _backupDatabaseFileBeforeMigration(from);
+
       if (from < 2) {
-        // Upgrade tasks table from v1 to v2 schema safely and idempotently
-        final v2Columns = [
-          tasksTable.parentId,
-          tasksTable.hasTime,
-          tasksTable.priority,
-          tasksTable.projectId,
-          tasksTable.repeatRule,
-          tasksTable.completedAt,
-          tasksTable.linkedHabitId,
-          tasksTable.sortOrder,
-        ];
-        for (final col in v2Columns) {
-          try {
-            await m.addColumn(tasksTable, col);
-          } catch (_) {
-            // Column may already exist from earlier schema variants
+        await customStatement('SAVEPOINT migration_v2;');
+        try {
+          final taskCols = await _getTableColumns('tasks');
+          if (!taskCols.contains('parent_id')) {
+            await m.addColumn(tasksTable, tasksTable.parentId);
           }
+          if (!taskCols.contains('has_time')) {
+            await m.addColumn(tasksTable, tasksTable.hasTime);
+          }
+          if (!taskCols.contains('priority')) {
+            await m.addColumn(tasksTable, tasksTable.priority);
+          }
+          if (!taskCols.contains('project_id')) {
+            await m.addColumn(tasksTable, tasksTable.projectId);
+          }
+          if (!taskCols.contains('repeat_rule')) {
+            await m.addColumn(tasksTable, tasksTable.repeatRule);
+          }
+          if (!taskCols.contains('completed_at')) {
+            await m.addColumn(tasksTable, tasksTable.completedAt);
+          }
+          if (!taskCols.contains('linked_habit_id')) {
+            await m.addColumn(tasksTable, tasksTable.linkedHabitId);
+          }
+          if (!taskCols.contains('sort_order')) {
+            await m.addColumn(tasksTable, tasksTable.sortOrder);
+          }
+
+          final tables = await _getTables();
+          if (!tables.contains('projects')) {
+            await m.createTable(projectsTable);
+          }
+          if (!tables.contains('tags')) {
+            await m.createTable(tagsTable);
+          }
+          if (!tables.contains('task_tags')) {
+            await m.createTable(taskTagsTable);
+          }
+
+          // Create task indexes
+          await customStatement('CREATE INDEX IF NOT EXISTS idx_tasks_due_at ON tasks (due_at);');
+          await customStatement('CREATE INDEX IF NOT EXISTS idx_tasks_project_id ON tasks (project_id);');
+          await customStatement('CREATE INDEX IF NOT EXISTS idx_tasks_parent_id ON tasks (parent_id);');
+          await customStatement('CREATE INDEX IF NOT EXISTS idx_tasks_completed ON tasks (is_completed);');
+
+          await customStatement('RELEASE SAVEPOINT migration_v2;');
+        } catch (e) {
+          await customStatement('ROLLBACK TO SAVEPOINT migration_v2;');
+          await customStatement('RELEASE SAVEPOINT migration_v2;');
+          rethrow;
         }
-
-        // Create new projects, tags, task_tags tables
-        await m.createTable(projectsTable);
-        await m.createTable(tagsTable);
-        await m.createTable(taskTagsTable);
-
-        // Create task indexes
-        await customStatement('CREATE INDEX IF NOT EXISTS idx_tasks_due_at ON tasks (due_at);');
-        await customStatement('CREATE INDEX IF NOT EXISTS idx_tasks_project_id ON tasks (project_id);');
-        await customStatement('CREATE INDEX IF NOT EXISTS idx_tasks_parent_id ON tasks (parent_id);');
-        await customStatement('CREATE INDEX IF NOT EXISTS idx_tasks_completed ON tasks (is_completed);');
       }
 
       if (from < 3) {
-        // Upgrade notes table from v1/v2 stub to full v3 schema
+        await customStatement('SAVEPOINT migration_v3;');
         try {
-          await customStatement(r'ALTER TABLE notes ADD COLUMN is_pinned INTEGER NOT NULL DEFAULT 0;');
-        } catch (_) {}
-        await customStatement(r"ALTER TABLE notes ADD COLUMN body TEXT NOT NULL DEFAULT '';");
-        await customStatement(r'ALTER TABLE notes ADD COLUMN color_label INTEGER NOT NULL DEFAULT 0;');
-        await customStatement(r'ALTER TABLE notes ADD COLUMN is_journal INTEGER NOT NULL DEFAULT 0;');
-        await customStatement(r'ALTER TABLE notes ADD COLUMN journal_date TEXT;');
-        await customStatement(r'ALTER TABLE notes ADD COLUMN linked_task_id TEXT;');
-        await customStatement(r'ALTER TABLE notes ADD COLUMN linked_habit_id TEXT;');
+          final notesCols = await _getTableColumns('notes');
+          if (!notesCols.contains('is_pinned')) {
+            await customStatement('ALTER TABLE notes ADD COLUMN is_pinned INTEGER NOT NULL DEFAULT 0;');
+          }
+          if (!notesCols.contains('body')) {
+            await customStatement("ALTER TABLE notes ADD COLUMN body TEXT NOT NULL DEFAULT '';");
+          }
+          if (!notesCols.contains('color_label')) {
+            await customStatement('ALTER TABLE notes ADD COLUMN color_label INTEGER NOT NULL DEFAULT 0;');
+          }
+          if (!notesCols.contains('is_journal')) {
+            await customStatement('ALTER TABLE notes ADD COLUMN is_journal INTEGER NOT NULL DEFAULT 0;');
+          }
+          if (!notesCols.contains('journal_date')) {
+            await customStatement('ALTER TABLE notes ADD COLUMN journal_date TEXT;');
+          }
+          if (!notesCols.contains('linked_task_id')) {
+            await customStatement('ALTER TABLE notes ADD COLUMN linked_task_id TEXT;');
+          }
+          if (!notesCols.contains('linked_habit_id')) {
+            await customStatement('ALTER TABLE notes ADD COLUMN linked_habit_id TEXT;');
+          }
 
-        // Copy legacy content and color_value data if present in v1/v2 rows
-        try {
-          await customStatement(r"UPDATE notes SET body = content WHERE content IS NOT NULL AND body = '';");
-        } catch (_) {}
-        try {
-          await customStatement(r'UPDATE notes SET color_label = color_value WHERE color_value IS NOT NULL AND color_label = 0;');
-        } catch (_) {}
+          // Copy legacy content and color data if present in earlier v1/v2 schema
+          if (notesCols.contains('content')) {
+            await customStatement("UPDATE notes SET body = content WHERE (body IS NULL OR body = '') AND content IS NOT NULL;");
+          }
+          if (notesCols.contains('color_value') || notesCols.contains('color')) {
+            final col = notesCols.contains('color_value') ? 'color_value' : 'color';
+            await customStatement('UPDATE notes SET color_label = $col WHERE color_label = 0 AND $col IS NOT NULL;');
+          }
 
-        // Create note_tags table
-        await m.createTable(noteTagsTable);
+          final tables = await _getTables();
+          if (!tables.contains('note_tags')) {
+            await m.createTable(noteTagsTable);
+          }
 
-        // Create note indexes
-        await customStatement('CREATE INDEX IF NOT EXISTS idx_notes_pinned ON notes (is_pinned);');
-        await customStatement('CREATE INDEX IF NOT EXISTS idx_notes_journal_date ON notes (journal_date);');
-        await customStatement('CREATE INDEX IF NOT EXISTS idx_notes_deleted_at ON notes (deleted_at);');
-        await customStatement('CREATE INDEX IF NOT EXISTS idx_note_tags_tag_id ON note_tags (tag_id);');
+          // Create note indexes
+          await customStatement('CREATE INDEX IF NOT EXISTS idx_notes_pinned ON notes (is_pinned);');
+          await customStatement('CREATE INDEX IF NOT EXISTS idx_notes_journal_date ON notes (journal_date);');
+          await customStatement('CREATE INDEX IF NOT EXISTS idx_notes_deleted_at ON notes (deleted_at);');
+          await customStatement('CREATE INDEX IF NOT EXISTS idx_note_tags_tag_id ON note_tags (tag_id);');
+
+          await customStatement('RELEASE SAVEPOINT migration_v3;');
+        } catch (e) {
+          await customStatement('ROLLBACK TO SAVEPOINT migration_v3;');
+          await customStatement('RELEASE SAVEPOINT migration_v3;');
+          rethrow;
+        }
       }
     },
   );

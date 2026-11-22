@@ -1,0 +1,7 @@
+# Example Android Release Keystore Configuration
+# Copy this file to key.properties and fill in your private signing credentials.
+# NEVER commit key.properties or .jks/.keystore files to Git!
+keyAlias=poswal_orbit_key
+keyPassword=YourKeyPasswordHere
+storeFile=../poswal_orbit_release.jks
+storePassword=YourStorePasswordHere

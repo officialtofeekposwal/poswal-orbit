@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:poswal_orbit/data/database/database.dart';
@@ -177,5 +178,80 @@ void main() {
 
       await db.close();
     });
+
+    test('Migration step failure midway triggers transaction rollback and preserves old data intact', () async {
+      final rawDb = sqlite.sqlite3.openInMemory();
+
+      // 1. Build raw Schema v1 tables directly in SQLite
+      rawDb.execute('''
+        CREATE TABLE habits (
+          id TEXT NOT NULL PRIMARY KEY,
+          name TEXT NOT NULL,
+          description TEXT,
+          icon_name TEXT NOT NULL DEFAULT 'star',
+          color_value INTEGER NOT NULL DEFAULT 4280193446,
+          habit_type TEXT NOT NULL DEFAULT 'yesNo',
+          target_value REAL NOT NULL DEFAULT 1.0,
+          unit TEXT NOT NULL DEFAULT 'times',
+          time_of_day TEXT NOT NULL DEFAULT 'anytime',
+          schedule_type TEXT NOT NULL DEFAULT 'daily',
+          schedule_days TEXT NOT NULL DEFAULT '',
+          target_days_per_period INTEGER NOT NULL DEFAULT 1,
+          every_n_days_interval INTEGER NOT NULL DEFAULT 1,
+          start_date INTEGER NOT NULL,
+          end_date INTEGER,
+          is_archived INTEGER NOT NULL DEFAULT 0,
+          sort_order INTEGER NOT NULL DEFAULT 0,
+          created_at INTEGER NOT NULL,
+          updated_at INTEGER NOT NULL,
+          deleted_at INTEGER
+        );
+      ''');
+
+      rawDb.execute('PRAGMA user_version = 1;');
+
+      final nowMs = DateTime(2026, 11, 21, 10, 0).millisecondsSinceEpoch;
+      rawDb.execute('''
+        INSERT INTO habits (id, name, description, start_date, created_at, updated_at)
+        VALUES ('habit-pre-fail', 'Meditation', 'Mindfulness', $nowMs, $nowMs, $nowMs);
+      ''');
+
+      // Create a test subclass of AppDatabase that simulates an intentional failure midway during upgrade
+      final failingDb = _FailingMigrationDatabase(NativeDatabase.opened(rawDb));
+
+      // Attempting to run migration fails loudly
+      expect(
+        () async => await failingDb.customSelect('SELECT id FROM habits;').get(),
+        throwsA(anything),
+      );
+    });
   });
+}
+
+class _FailingMigrationDatabase extends AppDatabase {
+  _FailingMigrationDatabase(super.e);
+
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+    onUpgrade: (m, from, to) async {
+      await customStatement('SAVEPOINT test_failing_migration;');
+      try {
+        await customStatement('ALTER TABLE habits ADD COLUMN temp_col TEXT;');
+        throw Exception('Simulated disk/constraint failure midway through migration');
+      } catch (e) {
+        await customStatement('ROLLBACK TO SAVEPOINT test_failing_migration;');
+        await customStatement('RELEASE SAVEPOINT test_failing_migration;');
+
+        // Verify that after rollback, temp_col is NOT present and old records are untouched
+        final cols = await customSelect("PRAGMA table_info('habits');").get();
+        final colNames = cols.map((r) => r.read<String>('name')).toSet();
+        expect(colNames.contains('temp_col'), isFalse, reason: 'SAVEPOINT rollback must remove half-applied columns');
+        final rows = await customSelect("SELECT id, name FROM habits WHERE id = 'habit-pre-fail';").get();
+        expect(rows.length, equals(1));
+        expect(rows.first.read<String>('name'), equals('Meditation'));
+
+        rethrow;
+      }
+    },
+  );
 }

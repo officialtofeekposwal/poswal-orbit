@@ -60,24 +60,27 @@ class NoteCard extends StatelessWidget {
       ),
       child: Material(
         color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(PoswalRadii.card),
-          onTap: () {
-            HapticFeedback.selectionClick();
-            onTap();
-          },
-          onLongPress: () {
-            HapticFeedback.mediumImpact();
-            onLongPress();
-          },
-          child: Padding(
-            padding: const EdgeInsetsDirectional.all(PoswalSpacing.md),
-            child: Directionality(
-              textDirection: isRtl ? TextDirection.rtl : TextDirection.ltr,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
+        child: Semantics(
+          button: true,
+          label: note.title.isNotEmpty ? 'Note: ${note.title}' : 'Note: Untitled',
+          child: InkWell(
+            borderRadius: BorderRadius.circular(PoswalRadii.card),
+            onTap: () {
+              HapticFeedback.selectionClick();
+              onTap();
+            },
+            onLongPress: () {
+              HapticFeedback.mediumImpact();
+              onLongPress();
+            },
+            child: Padding(
+              padding: const EdgeInsetsDirectional.all(PoswalSpacing.md),
+              child: Directionality(
+                textDirection: isRtl ? TextDirection.rtl : TextDirection.ltr,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
                   // Top Row: Pinned & Journal Badges
                   if (note.isPinned || note.isJournal || hasColor)
                     Padding(
@@ -167,16 +170,24 @@ class NoteCard extends StatelessWidget {
                           padding: const EdgeInsetsDirectional.symmetric(vertical: 2),
                           child: Row(
                             children: [
-                              GestureDetector(
-                                onTap: onToggleChecklist != null
-                                    ? () => onToggleChecklist!(item.lineIndex)
-                                    : null,
-                                child: Icon(
-                                  isChecked
-                                      ? PhosphorIconsFill.checkSquare
-                                      : PhosphorIconsRegular.square,
-                                  size: 14,
-                                  color: isChecked ? PoswalColors.teal : textMuted,
+                              Semantics(
+                                button: true,
+                                checked: isChecked,
+                                label: 'Checklist item ${item.contentText}',
+                                child: GestureDetector(
+                                  onTap: onToggleChecklist != null
+                                      ? () => onToggleChecklist!(item.lineIndex)
+                                      : null,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4),
+                                    child: Icon(
+                                      isChecked
+                                          ? PhosphorIconsFill.checkSquare
+                                          : PhosphorIconsRegular.square,
+                                      size: 14,
+                                      color: isChecked ? PoswalColors.teal : textMuted,
+                                    ),
+                                  ),
                                 ),
                               ),
                               const SizedBox(width: 6),
@@ -243,6 +254,7 @@ class NoteCard extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ),
+  );
   }
 }
