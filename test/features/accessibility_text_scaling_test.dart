@@ -3,7 +3,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:poswal_orbit/features/onboarding/presentation/onboarding_screen.dart';
-import 'package:poswal_orbit/features/security/presentation/biometric_lock_screen.dart';
 import 'package:poswal_orbit/l10n/app_localizations.dart';
 
 void main() {
@@ -46,27 +45,6 @@ void main() {
 
         expect(caughtError, isNull, reason: 'Must not trigger RenderFlex overflow at 200% text scale');
         expect(find.byType(OnboardingScreen), findsOneWidget);
-      } finally {
-        FlutterError.onError = originalOnError;
-      }
-    });
-
-    testWidgets('BiometricLockScreen renders at 200% text scale without overflow', (tester) async {
-      FlutterErrorDetails? caughtError;
-      final originalOnError = FlutterError.onError;
-      FlutterError.onError = (details) {
-        if (details.toString().contains('overflowed')) {
-          caughtError = details;
-        }
-      };
-
-      try {
-        await tester.pumpWidget(buildScaledWidget(const BiometricLockScreen(), textScale: 2.0));
-        await tester.pump();
-        await tester.pump(const Duration(milliseconds: 300));
-
-        expect(caughtError, isNull, reason: 'Must not trigger RenderFlex overflow at 200% text scale');
-        expect(find.byType(BiometricLockScreen), findsOneWidget);
       } finally {
         FlutterError.onError = originalOnError;
       }

@@ -18,7 +18,6 @@ We value complete honesty with our users and open-source community: we do not cl
 | :--- | :--- | :--- | :--- |
 | **Glass UI & Visuals** | `app_glass.dart`, `BackdropFilter` | Flutter standard backdrop filters render smoothly on Metal | Check 120Hz ProMotion fluidity on iPhone 13+ Pro |
 | **Database & Migrations**| `drift`, `sqlite3` | Native iOS SQLite engine with WAL journaling | Verify file migration from schema v1 $\to$ v3 on iOS sandbox |
-| **Biometric Lock** | `local_auth` | Face ID & Touch ID via LocalAuthentication framework | Verify Info.plist `NSFaceIDUsageDescription` and lock delay |
 | **Notifications** | `flutter_local_notifications` | UNUserNotificationCenter alerts and badges | Verify permission prompt and scheduled sound/haptics |
 | **Haptic Feedback** | `HapticFeedback` | CoreHaptics light / medium / heavy impact | Verify iOS taptic engine triggers on ring check-off |
 | **Data Safety & Backups**| `path_provider` | Sandboxed documents directory JSON snapshots | Verify Safari share sheet integration via `share_plus` |
@@ -43,10 +42,6 @@ If you have a Mac and an iPhone or Xcode Simulator:
    flutter run -d iPhone
    ```
 
-3. **Check Info.plist Configuration:**
-   Ensure permissions are declared in `ios/Runner/Info.plist`:
-   - `NSFaceIDUsageDescription`: "Poswal Orbit uses Face ID to securely lock your habits and notes."
-
-4. **Contribute iOS WidgetKit Extension:**
+3. **Contribute iOS WidgetKit Extension:**
    - Author a Swift `WidgetBundle` in `ios/OrbitWidgets` utilizing App Groups to display today's habit orbit ring and task list.
    - Submit a pull request!

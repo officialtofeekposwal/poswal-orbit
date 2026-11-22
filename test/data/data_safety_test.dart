@@ -252,5 +252,41 @@ Position,Name,Question,Color,Frequency,Days
       final notesCsv = await safetyService.exportNotesCsv();
       expect(notesCsv.contains('id,title,body,colorLabel,isPinned,isJournal,journalDate,createdAt'), isTrue);
     });
+
+    test('restoring backup with legacy lock settings ignores unknown keys safely', () async {
+      const legacyBackupJson = '''
+{
+  "version": 1,
+  "exportedAt": "2026-11-20T10:00:00.000Z",
+  "appName": "Poswal Orbit",
+  "appSettings": {
+    "orbit_biometric_enabled": true,
+    "orbit_lock_timeout_seconds": 60,
+    "orbit_hide_recents_enabled": true,
+    "legacy_unknown_key": "some_value"
+  },
+  "habits": [
+    {
+      "id": "legacy-habit-1",
+      "name": "Legacy Restored Habit",
+      "colorValue": 4279549374,
+      "startDate": "2026-11-20T00:00:00.000Z",
+      "createdAt": "2026-11-20T00:00:00.000Z",
+      "updatedAt": "2026-11-20T00:00:00.000Z"
+    }
+  ],
+  "habitEntries": [],
+  "tasks": [],
+  "notes": [],
+  "projects": [],
+  "tags": []
+}
+''';
+
+      final res = await safetyService.restoreFromJsonString(legacyBackupJson);
+      expect(res.habitsCount, 1);
+      final habits = await db.select(db.habitsTable).get();
+      expect(habits.first.name, 'Legacy Restored Habit');
+    });
   });
 }

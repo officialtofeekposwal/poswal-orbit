@@ -18,10 +18,6 @@
 -keep class com.dexterous.flutterlocalnotifications.** { *; }
 -keep class androidx.core.app.NotificationCompat** { *; }
 
-# Local Auth / AndroidX Biometrics
--keep class androidx.biometric.** { *; }
--keep class io.flutter.plugins.localauth.** { *; }
-
 # Home Widget / Android AppWidgets
 -keep class es.antonborri.home_widget.** { *; }
 -keep class com.poswal.orbit.OrbitTodayWidgetProvider { *; }

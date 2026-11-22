@@ -21,13 +21,7 @@ Poswal Orbit is built on a simple, uncompromising foundation: **Your data belong
 
 ---
 
-## 🔑 3. Biometric Authentication
-- If you enable the Biometric Lock feature, authentication is handled entirely by your operating system's native AndroidX BiometricPrompt or iOS LocalAuthentication framework.
-- Poswal Orbit never reads, processes, or stores your biometric fingerprints, facial scans, or PIN codes.
-
----
-
-## 📱 4. Permissions Used
+## 📱 3. Permissions Used
 | Permission | Purpose |
 | :--- | :--- |
 | `POST_NOTIFICATIONS` | Displays local scheduled habit reminders on your device. |

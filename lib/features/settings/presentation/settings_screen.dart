@@ -8,9 +8,7 @@ import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/core/widgets/aurora_background.dart';
 import 'package:poswal_orbit/data/services/data_safety_service.dart';
 import 'package:poswal_orbit/data/services/notification_service.dart';
-import 'package:poswal_orbit/domain/logic/biometric_lock_engine.dart';
 import 'package:poswal_orbit/domain/models/data_safety_models.dart';
-import 'package:poswal_orbit/features/security/application/biometric_lock_providers.dart';
 import 'package:poswal_orbit/features/settings/application/settings_providers.dart';
 import 'package:poswal_orbit/features/settings/domain/settings_preferences.dart';
 import 'package:poswal_orbit/features/settings/presentation/reminders_health_check_screen.dart';
@@ -354,61 +352,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     );
   }
 
-  void _showAuthTestResultDialog(BuildContext context, BiometricAuthResult result, AppLocalizations? l10n) {
-    showDialog<void>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: PoswalColors.surfaceDark,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.card)),
-        icon: Icon(
-          result.isSuccess ? PhosphorIconsRegular.checkCircle : PhosphorIconsRegular.warningCircle,
-          color: result.isSuccess ? PoswalColors.teal : PoswalColors.danger,
-          size: 40,
-        ),
-        title: Text(
-          result.isSuccess
-              ? (l10n?.authTestSuccessTitle ?? 'Authentication Successful')
-              : (l10n?.authTestFailedTitle ?? 'Authentication Failed'),
-          style: PoswalText.title.copyWith(
-            color: result.isSuccess ? PoswalColors.teal : PoswalColors.danger,
-          ),
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              result.isSuccess
-                  ? (l10n?.authTestSuccessMessage ?? 'Biometrics and device passcode are working properly on this phone.')
-                  : (result.errorMessage ?? 'Authentication could not be completed.'),
-              style: PoswalText.bodyText.copyWith(color: PoswalColors.textMutedDark),
-            ),
-            if (!result.isSuccess && result.errorCode != null) ...[
-              const SizedBox(height: PoswalSpacing.sm),
-              Text(
-                'Error code: ${result.errorCode}',
-                style: PoswalText.caption.copyWith(
-                  color: PoswalColors.textMutedDark,
-                  fontFamily: 'monospace',
-                  fontSize: 11,
-                ),
-              ),
-            ],
-          ],
-        ),
-        actions: [
-          FilledButton(
-            style: FilledButton.styleFrom(
-              backgroundColor: result.isSuccess ? PoswalColors.teal : PoswalColors.surfaceDark2,
-            ),
-            onPressed: () => Navigator.of(ctx).pop(),
-            child: Text('OK', style: PoswalText.callout.copyWith(color: Colors.white)),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -421,7 +364,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final intensity = ref.watch(glassIntensityProvider);
     final reduceTransparency = ref.watch(reduceTransparencyProvider);
     final backupsAsync = ref.watch(availableBackupsProvider);
-    final lockState = ref.watch(biometricLockProvider);
 
     return AuroraBackground(
       child: Scaffold(
@@ -594,123 +536,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 value: settings.hapticsEnabled,
                 activeColor: PoswalColors.teal,
                 onChanged: (val) => settingsNotifier.updateHaptics(val),
-              ),
-            ),
-
-            const SizedBox(height: PoswalSpacing.lg),
-
-            // --- SECTION: SECURITY & APP LOCK ---
-            _buildSectionHeader(l10n?.securityTitle ?? 'App Lock & Security', PhosphorIconsRegular.lockKey, textPrimary),
-            const SizedBox(height: PoswalSpacing.xs),
-            AppGlassCard(
-              child: Column(
-                children: [
-                  SwitchListTile.adaptive(
-                    key: const ValueKey('biometric_lock_toggle'),
-                    contentPadding: EdgeInsets.zero,
-                    title: Text(l10n?.biometricLock ?? 'Biometric Lock', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
-                    subtitle: Text(l10n?.biometricLockSubtitle ?? 'Require Face ID, fingerprint or device PIN on launch', style: PoswalText.caption.copyWith(color: textMuted)),
-                    value: lockState.isEnabled,
-                    activeColor: PoswalColors.teal,
-                    onChanged: (val) async {
-                      unawaited(HapticFeedback.selectionClick());
-                      if (val) {
-                        final result = await ref.read(biometricLockProvider.notifier).testAuthentication();
-                        if (!context.mounted) return;
-                        if (!result.isSuccess) {
-                          _showAuthTestResultDialog(context, result, l10n);
-                          return;
-                        }
-                        await ref.read(biometricLockProvider.notifier).toggleEnabled(true);
-                      } else {
-                        await ref.read(biometricLockProvider.notifier).toggleEnabled(false);
-                      }
-                    },
-                  ),
-                  if (lockState.isEnabled) ...[
-                    const Divider(color: Colors.white12, height: 20),
-                    ListTile(
-                      contentPadding: EdgeInsets.zero,
-                      title: Text(l10n?.lockTimeout ?? 'Lock Timeout', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
-                      trailing: DropdownButton<LockTimeout>(
-                        key: const ValueKey('lock_timeout_dropdown'),
-                        value: lockState.timeout,
-                        dropdownColor: PoswalColors.surfaceDark,
-                        underline: const SizedBox(),
-                        items: LockTimeout.values.map((t) {
-                          String label = t.label;
-                          if (l10n != null) {
-                            switch (t) {
-                              case LockTimeout.immediate:
-                                label = l10n.lockTimeoutImmediate;
-                                break;
-                              case LockTimeout.thirtySeconds:
-                                label = l10n.lockTimeout30s;
-                                break;
-                              case LockTimeout.oneMinute:
-                                label = l10n.lockTimeout1m;
-                                break;
-                              case LockTimeout.fiveMinutes:
-                                label = l10n.lockTimeout5m;
-                                break;
-                            }
-                          }
-                          return DropdownMenuItem(
-                            value: t,
-                            child: Text(label, style: PoswalText.callout.copyWith(color: Colors.white)),
-                          );
-                        }).toList(),
-                        onChanged: (val) {
-                          if (val != null) {
-                            ref.read(biometricLockProvider.notifier).updateTimeout(val);
-                          }
-                        },
-                      ),
-                    ),
-                  ],
-                  const Divider(color: Colors.white12, height: 20),
-                  SwitchListTile.adaptive(
-                    key: const ValueKey('hide_recents_toggle'),
-                    contentPadding: EdgeInsets.zero,
-                    title: Text(l10n?.hideContentRecents ?? 'Hide in Recent Apps', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
-                    subtitle: Text(l10n?.hideContentRecentsSubtitle ?? 'Blurs or blocks app preview in OS task switcher', style: PoswalText.caption.copyWith(color: textMuted)),
-                    value: lockState.hideContentInRecents,
-                    activeColor: PoswalColors.teal,
-                    onChanged: (val) {
-                      unawaited(HapticFeedback.selectionClick());
-                      ref.read(biometricLockProvider.notifier).toggleHideRecents(val);
-                    },
-                  ),
-                  const Divider(color: Colors.white12, height: 20),
-                  ListTile(
-                    key: const ValueKey('test_biometrics_tile'),
-                    contentPadding: EdgeInsets.zero,
-                    leading: Container(
-                      padding: const EdgeInsets.all(PoswalSpacing.xs),
-                      decoration: BoxDecoration(
-                        color: PoswalColors.teal.withValues(alpha: 0.15),
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(PhosphorIconsRegular.fingerprint, color: PoswalColors.teal, size: 20),
-                    ),
-                    title: Text(
-                      l10n?.testBiometrics ?? 'Test Authentication',
-                      style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600),
-                    ),
-                    subtitle: Text(
-                      l10n?.testBiometricsSubtitle ?? 'Verify biometric hardware and device passcode on this phone',
-                      style: PoswalText.caption.copyWith(color: textMuted),
-                    ),
-                    trailing: const Icon(PhosphorIconsRegular.caretRight, size: 16, color: Colors.white54),
-                    onTap: () async {
-                      unawaited(HapticFeedback.selectionClick());
-                      final result = await ref.read(biometricLockProvider.notifier).testAuthentication();
-                      if (context.mounted) {
-                        _showAuthTestResultDialog(context, result, l10n);
-                      }
-                    },
-                  ),
-                ],
               ),
             ),
 

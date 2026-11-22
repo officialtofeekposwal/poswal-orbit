@@ -48,9 +48,7 @@ Poswal Orbit is a calm, beautiful, and strictly offline-first habit tracker, to-
   - Mathematical productivity score and habit-vs-task correlation engine.
   - Clean stats card export as PNG via system share sheet.
   - Full multi-language support in English (`en`), Hindi (`hi`), and Urdu (`ur` RTL).
-- **Security & Android Home Widgets (Phase 5B):**
-  - Biometric authentication lock (Face ID, Fingerprint, Passcode) with configurable background lock timeouts.
-  - Android Recents preview blur/obscure toggle.
+- **Android Home Widgets (Phase 5B):**
   - 3 native Android AppWidgets (Kotlin & XML): Today Orbit Progress Ring, Habit Check-off Widget, and Task List Widget.
 - **Quality, Accessibility & Release Engineering (Phase 6):**
   - Transactional SQLite migrations with `SAVEPOINT` rollback, metadata inspection (`PRAGMA table_info`, `sqlite_master`), and pre-migration `.bak` copies.

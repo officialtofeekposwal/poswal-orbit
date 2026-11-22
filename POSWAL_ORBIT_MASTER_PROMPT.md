@@ -105,7 +105,7 @@ The brand kit zip `poswal-orbit-brand-kit.zip` is provided. **Unzip it into the 
 - **Database:** Drift (SQLite) with migrations.
 - **Notifications:** flutter_local_notifications + timezone.
 - **Widgets:** home_widget (iOS needs a native WidgetKit extension in Swift).
-- **Security:** local_auth, flutter_secure_storage. **Haptics:** HapticFeedback.
+- **Haptics:** HapticFeedback.
 - **Charts:** fl_chart or custom painters (heatmap).
 - **Liquid glass:** `liquid_glass_widgets` as the primary package (GlassScaffold, GlassAppBar, GlassTabBar, GlassButton, GlassChip, GlassSegmentedControl, sheets, dialogs, toasts). Optionally `liquid_glass_renderer` for custom hero surfaces. Both are young and experimental: pin exact versions, follow their README setup (for example `LiquidGlassWidgets.initialize()` before `runApp`, Impeller / Flutter GPU flags if required), and test on real devices.
 - **Wrap every glass package** inside my own design-system components (`AppGlassButton`, `AppGlassCard`, `AppSheet`, `AppTabBar`...) so feature code never imports the glass package directly and it can be swapped later.
@@ -191,7 +191,6 @@ The brand kit zip `poswal-orbit-brand-kit.zip` is provided. **Unzip it into the 
 ### 6.5 Settings and data
 - Theme (system / light / dark / OLED), accent, glass intensity, reduce transparency, first day of week, day-start hour, haptics on/off.
 - **Reminders health check** screen: notification permission, exact-alarm permission, battery-optimization status, with buttons that deep-link to fix each.
-- Biometric lock (Face ID / fingerprint / passcode).
 - Languages: English, Hindi, Urdu (RTL). Easy to add more via ARB files.
 - Data: export/import JSON and CSV (include import from Loop Habit Tracker CSV), automatic daily local backup (keep last 7), one-tap restore, delete all data.
 
@@ -277,8 +276,8 @@ Rich text editor, pins, tags, checklists, full-text search across habits, tasks 
 **Phase 4 - Notifications + data safety**
 Notifications (rolling window, actions, reboot/timezone safe), Reminders health check, auto backup, export/import, restore, Loop CSV import.
 
-**Phase 5 - Insights, widgets, security, languages**
-Insights tab, home widgets, biometric lock, Hindi + Urdu (RTL) localization.
+**Phase 5 - Insights, widgets, languages**
+Insights tab, home widgets, Hindi + Urdu (RTL) localization.
 
 **Phase 6 - Polish and release**
 Performance pass on real devices, onboarding, accessibility pass, store assets and listing text, release builds. Optional: E2E-encrypted sync (only if I approve).

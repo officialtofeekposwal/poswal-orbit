@@ -124,7 +124,7 @@ lib/
 - **Local Database**: [Drift](https://drift.simonbinder.eu) (Type-safe SQLite with transactional `SAVEPOINT` migrations)
 - **Navigation**: [go_router](https://pub.dev/packages/go_router)
 - **Local Notifications**: `flutter_local_notifications` + `timezone` (Battery-conscious 64-notification rolling window)
-- **Security & Hardware Auth**: `local_auth` (Biometrics), `flutter_secure_storage`
+- **Home Widgets**: `home_widget` (Android AppWidget glance providers for Today, Habits, and Tasks)
 - **Data Serialization**: [Freezed](https://pub.dev/packages/freezed) & `json_serializable`
 - **Quality Gates**: Zero `flutter analyze` warnings, 164 automated tests (unit, repository, widget, text scaling, and screen-reader semantics).
 
@@ -135,11 +135,10 @@ lib/
 Poswal Orbit follows a strict **privacy-by-design** and **defense-in-depth** methodology:
 
 1. **Zero Network Permissions**: The `android.permission.INTERNET` permission is excluded from the app manifest. The application cannot communicate with external servers under any condition.
-2. **Biometric App Lock**: Secure your workspace via Fingerprint, Face Unlock, or system PIN/passcode fallback. Supports customizable auto-lock timeouts (*Immediate*, *30s*, *1m*, *5m*).
-3. **Android Recent Apps Privacy Shield**: Dynamically toggles `WindowManager.LayoutParams.FLAG_SECURE` to blank out app preview screenshots in the Android task switcher and prevent unauthorized screen captures.
-4. **Automated Daily Backups**: Atomic, rolling 7-day JSON snapshots stored locally with temporary-file write protection.
-5. **Transactional Data Portability**: Full JSON export/import and standard CSV export/import (Habits, Check-ins, Tasks, Notes), plus one-click import from **Loop Habit Tracker** CSVs.
-6. **Pre-Migration Safety Backups**: Automated physical file-copy snapshots (`.bak`) taken prior to running any database schema migrations.
+2. **100% Offline-First & Private**: All habits, tasks, notes, and insights remain strictly on your local device with zero telemetry, trackers, or cloud storage.
+3. **Automated Daily Backups**: Atomic, rolling 7-day JSON snapshots stored locally with temporary-file write protection.
+4. **Transactional Data Portability**: Full JSON export/import and standard CSV export/import (Habits, Check-ins, Tasks, Notes), plus one-click import from **Loop Habit Tracker** CSVs.
+5. **Pre-Migration Safety Backups**: Automated physical file-copy snapshots (`.bak`) taken prior to running any database schema migrations.
 7. **Read our full policy**: [PRIVACY.md](PRIVACY.md).
 
 ---
@@ -234,7 +233,7 @@ Stay on top of your day without opening the app using native Android `AppWidgetP
 - [x] **Phase 3: Notes & Global Search** — Markdown editor, autosave, checklist checkboxes, color tags, and unified search.
 - [x] **Phase 4: Data Safety & Reminders** — 7-day automatic backup rotation, transactional JSON/CSV imports, Loop Habit Tracker migration, rolling notifications, and exact alarms.
 - [x] **Phase 5A: Insights & Languages** — Guilt-free weekly reviews, peak focus hours, habit-task correlations, stats cards sharing, and English/Hindi/Urdu RTL.
-- [x] **Phase 5B: Security & Home Widgets** — Biometric app lock, Android `FLAG_SECURE` recent apps shield, and home screen glance widgets.
+- [x] **Phase 5B: Home Screen Glance Widgets** — Interactive home screen and lockscreen glance widgets for Today progress, habit quick check-in, and pending tasks.
 - [x] **Phase 6: Polish & Open-Source Release** — Transactional migrations with `SAVEPOINT` rollback, screen-reader `Semantics` ($\ge 44\times 44$ tap targets), ProGuard/R8 shrinking, release workflows, and open-source documentation.
 
 ---
@@ -243,7 +242,9 @@ Stay on top of your day without opening the app using native Android `AppWidgetP
 
 We welcome community contributions, bug reports, and suggestions!
 1. Check out our [Good First Issues](docs/GOOD_FIRST_ISSUES.md) for beginner-friendly tasks.
-2. Read the [Releasing Guide](docs/RELEASING.md) to understand build and release standards.
+2. Ideas for contributors:
+   - **Optional App Lock**: A clean, fail-safe lock design that must never lock users out even if biometric hardware or OS prompts fail.
+3. Read the [Releasing Guide](docs/RELEASING.md) to understand build and release standards.
 3. Ensure all changes pass analysis and test gates:
    ```bash
    flutter analyze

@@ -16,7 +16,6 @@ Poswal Orbit is your calm, private, and distraction-free daily companion. Design
 - **Subtasks & Priority Management:** Break down ambitious goals into manageable steps with urgent-to-low visual badges.
 - **Markdown Notes & Checklists:** Capture quick thoughts, format headers and lists, and link notes directly to habits or tasks.
 - **Interactive Home Screen Widgets:** Glance at your orbit progress, check off habits, and browse tasks straight from your Android Home Screen.
-- **Biometric Security:** Guard your personal reflections with Face Unlock, fingerprint, or device passcode.
 - **Safety Backups:** Automatic rolling 7-day local snapshots, JSON database export/import, and Loop Habit Tracker CSV compatibility.
 
 ## Keywords
@@ -28,4 +27,4 @@ habit tracker, offline to-do list, private notes, streak tracker, habit ring, ta
 3. **Focused Action:** Priorities, subtasks, and instant swipe-to-complete.
 4. **Markdown Thoughts:** Fast, rich checklists and notes with instant auto-save.
 5. **Interactive Widgets:** Check off habits and view progress from your Home Screen.
-6. **100% Private:** Biometric lock, automatic local backups, and zero data collection.
+6. **100% Private:** Zero tracking, automatic local backups, and zero data collection.
