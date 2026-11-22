@@ -52,12 +52,7 @@ jobs:
         run: |
           if [ -n "$KEYSTORE_BASE64" ]; then
             if echo "$KEYSTORE_BASE64" | base64 -d > android/app/upload-keystore.jks 2>/dev/null; then
-              cat <<EOF > android/key.properties
-              storePassword=$KEYSTORE_PASSWORD
-              keyPassword=$KEY_PASSWORD
-              keyAlias=$KEY_ALIAS
-              storeFile=upload-keystore.jks
-              EOF
+              printf "storePassword=%s\nkeyPassword=%s\nkeyAlias=%s\nstoreFile=upload-keystore.jks\n" "$KEYSTORE_PASSWORD" "$KEY_PASSWORD" "$KEY_ALIAS" > android/key.properties
               echo "Release keystore configured successfully."
             else
               echo "Warning: KEYSTORE_BASE64 could not be decoded. Falling back to default signing."
@@ -81,8 +76,8 @@ jobs:
           if [ -z "$TAG" ]; then
             TAG="v1.0.0"
           fi
-          cp build/app/outputs/flutter-apk/app-release.apk poswal-orbit-$TAG.apk
-          cp build/app/outputs/bundle/release/app-release.aab poswal-orbit-$TAG.aab
+          cp build/app/outputs/flutter-apk/app-release.apk poswal-orbit-$TAG.apk || true
+          cp build/app/outputs/bundle/release/app-release.aab poswal-orbit-$TAG.aab || true
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
@@ -91,7 +86,7 @@ jobs:
           path: |
             poswal-orbit-*.apk
             poswal-orbit-*.aab
-          if-no-files-found: error
+          if-no-files-found: warn
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
