@@ -11,7 +11,8 @@ class ReduceTransparencyNotifier extends Notifier<bool> {
   void setReduce(bool value) => state = value;
 }
 
-final reduceTransparencyProvider = NotifierProvider<ReduceTransparencyNotifier, bool>(ReduceTransparencyNotifier.new);
+final reduceTransparencyProvider =
+    NotifierProvider<ReduceTransparencyNotifier, bool>(ReduceTransparencyNotifier.new);
 
 class GlassIntensityNotifier extends Notifier<double> {
   @override
@@ -19,8 +20,10 @@ class GlassIntensityNotifier extends Notifier<double> {
   void setIntensity(double value) => state = value;
 }
 
-final glassIntensityProvider = NotifierProvider<GlassIntensityNotifier, double>(GlassIntensityNotifier.new);
+final glassIntensityProvider =
+    NotifierProvider<GlassIntensityNotifier, double>(GlassIntensityNotifier.new);
 
+/// Core HIG Liquid Glass Container for Floating Controls & Toolbars
 class AppGlassCard extends ConsumerWidget {
   final Widget child;
   final double borderRadius;
@@ -31,6 +34,7 @@ class AppGlassCard extends ConsumerWidget {
   final Color? tintColor;
   final double? width;
   final double? height;
+  final GlassTier tier;
 
   const AppGlassCard({
     super.key,
@@ -43,6 +47,7 @@ class AppGlassCard extends ConsumerWidget {
     this.tintColor,
     this.width,
     this.height,
+    this.tier = GlassTier.standard,
   });
 
   @override
@@ -52,9 +57,11 @@ class AppGlassCard extends ConsumerWidget {
     final intensity = ref.watch(glassIntensityProvider);
 
     final isDark = mode.isDark;
+    final effectiveTier = reduceTransparency ? GlassTier.plain : tier;
+
     final baseTint = tintColor ?? (isDark ? Colors.white : Colors.white);
-    final tintOpacity = (isDark ? PoswalGlass.darkTintOpacity : PoswalGlass.lightTintOpacity) * intensity;
-    final borderOpacity = isDark ? PoswalGlass.darkBorderOpacity : PoswalGlass.lightBorderOpacity;
+    final tintOpacity = PoswalGlass.tintOpacity(effectiveTier, isDark: isDark) * intensity;
+    final borderOpacity = PoswalGlass.borderOpacity(effectiveTier, isDark: isDark);
     final highlightOpacity = isDark ? PoswalGlass.darkHighlightOpacity : PoswalGlass.lightHighlightOpacity;
 
     Widget cardContent = Container(
@@ -65,24 +72,26 @@ class AppGlassCard extends ConsumerWidget {
         color: baseTint.withValues(alpha: tintOpacity),
         borderRadius: BorderRadius.circular(borderRadius),
         border: Border.all(
-          color: (isDark ? Colors.white : Colors.white).withValues(alpha: borderOpacity),
+          color: (isDark ? Colors.white : Colors.black).withValues(alpha: borderOpacity),
           width: PoswalGlass.borderWidth,
         ),
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Colors.white.withValues(alpha: highlightOpacity * 0.4),
-            Colors.white.withValues(alpha: 0.0),
-            Colors.white.withValues(alpha: highlightOpacity * 0.1),
-          ],
-          stops: const [0.0, 0.4, 1.0],
-        ),
+        gradient: effectiveTier == GlassTier.plain
+            ? null
+            : LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.white.withValues(alpha: highlightOpacity * 0.35),
+                  Colors.white.withValues(alpha: 0.0),
+                  Colors.white.withValues(alpha: highlightOpacity * 0.08),
+                ],
+                stops: const [0.0, 0.4, 1.0],
+              ),
         boxShadow: [
           BoxShadow(
             color: isDark ? Colors.black.withValues(alpha: 0.35) : Colors.black.withValues(alpha: 0.05),
-            blurRadius: 24,
-            offset: const Offset(0, 8),
+            blurRadius: 20,
+            offset: const Offset(0, 6),
           ),
         ],
       ),
@@ -92,8 +101,8 @@ class AppGlassCard extends ConsumerWidget {
       ),
     );
 
-    if (!reduceTransparency && !mode.isOled) {
-      final sigma = (16.0 * intensity).toDouble();
+    if (!reduceTransparency && !mode.isOled && effectiveTier != GlassTier.plain) {
+      final sigma = PoswalGlass.blurSigma(effectiveTier) * intensity;
       cardContent = ClipRRect(
         borderRadius: BorderRadius.circular(borderRadius),
         child: BackdropFilter(
@@ -133,6 +142,7 @@ class AppGlassCard extends ConsumerWidget {
   }
 }
 
+/// HIG Large Action Button (Capsule Shape)
 class AppGlassButton extends ConsumerWidget {
   final Widget child;
   final VoidCallback? onPressed;
@@ -145,7 +155,7 @@ class AppGlassButton extends ConsumerWidget {
     required this.child,
     this.onPressed,
     this.isPrimary = false,
-    this.borderRadius = PoswalRadii.button,
+    this.borderRadius = PoswalRadii.capsule,
     this.padding = const EdgeInsets.symmetric(
       horizontal: PoswalSpacing.xl,
       vertical: PoswalSpacing.md,
@@ -159,13 +169,14 @@ class AppGlassButton extends ConsumerWidget {
 
     if (isPrimary) {
       return Container(
+        height: PoswalRowHeights.standard,
         decoration: BoxDecoration(
-          gradient: PoswalGradients.aurora,
+          color: PoswalColors.teal,
           borderRadius: BorderRadius.circular(borderRadius),
           boxShadow: [
             BoxShadow(
-              color: PoswalColors.teal.withValues(alpha: 0.35),
-              blurRadius: 16,
+              color: Colors.black.withValues(alpha: isDark ? 0.30 : 0.08),
+              blurRadius: 12,
               offset: const Offset(0, 4),
             ),
           ],
@@ -174,8 +185,6 @@ class AppGlassButton extends ConsumerWidget {
           color: Colors.transparent,
           child: InkWell(
             borderRadius: BorderRadius.circular(borderRadius),
-            // Uses InkRipple because the custom glass shader asset is unavailable in the Windows test environment and InkRipple is simpler.
-            splashFactory: InkRipple.splashFactory,
             onTap: onPressed == null
                 ? null
                 : () {
@@ -218,6 +227,7 @@ class AppGlassButton extends ConsumerWidget {
   }
 }
 
+/// HIG Glass Filter Chip
 class AppGlassChip extends ConsumerWidget {
   final String label;
   final Widget? icon;
@@ -284,6 +294,7 @@ class AppGlassChip extends ConsumerWidget {
   }
 }
 
+/// HIG Segmented Control with spring sliding capsule
 class AppGlassSegmentedControl<T> extends ConsumerWidget {
   final List<T> values;
   final List<String> labels;
@@ -304,12 +315,12 @@ class AppGlassSegmentedControl<T> extends ConsumerWidget {
     final isDark = mode.isDark;
 
     return Container(
-      padding: const EdgeInsets.all(PoswalSpacing.xs),
+      padding: const EdgeInsets.all(PoswalSpacing.xxs),
       decoration: BoxDecoration(
-        color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.black.withValues(alpha: 0.04),
-        borderRadius: BorderRadius.circular(PoswalRadii.pill),
+        color: (isDark ? Colors.white : Colors.black).withValues(alpha: isDark ? 0.08 : 0.05),
+        borderRadius: BorderRadius.circular(PoswalRadii.capsule),
         border: Border.all(
-          color: isDark ? Colors.white.withValues(alpha: 0.12) : Colors.white.withValues(alpha: 0.60),
+          color: (isDark ? Colors.white : Colors.black).withValues(alpha: isDark ? 0.10 : 0.06),
         ),
       ),
       child: Row(
@@ -322,7 +333,7 @@ class AppGlassSegmentedControl<T> extends ConsumerWidget {
                 onValueChanged(values[index]);
               },
               child: AnimatedContainer(
-                duration: const Duration(milliseconds: 220),
+                duration: const Duration(milliseconds: 200),
                 curve: Curves.easeOutCubic,
                 alignment: Alignment.center,
                 padding: const EdgeInsets.symmetric(
@@ -332,7 +343,7 @@ class AppGlassSegmentedControl<T> extends ConsumerWidget {
                   color: isSelected
                       ? (isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight)
                       : Colors.transparent,
-                  borderRadius: BorderRadius.circular(PoswalRadii.pill),
+                  borderRadius: BorderRadius.circular(PoswalRadii.capsule),
                   boxShadow: isSelected
                       ? [
                           BoxShadow(
@@ -359,6 +370,62 @@ class AppGlassSegmentedControl<T> extends ConsumerWidget {
             ),
           );
         }),
+      ),
+    );
+  }
+}
+
+/// Tactile Slider with spring glass knob feedback on touch
+class AppTactileSlider extends StatefulWidget {
+  final double value;
+  final ValueChanged<double> onChanged;
+  final double min;
+  final double max;
+  final int? divisions;
+
+  const AppTactileSlider({
+    super.key,
+    required this.value,
+    required this.onChanged,
+    this.min = 0.0,
+    this.max = 1.0,
+    this.divisions,
+  });
+
+  @override
+  State<AppTactileSlider> createState() => _AppTactileSliderState();
+}
+
+class _AppTactileSliderState extends State<AppTactileSlider> {
+  bool _isDragging = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return SliderTheme(
+      data: SliderTheme.of(context).copyWith(
+        trackHeight: 6.0,
+        activeTrackColor: PoswalColors.teal,
+        inactiveTrackColor: Colors.white12,
+        thumbShape: RoundSliderThumbShape(
+          enabledThumbRadius: _isDragging ? 12.0 : 9.0,
+          elevation: _isDragging ? 6.0 : 2.0,
+        ),
+        overlayShape: const RoundSliderOverlayShape(overlayRadius: 22.0),
+      ),
+      child: Slider(
+        value: widget.value,
+        min: widget.min,
+        max: widget.max,
+        divisions: widget.divisions,
+        onChangeStart: (_) {
+          HapticFeedback.lightImpact();
+          setState(() => _isDragging = true);
+        },
+        onChangeEnd: (_) {
+          HapticFeedback.selectionClick();
+          setState(() => _isDragging = false);
+        },
+        onChanged: widget.onChanged,
       ),
     );
   }

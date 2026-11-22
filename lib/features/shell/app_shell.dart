@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
-import 'package:poswal_orbit/core/widgets/app_glass.dart';
+import 'package:poswal_orbit/core/widgets/app_tab_bar.dart';
 import 'package:poswal_orbit/data/services/data_safety_service.dart';
 import 'package:poswal_orbit/data/services/notification_service.dart';
 import 'package:poswal_orbit/features/habits/presentation/habit_form_sheet.dart';
@@ -83,7 +83,7 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
       backgroundColor: Colors.transparent,
       body: Stack(
         children: [
-          // Screen View
+          // 1. Content Layer: Indexed Screen Views
           IndexedStack(
             index: _currentIndex,
             children: const [
@@ -95,125 +95,52 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
             ],
           ),
 
-          // Floating Glass Tab Bar + FAB
+          // 2. Control Layer: Top Trailing Frosted Glass "+" Button (Apple HIG Rule 6)
           Positioned(
-            left: PoswalSpacing.lg,
+            top: MediaQuery.paddingOf(context).top + PoswalSpacing.xs,
             right: PoswalSpacing.lg,
-            bottom: PoswalSpacing.lg,
-            child: SafeArea(
-              top: false,
-              child: Row(
-                children: [
-                  // 1. Floating Glass Tab Bar
-                  Expanded(
-                    child: AppGlassCard(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: PoswalSpacing.sm,
-                        vertical: PoswalSpacing.xs,
-                      ),
-                      borderRadius: PoswalRadii.pill,
-                      child: Row(
-                        children: [
-                          _buildTabItem(0, PhosphorIconsRegular.circleHalfTilt, PhosphorIconsFill.circleHalfTilt, 'Today'),
-                          _buildTabItem(1, PhosphorIconsRegular.target, PhosphorIconsFill.target, 'Habits'),
-                          _buildTabItem(2, PhosphorIconsRegular.checkSquare, PhosphorIconsFill.checkSquare, 'Tasks'),
-                          _buildTabItem(3, PhosphorIconsRegular.notepad, PhosphorIconsFill.notepad, 'Notes'),
-                          _buildTabItem(4, PhosphorIconsRegular.chartLineUp, PhosphorIconsFill.chartLineUp, 'Insights'),
-                        ],
-                      ),
+            child: Semantics(
+              button: true,
+              label: 'Create new item',
+              child: GestureDetector(
+                key: const ValueKey('app_fab_button'),
+                onTap: _openCreateSheet,
+                child: Container(
+                  width: PoswalRowHeights.minTouchTarget,
+                  height: PoswalRowHeights.minTouchTarget,
+                  decoration: BoxDecoration(
+                    color: PoswalColors.teal.withValues(alpha: 0.18),
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: PoswalColors.teal.withValues(alpha: 0.40),
+                      width: 1.2,
                     ),
                   ),
-
-                  const SizedBox(width: PoswalSpacing.sm),
-
-                  // 2. Floating Liquid Glass '+' FAB
-                  Semantics(
-                    button: true,
-                    label: 'Create new item',
-                    child: GestureDetector(
-                      key: const ValueKey('app_fab_button'),
-                      onTap: _openCreateSheet,
-                      child: Container(
-                        width: 52,
-                        height: 52,
-                        decoration: BoxDecoration(
-                          gradient: PoswalGradients.aurora,
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: PoswalColors.teal.withValues(alpha: 0.40),
-                              blurRadius: 14,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: const Icon(
-                          PhosphorIconsBold.plus,
-                          color: Colors.white,
-                          size: 24,
-                        ),
-                      ),
+                  child: const Center(
+                    child: Icon(
+                      PhosphorIconsBold.plus,
+                      color: PoswalColors.teal,
+                      size: 20,
                     ),
                   ),
-                ],
+                ),
               ),
+            ),
+          ),
+
+          // 3. Navigation Layer: Floating Glass Tab Bar (HIG Rule 5: Navigation Only)
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: AppTabBar(
+              currentIndex: _currentIndex,
+              onTabSelected: (index) {
+                setState(() => _currentIndex = index);
+              },
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildTabItem(int index, IconData icon, IconData activeIcon, String label) {
-    final isSelected = _currentIndex == index;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
-    return Expanded(
-      child: Semantics(
-        selected: isSelected,
-        button: true,
-        label: '$label tab',
-        child: GestureDetector(
-          onTap: () {
-            HapticFeedback.selectionClick();
-            setState(() => _currentIndex = index);
-          },
-          behavior: HitTestBehavior.opaque,
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(minHeight: 48, minWidth: 48),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    isSelected ? activeIcon : icon,
-                    size: 20,
-                    color: isSelected
-                        ? PoswalColors.teal
-                        : (isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight),
-                  ),
-                  const SizedBox(height: 2),
-                  FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      label,
-                      maxLines: 1,
-                      style: PoswalText.caption.copyWith(
-                        fontSize: 10,
-                        color: isSelected
-                            ? PoswalColors.teal
-                            : (isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight),
-                        fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }

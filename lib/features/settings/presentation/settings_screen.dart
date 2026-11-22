@@ -11,6 +11,7 @@ import 'package:poswal_orbit/data/services/notification_service.dart';
 import 'package:poswal_orbit/domain/models/data_safety_models.dart';
 import 'package:poswal_orbit/features/settings/application/settings_providers.dart';
 import 'package:poswal_orbit/features/settings/domain/settings_preferences.dart';
+import 'package:poswal_orbit/features/playground/presentation/design_playground_screen.dart';
 import 'package:poswal_orbit/features/settings/presentation/reminders_health_check_screen.dart';
 import 'package:poswal_orbit/l10n/app_localizations.dart';
 
@@ -30,6 +31,7 @@ class SettingsScreen extends ConsumerStatefulWidget {
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   bool _isBackingUp = false;
   bool _isRestoring = false;
+  int _versionTapCount = 0;
 
   void _showToast(String message, {bool isError = false}) {
     if (!mounted) return;
@@ -815,6 +817,41 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     label: Text(l10n?.settingsDeleteAll ?? 'Delete All Data', style: PoswalText.callout.copyWith(color: PoswalColors.danger, fontWeight: FontWeight.w600)),
                   ),
                 ],
+              ),
+            ),
+
+            const SizedBox(height: PoswalSpacing.lg),
+
+            // --- SECTION 8: ABOUT & PLAYGROUND ---
+            _buildSectionHeader(l10n?.settingsTitle ?? 'About', PhosphorIconsRegular.info, textPrimary),
+            const SizedBox(height: PoswalSpacing.xs),
+            AppGlassCard(
+              child: ListTile(
+                key: const ValueKey('settings_version_tile'),
+                contentPadding: EdgeInsets.zero,
+                leading: Container(
+                  padding: const EdgeInsets.all(PoswalSpacing.xs),
+                  decoration: BoxDecoration(
+                    color: PoswalColors.teal.withValues(alpha: 0.15),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(PhosphorIconsRegular.atom, color: PoswalColors.teal, size: 20),
+                ),
+                title: Text(l10n?.appTitle ?? 'Poswal Orbit', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
+                subtitle: Text((l10n != null ? 'v1.0.0 (Build 42) • Tap 7 times for Playground' : null) ?? 'v1.0.0', style: PoswalText.caption.copyWith(color: textMuted)),
+                trailing: const Icon(PhosphorIconsRegular.caretRight, size: 16, color: Colors.white54),
+                onTap: () {
+                  _versionTapCount++;
+                  if (_versionTapCount >= 7) {
+                    _versionTapCount = 0;
+                    _showToast('Design Playground Unlocked!');
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => const DesignPlaygroundScreen()),
+                    );
+                  } else if (_versionTapCount >= 3) {
+                    _showToast('${7 - _versionTapCount} more taps to open Playground');
+                  }
+                },
               ),
             ),
 
