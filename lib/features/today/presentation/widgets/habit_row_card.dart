@@ -128,7 +128,6 @@ class HabitRowCard extends ConsumerWidget {
                     item.habit.name,
                     style: PoswalText.headline.copyWith(
                       color: textPrimary,
-                      fontSize: 16,
                       fontWeight: FontWeight.w600,
                       decoration: isDone ? TextDecoration.none : null,
                     ),
@@ -185,8 +184,8 @@ class HabitRowCard extends ConsumerWidget {
                   height: 44,
                   alignment: Alignment.center,
                   child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 220),
-                    curve: Curves.easeOutCubic,
+                    duration: PoswalDurations.standard,
+                    curve: PoswalCurves.standard,
                     width: 32,
                     height: 32,
                     decoration: BoxDecoration(

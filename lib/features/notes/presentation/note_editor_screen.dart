@@ -433,7 +433,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
                       Padding(
                         padding: const EdgeInsetsDirectional.only(start: PoswalSpacing.xs),
                         child: AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 200),
+                          duration: PoswalDurations.micro,
                           child: _isSaving
                               ? Text(
                                   l10n?.notesSaving ?? 'Saving...',

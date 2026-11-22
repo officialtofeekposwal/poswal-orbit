@@ -268,6 +268,7 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                   child: AppSearchField(
                     key: const ValueKey('notes_search_field'),
                     controller: _searchController,
+                    initiallyExpanded: true,
                     hintText: l10n?.searchNotesPlaceholder ?? 'Filter notes by title or content...',
                     onChanged: (val) {
                       setState(() {

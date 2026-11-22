@@ -431,10 +431,9 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
             children: [
               Text(
                 '${score.score.toInt()}',
-                style: PoswalText.largeTitle.copyWith(
+                style: PoswalText.display.copyWith(
                   color: gradeColor,
                   fontWeight: FontWeight.w900,
-                  fontSize: 48,
                 ),
               ),
               const SizedBox(width: PoswalSpacing.xs),
@@ -717,7 +716,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
                         height: 14,
                         decoration: BoxDecoration(
                           color: cellColor,
-                          borderRadius: BorderRadius.circular(3),
+                          borderRadius: BorderRadius.circular(PoswalRadii.xxs),
                           border: isFuture
                               ? null
                               : Border.all(
@@ -736,17 +735,17 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text(l10n?.heatmapLess ?? 'Less', style: PoswalText.caption.copyWith(color: textMuted, fontSize: 10)),
+              Text(l10n?.heatmapLess ?? 'Less', style: PoswalText.micro.copyWith(color: textMuted)),
               const SizedBox(width: PoswalSpacing.xs),
-              Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.05), borderRadius: BorderRadius.circular(2))),
+              Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.05), borderRadius: BorderRadius.circular(PoswalRadii.xxs))),
               const SizedBox(width: 2),
-              Container(width: 8, height: 8, decoration: BoxDecoration(color: PoswalColors.teal.withValues(alpha: 0.35), borderRadius: BorderRadius.circular(2))),
+              Container(width: 8, height: 8, decoration: BoxDecoration(color: PoswalColors.teal.withValues(alpha: 0.35), borderRadius: BorderRadius.circular(PoswalRadii.xxs))),
               const SizedBox(width: 2),
-              Container(width: 8, height: 8, decoration: BoxDecoration(color: PoswalColors.teal.withValues(alpha: 0.65), borderRadius: BorderRadius.circular(2))),
+              Container(width: 8, height: 8, decoration: BoxDecoration(color: PoswalColors.teal.withValues(alpha: 0.65), borderRadius: BorderRadius.circular(PoswalRadii.xxs))),
               const SizedBox(width: 2),
-              Container(width: 8, height: 8, decoration: BoxDecoration(color: PoswalColors.teal, borderRadius: BorderRadius.circular(2))),
+              Container(width: 8, height: 8, decoration: BoxDecoration(color: PoswalColors.teal, borderRadius: BorderRadius.circular(PoswalRadii.xxs))),
               const SizedBox(width: PoswalSpacing.xs),
-              Text(l10n?.heatmapMore ?? 'More', style: PoswalText.caption.copyWith(color: textMuted, fontSize: 10)),
+              Text(l10n?.heatmapMore ?? 'More', style: PoswalText.micro.copyWith(color: textMuted)),
             ],
           ),
         ],

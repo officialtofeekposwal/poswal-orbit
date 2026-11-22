@@ -75,8 +75,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
                 children: [
                   Text(
                     l10n?.tasksTitle ?? 'Tasks',
-                    style: PoswalText.largeTitle.copyWith(
-                      fontSize: 26,
+                    style: PoswalText.title2.copyWith(
                       color: textPrimary,
                       fontWeight: FontWeight.w700,
                     ),
@@ -122,6 +121,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
                 ),
                 child: AppSearchField(
                   controller: _searchController,
+                  initiallyExpanded: true,
                   hintText: l10n?.searchTasksPlaceholder ?? 'Search tasks...',
                   onChanged: (val) {
                     ref.read(taskSearchQueryProvider.notifier).setQuery(val);

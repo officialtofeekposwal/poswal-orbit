@@ -32,8 +32,8 @@ class WeekStrip extends ConsumerWidget {
                 ref.read(selectedDateProvider.notifier).selectDate(day);
               },
               child: AnimatedContainer(
-                duration: const Duration(milliseconds: 220),
-                curve: Curves.easeOutCubic,
+                duration: PoswalDurations.standard,
+                curve: PoswalCurves.standard,
                 margin: const EdgeInsets.symmetric(horizontal: 3),
                 padding: const EdgeInsets.symmetric(vertical: PoswalSpacing.xs),
                 decoration: BoxDecoration(
@@ -59,43 +59,44 @@ class WeekStrip extends ConsumerWidget {
                         ]
                       : null,
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      weekdayNames[day.weekday - 1],
-                      style: PoswalText.caption.copyWith(
-                        color: isSelected
-                            ? PoswalColors.teal
-                            : (isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight),
-                        fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                        fontSize: 12,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        weekdayNames[day.weekday - 1],
+                        style: PoswalText.caption.copyWith(
+                          color: isSelected
+                              ? PoswalColors.teal
+                              : (isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight),
+                          fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      '${day.day}',
-                      style: PoswalText.headline.copyWith(
-                        color: isSelected
-                            ? (isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight)
-                            : (isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight),
-                        fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                        fontSize: 16,
+                      const SizedBox(height: 4),
+                      Text(
+                        '${day.day}',
+                        style: PoswalText.headline.copyWith(
+                          color: isSelected
+                              ? (isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight)
+                              : (isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight),
+                          fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 4),
-                    // Today Dot Indicator
-                    Container(
-                      width: 4,
-                      height: 4,
-                      decoration: BoxDecoration(
-                        color: isToday
-                            ? (isSelected ? PoswalColors.teal : PoswalColors.gold)
-                            : Colors.transparent,
-                        shape: BoxShape.circle,
+                      const SizedBox(height: 4),
+                      // Today Dot Indicator
+                      Container(
+                        width: 4,
+                        height: 4,
+                        decoration: BoxDecoration(
+                          color: isToday
+                              ? (isSelected ? PoswalColors.teal : PoswalColors.gold)
+                              : Colors.transparent,
+                          shape: BoxShape.circle,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

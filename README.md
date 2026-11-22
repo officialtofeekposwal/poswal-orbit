@@ -12,7 +12,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-00B4D8.svg" alt="License: MIT"></a>
   <a href="https://flutter.dev"><img src="https://img.shields.io/badge/Flutter-3.50.1-02569B.svg?logo=flutter" alt="Flutter"></a>
   <a href="https://dart.dev"><img src="https://img.shields.io/badge/Dart-3.14-0175C2.svg?logo=dart" alt="Dart"></a>
-  <a href="https://github.com/officialtofeekposwal/poswal-orbit/actions/workflows/release.yml"><img src="https://img.shields.io/badge/tests-184%20passed-22C55E.svg?logo=checkmarx" alt="184 Tests Passed"></a>
+  <a href="https://github.com/officialtofeekposwal/poswal-orbit/actions/workflows/release.yml"><img src="https://img.shields.io/badge/tests-214%20passed-22C55E.svg?logo=checkmarx" alt="214 Tests Passed"></a>
   <a href="https://github.com/officialtofeekposwal/poswal-orbit/actions"><img src="https://img.shields.io/badge/flutter%20analyze-0%20issues-22C55E.svg" alt="Flutter Analyze Clean"></a>
   <img src="https://img.shields.io/badge/offline-100%25%20No%20Internet-7C3AED.svg" alt="100% Offline">
   <img src="https://img.shields.io/badge/telemetry-zero-0F172A.svg" alt="Zero Telemetry">
@@ -89,24 +89,24 @@ Unlike cloud trackers that demand account registrations, harvest personal data, 
 ### Today Hub & Habit Analytics
 | Today Hub (Dark) | Habit Detail (Dark) | Habit Check-In Sheet | Habits Management |
 | :---: | :---: | :---: | :---: |
-| <img src="docs/screenshots/today-dark.png" width="220" alt="Today Hub Dark" /> | <img src="docs/screenshots/habit-detail-dark.png" width="220" alt="Habit Detail Dark" /> | <img src="docs/screenshots/habit-checkin-sheet.png" width="220" alt="Check-In Sheet" /> | <img src="docs/screenshots/habits-list.png" width="220" alt="Habits List" /> |
+| <img src="docs/screenshots/redesign/today-hig-dark.png" width="220" alt="Today Hub Dark" /> | <img src="docs/screenshots/redesign/habit-detail-hig-dark.png" width="220" alt="Habit Detail Dark" /> | <img src="docs/screenshots/redesign/habit-checkin-sheet-hig-dark.png" width="220" alt="Check-In Sheet" /> | <img src="docs/screenshots/redesign/habits-hig-dark.png" width="220" alt="Habits List" /> |
 
 ### Tasks Management & Natural Language Input
 | Tasks List & Filters | Natural Language Quick-Add | Task Detail & Subtasks | Today Hub (Light) |
 | :---: | :---: | :---: | :---: |
-| <img src="docs/screenshots/tasks-list.png" width="220" alt="Tasks List" /> | <img src="docs/screenshots/task-quick-add.png" width="220" alt="Quick-Add Sheet" /> | <img src="docs/screenshots/task-detail-sheet.png" width="220" alt="Task Detail" /> | <img src="docs/screenshots/today-light.png" width="220" alt="Today Hub Light" /> |
+| <img src="docs/screenshots/redesign/tasks-hig-dark.png" width="220" alt="Tasks List" /> | <img src="docs/screenshots/redesign/task-quick-add-sheet-hig-dark.png" width="220" alt="Quick-Add Sheet" /> | <img src="docs/screenshots/redesign/task-detail-sheet-hig-dark.png" width="220" alt="Task Detail" /> | <img src="docs/screenshots/redesign/today-hig-light.png" width="220" alt="Today Hub Light" /> |
 
 ### Notes Workspace & Unified Search
-| Notes Grid & Color Tags | Full-Screen Markdown Editor | Unified Multi-Entity Search | Create Habit Flow |
+| Notes Grid & Color Tags | Full-Screen Markdown Editor | Settings & HIG Action Sheets | Create Habit Flow |
 | :---: | :---: | :---: | :---: |
-| <img src="docs/screenshots/notes-grid.png" width="220" alt="Notes Grid" /> | <img src="docs/screenshots/note-editor.png" width="220" alt="Markdown Editor" /> | <img src="docs/screenshots/global-search.png" width="220" alt="Global Search" /> | <img src="docs/screenshots/habit-create-sheet.png" width="220" alt="Create Habit" /> |
+| <img src="docs/screenshots/redesign/notes-hig-dark.png" width="220" alt="Notes Grid" /> | <img src="docs/screenshots/redesign/note-editor-hig-dark.png" width="220" alt="Markdown Editor" /> | <img src="docs/screenshots/redesign/settings-hig-dark.png" width="220" alt="Settings & Sheets" /> | <img src="docs/screenshots/redesign/habit-form-sheet-hig-dark.png" width="220" alt="Create Habit" /> |
 
 <details>
 <summary><strong>View Theme System (Dark, Light, OLED Black)</strong></summary>
 
 | Dark Theme (`#070B14`) | Light Theme (`#F4F6FB`) | True OLED Black (`#000000`) |
 | :---: | :---: | :---: |
-| <img src="docs/screenshots/playground-dark.png" width="240" alt="Dark Theme" /> | <img src="docs/screenshots/playground-light.png" width="240" alt="Light Theme" /> | <img src="docs/screenshots/playground-oled.png" width="240" alt="OLED Black" /> |
+| <img src="docs/screenshots/redesign/playground-hig-dark.png" width="240" alt="Dark Theme" /> | <img src="docs/screenshots/redesign/playground-hig-light.png" width="240" alt="Light Theme" /> | <img src="docs/screenshots/redesign/playground-hig-oled.png" width="240" alt="OLED Black" /> |
 
 </details>
 

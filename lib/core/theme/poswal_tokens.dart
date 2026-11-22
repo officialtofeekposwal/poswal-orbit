@@ -75,6 +75,7 @@ abstract final class PoswalGradients {
 
 /// HIG Concentric Radius Scale & Geometry Calculations
 abstract final class PoswalRadii {
+  static const xxs = 3.0;
   static const xs = 6.0;
   static const sm = 10.0;
   static const md = 14.0;
@@ -255,6 +256,14 @@ abstract final class PoswalText {
     return style;
   }
 
+  static const display = TextStyle(
+    fontFamily: heading,
+    fontSize: 48,
+    fontWeight: FontWeight.w800,
+    height: 1.1,
+    letterSpacing: -1.0,
+  );
+
   static const largeTitle = TextStyle(
     fontFamily: heading,
     fontSize: 34,
@@ -269,6 +278,14 @@ abstract final class PoswalText {
     fontWeight: FontWeight.w700,
     height: 1.2,
     letterSpacing: -0.53, // -0.019em optical tracking
+  );
+
+  static const title2 = TextStyle(
+    fontFamily: heading,
+    fontSize: 26,
+    fontWeight: FontWeight.w700,
+    height: 1.2,
+    letterSpacing: -0.40,
   );
 
   static const title = TextStyle(
@@ -341,5 +358,13 @@ abstract final class PoswalText {
     fontWeight: FontWeight.w400,
     height: 1.2,
     letterSpacing: 0.16, // +0.015em optical tracking
+  );
+
+  static const micro = TextStyle(
+    fontFamily: body,
+    fontSize: 10,
+    fontWeight: FontWeight.w400,
+    height: 1.2,
+    letterSpacing: 0.20, // +0.020em optical tracking
   );
 }

@@ -35,8 +35,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   void _nextPage() {
     if (_currentPage < 2) {
       _pageController.nextPage(
-        duration: const Duration(milliseconds: 350),
-        curve: Curves.easeOutCubic,
+        duration: PoswalDurations.sheet,
+        curve: PoswalCurves.standard,
       );
     } else {
       _finishOnboarding();
@@ -158,7 +158,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       children: List.generate(3, (index) {
                         final isActive = index == _currentPage;
                         return AnimatedContainer(
-                          duration: const Duration(milliseconds: 250),
+                          duration: PoswalDurations.standard,
                           margin: const EdgeInsets.symmetric(horizontal: 4),
                           width: isActive ? 24 : 8,
                           height: 8,

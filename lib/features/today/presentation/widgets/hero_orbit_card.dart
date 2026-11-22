@@ -60,14 +60,17 @@ class HeroOrbitCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Today in Orbit',
-                style: PoswalText.headline.copyWith(
-                  color: textPrimary,
-                  fontWeight: FontWeight.w600,
+              Expanded(
+                child: Text(
+                  'Today in Orbit',
+                  style: PoswalText.headline.copyWith(
+                    color: textPrimary,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
-              if (totalDue > 0)
+              if (totalDue > 0) ...[
+                const SizedBox(width: PoswalSpacing.xs),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
@@ -82,6 +85,7 @@ class HeroOrbitCard extends StatelessWidget {
                     ),
                   ),
                 ),
+              ],
             ],
           ),
           const SizedBox(height: PoswalSpacing.lg),
@@ -89,26 +93,32 @@ class HeroOrbitCard extends StatelessWidget {
             progress: completionRate,
             size: 180,
             strokeWidth: 14,
-            centerChild: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  totalDue == 0 ? '0 of 0' : '$totalDone of $totalDue',
-                  style: PoswalText.largeTitle.copyWith(
-                    color: textPrimary,
-                    fontSize: 26,
-                    fontWeight: FontWeight.w700,
-                  ),
+            centerChild: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      totalDue == 0 ? '0 of 0' : '$totalDone of $totalDue',
+                      style: PoswalText.largeTitle.copyWith(
+                        color: textPrimary,
+                        fontSize: 26,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      completionRate >= 1.0 && totalDue > 0 ? 'All done!' : 'In orbit',
+                      style: PoswalText.caption.copyWith(
+                        color: completionRate >= 1.0 && totalDue > 0 ? PoswalColors.teal : textMuted,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 2),
-                Text(
-                  completionRate >= 1.0 && totalDue > 0 ? 'All done!' : 'In orbit',
-                  style: PoswalText.caption.copyWith(
-                    color: completionRate >= 1.0 && totalDue > 0 ? PoswalColors.teal : textMuted,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
           const SizedBox(height: PoswalSpacing.md),

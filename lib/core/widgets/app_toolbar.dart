@@ -145,11 +145,11 @@ class _AppToolbarAddButtonState extends ConsumerState<AppToolbarAddButton>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 140),
-      reverseDuration: const Duration(milliseconds: 200),
+      duration: PoswalDurations.micro,
+      reverseDuration: PoswalDurations.micro,
     );
     _scaleAnimation = Tween<double>(begin: 1.0, end: 0.90).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+      CurvedAnimation(parent: _controller, curve: PoswalCurves.standard),
     );
   }
 

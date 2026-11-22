@@ -105,35 +105,77 @@ class PoswalTheme {
       ),
       fontFamily: bodyFont,
       textTheme: TextTheme(
-        displayLarge: PoswalText.largeTitle.copyWith(
-          color: textPrimary,
-          fontFamily: headingFont,
-          height: (PoswalText.largeTitle.height ?? 1.15) * urduHeightMultiplier,
+        displayLarge: PoswalText.localized(
+          PoswalText.largeTitle.copyWith(
+            color: textPrimary,
+            fontFamily: headingFont,
+            height: (PoswalText.largeTitle.height ?? 1.15) * urduHeightMultiplier,
+          ),
+          languageCode: languageCode,
         ),
-        displayMedium: PoswalText.title.copyWith(
-          color: textPrimary,
-          fontFamily: headingFont,
-          height: (PoswalText.title.height ?? 1.2) * urduHeightMultiplier,
+        displayMedium: PoswalText.localized(
+          PoswalText.title1.copyWith(
+            color: textPrimary,
+            fontFamily: headingFont,
+            height: (PoswalText.title1.height ?? 1.2) * urduHeightMultiplier,
+          ),
+          languageCode: languageCode,
         ),
-        titleLarge: PoswalText.headline.copyWith(
-          color: textPrimary,
-          fontFamily: headingFont,
-          height: (PoswalText.headline.height ?? 1.3) * urduHeightMultiplier,
+        displaySmall: PoswalText.localized(
+          PoswalText.title.copyWith(
+            color: textPrimary,
+            fontFamily: headingFont,
+            height: (PoswalText.title.height ?? 1.2) * urduHeightMultiplier,
+          ),
+          languageCode: languageCode,
         ),
-        bodyLarge: PoswalText.bodyText.copyWith(
-          color: textPrimary,
-          fontFamily: bodyFont,
-          height: (PoswalText.bodyText.height ?? 1.4) * urduHeightMultiplier,
+        titleLarge: PoswalText.localized(
+          PoswalText.headline.copyWith(
+            color: textPrimary,
+            fontFamily: headingFont,
+            height: (PoswalText.headline.height ?? 1.3) * urduHeightMultiplier,
+          ),
+          languageCode: languageCode,
         ),
-        bodyMedium: PoswalText.callout.copyWith(
-          color: textPrimary,
-          fontFamily: bodyFont,
-          height: (PoswalText.callout.height ?? 1.4) * urduHeightMultiplier,
+        titleMedium: PoswalText.localized(
+          PoswalText.title3.copyWith(
+            color: textPrimary,
+            fontFamily: headingFont,
+            height: (PoswalText.title3.height ?? 1.25) * urduHeightMultiplier,
+          ),
+          languageCode: languageCode,
         ),
-        bodySmall: PoswalText.caption.copyWith(
-          color: textMuted,
-          fontFamily: bodyFont,
-          height: (PoswalText.caption.height ?? 1.3) * urduHeightMultiplier,
+        bodyLarge: PoswalText.localized(
+          PoswalText.bodyText.copyWith(
+            color: textPrimary,
+            fontFamily: bodyFont,
+            height: (PoswalText.bodyText.height ?? 1.4) * urduHeightMultiplier,
+          ),
+          languageCode: languageCode,
+        ),
+        bodyMedium: PoswalText.localized(
+          PoswalText.callout.copyWith(
+            color: textPrimary,
+            fontFamily: bodyFont,
+            height: (PoswalText.callout.height ?? 1.4) * urduHeightMultiplier,
+          ),
+          languageCode: languageCode,
+        ),
+        bodySmall: PoswalText.localized(
+          PoswalText.caption.copyWith(
+            color: textMuted,
+            fontFamily: bodyFont,
+            height: (PoswalText.caption.height ?? 1.3) * urduHeightMultiplier,
+          ),
+          languageCode: languageCode,
+        ),
+        labelSmall: PoswalText.localized(
+          PoswalText.caption2.copyWith(
+            color: textMuted,
+            fontFamily: bodyFont,
+            height: (PoswalText.caption2.height ?? 1.2) * urduHeightMultiplier,
+          ),
+          languageCode: languageCode,
         ),
       ),
       appBarTheme: AppBarTheme(

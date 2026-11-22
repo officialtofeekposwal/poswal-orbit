@@ -100,8 +100,8 @@ class AppTabBar extends ConsumerWidget {
     final barHeight = isMinimized ? 48.0 : PoswalRowHeights.tabBar;
 
     Widget barContent = AnimatedContainer(
-      duration: reduceMotion ? Duration.zero : const Duration(milliseconds: 280),
-      curve: Curves.easeOutCubic,
+      duration: reduceMotion ? Duration.zero : PoswalDurations.standard,
+      curve: PoswalCurves.standard,
       height: barHeight,
       padding: barPadding,
       decoration: BoxDecoration(
@@ -226,7 +226,7 @@ class _TabItemButton extends StatelessWidget {
         behavior: HitTestBehavior.opaque,
         onTap: onTap,
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
+          duration: PoswalDurations.micro,
           padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md, vertical: 2),
           decoration: BoxDecoration(
             color: isSelected

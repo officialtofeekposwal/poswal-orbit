@@ -6,6 +6,7 @@ import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/core/widgets/app_list_section.dart';
+import 'package:poswal_orbit/core/widgets/app_sheet.dart';
 import 'package:poswal_orbit/core/widgets/aurora_background.dart';
 import 'package:poswal_orbit/data/services/data_safety_service.dart';
 import 'package:poswal_orbit/data/services/notification_service.dart';
@@ -65,30 +66,42 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   }
 
   Future<void> _handleRestoreBackup(BackupFileInfo backup) async {
-    final confirmed = await showDialog<bool>(
+    final confirmed = await AppSheet.show<bool>(
       context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: PoswalColors.surfaceDark,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.card)),
-        title: Text(
-          'Restore from Backup?',
-          style: PoswalText.title.copyWith(color: Colors.white),
-        ),
-        content: Text(
-          'This will replace your current data with backup from ${backup.formattedDate}.\n\nA safety snapshot of your current database will be taken immediately before restoring so nothing is lost.',
-          style: PoswalText.bodyText.copyWith(color: PoswalColors.textMutedDark),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: Text('Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
+      builder: (ctx) => AppSheet(
+        title: 'Restore from Backup?',
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.lg, vertical: PoswalSpacing.md),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                'This will replace your current data with backup from ${backup.formattedDate}.\n\nA safety snapshot of your current database will be taken immediately before restoring so nothing is lost.',
+                style: PoswalText.bodyText.copyWith(color: PoswalColors.textMutedDark),
+              ),
+              const SizedBox(height: PoswalSpacing.lg),
+              FilledButton(
+                style: FilledButton.styleFrom(
+                  backgroundColor: PoswalColors.teal,
+                  minimumSize: const Size.fromHeight(48),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.capsule)),
+                ),
+                onPressed: () => Navigator.of(ctx).pop(true),
+                child: Text('Restore Safely', style: PoswalText.callout.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+              ),
+              const SizedBox(height: PoswalSpacing.sm),
+              TextButton(
+                style: TextButton.styleFrom(
+                  minimumSize: const Size.fromHeight(48),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.capsule)),
+                ),
+                onPressed: () => Navigator.of(ctx).pop(false),
+                child: Text('Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
+              ),
+            ],
           ),
-          FilledButton(
-            style: FilledButton.styleFrom(backgroundColor: PoswalColors.teal),
-            onPressed: () => Navigator.of(ctx).pop(true),
-            child: Text('Restore Safely', style: PoswalText.callout.copyWith(color: Colors.white)),
-          ),
-        ],
+        ),
       ),
     );
 
@@ -109,59 +122,84 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
   Future<void> _handleDeleteAllData() async {
     final l10n = AppLocalizations.of(context);
-    final firstConfirm = await showDialog<bool>(
+    final firstConfirm = await AppSheet.show<bool>(
       context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: PoswalColors.surfaceDark,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.card)),
-        title: Text(
-          l10n?.deleteAllDataDialogTitle ?? 'Delete All Data?',
-          style: PoswalText.title.copyWith(color: PoswalColors.danger),
-        ),
-        content: Text(
-          l10n?.deleteAllDataDialogContent ?? 'This will wipe all habits, entries, tasks, and notes.\n\nA safety backup snapshot will be created automatically before wiping so you can recover if needed.',
-          style: PoswalText.bodyText.copyWith(color: PoswalColors.textMutedDark),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: Text(l10n?.cancel ?? 'Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
+      builder: (ctx) => AppSheet(
+        title: l10n?.deleteAllDataDialogTitle ?? 'Delete All Data?',
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.lg, vertical: PoswalSpacing.md),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                l10n?.deleteAllDataDialogContent ??
+                    'This will wipe all habits, entries, tasks, and notes.\n\nA safety backup snapshot will be created automatically before wiping so you can recover if needed.',
+                style: PoswalText.bodyText.copyWith(color: PoswalColors.textMutedDark),
+              ),
+              const SizedBox(height: PoswalSpacing.lg),
+              FilledButton(
+                style: FilledButton.styleFrom(
+                  backgroundColor: PoswalColors.danger,
+                  minimumSize: const Size.fromHeight(48),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.capsule)),
+                ),
+                onPressed: () => Navigator.of(ctx).pop(true),
+                child: Text(l10n?.proceed ?? 'Proceed', style: PoswalText.callout.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+              ),
+              const SizedBox(height: PoswalSpacing.sm),
+              TextButton(
+                style: TextButton.styleFrom(
+                  minimumSize: const Size.fromHeight(48),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.capsule)),
+                ),
+                onPressed: () => Navigator.of(ctx).pop(false),
+                child: Text(l10n?.cancel ?? 'Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
+              ),
+            ],
           ),
-          FilledButton(
-            style: FilledButton.styleFrom(backgroundColor: PoswalColors.danger),
-            onPressed: () => Navigator.of(ctx).pop(true),
-            child: Text(l10n?.proceed ?? 'Proceed', style: PoswalText.callout.copyWith(color: Colors.white)),
-          ),
-        ],
+        ),
       ),
     );
 
     if (firstConfirm != true || !mounted) return;
 
-    final secondConfirm = await showDialog<bool>(
+    final secondConfirm = await AppSheet.show<bool>(
       context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: PoswalColors.surfaceDark,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.card)),
-        title: Text(
-          l10n?.finalConfirmationTitle ?? 'Final Confirmation',
-          style: PoswalText.title.copyWith(color: PoswalColors.danger),
-        ),
-        content: Text(
-          l10n?.finalConfirmationContent ?? 'Are you completely sure? This action will reset your active workspace.',
-          style: PoswalText.bodyText.copyWith(color: PoswalColors.textMutedDark),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: Text(l10n?.keepMyData ?? 'Keep My Data', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
+      builder: (ctx) => AppSheet(
+        title: l10n?.finalConfirmationTitle ?? 'Final Confirmation',
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.lg, vertical: PoswalSpacing.md),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                l10n?.finalConfirmationContent ?? 'Are you completely sure? This action will reset your active workspace.',
+                style: PoswalText.bodyText.copyWith(color: PoswalColors.textMutedDark),
+              ),
+              const SizedBox(height: PoswalSpacing.lg),
+              FilledButton(
+                style: FilledButton.styleFrom(
+                  backgroundColor: PoswalColors.danger,
+                  minimumSize: const Size.fromHeight(48),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.capsule)),
+                ),
+                onPressed: () => Navigator.of(ctx).pop(true),
+                child: Text(l10n?.wipeEverything ?? 'Wipe Everything', style: PoswalText.callout.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+              ),
+              const SizedBox(height: PoswalSpacing.sm),
+              TextButton(
+                style: TextButton.styleFrom(
+                  minimumSize: const Size.fromHeight(48),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.capsule)),
+                ),
+                onPressed: () => Navigator.of(ctx).pop(false),
+                child: Text(l10n?.keepMyData ?? 'Keep My Data', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
+              ),
+            ],
           ),
-          FilledButton(
-            style: FilledButton.styleFrom(backgroundColor: PoswalColors.danger),
-            onPressed: () => Navigator.of(ctx).pop(true),
-            child: Text(l10n?.wipeEverything ?? 'Wipe Everything', style: PoswalText.callout.copyWith(color: Colors.white)),
-          ),
-        ],
+        ),
       ),
     );
 
@@ -180,16 +218,15 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   void _showImportDialog() {
     final l10n = AppLocalizations.of(context);
     final textController = TextEditingController();
-    showDialog(
+    AppSheet.show(
       context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: PoswalColors.surfaceDark,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.card)),
-        title: Text(l10n?.importDialogTitle ?? 'Import Data / Loop CSV', style: PoswalText.title.copyWith(color: Colors.white)),
-        content: SingleChildScrollView(
+      builder: (ctx) => AppSheet(
+        title: l10n?.importDialogTitle ?? 'Import Data / Loop CSV',
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.lg, vertical: PoswalSpacing.md),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
                 l10n?.importDialogContent ?? 'Paste JSON backup content or Loop Habit Tracker CSV data below:',
@@ -211,25 +248,33 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   ),
                 ),
               ),
+              const SizedBox(height: PoswalSpacing.lg),
+              FilledButton(
+                style: FilledButton.styleFrom(
+                  backgroundColor: PoswalColors.teal,
+                  minimumSize: const Size.fromHeight(48),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.capsule)),
+                ),
+                onPressed: () async {
+                  final content = textController.text.trim();
+                  if (content.isEmpty) return;
+                  Navigator.of(ctx).pop();
+                  await _processImportContent(content);
+                },
+                child: Text(l10n?.inspectAndImport ?? 'Inspect & Import', style: PoswalText.callout.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+              ),
+              const SizedBox(height: PoswalSpacing.sm),
+              TextButton(
+                style: TextButton.styleFrom(
+                  minimumSize: const Size.fromHeight(48),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.capsule)),
+                ),
+                onPressed: () => Navigator.of(ctx).pop(),
+                child: Text(l10n?.cancel ?? 'Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
+              ),
             ],
           ),
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            child: Text(l10n?.cancel ?? 'Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
-          ),
-          FilledButton(
-            style: FilledButton.styleFrom(backgroundColor: PoswalColors.teal),
-            onPressed: () async {
-              final content = textController.text.trim();
-              if (content.isEmpty) return;
-              Navigator.of(ctx).pop();
-              await _processImportContent(content);
-            },
-            child: Text(l10n?.inspectAndImport ?? 'Inspect & Import', style: PoswalText.callout.copyWith(color: Colors.white)),
-          ),
-        ],
       ),
     );
   }
@@ -246,38 +291,47 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
     if (!mounted) return;
 
-    // Show preview dialog before applying
-    final proceed = await showDialog<bool>(
+    // Show preview action sheet before applying
+    final proceed = await AppSheet.show<bool>(
       context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: PoswalColors.surfaceDark,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.card)),
-        title: Text(l10n?.importPreview ?? 'Import Preview', style: PoswalText.title.copyWith(color: Colors.white)),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(l10n?.importFormat(preview.format.label) ?? 'Format: ${preview.format.label}', style: PoswalText.headline.copyWith(color: PoswalColors.teal)),
-            const SizedBox(height: PoswalSpacing.xs),
-            Text(preview.summary, style: PoswalText.bodyText.copyWith(color: Colors.white)),
-            const SizedBox(height: PoswalSpacing.md),
-            Text(
-              l10n?.importSafetyNote ?? 'A safety backup will be created automatically before importing to protect your current database.',
-              style: PoswalText.caption.copyWith(color: PoswalColors.textMutedDark),
-            ),
-          ],
+      builder: (ctx) => AppSheet(
+        title: l10n?.importPreview ?? 'Import Preview',
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.lg, vertical: PoswalSpacing.md),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(l10n?.importFormat(preview.format.label) ?? 'Format: ${preview.format.label}', style: PoswalText.headline.copyWith(color: PoswalColors.teal)),
+              const SizedBox(height: PoswalSpacing.xs),
+              Text(preview.summary, style: PoswalText.bodyText.copyWith(color: Colors.white)),
+              const SizedBox(height: PoswalSpacing.md),
+              Text(
+                l10n?.importSafetyNote ?? 'A safety backup will be created automatically before importing to protect your current database.',
+                style: PoswalText.caption.copyWith(color: PoswalColors.textMutedDark),
+              ),
+              const SizedBox(height: PoswalSpacing.lg),
+              FilledButton(
+                style: FilledButton.styleFrom(
+                  backgroundColor: PoswalColors.teal,
+                  minimumSize: const Size.fromHeight(48),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.capsule)),
+                ),
+                onPressed: () => Navigator.of(ctx).pop(true),
+                child: Text(l10n?.applyImport ?? 'Apply Import', style: PoswalText.callout.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+              ),
+              const SizedBox(height: PoswalSpacing.sm),
+              TextButton(
+                style: TextButton.styleFrom(
+                  minimumSize: const Size.fromHeight(48),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.capsule)),
+                ),
+                onPressed: () => Navigator.of(ctx).pop(false),
+                child: Text(l10n?.cancel ?? 'Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
+              ),
+            ],
+          ),
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: Text(l10n?.cancel ?? 'Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
-          ),
-          FilledButton(
-            style: FilledButton.styleFrom(backgroundColor: PoswalColors.teal),
-            onPressed: () => Navigator.of(ctx).pop(true),
-            child: Text(l10n?.applyImport ?? 'Apply Import', style: PoswalText.callout.copyWith(color: Colors.white)),
-          ),
-        ],
       ),
     );
 
@@ -297,17 +351,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
   void _showExportOptions() {
     final l10n = AppLocalizations.of(context);
-    showModalBottomSheet(
+    AppSheet.show(
       context: context,
-      backgroundColor: Colors.transparent,
-      builder: (ctx) => AppGlassCard(
-        margin: const EdgeInsets.all(PoswalSpacing.lg),
+      builder: (ctx) => AppSheet(
+        title: l10n?.settingsExport ?? 'Export Data',
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(l10n?.settingsExport ?? 'Export Data', style: PoswalText.headline.copyWith(color: Colors.white)),
-            const SizedBox(height: PoswalSpacing.sm),
             ListTile(
               leading: const Icon(PhosphorIconsRegular.fileCode, color: PoswalColors.teal),
               title: Text(l10n?.backupFullJson ?? 'Full Database Snapshot (JSON)', style: PoswalText.callout.copyWith(color: Colors.white)),
@@ -425,7 +476,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                           return GestureDetector(
                             onTap: () => settingsNotifier.updateAccent(accent),
                             child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 150),
+                              duration: PoswalDurations.micro,
                               width: 38,
                               height: 38,
                               decoration: BoxDecoration(
@@ -846,7 +897,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
             // --- SECTION 8: ABOUT & PLAYGROUND ---
             AppListSection(
-              title: l10n?.settingsTitle ?? 'About',
+              title: 'About',
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md),

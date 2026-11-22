@@ -256,7 +256,7 @@ class AppGlassChip extends ConsumerWidget {
         onTap?.call();
       },
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
+        duration: PoswalDurations.micro,
         padding: const EdgeInsets.symmetric(
           horizontal: PoswalSpacing.md,
           vertical: PoswalSpacing.sm,
@@ -333,8 +333,8 @@ class AppGlassSegmentedControl<T> extends ConsumerWidget {
                 onValueChanged(values[index]);
               },
               child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                curve: Curves.easeOutCubic,
+                duration: PoswalDurations.micro,
+                curve: PoswalCurves.standard,
                 alignment: Alignment.center,
                 padding: const EdgeInsets.symmetric(
                   vertical: PoswalSpacing.sm,

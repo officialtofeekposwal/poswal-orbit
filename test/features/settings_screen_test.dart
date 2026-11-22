@@ -75,7 +75,14 @@ void main() {
 
     await tester.runAsync(() async {
       await tester.tap(backupBtn);
-      await Future.delayed(const Duration(milliseconds: 800));
+      for (int i = 0; i < 40; i++) {
+        final files = tempBackupDir.listSync().whereType<File>().where((f) => !f.path.endsWith('.tmp')).toList();
+        if (files.isNotEmpty) {
+          await Future.delayed(const Duration(milliseconds: 100));
+          break;
+        }
+        await Future.delayed(const Duration(milliseconds: 100));
+      }
     });
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 500));
