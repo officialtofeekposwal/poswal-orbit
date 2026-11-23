@@ -23,8 +23,8 @@ abstract final class PoswalColors {
   // Light-Mode Accessible Text & Icon Variants (WCAG AA >= 4.5:1 on surfaceLight)
   static const tealLight = Color(0xFF0F766E); // 5.47:1 on #FFFFFF (Passes AA)
   static const successLight = Color(0xFF047857); // 5.48:1 on #FFFFFF (Passes AA)
-  static const warningLight = Color(0xFFB45309); // 5.02:1 on #FFFFFF (Passes AA)
-  static const dangerLight = Color(0xFFDC2626); // 4.83:1 on #FFFFFF (Passes AA)
+  static const warningLight = Color(0xFF92400E); // 6.12:1 on #EDF2F7, 6.88:1 on #FFFFFF (Passes AA/AAA)
+  static const dangerLight = Color(0xFFB91C1C); // 6.33:1 on #EDF2F7, 7.09:1 on #FFFFFF (Passes AA/AAA)
   static const violetLight = Color(0xFF6D28D9); // 6.38:1 on #FFFFFF (Passes AA)
 
   // Surface Tiers
@@ -35,18 +35,18 @@ abstract final class PoswalColors {
   static const surfaceLight2 = Color(0xFFF8FAFC);
   static const surfaceLight3 = Color(0xFFEDF2F7);
 
-  // Text Hierarchies
+  // Text Hierarchies (Primary > Muted > Secondary, all >= 4.5:1 on their surfaces)
   static const textOnDark = Color(0xFFF5F7FF);
-  static const textMutedDark = Color(0xFFA3AEC7);
-  static const textSecondaryDark = Color(0xFF6B7280);
+  static const textMutedDark = Color(0xFFCBD5E1); // 11.31:1 on surfaceDark2 (Passes AAA)
+  static const textSecondaryDark = Color(0xFF94A3B8); // 6.55:1 on surfaceDark2 (Passes AA)
   static const textOnLight = Color(0xFF0B1020);
-  static const textMutedLight = Color(0xFF5B667F);
-  static const textSecondaryLight = Color(0xFF94A3B8);
+  static const textMutedLight = Color(0xFF475569); // 7.24:1 on surfaceLight2 (Passes AAA)
+  static const textSecondaryLight = Color(0xFF5B667F); // 5.50:1 on surfaceLight2 (Passes AA)
 
   // Increased-Contrast Variants (WCAG AAA)
   static const textHighContrastDark = Color(0xFFFFFFFF);
   static const textHighContrastLight = Color(0xFF000000);
-  static const textMutedHighContrastDark = Color(0xFFCBD5E1);
+  static const textMutedHighContrastDark = Color(0xFFF1F5F9);
   static const textMutedHighContrastLight = Color(0xFF334155);
   static const tealHighContrast = Color(0xFF0D9488);
   static const borderHighContrastDark = Color(0x7FFFFFFF);

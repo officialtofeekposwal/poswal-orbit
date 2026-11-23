@@ -32,47 +32,92 @@ void main() {
       expect(ratio, greaterThanOrEqualTo(7.0), reason: 'Ink on teal must pass AAA (>= 7.0:1)');
     });
 
-    test('Light mode accessible text tokens achieve AA compliance on surfaceLight (>= 4.5:1)', () {
-      const bg = PoswalColors.surfaceLight;
+    test('Light mode accessible text tokens achieve AA compliance across all light surfaces (>= 4.5:1)', () {
+      const lightSurfaces = [
+        PoswalColors.surfaceLight,
+        PoswalColors.surfaceLight2,
+        PoswalColors.surfaceLight3,
+      ];
 
-      final tealLightRatio = _contrastRatio(PoswalColors.tealLight, bg);
-      expect(tealLightRatio, greaterThanOrEqualTo(4.5), reason: 'tealLight on surfaceLight must pass AA (>= 4.5:1)');
-
-      final successLightRatio = _contrastRatio(PoswalColors.successLight, bg);
-      expect(successLightRatio, greaterThanOrEqualTo(4.5), reason: 'successLight on surfaceLight must pass AA (>= 4.5:1)');
-
-      final warningLightRatio = _contrastRatio(PoswalColors.warningLight, bg);
-      expect(warningLightRatio, greaterThanOrEqualTo(4.5), reason: 'warningLight on surfaceLight must pass AA (>= 4.5:1)');
-
-      final dangerLightRatio = _contrastRatio(PoswalColors.dangerLight, bg);
-      expect(dangerLightRatio, greaterThanOrEqualTo(4.5), reason: 'dangerLight on surfaceLight must pass AA (>= 4.5:1)');
-
-      final violetLightRatio = _contrastRatio(PoswalColors.violetLight, bg);
-      expect(violetLightRatio, greaterThanOrEqualTo(4.5), reason: 'violetLight on surfaceLight must pass AA (>= 4.5:1)');
+      for (final bg in lightSurfaces) {
+        expect(_contrastRatio(PoswalColors.tealLight, bg), greaterThanOrEqualTo(4.5), reason: 'tealLight must pass AA on $bg');
+        expect(_contrastRatio(PoswalColors.successLight, bg), greaterThanOrEqualTo(4.5), reason: 'successLight must pass AA on $bg');
+        expect(_contrastRatio(PoswalColors.warningLight, bg), greaterThanOrEqualTo(4.5), reason: 'warningLight must pass AA on $bg');
+        expect(_contrastRatio(PoswalColors.dangerLight, bg), greaterThanOrEqualTo(4.5), reason: 'dangerLight must pass AA on $bg');
+        expect(_contrastRatio(PoswalColors.violetLight, bg), greaterThanOrEqualTo(4.5), reason: 'violetLight must pass AA on $bg');
+        expect(_contrastRatio(PoswalColors.textSecondaryLight, bg), greaterThanOrEqualTo(4.5), reason: 'textSecondaryLight must pass AA on $bg');
+      }
     });
 
-    test('Light mode body and muted typography achieve AA/AAA compliance on surfaceLight', () {
-      const bg = PoswalColors.surfaceLight;
+    test('Light mode body and muted typography achieve AA/AAA compliance across all light surfaces', () {
+      const lightSurfaces = [
+        PoswalColors.surfaceLight,
+        PoswalColors.surfaceLight2,
+        PoswalColors.surfaceLight3,
+      ];
 
-      final primaryRatio = _contrastRatio(PoswalColors.textOnLight, bg);
-      expect(primaryRatio, greaterThanOrEqualTo(7.0), reason: 'textOnLight on surfaceLight must pass AAA (>= 7.0:1)');
-
-      final mutedRatio = _contrastRatio(PoswalColors.textMutedLight, bg);
-      expect(mutedRatio, greaterThanOrEqualTo(4.5), reason: 'textMutedLight on surfaceLight must pass AA (>= 4.5:1)');
-
-      final highContrastMutedRatio = _contrastRatio(PoswalColors.textMutedHighContrastLight, bg);
-      expect(highContrastMutedRatio, greaterThanOrEqualTo(7.0), reason: 'textMutedHighContrastLight must pass AAA (>= 7.0:1)');
+      for (final bg in lightSurfaces) {
+        expect(_contrastRatio(PoswalColors.textOnLight, bg), greaterThanOrEqualTo(7.0), reason: 'textOnLight must pass AAA on $bg');
+        expect(_contrastRatio(PoswalColors.textMutedLight, bg), greaterThanOrEqualTo(4.5), reason: 'textMutedLight must pass AA on $bg');
+        expect(_contrastRatio(PoswalColors.textHighContrastLight, bg), greaterThanOrEqualTo(7.0), reason: 'textHighContrastLight must pass AAA on $bg');
+        expect(_contrastRatio(PoswalColors.textMutedHighContrastLight, bg), greaterThanOrEqualTo(7.0), reason: 'textMutedHighContrastLight must pass AAA on $bg');
+      }
     });
 
-    test('Dark and OLED mode typography achieve AAA compliance (>= 7.0:1)', () {
-      const darkBg = PoswalColors.surfaceDark2;
-      const oledBg = PoswalColors.oled;
+    test('Dark and OLED mode typography achieve AAA compliance across all dark surfaces (>= 4.5:1 / >= 7.0:1)', () {
+      const darkSurfaces = [
+        PoswalColors.surfaceDark,
+        PoswalColors.surfaceDark2,
+        PoswalColors.surfaceDark3,
+        PoswalColors.oled,
+      ];
 
-      expect(_contrastRatio(PoswalColors.textOnDark, darkBg), greaterThanOrEqualTo(7.0));
-      expect(_contrastRatio(PoswalColors.textOnDark, oledBg), greaterThanOrEqualTo(7.0));
+      for (final bg in darkSurfaces) {
+        expect(_contrastRatio(PoswalColors.textOnDark, bg), greaterThanOrEqualTo(7.0), reason: 'textOnDark must pass AAA on $bg');
+        expect(_contrastRatio(PoswalColors.textMutedDark, bg), greaterThanOrEqualTo(4.5), reason: 'textMutedDark must pass AA on $bg');
+        expect(_contrastRatio(PoswalColors.textSecondaryDark, bg), greaterThanOrEqualTo(4.5), reason: 'textSecondaryDark must pass AA on $bg');
+        expect(_contrastRatio(PoswalColors.textHighContrastDark, bg), greaterThanOrEqualTo(7.0), reason: 'textHighContrastDark must pass AAA on $bg');
+        expect(_contrastRatio(PoswalColors.textMutedHighContrastDark, bg), greaterThanOrEqualTo(7.0), reason: 'textMutedHighContrastDark must pass AAA on $bg');
+      }
+    });
 
-      expect(_contrastRatio(PoswalColors.textMutedDark, darkBg), greaterThanOrEqualTo(4.5));
-      expect(_contrastRatio(PoswalColors.textHighContrastDark, darkBg), greaterThanOrEqualTo(7.0));
+    test('Strict hierarchy ordering and separation: primary > muted > secondary across all surfaces', () {
+      const lightSurfaces = [
+        PoswalColors.surfaceLight,
+        PoswalColors.surfaceLight2,
+        PoswalColors.surfaceLight3,
+      ];
+      for (final bg in lightSurfaces) {
+        final p = _contrastRatio(PoswalColors.textOnLight, bg);
+        final m = _contrastRatio(PoswalColors.textMutedLight, bg);
+        final s = _contrastRatio(PoswalColors.textSecondaryLight, bg);
+
+        expect(p > m, isTrue, reason: 'Light: primary contrast ($p) must exceed muted contrast ($m) on $bg');
+        expect(m > s, isTrue, reason: 'Light: muted contrast ($m) must exceed secondary contrast ($s) on $bg');
+        expect(s >= 4.5, isTrue, reason: 'Light: secondary contrast ($s) must pass AA on $bg');
+        // Minimum contrast ratio separation between levels
+        expect(p - m, greaterThanOrEqualTo(2.0), reason: 'Light: primary to muted separation must be >= 2.0:1 on $bg');
+        expect(m - s, greaterThanOrEqualTo(1.0), reason: 'Light: muted to secondary separation must be >= 1.0:1 on $bg');
+      }
+
+      const darkSurfaces = [
+        PoswalColors.surfaceDark,
+        PoswalColors.surfaceDark2,
+        PoswalColors.surfaceDark3,
+        PoswalColors.oled,
+      ];
+      for (final bg in darkSurfaces) {
+        final p = _contrastRatio(PoswalColors.textOnDark, bg);
+        final m = _contrastRatio(PoswalColors.textMutedDark, bg);
+        final s = _contrastRatio(PoswalColors.textSecondaryDark, bg);
+
+        expect(p > m, isTrue, reason: 'Dark: primary contrast ($p) must exceed muted contrast ($m) on $bg');
+        expect(m > s, isTrue, reason: 'Dark: muted contrast ($m) must exceed secondary contrast ($s) on $bg');
+        expect(s >= 4.5, isTrue, reason: 'Dark: secondary contrast ($s) must pass AA on $bg');
+        // Minimum contrast ratio separation between levels
+        expect(p - m, greaterThanOrEqualTo(2.0), reason: 'Dark: primary to muted separation must be >= 2.0:1 on $bg');
+        expect(m - s, greaterThanOrEqualTo(2.0), reason: 'Dark: muted to secondary separation must be >= 2.0:1 on $bg');
+      }
     });
 
     test('Dark mode semantic status accents achieve AA compliance on surfaceDark2', () {
