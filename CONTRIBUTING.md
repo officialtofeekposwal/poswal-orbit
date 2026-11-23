@@ -1,6 +1,6 @@
 # Contributing to Poswal Orbit
 
-Thank you for your interest in contributing to **Poswal Orbit**! We welcome bug reports, design improvements, and pull requests.
+Thank you for your interest in contributing to **Poswal Orbit**. We welcome bug reports, design improvements, and pull requests.
 
 ## How to Contribute
 

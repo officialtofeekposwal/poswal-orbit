@@ -12,7 +12,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-00B4D8.svg" alt="License: MIT"></a>
   <a href="https://flutter.dev"><img src="https://img.shields.io/badge/Flutter-3.50.1-02569B.svg?logo=flutter" alt="Flutter"></a>
   <a href="https://dart.dev"><img src="https://img.shields.io/badge/Dart-3.14-0175C2.svg?logo=dart" alt="Dart"></a>
-  <a href="https://github.com/officialtofeekposwal/poswal-orbit/actions/workflows/release.yml"><img src="https://img.shields.io/badge/tests-225%20passed-22C55E.svg?logo=checkmarx" alt="225 Tests Passed"></a>
+  <a href="https://github.com/officialtofeekposwal/poswal-orbit/actions/workflows/ci.yml"><img src="https://img.shields.io/badge/tests-228%20passed-22C55E.svg?logo=checkmarx" alt="228 Tests Passed"></a>
   <a href="https://github.com/officialtofeekposwal/poswal-orbit/actions"><img src="https://img.shields.io/badge/flutter%20analyze-0%20issues-22C55E.svg" alt="Flutter Analyze Clean"></a>
   <img src="https://img.shields.io/badge/offline-100%25%20No%20Internet-7C3AED.svg" alt="100% Offline">
   <img src="https://img.shields.io/badge/telemetry-zero-0F172A.svg" alt="Zero Telemetry">

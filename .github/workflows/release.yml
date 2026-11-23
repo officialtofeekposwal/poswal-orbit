@@ -43,23 +43,34 @@ jobs:
       - name: Run verification tests
         run: flutter test --no-test-assets
 
-      - name: Decode Android Release Keystore
+      - name: Validate Release Secrets and Configure Keystore
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
-          if [ -n "$KEYSTORE_BASE64" ]; then
-            if echo "$KEYSTORE_BASE64" | base64 -d > android/app/upload-keystore.jks 2>/dev/null; then
-              printf "storePassword=%s\nkeyPassword=%s\nkeyAlias=%s\nstoreFile=upload-keystore.jks\n" "$KEYSTORE_PASSWORD" "$KEY_PASSWORD" "$KEY_ALIAS" > android/key.properties
-              echo "Release keystore configured successfully."
-            else
-              echo "Warning: KEYSTORE_BASE64 could not be decoded. Falling back to default signing."
-            fi
-          else
-            echo "No release keystore secret provided. Building with fallback signing."
+          MISSING=""
+          if [ -z "$KEYSTORE_BASE64" ]; then MISSING="$MISSING KEYSTORE_BASE64"; fi
+          if [ -z "$KEYSTORE_PASSWORD" ]; then MISSING="$MISSING KEYSTORE_PASSWORD"; fi
+          if [ -z "$KEY_ALIAS" ]; then MISSING="$MISSING KEY_ALIAS"; fi
+          if [ -z "$KEY_PASSWORD" ]; then MISSING="$MISSING KEY_PASSWORD"; fi
+
+          if [ -n "$MISSING" ]; then
+            echo "Error: Missing required GitHub repository secrets for production release signing:$MISSING"
+            echo "Please configure them in Repository Settings > Secrets and variables > Actions."
+            echo "See docs/RELEASING.md for instructions."
+            exit 1
           fi
+
+          if ! echo "$KEYSTORE_BASE64" | base64 -d > android/app/upload-keystore.jks 2>/dev/null; then
+            echo "Error: Failed to base64 decode KEYSTORE_BASE64 into android/app/upload-keystore.jks."
+            exit 1
+          fi
+
+          printf "storePassword=%s\nkeyPassword=%s\nkeyAlias=%s\nstoreFile=upload-keystore.jks\n" \
+            "$KEYSTORE_PASSWORD" "$KEY_PASSWORD" "$KEY_ALIAS" > android/key.properties
+          echo "Release keystore configured successfully."
 
       - name: Build Release APK
         run: flutter build apk --release
@@ -67,7 +78,7 @@ jobs:
       - name: Build Release App Bundle (AAB)
         run: flutter build appbundle --release
 
-      - name: Rename Release Artifacts
+      - name: Package Release Artifacts and Generate SHA-256 Checksums
         run: |
           TAG="${{ github.ref_name }}"
           if [ -z "$TAG" ] || [ "$TAG" = "main" ]; then
@@ -76,8 +87,42 @@ jobs:
           if [ -z "$TAG" ]; then
             TAG="v1.0.0"
           fi
-          cp build/app/outputs/flutter-apk/app-release.apk poswal-orbit-$TAG.apk || true
-          cp build/app/outputs/bundle/release/app-release.aab poswal-orbit-$TAG.aab || true
+          cp build/app/outputs/flutter-apk/app-release.apk poswal-orbit-$TAG.apk
+          cp build/app/outputs/bundle/release/app-release.aab poswal-orbit-$TAG.aab
+
+          # Compute SHA-256 checksums
+          sha256sum poswal-orbit-$TAG.apk poswal-orbit-$TAG.aab > poswal-orbit-$TAG-checksums-sha256.txt
+          cat poswal-orbit-$TAG-checksums-sha256.txt
+
+      - name: Extract Release Notes from CHANGELOG
+        id: release_notes
+        run: |
+          TAG="${{ github.ref_name }}"
+          if [ -z "$TAG" ] || [ "$TAG" = "main" ]; then
+            TAG="${{ github.event.inputs.tag_name }}"
+          fi
+          VERSION="${TAG#v}"
+
+          # Extract section from CHANGELOG.md for this version if present
+          python3 -c "
+          import re, sys
+          tag = sys.argv[1]
+          version = sys.argv[2]
+          notes = ''
+          try:
+              with open('CHANGELOG.md', 'r', encoding='utf-8') as f:
+                  content = f.read()
+              pattern = r'## \[' + re.escape(version) + r'\].*?\n(.*?)(?=\n## \[|\Z)'
+              match = re.search(pattern, content, re.DOTALL)
+              if match:
+                  notes = match.group(1).strip()
+          except Exception as e:
+              pass
+          if not notes:
+              notes = f'Release {tag} of Poswal Orbit.'
+          with open('release_notes.md', 'w', encoding='utf-8') as f:
+              f.write(notes + '\n')
+          " "$TAG" "$VERSION"
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
@@ -86,7 +131,8 @@ jobs:
           path: |
             poswal-orbit-*.apk
             poswal-orbit-*.aab
-          if-no-files-found: warn
+            poswal-orbit-*-checksums-sha256.txt
+          if-no-files-found: error
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -96,9 +142,10 @@ jobs:
         with:
           name: Poswal Orbit ${{ github.ref_name || github.event.inputs.tag_name }}
           tag_name: ${{ github.ref_name || github.event.inputs.tag_name }}
+          body_path: release_notes.md
           files: |
             poswal-orbit-*.apk
             poswal-orbit-*.aab
-          generate_release_notes: true
+            poswal-orbit-*-checksums-sha256.txt
           draft: false
-          prerelease: false
+          prerelease: ${{ contains(github.ref_name || github.event.inputs.tag_name, '-') }}

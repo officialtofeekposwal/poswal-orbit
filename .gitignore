@@ -41,6 +41,8 @@ migrate_working_dir/
 # Android Keystore and Credentials
 *.jks
 *.keystore
+*.apk
+*.aab
 key.properties
 google-services.json
 
