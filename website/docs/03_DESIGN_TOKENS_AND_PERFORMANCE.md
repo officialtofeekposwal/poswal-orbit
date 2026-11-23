@@ -106,17 +106,29 @@ Derived directly from `lib/core/theme/poswal_tokens.dart`. All pairings meet or 
 
 ---
 
-## 3. Performance & Quality Budget
+## 3. Per-Page Performance & Asset Transfer Budgets
 
-| Metric | Target | Measurement Method | Verification Scope |
-|---|---|---|---|
-| **Lighthouse Performance** | $\ge 98$ | Chrome DevTools Lighthouse (Mobile 4G) | Local & CI |
-| **Lighthouse Accessibility** | $100$ | axe-core + Lighthouse | Local & CI |
-| **Lighthouse Best Practices** | $100$ | Lighthouse security & CSP checks | Local & CI |
-| **Lighthouse SEO** | $100$ | Meta, sitemap.xml, JSON-LD | Local & CI |
-| **First Contentful Paint (FCP)** | $< 1.0\text{s}$ | Chrome Performance profile | Local & CI |
-| **Largest Contentful Paint (LCP)** | $< 1.8\text{s}$ | Chrome Performance profile | Local & CI |
-| **Cumulative Layout Shift (CLS)** | $0.00$ | Absolute dimensions on SVGs & mockups | Verified |
-| **Total Transfer Budget** | $< 120\text{ KB}$ | Network tab with gzip/brotli | Excludes lazy fonts |
-| **JavaScript Budget** | $< 25\text{ KB}$ | Zero-framework vanilla ES6 | Verified |
-| **Third-Party Requests** | **$0$** | Content-Security-Policy `default-src 'self'` | Enforced |
+Per-page budgets apply strictly to HTML + CSS + JS (excluding fonts). Each page must be under **120 KB** transfer:
+
+| Page Route | Language | HTML + CSS + JS Budget | Fonts Loaded (Self-Hosted Subset) | Font Sizes |
+|---|---|---|---|---|
+| `/` | English | $< 120\text{ KB}$ | Plus Jakarta Sans (Regular, SemiBold, Bold) + Inter (Regular) | ~49.6 KB |
+| `/hi/` | Hindi | $< 120\text{ KB}$ | Latin subset + Noto Sans Devanagari (Regular) | ~49.6 KB + 197.8 KB = 247.4 KB |
+| `/ur/` | Urdu (RTL) | $< 120\text{ KB}$ | Latin subset + Noto Nastaliq Urdu (Regular) | ~49.6 KB + 212.9 KB = 262.5 KB |
+
+### Font File Breakdown (woff2):
+- `PlusJakartaSans-Regular.woff2`: 10.08 KB
+- `PlusJakartaSans-SemiBold.woff2`: 10.39 KB
+- `PlusJakartaSans-Bold.woff2`: 10.38 KB
+- `Inter-Regular.woff2`: 17.60 KB
+- `NotoSansDevanagari-Regular.woff2`: 197.80 KB (loaded only on `/hi/`)
+- `NotoNastaliqUrdu-Regular.woff2`: 212.89 KB (loaded only on `/ur/`)
+
+### Core Metrics:
+- **Lighthouse Performance**: $\ge 98$
+- **Lighthouse Accessibility**: $100$ (WCAG AA compliant)
+- **Lighthouse Best Practices**: $100$ (CSP enforced, zero external hosts)
+- **Lighthouse SEO**: $100$ (hreflang, canonical, sitemap.xml, robots.txt)
+- **Cumulative Layout Shift (CLS)**: $0.00$
+- **JavaScript Budget**: $< 25\text{ KB}$ uncompressed, zero dependencies
+- **External Network Requests**: **$0$** (Strict CSP `default-src 'self'`)

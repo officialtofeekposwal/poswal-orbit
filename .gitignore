@@ -81,3 +81,7 @@ GoogleService-Info.plist
 *.local
 secrets.json
 private_keys/
+
+# Website distribution build artifacts
+website/dist/
+

@@ -60,13 +60,20 @@ permissions:
 ```
 
 ### Build-Time Data Fetching:
-Before running `build.mjs`, the workflow queries the GitHub API using the repository's built-in `secrets.GITHUB_TOKEN` to fetch the latest public release info for `officialtofeekposwal/poswal-orbit`. It saves this data to `website/data/release.json`:
-- Latest release tag (e.g. `v0.9.0-beta.1`)
-- Direct download URL for `Poswal-Orbit-v0.9.0-beta.1-release.apk`
-- File size (MB) and publish date
-- Published SHA-256 checksum
+Before running `build.mjs`, the workflow queries the GitHub API using the repository's built-in `GITHUB_TOKEN` to list all releases (`GET /repos/{owner}/{repo}/releases`, which includes pre-releases; note that `/releases/latest` does NOT return pre-releases). It selects the first non-draft release and writes `website/data/release.json`:
+- `hasRelease`: boolean (`true` if a release was found, `false` otherwise)
+- `tagName`: string (e.g. `v0.9.0-beta.1`)
+- `isPrerelease`: boolean
+- `publishedAt`: string (ISO 8601)
+- `apkName`: name of release APK asset
+- `apkUrl`: direct download URL
+- `apkSize`: human-readable size
+- `apkSha256`: SHA-256 digest
+- `sha256Url`: URL to standalone checksum file if attached
 
-*Reasoning*: Browsers visiting the website make **0 external network requests**. All release metrics are baked into static HTML at build time.
+If no release exists, `website/data/release.json` records `{"hasRelease": false}`. In that case, the Get It section automatically renders the honest "how to download artifacts from GitHub Actions CI" instructions with links to the Actions tab and unknown-sources enablement guidance.
+
+*Reasoning*: Browsers visiting the website make **0 external network requests**. All release metrics and fallback states are baked into static HTML at build time. Note: External links in the author's profile README must point to `/releases` rather than hardcoding asset URLs.
 
 ---
 
@@ -102,7 +109,8 @@ If you later purchase a custom domain (e.g., `poswalorbit.com` or `orbit.poswal.
 | # | Question / Topic | Recommendation | Reasoning |
 |---|---|---|---|
 | 1 | **Custom Domain** vs **github.io** | Use `github.io` initially (`officialtofeekposwal.github.io/poswal-orbit/`) | Completely free, zero maintenance, automatically managed SSL certificates. Seamless migration to a custom domain whenever you want. |
-| 2 | **Contact Email** on site footer | `workwithtofeek@gmail.com` | Consistent with your profile README and open-source documentation. |
-| 3 | **Donation / Sponsorship Links** | Omit for now; add GitHub Sponsors later if desired | Keeps the site calm, distraction-free, and focused 100% on product quality and privacy. |
-| 4 | **Interactive Simulator Scope** | Pure vanilla JS event listeners without libraries | Keeps total JS payload $< 25\text{ KB}$ and guarantees 60fps responsiveness on mid-range mobile devices. |
-| 5 | **Screen Illustrations** | HTML/SVG layered mockups with a drop-in replacement folder | We have no real hardware screenshots yet. Once you take screenshots on your phone, dropping them into `website/assets/screens/` updates the site instantly. |
+| 2 | **Contact Method** | GitHub Issues and GitHub Discussions only (no email) | Keeps public bug reporting structured, transparent, and spam-free without exposing private email addresses. |
+| 3 | **Profile README Sync Note** | Direct links in profile README should point to `/releases` | Ensures users landing from your GitHub profile README navigate directly to the verified releases feed. |
+| 4 | **Donation / Sponsorship Links** | Omit for now; add GitHub Sponsors later if desired | Keeps the site calm, distraction-free, and focused 100% on product quality and privacy. |
+| 5 | **Interactive Simulator Scope** | Pure vanilla JS event listeners without libraries | Keeps total JS payload $< 25\text{ KB}$ and guarantees 60fps responsiveness on mid-range mobile devices. |
+| 6 | **Screen Illustrations** | HTML/SVG layered mockups with a drop-in replacement folder | We have no real hardware screenshots yet. Once you take screenshots on your phone, dropping them into `website/assets/screens/` updates the site instantly. |

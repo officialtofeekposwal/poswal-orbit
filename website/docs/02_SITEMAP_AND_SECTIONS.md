@@ -24,7 +24,7 @@ The official Poswal Orbit website blends the **tactile, dark mesh-gradient and i
 - **Goal**: Communicate the core purpose of Poswal Orbit in under 10 seconds.
 - **Headline**: `"Your whole day, in orbit."`
 - **Subheadline**: `"Habits, tasks and notes in one calm app. Everything stays on your phone."`
-- **Status Eyebrow Pill**: `[ PRE-RELEASE · v0.9.0-beta.1 · 100% OFFLINE ]`
+- **Status Eyebrow Pill**: Injected dynamically from `website/data/release.json` (e.g., `[ PRE-RELEASE · {{tag}} · 100% OFFLINE ]` or `[ PRE-RELEASE · 100% OFFLINE ]`). Never hardcoded.
 - **Action Buttons**:
   - Primary CTA: `Get the app` (direct anchor to verified download options).
   - Secondary CTA: `View on GitHub` (links to `github.com/officialtofeekposwal/poswal-orbit`).
@@ -99,21 +99,21 @@ Six numbered interactive cards (`01 //` to `06 //`) with hover/tap expansion:
 ---
 
 ### Section 07: Download & Install (`07 // GET IT`)
-- **Honest Routing Matrix**:
-  - **Android Pre-Release**: Direct download link to `Poswal-Orbit-v0.9.0-beta.1-release.apk` hosted on GitHub Releases, with SHA-256 checksum and release date.
-  - **Android CI Debug APK**: Link to `docs/INSTALL_DEBUG_APK.md` for developers who want automated CI artifacts.
+- **Honest Routing Matrix (Driven by `website/data/release.json`)**:
+  - **When a Release Exists**: Direct download button to APK hosted on GitHub Releases, with dynamic SHA-256 copy button, file size, and release date read from `release.json`.
+  - **When No Release Exists**: Honest instructions showing how to download pre-release artifacts from GitHub Actions CI, with direct links to the Actions tab and guidance on enabling unknown sources.
   - **iOS Status**: *"Code written, not yet verified on hardware (no Mac available). Not available on App Store."*
   - **Google Play Status**: *"Not published on Google Play. Sideload via GitHub Release."*
 
 ---
 
 ### Section 08: Architecture & Specs (`08 // SPECS`)
-TeleDrive-style technical specifications table:
-- Framework: Flutter 3.50.1 / Dart 3.14.0
-- State Architecture: Riverpod 2.x
-- Persistence: SQLite 3 via Drift (Type-safe, transactional `SAVEPOINT` rollbacks)
+TeleDrive-style technical specifications derived 100% at build time:
+- Framework & SDK: Dart SDK (derived from `pubspec.yaml`)
+- State Architecture: Riverpod ^3.5.0 (derived from `pubspec.yaml`)
+- Persistence: SQLite 3 via Drift (derived from `pubspec.yaml`)
 - Architecture Model: Pure domain engines (100% Flutter-free Dart core for streak/score/parser)
-- Automated Test Suite: 228 verified unit, widget, and migration tests in Linux CI
+- Automated Test Suite: Dynamically counted at build time by scanning `test(` and `testWidgets(` declarations across `test/` (e.g. 228 verified tests)
 
 ---
 
