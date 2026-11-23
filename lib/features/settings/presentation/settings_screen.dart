@@ -10,6 +10,7 @@ import 'package:poswal_orbit/core/widgets/app_sheet.dart';
 import 'package:poswal_orbit/core/widgets/aurora_background.dart';
 import 'package:poswal_orbit/data/services/data_safety_service.dart';
 import 'package:poswal_orbit/data/services/notification_service.dart';
+import 'package:poswal_orbit/features/today/application/today_providers.dart';
 import 'package:poswal_orbit/domain/models/data_safety_models.dart';
 import 'package:poswal_orbit/features/settings/application/settings_providers.dart';
 import 'package:poswal_orbit/features/settings/domain/settings_preferences.dart';
@@ -714,7 +715,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                             ),
                             onSelected: (_) {
                               unawaited(HapticFeedback.selectionClick());
-                              settingsNotifier.updateLanguage(lang);
+                              settingsNotifier.updateLanguage(lang, db: ref.read(databaseProvider));
                             },
                           );
                         }).toList(),

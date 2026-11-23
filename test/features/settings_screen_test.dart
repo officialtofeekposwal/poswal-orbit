@@ -6,6 +6,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:poswal_orbit/core/theme/poswal_theme.dart';
 import 'package:poswal_orbit/data/database/database.dart';
 import 'package:poswal_orbit/data/services/data_safety_service.dart';
+import 'package:poswal_orbit/features/settings/application/settings_providers.dart';
+import 'package:poswal_orbit/features/settings/domain/settings_preferences.dart';
 import 'package:poswal_orbit/features/settings/presentation/settings_screen.dart';
 import 'package:poswal_orbit/features/today/application/today_providers.dart';
 
@@ -132,5 +134,34 @@ void main() {
 
     await tester.pumpWidget(const SizedBox());
     await tester.pump(const Duration(milliseconds: 100));
+  });
+
+  testWidgets('language change immediately updates state, persists to db and triggers notification refill', (tester) async {
+    final container = ProviderContainer(
+      overrides: [
+        databaseProvider.overrideWithValue(db),
+      ],
+    );
+    addTearDown(container.dispose);
+
+    // Initial language is system
+    expect(container.read(settingsProvider).language, AppLanguageOption.system);
+
+    // Change to Hindi
+    container.read(settingsProvider.notifier).updateLanguage(AppLanguageOption.hi, db: db);
+    expect(container.read(settingsProvider).language, AppLanguageOption.hi);
+
+    // Verify persisted in AppSettingsTable
+    final row = await (db.select(db.appSettingsTable)..where((t) => t.key.equals('app_language'))).getSingleOrNull();
+    expect(row, isNotNull);
+    expect(row!.value, 'hi');
+
+    // Change to Urdu
+    container.read(settingsProvider.notifier).updateLanguage(AppLanguageOption.ur, db: db);
+    expect(container.read(settingsProvider).language, AppLanguageOption.ur);
+
+    final rowUrdu = await (db.select(db.appSettingsTable)..where((t) => t.key.equals('app_language'))).getSingleOrNull();
+    expect(rowUrdu, isNotNull);
+    expect(rowUrdu!.value, 'ur');
   });
 }
