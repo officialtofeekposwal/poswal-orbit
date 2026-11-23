@@ -13,10 +13,11 @@
     "install": "06 Get It",
     "specs": "07 Specs",
     "faq": "08 FAQ",
+    "opensource": "09 Open Source",
     "cta": "Get App"
   },
   "hero": {
-    "eyebrow": "Pre-release · v0.9.0-beta.1 · 100% Offline",
+    "eyebrow": "Pre-release · 100% Offline",
     "headline": "Your whole day, in orbit.",
     "subheadline": "Habits, tasks and notes in one calm app. Everything stays on your phone.",
     "primaryCta": "Get the app",
@@ -38,10 +39,14 @@
     "habit1": "Morning walk",
     "habit2": "Drink 2L water",
     "habit3": "Read 20 minutes",
-    "taskPlaceholder": "Type: Pay rent tomorrow 4pm !high #home",
+    "taskPlaceholder": "Type: Pay rent tomorrow 4pm priority high #home",
     "parsedDue": "Due date",
     "parsedPriority": "Priority",
-    "parsedProject": "Project"
+    "parsedProject": "Project",
+    "taskDemoHint": "Tap a sample chip or type above",
+    "sampleChip1": "Pay rent tomorrow 4pm priority high #home",
+    "sampleChip2": "Team sync Friday 10am #work",
+    "sampleChip3": "Buy groceries today 6pm priority normal #personal"
   },
   "features": {
     "eyebrow": "02 // Core Systems",
@@ -66,6 +71,8 @@
     "subtitle": "Frosted glass only on control surfaces, solid high-contrast content, and concentric corner geometry.",
     "interactiveLabel": "Live glass refraction control",
     "sliderLabel": "Glass blur intensity",
+    "concentricLabel": "Concentric corner radii",
+    "concentricDesc": "Outer radius equals inner radius plus inset padding for seamless optical harmony.",
     "disclaimer": "Inspired by Apple's Human Interface Guidelines. Not affiliated with or endorsed by Apple Inc."
   },
   "privacy": {
@@ -73,26 +80,42 @@
     "title": "Verify, do not trust",
     "subtitle": "Your data never leaves your device because release builds do not request network permission.",
     "point1Title": "0 network permission",
-    "point1Desc": "Release builds omit the INTERNET permission entirely from AndroidManifest.xml.",
+    "point1Desc": "Release builds omit the INTERNET permission entirely from AndroidManifest.xml. Debug and CI test builds may request it for developer tooling.",
     "point2Title": "Local SQLite database",
     "point2Desc": "All habits, tasks, and notes stay in an on-device Drift SQLite database.",
     "point3Title": "Zero trackers or analytics",
-    "point3Desc": "No Firebase, no crash telemetry, and no advertising SDKs are bundled."
+    "point3Desc": "No Firebase, no crash telemetry, and no advertising SDKs are bundled.",
+    "verifyTitle": "How to verify independently",
+    "verifyStep1": "Clone repository: git clone https://github.com/officialtofeekposwal/poswal-orbit",
+    "verifyStep2": "Check manifest: cat android/app/src/main/AndroidManifest.xml | grep INTERNET",
+    "verifyStep3": "Inspect APK: aapt dump permissions poswal-orbit.apk"
   },
   "languages": {
     "eyebrow": "05 // Languages",
     "title": "Trilingual and true RTL",
     "subtitle": "English, Hindi and Urdu with native right-to-left layout symmetry and bundled offline fonts.",
-    "marquee": "habits · आदतें · عادات · tasks · कार्य · کام · notes · नोट्स · نوٹس"
+    "marquee": "habits · आदतें · عادات · tasks · कार्य · काम · notes · नोट्स · نوٹس",
+    "enCardTitle": "English (LTR)",
+    "enCardSample": "Calm, focused, offline-first personal system.",
+    "hiCardTitle": "हिन्दी (LTR)",
+    "hiCardSample": "शांत, केंद्रित, ऑफ़लाइन-प्रथम व्यक्तिगत कार्यस्थान।",
+    "urCardTitle": "اردو (RTL)",
+    "urCardSample": "پرسکون، توجہ مرکوز، مکمل آف لائن ذاتی نظام۔"
   },
   "install": {
     "eyebrow": "06 // Installation",
     "title": "Download Poswal Orbit",
     "subtitle": "Install the verified release APK or build from source.",
-    "releaseCardTitle": "Android Release APK (v0.9.0-beta.1)",
-    "releaseCardDesc": "Minified and shrunk with R8. Verified across 228 automated CI tests.",
-    "downloadReleaseBtn": "Download APK (74.8 MB)",
+    "releaseCardTitle": "Android Release APK",
+    "releaseCardDesc": "Minified and shrunk with R8. Verified across automated CI tests.",
+    "downloadBtn": "Download APK",
     "checksumLabel": "SHA-256 Checksum",
+    "copyChecksum": "Copy SHA-256",
+    "copiedChecksum": "Copied to clipboard",
+    "ciFallbackTitle": "Pre-release builds from CI",
+    "ciFallbackDesc": "If no tagged release is available, signed release APKs are generated automatically on every push to main via GitHub Actions CI.",
+    "ciActionBtn": "View GitHub Actions Artifacts",
+    "sideloadInstructions": "To install: allow Install unknown apps in Android Settings, download the APK, and verify SHA-256.",
     "iosCardTitle": "iOS (Apple iPhone)",
     "iosCardDesc": "Code written, not yet verified on hardware (no Mac available). Not available on App Store.",
     "playStoreNotice": "Poswal Orbit is not published on Google Play. Sideload via GitHub Release."
@@ -100,10 +123,12 @@
   "specs": {
     "eyebrow": "07 // Specifications",
     "title": "Technical architecture",
-    "framework": "Flutter 3.50.1 / Dart 3.14.0",
-    "state": "Riverpod 2.x",
-    "database": "SQLite 3 via Drift",
-    "tests": "228 tests across 39 files (100% CI pass)"
+    "subtitle": "Key system metrics derived at build time from code and pubspec.yaml.",
+    "frameworkLabel": "Dart SDK",
+    "stateLabel": "State management",
+    "databaseLabel": "Local database",
+    "testsLabel": "Automated tests",
+    "licenseLabel": "Software license"
   },
   "faq": {
     "eyebrow": "08 // Questions",
@@ -117,8 +142,18 @@
     "q4": "When will the iOS version be available?",
     "a4": "The Swift widgets and Flutter iOS code are complete, but hardware verification on a physical Mac and iPhone is required before publishing."
   },
+  "opensource": {
+    "eyebrow": "09 // Open Source",
+    "title": "Transparent and verifiable",
+    "subtitle": "Poswal Orbit is free software developed openly on GitHub.",
+    "repoBtn": "Browse repository",
+    "issuesBtn": "Report an issue",
+    "discussionsBtn": "Join discussions",
+    "licenseNotice": "Licensed under the MIT License. Contributions welcome."
+  },
   "footer": {
     "disclaimer": "This website sets zero cookies, loads zero analytics, and calls zero third-party hosts.",
+    "fontCredits": "Fonts: Plus Jakarta Sans (OFL), Inter (OFL), Noto Sans Devanagari (OFL), Noto Nastaliq Urdu (OFL). Icons: Phosphor Icons (MIT).",
     "rights": "Poswal Orbit is open-source software released under the MIT License."
   }
 }
