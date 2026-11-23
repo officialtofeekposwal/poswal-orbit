@@ -394,9 +394,9 @@ a {
   font-size: 0.8125rem;
   color: var(--text-secondary);
   transition: color var(--dur-fast);
-  padding: 0.35rem 0.5rem;
-  min-height: 24px;
-  min-width: 24px;
+  padding: 0.5rem 0.625rem;
+  min-height: 44px;
+  min-width: 44px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -769,46 +769,706 @@ a {
   to { transform: rotateZ(360deg); }
 }
 
-/* Phone Mockup */
-.phone-mockup {
+/* ==========================================================================
+   Super Apple Design: iPhone 16 Pro Hardware Chassis & Device Chamber
+   ========================================================================== */
+.device-chamber {
   position: relative;
-  width: 280px;
-  height: 560px;
-  background-color: #070B14;
-  border-radius: 44px;
-  padding: 10px;
-  border: 3px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 32px 64px -16px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(0, 0, 0, 0.5);
+  width: 320px;
+  max-width: 100%;
+  margin: 0 auto;
+  perspective: 1200px;
   transform: translateZ(20px);
+}
+
+.iphone-chassis {
+  position: relative;
+  width: 320px;
+  height: 640px;
+  background: #1C1C1E;
+  border-radius: 50px;
+  padding: 10px;
+  border: 3.5px solid #38383A;
+  box-shadow:
+    0 30px 80px -20px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 0 0 1.5px #121214;
   margin: 0 auto;
 }
 
-.phone-notch {
-  width: 90px;
-  height: 18px;
-  background-color: #000;
-  border-radius: 12px;
+[data-theme="light"] .iphone-chassis {
+  border-color: #D1D1D6;
+  background: #E5E5EA;
+  box-shadow:
+    0 24px 60px -15px rgba(0, 0, 0, 0.18),
+    0 0 0 1px rgba(0, 0, 0, 0.08),
+    inset 0 0 0 1.5px #FFFFFF;
+}
+
+/* Hardware Buttons */
+.iphone-btn {
   position: absolute;
-  top: 16px;
+  background: #2C2C2E;
+  border-radius: 2px;
+}
+.iphone-btn-action { left: -7px; top: 110px; width: 4px; height: 26px; }
+.iphone-btn-volup { left: -7px; top: 155px; width: 4px; height: 48px; }
+.iphone-btn-voldown { left: -7px; top: 215px; width: 4px; height: 48px; }
+.iphone-btn-power { right: -7px; top: 165px; width: 4px; height: 68px; }
+
+/* Screen & Glass Layers */
+.iphone-screen {
+  width: 100%;
+  height: 100%;
+  border-radius: 42px;
+  overflow: hidden;
+  background: #070B14;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+[data-theme="light"] .iphone-screen {
+  background: #F8FAFC;
+}
+
+/* Status Bar & Dynamic Island */
+.iphone-status-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #FFFFFF;
+  z-index: 40;
+  pointer-events: none;
+}
+[data-theme="light"] .iphone-status-bar {
+  color: #1D1D1F;
+}
+.status-time {
+  letter-spacing: -0.01em;
+}
+.dynamic-island {
+  position: absolute;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 10;
+  width: 86px;
+  height: 24px;
+  background: #000000;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 7px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 50;
+  pointer-events: none;
+}
+.island-camera {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #0F1626;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.island-sensor {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #0a0a0c;
+}
+.status-glyphs {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.status-glyph {
+  width: 14px;
+  height: 10px;
 }
 
-.phone-screen {
-  width: 100%;
-  height: 100%;
-  border-radius: 36px;
-  overflow: hidden;
-  background-color: var(--bg-surface);
+/* Viewport & Screen Transitions */
+.iphone-viewport {
   position: relative;
-}
-
-.phone-screen img, .phone-screen svg {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  padding-top: 44px;
+  padding-bottom: 60px;
+  overflow: hidden;
+}
+.device-screen {
+  position: absolute;
+  inset: 44px 0 60px 0;
+  padding: 12px 14px;
+  overflow-y: auto;
+  opacity: 0;
+  transform: scale(0.95) translateY(10px);
+  transition: opacity 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
+              transform 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: none;
+  scrollbar-width: none;
+  text-align: start;
+}
+.device-screen::-webkit-scrollbar {
+  display: none;
+}
+.device-screen.active {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: auto;
+}
+
+.device-screen-header {
+  margin-bottom: 12px;
+}
+.device-eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--color-teal-text);
+  text-transform: uppercase;
+}
+.device-screen-title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-top: 2px;
+}
+
+/* Inset Cards & Rings */
+.device-ring-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  border-radius: 18px;
+  padding: 12px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ring-svg-wrapper {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+}
+.concentric-ring-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.ring-track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 8;
+}
+[data-theme="light"] .ring-track {
+  stroke: rgba(0, 0, 0, 0.08);
+}
+.ring-indicator {
+  fill: none;
+  stroke: var(--color-teal);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 238.76;
+  stroke-dashoffset: 59.69;
+  transition: stroke-dashoffset 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.ring-center-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.ring-score-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1;
+}
+.ring-sub-text {
+  font-size: 9px;
+  color: var(--text-secondary);
+}
+.ring-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ring-habits-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.ring-streak-badge {
+  font-size: 11px;
+  color: var(--color-gold-text);
+  font-weight: 500;
+}
+
+/* Inset Groups (Apple Inset Grouped style) */
+.device-inset-group {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  border-radius: 18px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+.device-group-header {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+.device-checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border-hairline);
+  font-size: 12px;
+  color: var(--text-primary);
+  cursor: pointer;
+  user-select: none;
+}
+.device-checklist-item:last-child {
+  border-bottom: none;
+}
+.device-checkbox-glyph {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: transparent;
+  flex-shrink: 0;
+  transition: all 180ms ease;
+}
+.device-checklist-item.completed .device-checkbox-glyph {
+  background: var(--color-teal);
+  border-color: var(--color-teal);
+  color: #FFFFFF;
+}
+.device-checklist-item.completed .device-item-label {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+}
+.device-item-label {
+  flex-grow: 1;
+}
+.device-tag-p1 {
+  font-size: 9px;
+  font-weight: 700;
+  color: #FF453A;
+  background: rgba(255, 69, 58, 0.15);
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+.device-pinned-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  border-radius: 18px;
+  padding: 10px 12px;
+}
+.device-note-excerpt {
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Heatmap Screen Styles */
+.device-heatmap-card {
+  flex-direction: column;
+  align-items: stretch;
+}
+.device-heatmap-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.heatmap-safe-tag {
+  font-size: 9px;
+  color: var(--color-teal-text);
+  background: rgba(20, 184, 166, 0.12);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.device-heatmap-grid {
+  display: flex;
+  justify-content: space-between;
+  margin: 6px 0;
+}
+.device-heat-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.device-day-name {
+  font-size: 9px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+.device-day-circle {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--border-subtle);
+  background: transparent;
+  display: inline-block;
+  cursor: pointer;
+  padding: 0;
+  transition: all 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.device-day-circle.filled {
+  background: var(--color-teal);
+  border-color: var(--color-teal);
+}
+.device-day-circle.toggle-cell:active {
+  transform: scale(0.85);
+}
+.device-heat-hint {
+  font-size: 9px;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: 4px;
+}
+.device-habit-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-hairline);
+}
+.device-habit-row:last-child {
+  border-bottom: none;
+}
+.device-habit-text {
+  display: flex;
+  flex-direction: column;
+}
+.device-habit-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.device-habit-meta {
+  font-size: 10px;
+  color: var(--text-secondary);
+}
+.device-toggle-pill {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1.5px solid var(--border-subtle);
+  color: transparent;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 180ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.device-toggle-pill.active {
+  background: var(--color-teal);
+  border-color: var(--color-teal);
+  color: #FFFFFF;
+  transform: scale(1.05);
+}
+
+/* Tasks NLP Screen Styles */
+.device-nlp-card {
+  flex-direction: column;
+  align-items: stretch;
+}
+.device-input-wrapper {
+  margin-bottom: 8px;
+}
+.device-nlp-input {
+  width: 100%;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 11px;
+  color: var(--text-primary);
+  outline: none;
+  font-family: inherit;
+}
+.device-nlp-input:focus {
+  border-color: var(--color-teal);
+}
+.device-parsed-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.parsed-pill {
+  font-size: 9px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+.pill-habit { background: rgba(20, 184, 166, 0.15); color: var(--color-teal-text); }
+.pill-time { background: rgba(139, 124, 255, 0.15); color: var(--color-violet); }
+.pill-duration { background: rgba(255, 200, 87, 0.15); color: var(--color-gold-text); }
+.device-suggestion-chip {
   display: block;
+  width: 100%;
+  text-align: start;
+  background: transparent;
+  border: 1px solid var(--border-hairline);
+  border-radius: 8px;
+  padding: 6px 8px;
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+.device-suggestion-chip:hover {
+  background: var(--bg-surface-elevated);
+  color: var(--text-primary);
+  border-color: var(--border-subtle);
+}
+
+/* Notes Screen Styles */
+.device-markdown-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: rgba(28, 28, 30, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 10px;
+}
+[data-theme="light"] .device-markdown-toolbar {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+.device-tool-btn {
+  background: transparent;
+  border: none;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 120ms ease;
+}
+.device-tool-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+.device-tool-btn.active {
+  background: var(--color-teal);
+  color: #FFFFFF;
+}
+.device-note-document {
+  flex-direction: column;
+  align-items: stretch;
+  padding: 12px;
+}
+.device-doc-h1 {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.device-doc-line {
+  font-size: 10.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 3px;
+}
+.token-glyph {
+  color: var(--color-teal);
+  margin-inline-end: 4px;
+}
+
+/* Floating Bottom Tab Bar */
+.iphone-tab-bar {
+  position: absolute;
+  bottom: 8px;
+  left: 12px;
+  right: 12px;
+  height: 48px;
+  border-radius: 24px;
+  background: rgba(28, 28, 30, 0.85);
+  backdrop-filter: blur(20px) saturate(190%);
+  -webkit-backdrop-filter: blur(20px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 50;
+  padding: 0 4px;
+}
+[data-theme="light"] .iphone-tab-bar {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+.iphone-tab-item {
+  background: transparent;
+  border: none;
+  color: rgba(235, 235, 245, 0.55);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 9.5px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: 12px;
+  transition: all 180ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  min-width: 44px;
+  min-height: 44px;
+}
+[data-theme="light"] .iphone-tab-item {
+  color: rgba(60, 60, 67, 0.55);
+}
+.iphone-tab-item:hover {
+  color: var(--text-primary);
+}
+.iphone-tab-item.active {
+  color: #0A84FF;
+  transform: scale(1.08);
+}
+[data-theme="light"] .iphone-tab-item.active {
+  color: #007AFF;
+}
+.iphone-tab-item:active {
+  transform: scale(0.92);
+}
+.tab-glyph {
+  width: 16px;
+  height: 16px;
+}
+.iphone-home-indicator {
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 3.5px;
+  background-color: rgba(255, 255, 255, 0.35);
+  border-radius: 2px;
+  z-index: 60;
+  pointer-events: none;
+}
+[data-theme="light"] .iphone-home-indicator {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+/* ==========================================================================
+   Super Apple Design: Privacy Manifesto Comparison Matrix
+   ========================================================================== */
+.manifesto-table-wrapper {
+  margin: 36px 0;
+  border-radius: 24px;
+  overflow-x: auto;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-card);
+}
+.manifesto-table-title {
+  padding: 20px 24px 12px;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+.manifesto-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: start;
+}
+.manifesto-table th, .manifesto-table td {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border-hairline);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+.manifesto-table thead th {
+  background: var(--bg-surface-elevated);
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.cloud-col, .cloud-cell {
+  color: var(--text-secondary);
+}
+.orbit-col, .orbit-cell {
+  color: var(--color-teal-text);
+  background: rgba(20, 184, 166, 0.04);
+}
+[data-theme="light"] .orbit-cell {
+  color: #0f766e;
+  background: rgba(20, 184, 166, 0.06);
+}
+.cross-icon {
+  color: #ef4444;
+  font-weight: 700;
+  margin-inline-end: 6px;
+}
+.check-icon {
+  color: #10b981;
+  font-weight: 700;
+  margin-inline-end: 6px;
+}
+
+/* Apple Craft Badge in Footer */
+.apple-craft-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin: 12px 0;
+}
+.apple-craft-icon {
+  width: 14px;
+  height: 14px;
+  color: var(--color-teal-text);
 }
 
 /* Floating Glass Badges */
@@ -851,17 +1511,20 @@ a {
 .chip-habit .chip-dot { background-color: var(--color-teal); }
 .chip-task .chip-dot { background-color: var(--color-coral); }
 
+.gyro-btn {
+  display: none;
+  margin: 1rem auto;
+}
+
 .scene-disclaimer {
-  position: absolute;
-  bottom: -2.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: max-content;
-  max-width: 90%;
+  position: static;
+  margin-block-start: 1.5rem;
+  width: 100%;
   text-align: center;
   font-size: 0.75rem;
   color: var(--text-secondary);
   font-style: italic;
+  pointer-events: none;
 }
 
 /* --- 6. Simulator Section --- */
@@ -888,257 +1551,6 @@ a {
   color: var(--text-muted);
 }
 
-.sim-container {
-  max-width: 840px;
-  margin-inline: auto;
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-hairline);
-  border-radius: var(--r-panel);
-  overflow: hidden;
-  box-shadow: var(--shadow-card);
-}
-
-.sim-tabs {
-  display: flex;
-  border-block-end: 1px solid var(--border-hairline);
-  background-color: var(--bg-surface-elevated);
-}
-
-.sim-tab-btn {
-  flex: 1;
-  padding: 1rem;
-  background: none;
-  border: none;
-  font-family: var(--font-heading);
-  font-weight: 600;
-  font-size: 0.9375rem;
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: all var(--dur-fast);
-  border-block-end: 2px solid transparent;
-}
-
-.sim-tab-btn.active {
-  color: var(--color-teal-text);
-  background-color: var(--bg-surface);
-  border-block-end-color: var(--color-teal-text);
-}
-
-.sim-body {
-  padding: 2.5rem 2rem;
-}
-
-.sim-panel {
-  display: none;
-}
-
-.sim-panel.active {
-  display: block;
-}
-
-/* Habit Simulator Panel */
-.habit-sim-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  align-items: center;
-}
-
-.habit-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.875rem;
-}
-
-.habit-check-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 1.25rem;
-  border-radius: var(--r-card);
-  background-color: var(--bg-surface-elevated);
-  border: 1px solid var(--border-hairline);
-  cursor: pointer;
-  transition: all var(--dur-fast);
-  user-select: none;
-}
-
-.habit-check-item:hover {
-  border-color: var(--color-teal);
-}
-
-.habit-check-item.completed {
-  background-color: var(--color-teal-dim);
-  border-color: var(--color-teal);
-}
-
-.habit-info {
-  display: flex;
-  align-items: center;
-  gap: 0.875rem;
-}
-
-.habit-checkbox {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 2px solid var(--text-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all var(--dur-fast);
-}
-
-.habit-check-item.completed .habit-checkbox {
-  background-color: var(--color-teal);
-  border-color: var(--color-teal);
-  color: #070B14;
-}
-
-.habit-title {
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.habit-streak-badge {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--color-gold-text);
-  font-weight: 600;
-}
-
-[data-theme="light"] .habit-check-item.completed .habit-streak-badge {
-  color: #92400E;
-}
-
-.ring-visualizer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.sim-ring-svg {
-  width: 180px;
-  height: 180px;
-  transform: rotate(-90deg);
-}
-
-.sim-ring-bg {
-  fill: none;
-  stroke: var(--bg-surface-elevated);
-  stroke-width: 12;
-}
-
-.sim-ring-fill {
-  fill: none;
-  stroke: var(--color-teal);
-  stroke-width: 12;
-  stroke-dasharray: 440;
-  stroke-dashoffset: 440;
-  stroke-linecap: round;
-  transition: stroke-dashoffset 0.4s var(--ease-editorial);
-}
-
-.ring-score {
-  font-size: 2.25rem;
-  font-weight: 800;
-  color: var(--text-primary);
-  margin-block-start: 1rem;
-}
-
-.ring-label {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-/* Quick Add Task Simulator */
-.task-sim-box {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.task-input-wrapper {
-  position: relative;
-}
-
-.task-input {
-  width: 100%;
-  padding: 1rem 1.25rem;
-  background-color: var(--bg-surface-elevated);
-  border: 1px solid var(--border-hairline);
-  border-radius: var(--r-md);
-  color: var(--text-primary);
-  font-family: var(--font-body);
-  font-size: 1rem;
-  transition: border-color var(--dur-fast);
-}
-
-.task-input:focus {
-  border-color: var(--color-teal);
-  outline: none;
-}
-
-.chip-suggestions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.chip-hint {
-  font-size: 0.8125rem;
-  color: var(--text-secondary);
-}
-
-.sample-chip {
-  padding: 0.35rem 0.75rem;
-  background-color: var(--bg-surface-elevated);
-  border: 1px solid var(--border-hairline);
-  border-radius: var(--r-pill);
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: all var(--dur-fast);
-}
-
-.sample-chip:hover {
-  border-color: var(--color-teal);
-  color: var(--text-primary);
-}
-
-.parsed-chips-result {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  padding: 1.25rem;
-  background-color: var(--bg-surface-elevated);
-  border: 1px dashed var(--border-subtle);
-  border-radius: var(--r-card);
-}
-
-.parsed-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.parsed-badge {
-  display: inline-block;
-  padding: 0.35rem 0.625rem;
-  border-radius: var(--r-sm);
-  background-color: var(--bg-surface);
-  color: var(--color-teal);
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  width: fit-content;
-}
 
 /* --- 7. Features Grid --- */
 .features-grid {
@@ -1567,7 +1979,7 @@ html[dir="rtl"] .faq-item summary::after {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .install-grid, .habit-sim-grid {
+  .install-grid {
     grid-template-columns: 1fr;
   }
 

@@ -237,24 +237,174 @@
     });
   }
 
-  // --- 8. Screen Selector in Phone Mockup ---
+  // --- 8. Interactive Device Chamber: iPhone 16 Pro Screen Controller ---
   const screenTabBtns = document.querySelectorAll('.screen-tab-btn');
-  const mockupImg = document.getElementById('mockup-img');
+  const iphoneTabItems = document.querySelectorAll('.iphone-tab-item');
+  const deviceScreens = document.querySelectorAll('.device-screen');
+
+  function switchDeviceScreen(targetScreenId) {
+    if (!targetScreenId) return;
+    const cleanId = targetScreenId.startsWith('screen-') ? targetScreenId : `screen-${targetScreenId}`;
+
+    // Update external screen tabs
+    screenTabBtns.forEach(b => {
+      const isMatch = b.getAttribute('data-screen') === targetScreenId || b.getAttribute('data-screen') === cleanId;
+      b.classList.toggle('active', isMatch);
+      b.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+    });
+
+    // Update internal iPhone tabs
+    iphoneTabItems.forEach(b => {
+      const isMatch = b.getAttribute('data-screen') === targetScreenId || b.getAttribute('data-screen') === cleanId;
+      b.classList.toggle('active', isMatch);
+      b.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+    });
+
+    // Animate active device screen
+    deviceScreens.forEach(s => {
+      const isTarget = s.id === cleanId;
+      s.classList.toggle('active', isTarget);
+    });
+  }
 
   screenTabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      const screenId = btn.getAttribute('data-screen');
-      screenTabBtns.forEach(b => {
-        const isActive = b === btn;
-        b.classList.toggle('active', isActive);
-        b.setAttribute('aria-selected', isActive ? 'true' : 'false');
-      });
-      if (mockupImg && screenId) {
-        // Preserves relative path structure
-        const currentSrc = mockupImg.getAttribute('src');
-        const basePath = currentSrc.substring(0, currentSrc.lastIndexOf('/') + 1);
-        mockupImg.setAttribute('src', `${basePath}${screenId}.png`);
+      switchDeviceScreen(btn.getAttribute('data-screen'));
+    });
+  });
+
+  iphoneTabItems.forEach(btn => {
+    btn.addEventListener('click', () => {
+      switchDeviceScreen(btn.getAttribute('data-screen'));
+    });
+  });
+
+  // Device Today: Interactive Tasks & Progress Ring
+  const deviceTaskItems = document.querySelectorAll('.device-checklist-item');
+  const deviceRingIndicator = document.getElementById('device-ring-indicator');
+  const deviceRingScore = document.getElementById('device-ring-score');
+  const deviceHabitsStat = document.getElementById('device-habits-stat');
+
+  function updateDeviceRing() {
+    if (!deviceTaskItems.length) return;
+    const total = deviceTaskItems.length;
+    const completed = document.querySelectorAll('.device-checklist-item.completed').length;
+    const percent = Math.round((completed / total) * 100);
+
+    if (deviceRingScore) {
+      deviceRingScore.textContent = `${percent}%`;
+    }
+    if (deviceHabitsStat) {
+      deviceHabitsStat.textContent = `${completed} of ${total} Habits Done`;
+    }
+    if (deviceRingIndicator) {
+      const circumference = 238.76;
+      const offset = circumference - (percent / 100) * circumference;
+      deviceRingIndicator.style.strokeDashoffset = offset;
+    }
+  }
+
+  deviceTaskItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const isChecked = item.classList.toggle('completed');
+      item.setAttribute('aria-checked', isChecked ? 'true' : 'false');
+      const checkGlyph = item.querySelector('.device-checkbox-glyph');
+      if (checkGlyph) {
+        checkGlyph.textContent = isChecked ? '✓' : '';
       }
+      updateDeviceRing();
+    });
+
+    item.addEventListener('keydown', (e) => {
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        item.click();
+      }
+    });
+  });
+
+  // Device Habits: 7-Day Heatmap & Toggles
+  const deviceHeatToday = document.getElementById('device-heat-today');
+  if (deviceHeatToday) {
+    deviceHeatToday.addEventListener('click', () => {
+      deviceHeatToday.classList.toggle('filled');
+    });
+  }
+
+  const deviceTogglePills = document.querySelectorAll('.device-toggle-pill');
+  deviceTogglePills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      const isActive = pill.classList.toggle('active');
+      pill.textContent = isActive ? '✓' : '';
+    });
+  });
+
+  // Device Tasks: Natural Language Parser
+  const deviceNlpInput = document.getElementById('device-nlp-input');
+  const deviceParsedTags = document.getElementById('device-parsed-tags');
+  const deviceSuggestionChips = document.querySelectorAll('.device-suggestion-chip');
+
+  function updateDeviceNlp(text) {
+    if (!deviceParsedTags) return;
+    if (!text || !text.trim()) {
+      deviceParsedTags.innerHTML = '<span class="parsed-pill pill-duration">Inbox</span>';
+      return;
+    }
+
+    const tags = [];
+    if (/every\s*day|daily/i.test(text)) {
+      tags.push('<span class="parsed-pill pill-habit">Repeat: Daily</span>');
+    } else if (/friday/i.test(text)) {
+      tags.push('<span class="parsed-pill pill-habit">Due: Friday</span>');
+    } else if (/tomorrow/i.test(text)) {
+      tags.push('<span class="parsed-pill pill-habit">Due: Tomorrow</span>');
+    }
+
+    const time = text.match(/(\d{1,2}(?::\d{2})?\s*(?:am|pm))/i);
+    if (time) {
+      tags.push(`<span class="parsed-pill pill-time">Time: ${time[1]}</span>`);
+    }
+
+    if (/mins|minutes|pages/i.test(text)) {
+      const dur = text.match(/(\d+\s*(?:mins|minutes|pages))/i);
+      if (dur) {
+        tags.push(`<span class="parsed-pill pill-duration">${dur[1]}</span>`);
+      }
+    }
+
+    if (/priority\s*high|!high|p1/i.test(text)) {
+      tags.push('<span class="parsed-pill pill-habit">Priority: High</span>');
+    }
+
+    const hash = text.match(/#([\w\u0900-\u097F\u0600-\u06FF]+)/);
+    if (hash) {
+      tags.push(`<span class="parsed-pill pill-time">#${hash[1]}</span>`);
+    }
+
+    deviceParsedTags.innerHTML = tags.length ? tags.join('') : '<span class="parsed-pill pill-duration">Task Parsed</span>';
+  }
+
+  if (deviceNlpInput) {
+    deviceNlpInput.addEventListener('input', (e) => {
+      updateDeviceNlp(e.target.value);
+    });
+  }
+
+  deviceSuggestionChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const sample = chip.getAttribute('data-nlp') || chip.textContent.trim();
+      if (deviceNlpInput) {
+        deviceNlpInput.value = sample;
+        updateDeviceNlp(sample);
+      }
+    });
+  });
+
+  // Device Notes: Markdown Tools
+  const deviceToolBtns = document.querySelectorAll('.device-tool-btn');
+  deviceToolBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.classList.toggle('active');
     });
   });
 

@@ -97,7 +97,7 @@
         </a>
 
         <ul class="nav-links">
-          <li><a href="#simulator" class="nav-link">{{nav.demo}}</a></li>
+          <li><a href="#demo" class="nav-link">{{nav.demo}}</a></li>
           <li><a href="#features" class="nav-link">{{nav.features}}</a></li>
           <li><a href="#design" class="nav-link">{{nav.design}}</a></li>
           <li><a href="#privacy" class="nav-link">{{nav.privacy}}</a></li>
@@ -136,7 +136,7 @@
       <!-- Mobile Navigation Drawer -->
       <div class="mobile-nav-drawer" id="mobile-nav" aria-hidden="true">
         <ul class="mobile-nav-links">
-          <li><a href="#simulator" class="mobile-nav-link">{{nav.demo}}</a></li>
+          <li><a href="#demo" class="mobile-nav-link">{{nav.demo}}</a></li>
           <li><a href="#features" class="mobile-nav-link">{{nav.features}}</a></li>
           <li><a href="#design" class="mobile-nav-link">{{nav.design}}</a></li>
           <li><a href="#privacy" class="mobile-nav-link">{{nav.privacy}}</a></li>
@@ -202,9 +202,9 @@
 
           <!-- 3D Parallax Scene Mockup -->
           <div class="hero-scene">
-            <div class="scene-wrapper" aria-hidden="true">
+            <div class="scene-wrapper">
               <!-- Orbit graphic with planets -->
-              <div class="css-orbit-container">
+              <div class="css-orbit-container" aria-hidden="true">
                 <div class="css-orbit-ring">
                   <div class="planet planet-habits" title="Habits"></div>
                   <div class="planet planet-tasks" title="Tasks"></div>
@@ -222,13 +222,214 @@
                 <span>Pay rent tomorrow 4pm</span>
               </div>
 
-              <!-- Phone Mockup Container -->
-              <div class="phone-mockup">
-                <div class="phone-notch"></div>
-                <div class="phone-screen">
-                  <img id="mockup-img" src="{{assetPath}}assets/screens/screen-today.png" alt="Poswal Orbit screen illustration" width="360" height="760" loading="eager">
+            <!-- Interactive Device Chamber: iPhone 16 Pro Hardware Mockup -->
+            <div class="device-chamber" id="demo">
+              <div class="iphone-chassis">
+                <!-- Hardware buttons -->
+                <div class="iphone-btn iphone-btn-action" aria-hidden="true"></div>
+                <div class="iphone-btn iphone-btn-volup" aria-hidden="true"></div>
+                <div class="iphone-btn iphone-btn-voldown" aria-hidden="true"></div>
+                <div class="iphone-btn iphone-btn-power" aria-hidden="true"></div>
+
+                <div class="iphone-screen">
+                  <!-- Status Bar -->
+                  <div class="iphone-status-bar" aria-hidden="true">
+                    <span class="status-time">9:41</span>
+                    <div class="dynamic-island">
+                      <span class="island-camera"></span>
+                      <span class="island-sensor"></span>
+                    </div>
+                    <div class="status-glyphs">
+                      <!-- Signal -->
+                      <svg class="status-glyph" viewBox="0 0 16 12" fill="currentColor"><rect x="0" y="8" width="2.5" height="4" rx="0.8"/><rect x="4.5" y="5.5" width="2.5" height="6.5" rx="0.8"/><rect x="9" y="3" width="2.5" height="9" rx="0.8"/><rect x="13.5" y="0.5" width="2.5" height="11.5" rx="0.8"/></svg>
+                      <!-- Wi-Fi -->
+                      <svg class="status-glyph" viewBox="0 0 16 12" fill="currentColor"><path d="M8 9.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm-3.5-3a5 5 0 017 0l1-1a6.5 6.5 0 00-9 0l1 1zm-2.5-2.5a8.5 8.5 0 0112 0l1-1a10 10 0 00-14 0l1 1z"/></svg>
+                      <!-- Battery -->
+                      <svg class="status-glyph" viewBox="0 0 24 12" fill="currentColor"><rect x="0" y="1" width="20" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><rect x="2" y="3" width="14" height="6" rx="1.5"/><path d="M21 4.5v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    </div>
+                  </div>
+
+                  <!-- Viewport with 4 Interactive Screens -->
+                  <div class="iphone-viewport">
+                    <!-- SCREEN 1: TODAY -->
+                    <div class="device-screen active" id="screen-today" role="tabpanel" aria-labelledby="tab-today-btn">
+                      <div class="device-screen-header">
+                        <span class="device-eyebrow">TODAY · 4:00 AM CYCLE</span>
+                        <h2 class="device-screen-title">{{hero.screenTabs.today}}</h2>
+                      </div>
+
+                      <!-- Concentric Progress Ring -->
+                      <div class="device-ring-card">
+                        <div class="ring-svg-wrapper">
+                          <svg class="concentric-ring-svg" viewBox="0 0 100 100" aria-hidden="true">
+                            <circle class="ring-track" cx="50" cy="50" r="38" />
+                            <circle class="ring-indicator" id="device-ring-indicator" cx="50" cy="50" r="38" />
+                          </svg>
+                          <div class="ring-center-content">
+                            <span class="ring-score-text" id="device-ring-score">75%</span>
+                            <span class="ring-sub-text">Done</span>
+                          </div>
+                        </div>
+                        <div class="ring-meta">
+                          <span class="ring-habits-title" id="device-habits-stat">3 of 4 Habits Done</span>
+                          <span class="ring-streak-badge">Streak: 14 Days</span>
+                        </div>
+                      </div>
+
+                      <!-- Priority Tasks List inside Device -->
+                      <div class="device-inset-group">
+                        <div class="device-group-header">PRIORITY TASKS</div>
+                        <div class="device-checklist-item completed" role="checkbox" aria-checked="true" tabindex="0">
+                          <span class="device-checkbox-glyph">✓</span>
+                          <span class="device-item-label">Morning meditation 15m</span>
+                        </div>
+                        <div class="device-checklist-item completed" role="checkbox" aria-checked="true" tabindex="0">
+                          <span class="device-checkbox-glyph">✓</span>
+                          <span class="device-item-label">Hydration 2L</span>
+                        </div>
+                        <div class="device-checklist-item" role="checkbox" aria-checked="false" tabindex="0">
+                          <span class="device-checkbox-glyph"></span>
+                          <span class="device-item-label">Review PR #14 - SQLite schema</span>
+                          <span class="device-tag-p1">P1</span>
+                        </div>
+                        <div class="device-checklist-item" role="checkbox" aria-checked="false" tabindex="0">
+                          <span class="device-checkbox-glyph"></span>
+                          <span class="device-item-label">Daily review & streak freeze</span>
+                        </div>
+                      </div>
+
+                      <!-- Pinned Note Card -->
+                      <div class="device-pinned-card">
+                        <div class="device-group-header">PINNED THOUGHT</div>
+                        <p class="device-note-excerpt">"Keep all user data local. SQLite via Drift provides instant reads and zero cloud latency."</p>
+                      </div>
+                    </div>
+
+                    <!-- SCREEN 2: HABITS -->
+                    <div class="device-screen" id="screen-habits" role="tabpanel" aria-labelledby="tab-habits-btn">
+                      <div class="device-screen-header">
+                        <span class="device-eyebrow">CONSISTENCY · EWMA 94%</span>
+                        <h2 class="device-screen-title">{{hero.screenTabs.habits}}</h2>
+                      </div>
+
+                      <!-- 7-Day Streak Heatmap Card -->
+                      <div class="device-ring-card device-heatmap-card">
+                        <div class="device-heatmap-header">
+                          <span>7-Day Streak Matrix</span>
+                          <span class="heatmap-safe-tag">4:00 AM Boundary</span>
+                        </div>
+                        <div class="device-heatmap-grid" role="region" aria-label="7-Day Habits Matrix">
+                          <div class="device-heat-col"><span class="device-day-name">M</span><span class="device-day-circle filled"></span></div>
+                          <div class="device-heat-col"><span class="device-day-name">T</span><span class="device-day-circle filled"></span></div>
+                          <div class="device-heat-col"><span class="device-day-name">W</span><span class="device-day-circle filled"></span></div>
+                          <div class="device-heat-col"><span class="device-day-name">T</span><span class="device-day-circle filled"></span></div>
+                          <div class="device-heat-col"><span class="device-day-name">F</span><span class="device-day-circle filled"></span></div>
+                          <div class="device-heat-col"><span class="device-day-name">S</span><span class="device-day-circle filled"></span></div>
+                          <div class="device-heat-col"><span class="device-day-name">S</span><button type="button" class="device-day-circle toggle-cell filled" id="device-heat-today" aria-label="Toggle today check-in"></button></div>
+                        </div>
+                        <div class="device-heat-hint">Tap Sunday circle to toggle live check-in</div>
+                      </div>
+
+                      <!-- Habit Rows -->
+                      <div class="device-inset-group">
+                        <div class="device-group-header">ACTIVE HABITS</div>
+                        <div class="device-habit-row">
+                          <div class="device-habit-text">
+                            <span class="device-habit-title">Deep Focus 45m</span>
+                            <span class="device-habit-meta">Mon, Wed, Fri · Morning</span>
+                          </div>
+                          <button type="button" class="device-toggle-pill active" aria-label="Toggle Deep Focus habit">✓</button>
+                        </div>
+                        <div class="device-habit-row">
+                          <div class="device-habit-text">
+                            <span class="device-habit-title">Read 20 pages</span>
+                            <span class="device-habit-meta">Daily · Evening</span>
+                          </div>
+                          <button type="button" class="device-toggle-pill active" aria-label="Toggle Read habit">✓</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- SCREEN 3: TASKS (NLP Quick Add) -->
+                    <div class="device-screen" id="screen-tasks" role="tabpanel" aria-labelledby="tab-tasks-btn">
+                      <div class="device-screen-header">
+                        <span class="device-eyebrow">NATURAL LANGUAGE QUICK ADD</span>
+                        <h2 class="device-screen-title">{{hero.screenTabs.tasks}}</h2>
+                      </div>
+
+                      <!-- Interactive NLP Input -->
+                      <div class="device-ring-card device-nlp-card">
+                        <div class="device-input-wrapper">
+                          <input type="text" class="device-nlp-input" id="device-nlp-input" value="Read 20 mins every day at 9pm" placeholder="Type a task with natural language" aria-label="Natural language task input">
+                        </div>
+                        <div class="device-parsed-tags" id="device-parsed-tags">
+                          <span class="parsed-pill pill-habit">Repeat: Daily</span>
+                          <span class="parsed-pill pill-time">Time: 21:00</span>
+                          <span class="parsed-pill pill-duration">20 mins</span>
+                        </div>
+                      </div>
+
+                      <!-- Tap Suggestions -->
+                      <div class="device-inset-group">
+                        <div class="device-group-header">TAP SUGGESTIONS TO PARSE</div>
+                        <button type="button" class="device-suggestion-chip" data-nlp="Read 20 mins every day at 9pm">Read 20 mins every day at 9pm</button>
+                        <button type="button" class="device-suggestion-chip" data-nlp="Team sync Friday 10am priority high #work">Team sync Friday 10am priority high #work</button>
+                        <button type="button" class="device-suggestion-chip" data-nlp="Buy groceries tomorrow 6pm #home">Buy groceries tomorrow 6pm #home</button>
+                      </div>
+                    </div>
+
+                    <!-- SCREEN 4: NOTES -->
+                    <div class="device-screen" id="screen-notes" role="tabpanel" aria-labelledby="tab-notes-btn">
+                      <div class="device-screen-header">
+                        <span class="device-eyebrow">LOCAL MARKDOWN · ZERO SYNC LAG</span>
+                        <h2 class="device-screen-title">{{hero.screenTabs.notes}}</h2>
+                      </div>
+
+                      <!-- Floating Liquid Glass Formatting Toolbar -->
+                      <div class="device-markdown-toolbar" role="toolbar" aria-label="Markdown formatting tools">
+                        <button type="button" class="device-tool-btn" title="Bold"><strong>B</strong></button>
+                        <button type="button" class="device-tool-btn" title="Italic"><em>I</em></button>
+                        <button type="button" class="device-tool-btn" title="Heading">H1</button>
+                        <button type="button" class="device-tool-btn active" title="Bullet list"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="9" y1="6" x2="20" y2="6"></line><line x1="9" y1="12" x2="20" y2="12"></line><line x1="9" y1="18" x2="20" y2="18"></line><circle cx="4" cy="6" r="2" fill="currentColor"></circle><circle cx="4" cy="12" r="2" fill="currentColor"></circle><circle cx="4" cy="18" r="2" fill="currentColor"></circle></svg></button>
+                        <button type="button" class="device-tool-btn" title="Checklist"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"></rect><path d="m9 12 2 2 4-4"></path></svg></button>
+                      </div>
+
+                      <!-- Document Content -->
+                      <div class="device-ring-card device-note-document">
+                        <h3 class="device-doc-h1"># Poswal Orbit Architecture</h3>
+                        <div class="device-doc-line"><span class="token-glyph">•</span> <strong>Offline-First:</strong> Drift SQLite local engine</div>
+                        <div class="device-doc-line"><span class="token-glyph">•</span> <strong>UI Engine:</strong> 120 FPS Impeller rendering</div>
+                        <div class="device-doc-line"><span class="token-glyph">•</span> <strong>State:</strong> Riverpod 3.5 reactive providers</div>
+                        <div class="device-doc-line"><span class="token-glyph">•</span> <strong>Privacy:</strong> Zero network permissions</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- iPhone Floating Glass Tab Bar -->
+                  <nav class="iphone-tab-bar" role="tablist" aria-label="iPhone application navigation">
+                    <button type="button" class="iphone-tab-item active" id="chamber-tab-today" data-screen="screen-today" role="tab" aria-selected="true">
+                      <svg class="tab-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+                      <span>{{hero.screenTabs.today}}</span>
+                    </button>
+                    <button type="button" class="iphone-tab-item" id="chamber-tab-habits" data-screen="screen-habits" role="tab" aria-selected="false">
+                      <svg class="tab-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                      <span>{{hero.screenTabs.habits}}</span>
+                    </button>
+                    <button type="button" class="iphone-tab-item" id="chamber-tab-tasks" data-screen="screen-tasks" role="tab" aria-selected="false">
+                      <svg class="tab-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                      <span>{{hero.screenTabs.tasks}}</span>
+                    </button>
+                    <button type="button" class="iphone-tab-item" id="chamber-tab-notes" data-screen="screen-notes" role="tab" aria-selected="false">
+                      <svg class="tab-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                      <span>{{hero.screenTabs.notes}}</span>
+                    </button>
+                  </nav>
+
+                  <!-- Bottom Home Indicator -->
+                  <div class="iphone-home-indicator" aria-hidden="true"></div>
                 </div>
               </div>
+            </div>
             </div>
 
             <!-- Screen Selector Tabs -->
@@ -246,101 +447,7 @@
       </div>
     </section>
 
-    <!-- Section 02: Interactive Simulator -->
-    <section class="section" id="simulator">
-      <div class="container">
-        <div class="section-header">
-          <span class="eyebrow">{{simulator.eyebrow}}</span>
-          <h2 class="section-title">{{simulator.title}}</h2>
-          <p class="section-subtitle">{{simulator.subtitle}}</p>
-        </div>
-
-        <div class="sim-container">
-          <div class="sim-tabs" role="tablist" aria-label="Simulator tabs">
-            <button type="button" class="sim-tab-btn active" role="tab" id="tab-habits-btn" aria-selected="true" aria-controls="sim-habits-panel" data-tab="sim-habits-panel">{{simulator.habitsTab}}</button>
-            <button type="button" class="sim-tab-btn" role="tab" id="tab-tasks-btn" aria-selected="false" aria-controls="sim-tasks-panel" data-tab="sim-tasks-panel">{{simulator.tasksTab}}</button>
-          </div>
-
-          <div class="sim-body">
-            <!-- Habit Check-in Panel -->
-            <div class="sim-panel active" id="sim-habits-panel" role="tabpanel" aria-labelledby="tab-habits-btn">
-              <div class="habit-sim-grid">
-                <div class="habit-list" role="group" aria-label="Sample habit check-in checklist">
-                  <div class="habit-check-item completed" role="checkbox" aria-checked="true" tabindex="0">
-                    <div class="habit-info">
-                      <div class="habit-checkbox">✓</div>
-                      <span class="habit-title">{{simulator.habit1}}</span>
-                    </div>
-                    <span class="habit-streak-badge">14d</span>
-                  </div>
-
-                  <div class="habit-check-item completed" role="checkbox" aria-checked="true" tabindex="0">
-                    <div class="habit-info">
-                      <div class="habit-checkbox">✓</div>
-                      <span class="habit-title">{{simulator.habit2}}</span>
-                    </div>
-                    <span class="habit-streak-badge">21d</span>
-                  </div>
-
-                  <div class="habit-check-item" role="checkbox" aria-checked="false" tabindex="0">
-                    <div class="habit-info">
-                      <div class="habit-checkbox"></div>
-                      <span class="habit-title">{{simulator.habit3}}</span>
-                    </div>
-                    <span class="habit-streak-badge">5d</span>
-                  </div>
-                </div>
-
-                <div class="ring-visualizer">
-                  <svg class="sim-ring-svg" viewBox="0 0 160 160" aria-hidden="true">
-                    <circle class="sim-ring-bg" cx="80" cy="80" r="70"/>
-                    <circle class="sim-ring-fill" cx="80" cy="80" r="70" stroke-dashoffset="147"/>
-                  </svg>
-                  <div class="ring-score">66%</div>
-                  <div class="ring-label">Consistency Score</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Quick Add Task Parser Panel -->
-            <div class="sim-panel" id="sim-tasks-panel" role="tabpanel" aria-labelledby="tab-tasks-btn">
-              <div class="task-sim-box">
-                <div class="task-input-wrapper">
-                  <label for="task-input" class="visually-hidden">Natural Language Task Quick Add</label>
-                  <input type="text" id="task-input" class="task-input" value="{{simulator.sampleChip1}}" placeholder="{{simulator.taskPlaceholder}}">
-                </div>
-
-                <div class="chip-suggestions">
-                  <span class="chip-hint">{{simulator.taskDemoHint}}:</span>
-                  <button type="button" class="sample-chip" data-sample="{{simulator.sampleChip1}}">{{simulator.sampleChip1}}</button>
-                  <button type="button" class="sample-chip" data-sample="{{simulator.sampleChip2}}">{{simulator.sampleChip2}}</button>
-                  <button type="button" class="sample-chip" data-sample="{{simulator.sampleChip3}}">{{simulator.sampleChip3}}</button>
-                </div>
-
-                <div class="parsed-chips-result">
-                  <div class="parsed-item">
-                    <span class="fact-label">{{simulator.parsedDue}}</span>
-                    <span class="parsed-badge" id="chip-due">Tomorrow 4:00 PM</span>
-                  </div>
-                  <div class="parsed-item">
-                    <span class="fact-label">{{simulator.parsedPriority}}</span>
-                    <span class="parsed-badge" id="chip-priority">High</span>
-                  </div>
-                  <div class="parsed-item">
-                    <span class="fact-label">{{simulator.parsedProject}}</span>
-                    <span class="parsed-badge" id="chip-project">#home</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div id="sim-live-status" class="visually-hidden" aria-live="polite"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Section 03: Features -->
+    <!-- Section 02: Features (The 3 Pillars of Orbit) -->
     <section class="section" id="features">
       <div class="container">
         <div class="section-header">
@@ -437,6 +544,52 @@
             <h3 class="feature-title privacy-highlight">{{privacy.point3Title}}</h3>
             <p class="feature-desc">{{privacy.point3Desc}}</p>
           </div>
+        </div>
+
+        <!-- Anti-Cloud Comparison Matrix -->
+        <div class="manifesto-table-wrapper">
+          <h3 class="manifesto-table-title">{{privacy.manifestoTitle}}</h3>
+          <table class="manifesto-table">
+            <thead>
+              <tr>
+                <th scope="col">{{privacy.dimCol}}</th>
+                <th scope="col" class="cloud-col">{{privacy.cloudCol}}</th>
+                <th scope="col" class="orbit-col">{{privacy.orbitCol}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">{{privacy.row1Label}}</th>
+                <td class="cloud-cell"><span class="cross-icon">✕</span> {{privacy.row1Cloud}}</td>
+                <td class="orbit-cell"><span class="check-icon">✓</span> <strong>{{privacy.row1Orbit}}</strong></td>
+              </tr>
+              <tr>
+                <th scope="row">{{privacy.row2Label}}</th>
+                <td class="cloud-cell"><span class="cross-icon">✕</span> {{privacy.row2Cloud}}</td>
+                <td class="orbit-cell"><span class="check-icon">✓</span> <strong>{{privacy.row2Orbit}}</strong></td>
+              </tr>
+              <tr>
+                <th scope="row">{{privacy.row3Label}}</th>
+                <td class="cloud-cell"><span class="cross-icon">✕</span> {{privacy.row3Cloud}}</td>
+                <td class="orbit-cell"><span class="check-icon">✓</span> <strong>{{privacy.row3Orbit}}</strong></td>
+              </tr>
+              <tr>
+                <th scope="row">{{privacy.row4Label}}</th>
+                <td class="cloud-cell"><span class="cross-icon">✕</span> {{privacy.row4Cloud}}</td>
+                <td class="orbit-cell"><span class="check-icon">✓</span> <strong>{{privacy.row4Orbit}}</strong></td>
+              </tr>
+              <tr>
+                <th scope="row">{{privacy.row5Label}}</th>
+                <td class="cloud-cell"><span class="cross-icon">✕</span> {{privacy.row5Cloud}}</td>
+                <td class="orbit-cell"><span class="check-icon">✓</span> <strong>{{privacy.row5Orbit}}</strong></td>
+              </tr>
+              <tr>
+                <th scope="row">{{privacy.row6Label}}</th>
+                <td class="cloud-cell"><span class="cross-icon">✕</span> {{privacy.row6Cloud}}</td>
+                <td class="orbit-cell"><span class="check-icon">✓</span> <strong>{{privacy.row6Orbit}}</strong></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <!-- Terminal Verification Box -->
@@ -665,6 +818,15 @@
         <a href="https://github.com/officialtofeekposwal/poswal-orbit/security/policy" target="_blank" rel="noopener noreferrer">Security Policy</a>
       </div>
       <p>{{footer.disclaimer}}</p>
+      <div class="apple-craft-badge">
+        <svg class="apple-craft-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M3.6 9h16.8"/>
+          <path d="M3.6 15h16.8"/>
+          <circle cx="12" cy="12" r="3" fill="currentColor"/>
+        </svg>
+        <span>Crafted with Apple HIG &amp; Super Apple Design by Tofeek Poswal</span>
+      </div>
       <p class="footer-small-text">{{footer.fontCredits}}</p>
       <p class="footer-small-text">{{footer.rights}}</p>
     </div>
