@@ -234,7 +234,7 @@ The streak, score, schedule, quick-add and insight logic is plain Dart with no F
 <details>
 <summary>Testing</summary>
 
-The suite declares 221 test cases across 38 files, counted from the source. Run it for the live result:
+The suite declares 228 test cases across 39 files, counted from the source. Run it for the live result:
 
 ```bash
 flutter analyze
