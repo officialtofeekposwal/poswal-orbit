@@ -27,6 +27,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - Added dedicated widget tests in `reduced_motion_widgets_test.dart` asserting static rendering when animations are disabled.
 - **Comprehensive Localization Scanner:**
   - Extended recursive regex audit in `localization_audit_test.dart` to verify that `label:`, `semanticLabel:`, `SnackBar`, and tooltips across `lib/` are free from raw literals, emojis, exclamations, and ALL-CAPS strings.
+- **Native & Widget Localization across en, hi, and ur:**
+  - Localized notification action buttons ("Mark done" / "Snooze 10m") in `NotificationService` and `NotificationScheduleEngine` using `AppLocalizations` (`notificationActionMarkDone`, `notificationActionSnooze10m`).
+  - Extracted all Android widget strings from layout XML and Kotlin providers into `res/values/strings.xml`, `res/values-hi/strings.xml`, and `res/values-ur/strings.xml`.
+  - Added localized string bundles for iOS widget in `ios/OrbitWidget/en.lproj`, `hi.lproj`, and `ur.lproj`.
+- **High-Contrast Token Hierarchy & Separation:**
+  - Fixed high-contrast token collision: added `textSecondaryHighContrastDark` (`#E2E8F0`, 13.62:1) and refined `textMutedHighContrastLight` (`#1E293B`, 13.98:1).
+  - Extended `wcag_contrast_audit_test.dart` to assert that high-contrast tokens strictly exceed normal tokens at every tier (`Primary > Muted > Secondary`) and achieve WCAG AAA (>= 7.0:1) across all surfaces.
+- **Background Notification Language Persistence & Immediate Regeneration:**
+  - Persisted user language preference in Drift database (`AppSettingsTable`, key `app_language`), enabling background isolates, boot receivers, and daily rolling window refills to respect user language with no UI running.
+  - Wired `SettingsNotifier.updateLanguage` to immediately regenerate scheduled notification triggers upon language change.
 
 ---
 
