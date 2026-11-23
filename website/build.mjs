@@ -72,10 +72,11 @@ for (const lang of ['hi', 'ur']) {
   }
 }
 
-// Strict content validator: no emojis, no exclamation marks, no placeholders, no emails
+// Strict content validator: no emojis, no exclamation marks, no placeholders, no emails, no phone numbers
 const emojiRegex = /\p{Extended_Pictographic}/u;
 const placeholderRegex = /YOUR_|example\.com|TODO|lorem/i;
 const emailRegex = /[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+/;
+const phoneRegex = /(?:\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}|\b\d{10}\b|\b\d{3}[-.\s]\d{3}[-.\s]\d{4}\b/;
 
 for (const lang of languages) {
   const entries = getAllKeys(i18nData[lang]);
@@ -96,9 +97,13 @@ for (const lang of languages) {
       console.error(`FATAL: Forbidden email address found in ${lang}.json at key "${key}": "${value}"`);
       process.exit(1);
     }
+    if (phoneRegex.test(value)) {
+      console.error(`FATAL: Forbidden phone number pattern found in ${lang}.json at key "${key}": "${value}"`);
+      process.exit(1);
+    }
   }
 }
-console.log('✓ i18n parity, zero-emoji, zero-exclamation, zero-email validation passed.');
+console.log('✓ i18n parity, zero-emoji, zero-exclamation, zero-email, zero-phone validation passed.');
 
 // 2. Derive Pubspec & Test Counts dynamically
 console.log('[2/6] Deriving architecture specs from pubspec.yaml and test suite...');

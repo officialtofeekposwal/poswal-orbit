@@ -14,7 +14,8 @@
     "specs": "07 Specs",
     "faq": "08 FAQ",
     "opensource": "09 Open Source",
-    "cta": "Get App"
+    "cta": "Get App",
+    "mobileMenu": "Menu"
   },
   "hero": {
     "eyebrow": "Pre-release · 100% Offline",
@@ -23,6 +24,12 @@
     "primaryCta": "Get the app",
     "secondaryCta": "View on GitHub",
     "illustrationLabel": "Illustration, not a screenshot. Real device screenshots will replace mockups after phone verification.",
+    "screenTabs": {
+      "today": "Today",
+      "habits": "Habits",
+      "tasks": "Tasks",
+      "notes": "Notes"
+    },
     "factStrip": {
       "platforms": "Android pre-release · iOS code written",
       "privacy": "0 trackers · 0 accounts · 0 network calls",
@@ -107,7 +114,7 @@
     "title": "Download Poswal Orbit",
     "subtitle": "Install the verified release APK or build from source.",
     "releaseCardTitle": "Android Release APK",
-    "releaseCardDesc": "Minified and shrunk with R8. Verified across automated CI tests.",
+    "releaseCardDesc": "Pre-release build signed with a CI verification throwaway key. Minified with R8 and verified across automated CI tests.",
     "downloadBtn": "Download APK",
     "checksumLabel": "SHA-256 Checksum",
     "copyChecksum": "Copy SHA-256",
@@ -149,7 +156,17 @@
     "repoBtn": "Browse repository",
     "issuesBtn": "Report an issue",
     "discussionsBtn": "Join discussions",
-    "licenseNotice": "Licensed under the MIT License. Contributions welcome."
+    "licenseNotice": "Licensed under the MIT License. Contributions welcome.",
+    "roadmapTitle": "Milestone roadmap",
+    "roadmapCompleted": "Completed",
+    "roadmapInProgress": "In progress",
+    "roadmapPlanned": "Planned",
+    "roadmapItem1": "Offline Drift SQLite core engines and migrations",
+    "roadmapItem2": "Trilingual localization and native RTL layout",
+    "roadmapItem3": "Physical Android device verification",
+    "roadmapItem4": "Community feedback and issue triage",
+    "roadmapItem5": "Hardware testing on physical Mac and iPhone",
+    "roadmapItem6": "Large tablet and foldable responsive layouts"
   },
   "footer": {
     "disclaimer": "This website sets zero cookies, loads zero analytics, and calls zero third-party hosts.",

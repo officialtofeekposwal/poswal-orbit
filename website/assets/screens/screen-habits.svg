@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 760" width="360" height="760">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070B14"/>
+      <stop offset="100%" stop-color="#0F1626"/>
+    </linearGradient>
+  </defs>
+  <rect width="360" height="760" fill="url(#bg)"/>
+
+  <!-- Status Bar -->
+  <text x="24" y="38" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="13" font-weight="600">9:41</text>
+  <circle cx="330" cy="34" r="5" fill="#14B8A6"/>
+
+  <!-- Top App Bar -->
+  <text x="24" y="80" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="12" letter-spacing="1">HABIT DETAIL</text>
+  <text x="24" y="112" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="24" font-weight="700">Morning Walk</text>
+
+  <!-- Metric Badges -->
+  <g transform="translate(20, 136)">
+    <rect width="96" height="54" rx="12" fill="#0F1626" stroke="#FFFFFF" stroke-opacity="0.08"/>
+    <text x="12" y="24" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10">CURRENT STREAK</text>
+    <text x="12" y="44" fill="#FFC857" font-family="-apple-system, sans-serif" font-size="18" font-weight="700">14 Days</text>
+  </g>
+  <g transform="translate(126, 136)">
+    <rect width="96" height="54" rx="12" fill="#0F1626" stroke="#FFFFFF" stroke-opacity="0.08"/>
+    <text x="12" y="24" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10">EWMA SCORE</text>
+    <text x="12" y="44" fill="#14B8A6" font-family="-apple-system, sans-serif" font-size="18" font-weight="700">94%</text>
+  </g>
+  <g transform="translate(232, 136)">
+    <rect width="108" height="54" rx="12" fill="#0F1626" stroke="#FFFFFF" stroke-opacity="0.08"/>
+    <text x="12" y="24" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10">STREAK FREEZE</text>
+    <text x="12" y="44" fill="#8B7CFF" font-family="-apple-system, sans-serif" font-size="18" font-weight="700">Protected</text>
+  </g>
+
+  <!-- 14-Week Visual Heatmap -->
+  <g transform="translate(20, 215)">
+    <rect width="320" height="240" rx="16" fill="#0F1626" stroke="#FFFFFF" stroke-opacity="0.08"/>
+    <text x="16" y="28" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="13" font-weight="600">14-Week Consistency Heatmap</text>
+    <text x="16" y="44" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11">Daily check-in frequency</text>
+
+    <!-- Heatmap Grid (7 rows x 14 cols) -->
+    <g transform="translate(16, 60)">
+      <!-- Loop simulation: 14 cols of 7 squares -->
+      <!-- Week 1-14 squares -->
+      <!-- Row 0 -->
+      <rect x="0" y="0" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.8"/>
+      <rect x="21" y="0" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.6"/>
+      <rect x="42" y="0" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="63" y="0" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="84" y="0" width="16" height="16" rx="4" fill="#162035"/>
+      <rect x="105" y="0" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.8"/>
+      <rect x="126" y="0" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.7"/>
+      <rect x="147" y="0" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="168" y="0" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="189" y="0" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.4"/>
+      <rect x="210" y="0" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="231" y="0" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="252" y="0" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="273" y="0" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="1.0"/>
+
+      <!-- Row 1 -->
+      <rect x="0" y="21" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.7"/>
+      <rect x="21" y="21" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="42" y="21" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="63" y="21" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.5"/>
+      <rect x="84" y="21" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.8"/>
+      <rect x="105" y="21" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="126" y="21" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="147" y="21" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="168" y="21" width="16" height="16" rx="4" fill="#162035"/>
+      <rect x="189" y="21" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.8"/>
+      <rect x="210" y="21" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="231" y="21" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="252" y="21" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="273" y="21" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="1.0"/>
+
+      <!-- Row 2 -->
+      <rect x="0" y="42" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="21" y="42" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="42" y="42" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.7"/>
+      <rect x="63" y="42" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="84" y="42" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="105" y="42" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.6"/>
+      <rect x="126" y="42" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="147" y="42" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.8"/>
+      <rect x="168" y="42" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="189" y="42" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="210" y="42" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="231" y="42" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.7"/>
+      <rect x="252" y="42" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="273" y="42" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="1.0"/>
+
+      <!-- Row 3 -->
+      <rect x="0" y="63" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.8"/>
+      <rect x="21" y="63" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.5"/>
+      <rect x="42" y="63" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="63" y="63" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="84" y="63" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="105" y="63" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="126" y="63" width="16" height="16" rx="4" fill="#162035"/>
+      <rect x="147" y="63" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="168" y="63" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="189" y="63" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.8"/>
+      <rect x="210" y="63" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="231" y="63" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="252" y="63" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="273" y="63" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="1.0"/>
+
+      <!-- Row 4 -->
+      <rect x="0" y="84" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="21" y="84" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="42" y="84" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.8"/>
+      <rect x="63" y="84" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="84" y="84" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.6"/>
+      <rect x="105" y="84" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="126" y="84" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="147" y="84" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="168" y="84" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.8"/>
+      <rect x="189" y="84" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="210" y="84" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="231" y="84" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="252" y="84" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="273" y="84" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="1.0"/>
+
+      <!-- Row 5 -->
+      <rect x="0" y="105" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="21" y="105" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.7"/>
+      <rect x="42" y="105" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="63" y="105" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="84" y="105" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="105" y="105" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="126" y="105" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.7"/>
+      <rect x="147" y="105" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="168" y="105" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="189" y="105" width="16" height="16" rx="4" fill="#162035"/>
+      <rect x="210" y="105" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.8"/>
+      <rect x="231" y="105" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="252" y="105" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="273" y="105" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="1.0"/>
+
+      <!-- Row 6 -->
+      <rect x="0" y="126" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="21" y="126" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="42" y="126" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="63" y="126" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.8"/>
+      <rect x="84" y="126" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="105" y="126" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="126" y="126" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="147" y="126" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="168" y="126" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="189" y="126" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="210" y="126" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="231" y="126" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="252" y="126" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="0.9"/>
+      <rect x="273" y="126" width="16" height="16" rx="4" fill="#14B8A6" fill-opacity="1.0"/>
+    </g>
+  </g>
+
+  <!-- Habit Schedule Card -->
+  <g transform="translate(20, 480)">
+    <rect width="320" height="96" rx="16" fill="#0F1626" stroke="#FFFFFF" stroke-opacity="0.08"/>
+    <text x="16" y="30" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="14" font-weight="600">Day Boundary: 4:00 AM</text>
+    <text x="16" y="52" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="12">Late-night check-ins count toward previous day.</text>
+    <rect x="16" y="64" width="70" height="20" rx="6" fill="#14B8A6" fill-opacity="0.15"/>
+    <text x="51" y="78" fill="#14B8A6" font-family="-apple-system, sans-serif" font-size="11" font-weight="600" text-anchor="middle">ACTIVE</text>
+  </g>
+
+  <!-- Bottom Nav -->
+  <g transform="translate(0, 680)">
+    <rect width="360" height="80" fill="#0F1626" fill-opacity="0.85"/>
+    <line x1="0" y1="0" x2="360" y2="0" stroke="#FFFFFF" stroke-opacity="0.08"/>
+    <circle cx="90" cy="35" r="4" fill="#94A3B8"/>
+    <text x="90" y="52" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10" font-weight="600" text-anchor="middle">TODAY</text>
+    <circle cx="180" cy="35" r="4" fill="#14B8A6"/>
+    <text x="180" y="52" fill="#14B8A6" font-family="-apple-system, sans-serif" font-size="10" font-weight="600" text-anchor="middle">HABITS</text>
+    <circle cx="270" cy="35" r="4" fill="#94A3B8"/>
+    <text x="270" y="52" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10" font-weight="600" text-anchor="middle">NOTES</text>
+  </g>
+</svg>

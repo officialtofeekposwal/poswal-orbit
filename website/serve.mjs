@@ -6,12 +6,31 @@
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
+import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const PORT = parseInt(process.env.PORT || '8080', 10);
+// Command line argument parser
+const args = process.argv.slice(2);
+let HOST = '127.0.0.1';
+let PORT = parseInt(process.env.PORT || '8080', 10);
+
+for (let i = 0; i < args.length; i++) {
+  if (args[i] === '--host' && args[i + 1]) {
+    HOST = args[i + 1];
+    i++;
+  } else if (args[i] === '--port' && args[i + 1]) {
+    PORT = parseInt(args[i + 1], 10);
+    i++;
+  }
+}
+
+if (process.env.HOST) {
+  HOST = process.env.HOST;
+}
+
 const DIST_DIR = path.join(__dirname, 'dist');
 const BASE_PATH = '/poswal-orbit/';
 
@@ -28,6 +47,18 @@ const MIME_TYPES = {
   '.xml': 'application/xml; charset=utf-8',
   '.webmanifest': 'application/manifest+json; charset=utf-8'
 };
+
+function getLocalIp() {
+  const interfaces = os.networkInterfaces();
+  for (const name of Object.keys(interfaces)) {
+    for (const iface of interfaces[name]) {
+      if (iface.family === 'IPv4' && !iface.internal) {
+        return iface.address;
+      }
+    }
+  }
+  return '127.0.0.1';
+}
 
 const server = http.createServer((req, res) => {
   let reqUrl = req.url || '/';
@@ -81,6 +112,14 @@ const server = http.createServer((req, res) => {
   stream.pipe(res);
 });
 
-server.listen(PORT, () => {
-  console.log(`Poswal Orbit preview server running at http://localhost:${PORT}${BASE_PATH}`);
+server.listen(PORT, HOST, () => {
+  if (HOST === '0.0.0.0') {
+    const lanIp = getLocalIp();
+    console.log(`\n⚠️  WARNING: Server is bound to 0.0.0.0, exposing it to your local Wi-Fi network.`);
+    console.log(`Local URL:   http://localhost:${PORT}${BASE_PATH}`);
+    console.log(`Network URL: http://${lanIp}:${PORT}${BASE_PATH}\n`);
+  } else {
+    console.log(`\nPoswal Orbit preview server running at http://${HOST}:${PORT}${BASE_PATH}`);
+    console.log(`(Bound to localhost only. To preview on phone over Wi-Fi, run: node website/serve.mjs --host 0.0.0.0)\n`);
+  }
 });

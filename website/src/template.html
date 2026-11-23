@@ -114,9 +114,42 @@
             <button type="button" class="theme-btn" data-theme-val="oled" title="OLED black theme">OLED</button>
           </div>
 
-          <a href="#install" class="btn btn-primary btn-sm">{{nav.cta}}</a>
+          <a href="#install" class="btn btn-primary btn-sm nav-cta">{{nav.cta}}</a>
+
+          <!-- Mobile Menu Hamburger Button -->
+          <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="{{nav.mobileMenu}}" aria-expanded="false" aria-controls="mobile-nav">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
         </div>
       </nav>
+
+      <!-- Mobile Navigation Drawer -->
+      <div class="mobile-nav-drawer" id="mobile-nav" aria-hidden="true">
+        <ul class="mobile-nav-links">
+          <li><a href="#simulator" class="mobile-nav-link">{{nav.demo}}</a></li>
+          <li><a href="#features" class="mobile-nav-link">{{nav.features}}</a></li>
+          <li><a href="#design" class="mobile-nav-link">{{nav.design}}</a></li>
+          <li><a href="#privacy" class="mobile-nav-link">{{nav.privacy}}</a></li>
+          <li><a href="#languages" class="mobile-nav-link">{{nav.languages}}</a></li>
+          <li><a href="#install" class="mobile-nav-link">{{nav.install}}</a></li>
+          <li><a href="#specs" class="mobile-nav-link">{{nav.specs}}</a></li>
+          <li><a href="#faq" class="mobile-nav-link">{{nav.faq}}</a></li>
+        </ul>
+        <div class="mobile-nav-controls">
+          <div class="lang-switcher" aria-label="Language options (mobile)">
+            <a href="{{baseUrl}}" class="lang-btn {{#if isEn}}active{{/if}}" hreflang="en">EN</a>
+            <a href="{{baseUrl}}hi/" class="lang-btn {{#if isHi}}active{{/if}}" hreflang="hi">हिन्दी</a>
+            <a href="{{baseUrl}}ur/" class="lang-btn {{#if isUr}}active{{/if}}" hreflang="ur">اردو</a>
+          </div>
+          <div class="theme-switcher" aria-label="Theme switcher (mobile)">
+            <button type="button" class="theme-btn" data-theme-val="dark" title="Dark theme">Dark</button>
+            <button type="button" class="theme-btn" data-theme-val="light" title="Light theme">Light</button>
+            <button type="button" class="theme-btn" data-theme-val="oled" title="OLED black theme">OLED</button>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -160,8 +193,8 @@
           </div>
 
           <!-- 3D Parallax Scene Mockup -->
-          <div class="hero-scene" aria-hidden="true">
-            <div class="scene-wrapper">
+          <div class="hero-scene">
+            <div class="scene-wrapper" aria-hidden="true">
               <!-- Orbit graphic with planets -->
               <div class="css-orbit-container">
                 <div class="css-orbit-ring">
@@ -185,10 +218,20 @@
               <div class="phone-mockup">
                 <div class="phone-notch"></div>
                 <div class="phone-screen">
-                  <img src="{{assetPath}}assets/screens/screen-today.png" alt="Poswal Orbit Today screen" width="360" height="760" loading="eager">
+                  <img id="mockup-img" src="{{assetPath}}assets/screens/screen-today.png" alt="Poswal Orbit screen illustration" width="360" height="760" loading="eager">
                 </div>
               </div>
             </div>
+
+            <!-- Screen Selector Tabs -->
+            <div class="screen-tabs-bar" role="tablist" aria-label="Screen preview selector">
+              <button type="button" class="screen-tab-btn active" data-screen="screen-today" role="tab" aria-selected="true">{{hero.screenTabs.today}}</button>
+              <button type="button" class="screen-tab-btn" data-screen="screen-habits" role="tab" aria-selected="false">{{hero.screenTabs.habits}}</button>
+              <button type="button" class="screen-tab-btn" data-screen="screen-tasks" role="tab" aria-selected="false">{{hero.screenTabs.tasks}}</button>
+              <button type="button" class="screen-tab-btn" data-screen="screen-notes" role="tab" aria-selected="false">{{hero.screenTabs.notes}}</button>
+            </div>
+
+            <button type="button" id="gyro-btn" class="btn btn-secondary btn-sm gyro-btn" style="display: none; margin-top: 0.5rem;">Enable Motion 3D</button>
             <div class="scene-disclaimer">{{hero.illustrationLabel}}</div>
           </div>
         </div>
@@ -343,7 +386,7 @@
             <div class="slider-container" style="margin-top: 1rem;">
               <div style="display: flex; justify-content: space-between; font-size: 0.8125rem;">
                 <label for="glass-slider">{{design.sliderLabel}}</label>
-                <span id="glass-blur-value" style="font-family: var(--font-mono); color: var(--color-teal);">16px</span>
+                <span id="glass-blur-value" style="font-family: var(--font-mono); color: var(--color-teal-text);">16px</span>
               </div>
               <input type="range" id="glass-slider" class="glass-slider" min="0" max="32" value="16">
             </div>
@@ -375,15 +418,15 @@
 
         <div class="privacy-grid">
           <div class="privacy-card">
-            <h3 class="feature-title" style="color: var(--color-teal); margin-bottom: 0.5rem;">{{privacy.point1Title}}</h3>
+            <h3 class="feature-title privacy-highlight">{{privacy.point1Title}}</h3>
             <p class="feature-desc">{{privacy.point1Desc}}</p>
           </div>
           <div class="privacy-card">
-            <h3 class="feature-title" style="color: var(--color-teal); margin-bottom: 0.5rem;">{{privacy.point2Title}}</h3>
+            <h3 class="feature-title privacy-highlight">{{privacy.point2Title}}</h3>
             <p class="feature-desc">{{privacy.point2Desc}}</p>
           </div>
           <div class="privacy-card">
-            <h3 class="feature-title" style="color: var(--color-teal); margin-bottom: 0.5rem;">{{privacy.point3Title}}</h3>
+            <h3 class="feature-title privacy-highlight">{{privacy.point3Title}}</h3>
             <p class="feature-desc">{{privacy.point3Desc}}</p>
           </div>
         </div>
@@ -394,9 +437,9 @@
             <span class="terminal-dot"></span>
             <span class="terminal-dot"></span>
             <span class="terminal-dot"></span>
-            <span style="font-size: 0.75rem; color: var(--text-secondary); margin-inline-start: 0.5rem;">{{privacy.verifyTitle}}</span>
+            <span style="font-size: 0.75rem; color: #94A3B8; margin-inline-start: 0.5rem;">{{privacy.verifyTitle}}</span>
           </div>
-          <div class="terminal-body">
+          <div class="terminal-body" tabindex="0" role="region" aria-label="Verification commands">
             <div><span class="cmd">$</span> {{privacy.verifyStep1}}</div>
             <div><span class="cmd">$</span> {{privacy.verifyStep2}}</div>
             <div><span class="cmd">$</span> {{privacy.verifyStep3}}</div>
@@ -478,7 +521,7 @@
             <h3 class="feature-title">{{install.iosCardTitle}}</h3>
             <p class="feature-desc">{{install.iosCardDesc}}</p>
             <div style="margin-top: auto;">
-              <span class="btn btn-secondary" style="opacity: 0.6; cursor: not-allowed;">App Store (Unreleased)</span>
+              <span class="btn btn-secondary btn-unreleased">App Store (Unreleased)</span>
             </div>
           </div>
         </div>
@@ -564,6 +607,40 @@
             <a href="https://github.com/officialtofeekposwal/poswal-orbit/issues" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">{{opensource.issuesBtn}}</a>
             <a href="https://github.com/officialtofeekposwal/poswal-orbit/discussions" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">{{opensource.discussionsBtn}}</a>
           </div>
+
+          <!-- Milestone Roadmap Table -->
+          <div class="roadmap-table-wrapper" style="margin-top: 3rem; text-align: start;">
+            <h3 class="feature-title" style="margin-bottom: 1rem; text-align: center;">{{opensource.roadmapTitle}}</h3>
+            <table class="specs-table" style="background-color: var(--bg-surface-elevated); border-radius: var(--r-card);">
+              <tbody>
+                <tr>
+                  <th scope="row"><span class="roadmap-badge badge-done">{{opensource.roadmapCompleted}}</span></th>
+                  <td>{{opensource.roadmapItem1}}</td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="roadmap-badge badge-done">{{opensource.roadmapCompleted}}</span></th>
+                  <td>{{opensource.roadmapItem2}}</td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="roadmap-badge badge-progress">{{opensource.roadmapInProgress}}</span></th>
+                  <td>{{opensource.roadmapItem3}}</td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="roadmap-badge badge-progress">{{opensource.roadmapInProgress}}</span></th>
+                  <td>{{opensource.roadmapItem4}}</td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="roadmap-badge badge-planned">{{opensource.roadmapPlanned}}</span></th>
+                  <td>{{opensource.roadmapItem5}}</td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="roadmap-badge badge-planned">{{opensource.roadmapPlanned}}</span></th>
+                  <td>{{opensource.roadmapItem6}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
           <p style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 1.5rem;">{{opensource.licenseNotice}}</p>
         </div>
       </div>

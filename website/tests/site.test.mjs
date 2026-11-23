@@ -90,11 +90,12 @@ test('Website Privacy & Security: Zero external network calls', () => {
   }
 });
 
-test('Website Quality: Zero emojis, zero exclamation marks, zero emails, zero placeholders in copy', () => {
+test('Website Quality: Zero emojis, zero exclamation marks, zero emails, zero phone numbers, zero placeholders in copy', () => {
   const htmlFiles = ['index.html', 'hi/index.html', 'ur/index.html'];
   const emojiRegex = /\p{Extended_Pictographic}/u;
   const placeholderRegex = /YOUR_|example\.com|TODO|lorem/i;
   const emailRegex = /[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+/;
+  const phoneRegex = /(?:\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}|\b\d{10}\b|\b\d{3}[-.\s]\d{3}[-.\s]\d{4}\b/;
 
   for (const f of htmlFiles) {
     const html = fs.readFileSync(path.join(DIST_DIR, f), 'utf-8');
@@ -104,6 +105,9 @@ test('Website Quality: Zero emojis, zero exclamation marks, zero emails, zero pl
 
     // No email address
     assert.ok(!emailRegex.test(html), `${f} must not contain any email address`);
+
+    // No phone numbers
+    assert.ok(!phoneRegex.test(html), `${f} must not contain phone number patterns`);
 
     // No placeholders
     assert.ok(!placeholderRegex.test(html), `${f} must not contain placeholder strings`);

@@ -237,28 +237,82 @@
     });
   }
 
-  // --- 7. Checksum Copy Button ---
-  const copyBtn = document.getElementById('copy-sha-btn');
-  const checksumText = document.getElementById('sha-checksum-text');
-  const copyNotification = document.getElementById('copy-status');
+  // --- 8. Screen Selector in Phone Mockup ---
+  const screenTabBtns = document.querySelectorAll('.screen-tab-btn');
+  const mockupImg = document.getElementById('mockup-img');
 
-  if (copyBtn && checksumText) {
-    copyBtn.addEventListener('click', async () => {
-      const text = checksumText.textContent.trim();
-      try {
-        await navigator.clipboard.writeText(text);
-        const originalText = copyBtn.textContent;
-        const copiedLabel = copyBtn.getAttribute('data-copied-label') || 'Copied';
-        copyBtn.textContent = copiedLabel;
-        if (copyNotification) copyNotification.textContent = copiedLabel;
-
-        setTimeout(() => {
-          copyBtn.textContent = originalText;
-          if (copyNotification) copyNotification.textContent = '';
-        }, 2000);
-      } catch (_) {
-        // Fallback if clipboard API is blocked
+  screenTabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const screenId = btn.getAttribute('data-screen');
+      screenTabBtns.forEach(b => {
+        const isActive = b === btn;
+        b.classList.toggle('active', isActive);
+        b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+      if (mockupImg && screenId) {
+        // Preserves relative path structure
+        const currentSrc = mockupImg.getAttribute('src');
+        const basePath = currentSrc.substring(0, currentSrc.lastIndexOf('/') + 1);
+        mockupImg.setAttribute('src', `${basePath}${screenId}.png`);
       }
     });
+  });
+
+  // --- 9. Mobile Navigation Drawer ---
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileNav = document.getElementById('mobile-nav');
+
+  if (mobileMenuBtn && mobileNav) {
+    mobileMenuBtn.addEventListener('click', () => {
+      const isOpen = mobileNav.classList.toggle('is-open');
+      mobileMenuBtn.classList.toggle('active', isOpen);
+      mobileMenuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      mobileNav.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+    });
+
+    mobileNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileNav.classList.remove('is-open');
+        mobileMenuBtn.classList.remove('active');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        mobileNav.setAttribute('aria-hidden', 'true');
+      });
+    });
+  }
+
+  // --- 10. Device Orientation Permission & Gyro Parallax ---
+  const gyroBtn = document.getElementById('gyro-btn');
+
+  function handleOrientation(e) {
+    if (document.hidden || !sceneWrapper || prefersReducedMotion.matches) return;
+    const gamma = e.gamma || 0; // Left to right [-90, 90]
+    const beta = e.beta || 0;   // Front to back [-180, 180]
+    const clampX = Math.max(-25, Math.min(25, gamma)) / 25;
+    const clampY = Math.max(-25, Math.min(25, beta - 45)) / 25;
+    const baseRotY = root.getAttribute('dir') === 'rtl' ? 12 : -12;
+    const rotY = baseRotY + clampX * 12;
+    const rotX = 8 - clampY * 12;
+    sceneWrapper.style.transform = `rotateY(${rotY}deg) rotateX(${rotX}deg)`;
+  }
+
+  if (window.DeviceOrientationEvent) {
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+      // iOS 13+ requires user interaction to grant permission
+      if (gyroBtn) {
+        gyroBtn.style.display = 'inline-flex';
+        gyroBtn.addEventListener('click', async () => {
+          try {
+            const permission = await DeviceOrientationEvent.requestPermission();
+            if (permission === 'granted') {
+              window.addEventListener('deviceorientation', handleOrientation);
+              gyroBtn.style.display = 'none';
+            }
+          } catch (_) {}
+        });
+      }
+    } else {
+      // Non-iOS devices supporting orientation
+      window.addEventListener('deviceorientation', handleOrientation);
+    }
   }
 })();
