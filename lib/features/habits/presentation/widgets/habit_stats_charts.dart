@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/domain/models/habit_models.dart';
+import 'package:poswal_orbit/l10n/app_localizations.dart';
 
 class HabitWeeklyBars extends StatelessWidget {
   final Habit habit;
@@ -14,6 +15,7 @@ class HabitWeeklyBars extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
     final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
@@ -50,7 +52,7 @@ class HabitWeeklyBars extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'WEEKLY PERFORMANCE',
+                l10n?.weeklyPerformanceHeader ?? 'Weekly performance',
                 style: PoswalText.caption.copyWith(
                   color: textMuted,
                   fontWeight: FontWeight.w700,
@@ -58,7 +60,7 @@ class HabitWeeklyBars extends StatelessWidget {
                 ),
               ),
               Text(
-                'By Day of Week',
+                'By day of week',
                 style: PoswalText.caption.copyWith(color: textMuted),
               ),
             ],
@@ -170,6 +172,7 @@ class HabitTrendLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
     final habitColor = Color(habit.colorValue);
@@ -216,7 +219,7 @@ class HabitTrendLine extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '30-DAY CONSISTENCY TREND',
+                l10n?.consistencyTrendHeader ?? '30-day consistency trend',
                 style: PoswalText.caption.copyWith(
                   color: textMuted,
                   fontWeight: FontWeight.w700,
@@ -224,7 +227,7 @@ class HabitTrendLine extends StatelessWidget {
                 ),
               ),
               Text(
-                '${(points.last * 100).toInt()}% Current',
+                '${(points.last * 100).toInt()}% current',
                 style: PoswalText.caption.copyWith(
                   color: PoswalColors.teal,
                   fontWeight: FontWeight.w600,

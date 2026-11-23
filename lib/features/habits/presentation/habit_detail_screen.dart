@@ -232,7 +232,7 @@ class HabitDetailScreen extends ConsumerWidget {
                               children: [
                                 Expanded(
                                   child: _buildHeroStatCard(
-                                    title: l10n?.currentStreakLabel.toUpperCase() ?? 'CURRENT STREAK',
+                                    title: l10n?.currentStreakLabel ?? 'Current streak',
                                     value: '${stats.currentStreak}d',
                                     icon: PhosphorIconsFill.fire,
                                     color: PoswalColors.gold,
@@ -245,7 +245,7 @@ class HabitDetailScreen extends ConsumerWidget {
                                 const SizedBox(width: PoswalSpacing.sm),
                                 Expanded(
                                   child: _buildHeroStatCard(
-                                    title: l10n?.bestStreakLabel.toUpperCase() ?? 'BEST STREAK',
+                                    title: l10n?.bestStreakLabel ?? 'Best streak',
                                     value: '${stats.bestStreak}d',
                                     icon: PhosphorIconsFill.trophy,
                                     color: PoswalColors.violet,
@@ -262,7 +262,7 @@ class HabitDetailScreen extends ConsumerWidget {
                               children: [
                                 Expanded(
                                   child: _buildHeroStatCard(
-                                    title: l10n?.habitScoreLabel.toUpperCase() ?? 'HABIT SCORE',
+                                    title: l10n?.habitScoreLabel ?? 'Habit score',
                                     value: '$scorePercent%',
                                     icon: PhosphorIconsFill.chartLineUp,
                                     color: PoswalColors.teal,
@@ -275,7 +275,7 @@ class HabitDetailScreen extends ConsumerWidget {
                                 const SizedBox(width: PoswalSpacing.sm),
                                 Expanded(
                                   child: _buildHeroStatCard(
-                                    title: l10n?.completionRateLabel.toUpperCase() ?? 'COMPLETION RATE',
+                                    title: l10n?.completionRateLabel ?? 'Completion rate',
                                     value: '$ratePercent%',
                                     icon: PhosphorIconsFill.checkCircle,
                                     color: PoswalColors.coral,

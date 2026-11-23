@@ -48,8 +48,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get allClear => 'All clear. Enjoy the quiet.';
 
   @override
-  String get habitsAllDone =>
-      'All habits complete for today. Outstanding work!';
+  String get habitsAllDone => 'All habits completed for today. Great progress.';
 
   @override
   String get tasksDueOverdue => 'Tasks Due & Overdue';
@@ -157,16 +156,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get habitNotFound => 'Habit not found';
 
   @override
-  String get currentStreakLabel => 'Current Streak';
+  String get currentStreakLabel => 'Current streak';
 
   @override
-  String get bestStreakLabel => 'Best Streak';
+  String get bestStreakLabel => 'Best streak';
 
   @override
-  String get habitScoreLabel => 'Habit Score';
+  String get habitScoreLabel => 'Habit score';
 
   @override
-  String get completionRateLabel => 'Completion Rate';
+  String get completionRateLabel => 'Completion rate';
 
   @override
   String get archiveHabit => 'Archive Habit';
@@ -200,7 +199,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quickAddTaskHint =>
-      'Add a task (e.g. Call mom tomorrow 6pm !high #family)';
+      'Add a task (e.g. Call mom tomorrow at 6pm #family)';
 
   @override
   String get priorityUrgent => 'Urgent';
@@ -242,7 +241,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addNotesHint => 'Add detailed notes...';
 
   @override
-  String get dueDateLabel => 'Due Date';
+  String get dueDateLabel => 'Due date and time';
 
   @override
   String get priorityLabel => 'Priority';
@@ -311,7 +310,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get insightsTitle => 'Insights';
 
   @override
-  String get weeklyReviewTitle => 'Weekly Review';
+  String get weeklyReviewTitle => 'Weekly review';
 
   @override
   String get productivityScore => 'Productivity Score';
@@ -575,7 +574,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get heatmapMore => 'More';
 
   @override
-  String get shareWeeklyRhythm => 'My weekly rhythm on Poswal Orbit 🚀';
+  String get shareWeeklyRhythm => 'My weekly rhythm on Poswal Orbit';
 
   @override
   String shareFailed(String error) {
@@ -641,7 +640,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get searchTasksPlaceholder => 'Search tasks...';
 
   @override
-  String get noHabitLinked => 'No Habit Linked';
+  String get noHabitLinked => 'No habit linked';
 
   @override
   String taskDeletedNamed(String title) {
@@ -836,10 +835,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get linkHabitOrTaskTitle => 'Link to Habit or Task';
 
   @override
-  String get habitsSectionHeader => 'HABITS';
+  String get habitsSectionHeader => 'Habits';
 
   @override
-  String get tasksSectionHeader => 'TASKS';
+  String get tasksSectionHeader => 'Tasks';
 
   @override
   String dailyJournalHeader(String date) {
@@ -847,7 +846,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get linkedHabitLabel => 'Linked Habit';
+  String get linkedHabitLabel => 'Linked habit';
 
   @override
   String get linkedTaskLabel => 'Linked Task';
@@ -865,16 +864,53 @@ class AppLocalizationsEn extends AppLocalizations {
   String get habitEwmaConsistency => '14-day EWMA consistency';
 
   @override
-  String get testNotificationTitle => '🌟 Poswal Orbit Test Notification';
+  String get testNotificationTitle => 'Poswal Orbit test notification';
 
   @override
   String get testNotificationBody =>
-      'Exact alarms & notification channels are working beautifully on this device!';
+      'Exact alarms and notification channels are working properly on this device.';
 
   @override
   String get testNotificationSent =>
-      'Test notification sent! Check your shade & test \"Mark Done\" / \"Snooze 10m\".';
+      'Test notification sent. Check your notifications to test Mark Done or Snooze.';
 
   @override
   String get calendarTapHint => 'Tap any day to edit check-in or add notes';
+
+  @override
+  String get consistencyHeatmapHeader => 'Consistency heatmap';
+
+  @override
+  String get weeklyPerformanceHeader => 'Weekly performance';
+
+  @override
+  String get consistencyTrendHeader => '30-day consistency trend';
+
+  @override
+  String recordProgressTitle(String unit) {
+    return 'Record progress ($unit)';
+  }
+
+  @override
+  String get notificationUrgentPrefix => 'Urgent: ';
+
+  @override
+  String get notificationHighPrefix => 'High priority: ';
+
+  @override
+  String notificationHabitTitle(String name) {
+    return 'Time for $name';
+  }
+
+  @override
+  String get notificationKeepMomentum => 'Keep your momentum alive today.';
+
+  @override
+  String get notificationTaskDueNow => 'Task due now';
+
+  @override
+  String get datePickerSetDate => 'Set date';
+
+  @override
+  String get datePickerSetTime => 'Set time';
 }

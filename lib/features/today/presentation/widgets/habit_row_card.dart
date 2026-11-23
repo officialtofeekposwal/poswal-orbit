@@ -132,7 +132,7 @@ class HabitRowCard extends ConsumerWidget {
                       decoration: isDone ? TextDecoration.none : null,
                     ),
                   ),
-                  const SizedBox(height: 3),
+                  const SizedBox(height: PoswalSpacing.xxs),
                   Row(
                     children: [
                       Flexible(
@@ -145,7 +145,18 @@ class HabitRowCard extends ConsumerWidget {
                       if (item.currentStreak > 0) ...[
                         const SizedBox(width: PoswalSpacing.xs),
                         Text(
-                          '• 🔥 ${item.currentStreak}d',
+                          '•',
+                          style: PoswalText.caption.copyWith(color: textMuted),
+                        ),
+                        const SizedBox(width: PoswalSpacing.xxs),
+                        const Icon(
+                          PhosphorIconsFill.flame,
+                          size: 12,
+                          color: PoswalColors.gold,
+                        ),
+                        const SizedBox(width: PoswalSpacing.xxs),
+                        Text(
+                          '${item.currentStreak}d',
                           style: PoswalText.caption.copyWith(
                             color: PoswalColors.gold,
                             fontWeight: FontWeight.w600,

@@ -170,7 +170,30 @@ void main() {
       expect(triggers[0].title, contains('Urgent: Team Standup'));
 
       expect(triggers[1].triggerTime, DateTime(2026, 11, 25, 9, 0));
-      expect(triggers[1].title, contains('⚡ Review PRs'));
+      expect(triggers[1].title, contains('High priority: Review PRs'));
+
+      // Verify Hindi and Urdu localized prefixes
+      final triggersHi = NotificationScheduleEngine.generateRollingWindowTriggers(
+        habits: [],
+        habitReminders: {},
+        completedHabitDateKeys: {},
+        tasks: [taskWithTime],
+        now: now,
+        daysCount: 7,
+        languageCode: 'hi',
+      );
+      expect(triggersHi[0].title, contains('अति आवश्यक: Team Standup'));
+
+      final triggersUr = NotificationScheduleEngine.generateRollingWindowTriggers(
+        habits: [],
+        habitReminders: {},
+        completedHabitDateKeys: {},
+        tasks: [taskWithTime],
+        now: now,
+        daysCount: 7,
+        languageCode: 'ur',
+      );
+      expect(triggersUr[0].title, contains('ضروری: Team Standup'));
     });
 
     test('generateId generates non-negative 31-bit integers without collisions for distinct times', () {

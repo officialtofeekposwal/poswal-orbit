@@ -79,7 +79,7 @@ class HabitHeatmap extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'CONSISTENCY HEATMAP',
+                l10n?.consistencyHeatmapHeader ?? 'Consistency heatmap',
                 style: PoswalText.caption.copyWith(
                   color: textMuted,
                   fontWeight: FontWeight.w700,
@@ -87,7 +87,7 @@ class HabitHeatmap extends StatelessWidget {
                 ),
               ),
               Text(
-                'Past $weeksToShow Weeks',
+                'Past $weeksToShow weeks',
                 style: PoswalText.caption.copyWith(color: textMuted),
               ),
             ],
@@ -152,15 +152,15 @@ class HabitHeatmap extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(l10n?.heatmapLess ?? 'Less', style: PoswalText.micro.copyWith(color: textMuted)),
-              const SizedBox(width: 4),
+              const SizedBox(width: PoswalSpacing.xs),
               _buildLegendBox(isDark ? Colors.white.withValues(alpha: 0.05) : Colors.black.withValues(alpha: 0.05)),
-              const SizedBox(width: 3),
+              const SizedBox(width: PoswalSpacing.xxs),
               _buildLegendBox(habitColor.withValues(alpha: 0.35)),
-              const SizedBox(width: 3),
+              const SizedBox(width: PoswalSpacing.xxs),
               _buildLegendBox(habitColor.withValues(alpha: 0.70)),
-              const SizedBox(width: 3),
+              const SizedBox(width: PoswalSpacing.xxs),
               _buildLegendBox(habitColor),
-              const SizedBox(width: 4),
+              const SizedBox(width: PoswalSpacing.xs),
               Text(l10n?.heatmapMore ?? 'More', style: PoswalText.micro.copyWith(color: textMuted)),
               const SizedBox(width: PoswalSpacing.md),
               Container(

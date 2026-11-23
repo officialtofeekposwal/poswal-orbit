@@ -178,7 +178,7 @@ void main() {
       );
 
       expect(find.text('Quick Add Task'), findsOneWidget);
-      expect(find.text('Due Date'), findsOneWidget);
+      expect(find.text('Due date and time'), findsOneWidget);
       expect(find.text('Priority'), findsOneWidget);
 
       // Enter natural language command
@@ -226,7 +226,7 @@ void main() {
       );
 
       expect(find.text('Complete project report'), findsOneWidget);
-      expect(find.text('SUBTASKS'), findsOneWidget);
+      expect(find.text('Subtasks'), findsOneWidget);
 
       // Add a subtask
       final subtaskInput = find.widgetWithText(TextField, 'Add a subtask...');

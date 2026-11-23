@@ -345,8 +345,8 @@ class NotificationService {
     try {
       await _plugin.show(
         id: 99999,
-        title: title ?? '🌟 Poswal Orbit Test Notification',
-        body: body ?? 'Exact alarms & notification channels are working beautifully on this device!',
+        title: title ?? 'Poswal Orbit test notification',
+        body: body ?? 'Exact alarms and notification channels are working properly on this device.',
         notificationDetails: details,
         payload: jsonEncode({
           'notificationId': 99999,
@@ -359,7 +359,7 @@ class NotificationService {
   }
 
   /// Refills the 7-day rolling window of notification triggers from database state
-  Future<int> refillRollingWindow() async {
+  Future<int> refillRollingWindow({DateTime? nowOverride, String languageCode = 'en'}) async {
     await initialize();
 
     // 1. Fetch active habits
@@ -417,7 +417,7 @@ class NotificationService {
     }
 
     // 3. Fetch completed entries for the window
-    final now = DateTime.now();
+    final now = nowOverride ?? DateTime.now();
     final today = DateBoundary.getEffectiveDate(now);
     final minDateStr = DateBoundary.toDateString(today);
     final maxDateStr = DateBoundary.toDateString(today.add(const Duration(days: 7)));
@@ -466,6 +466,7 @@ class NotificationService {
       tasks: tasks,
       now: now,
       daysCount: 7,
+      languageCode: languageCode,
     );
 
     // 6. Get currently scheduled requests from plugin

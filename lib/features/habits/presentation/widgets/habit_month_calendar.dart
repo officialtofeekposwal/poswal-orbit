@@ -98,7 +98,7 @@ class _HabitMonthCalendarState extends State<HabitMonthCalendar> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                DateFormat('MMMM yyyy').format(_selectedMonth).toUpperCase(),
+                DateFormat('MMMM yyyy').format(_selectedMonth),
                 style: PoswalText.caption.copyWith(
                   color: textPrimary,
                   fontWeight: FontWeight.w700,

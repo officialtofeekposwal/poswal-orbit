@@ -181,7 +181,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(HabitCheckinSheet), findsOneWidget);
-      expect(find.text('CHECK-IN STATUS'), findsOneWidget);
+      expect(find.text('Check-in status'), findsOneWidget);
       expect(find.text('Done'), findsOneWidget);
       expect(find.text('Skip'), findsOneWidget);
       expect(find.text('Missed'), findsOneWidget);
@@ -205,10 +205,10 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(HabitDetailScreen), findsOneWidget);
-      expect(find.text('CURRENT STREAK'), findsOneWidget);
-      expect(find.text('BEST STREAK'), findsOneWidget);
-      expect(find.text('HABIT SCORE'), findsOneWidget);
-      expect(find.text('COMPLETION RATE'), findsOneWidget);
+      expect(find.text('Current streak'), findsOneWidget);
+      expect(find.text('Best streak'), findsOneWidget);
+      expect(find.text('Habit score'), findsOneWidget);
+      expect(find.text('Completion rate'), findsOneWidget);
       expect(find.byType(HabitHeatmap), findsOneWidget);
       expect(find.byType(HabitMonthCalendar), findsOneWidget);
 

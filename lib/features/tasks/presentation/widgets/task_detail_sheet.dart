@@ -260,7 +260,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
 
                   // 3. Priority Selector (5 options)
                   Text(
-                    l10n?.priorityLabel.toUpperCase() ?? 'PRIORITY',
+                    l10n?.priorityLabel ?? 'Priority',
                     style: PoswalText.caption.copyWith(color: textMuted, fontWeight: FontWeight.w700, letterSpacing: 0.8),
                   ),
                   const SizedBox(height: PoswalSpacing.sm),
@@ -298,7 +298,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
 
                   // 4. Due Date & Time Pickers
                   Text(
-                    l10n?.dueDateLabel.toUpperCase() ?? 'DUE DATE & TIME',
+                    l10n?.dueDateLabel ?? 'Due date and time',
                     style: PoswalText.caption.copyWith(color: textMuted, fontWeight: FontWeight.w700, letterSpacing: 0.8),
                   ),
                   const SizedBox(height: PoswalSpacing.sm),
@@ -308,7 +308,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                         child: OutlinedButton.icon(
                           icon: const Icon(PhosphorIconsRegular.calendar, size: 16),
                           label: Text(
-                            _dueDate != null ? DateFormat('EEE, MMM d, yyyy').format(_dueDate!) : 'Set Date',
+                            _dueDate != null ? DateFormat('EEE, MMM d, yyyy').format(_dueDate!) : (l10n?.datePickerSetDate ?? 'Set date'),
                             style: PoswalText.footnote,
                           ),
                           onPressed: _pickDueDate,
@@ -319,7 +319,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                         child: OutlinedButton.icon(
                           icon: const Icon(PhosphorIconsRegular.clock, size: 16),
                           label: Text(
-                            _dueTime != null ? _dueTime!.format(context) : 'Set Time',
+                            _dueTime != null ? _dueTime!.format(context) : (l10n?.datePickerSetTime ?? 'Set time'),
                             style: PoswalText.footnote,
                           ),
                           onPressed: _pickDueTime,
@@ -343,7 +343,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        l10n?.subtasksTitle.toUpperCase() ?? 'SUBTASKS',
+                        l10n?.subtasksTitle ?? 'Subtasks',
                         style: PoswalText.caption.copyWith(color: textMuted, fontWeight: FontWeight.w700, letterSpacing: 0.8),
                       ),
                       subtasksAsync.maybeWhen(
@@ -434,7 +434,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
 
                   // 6. Project & Habit Links
                   Text(
-                    'LINKED HABIT',
+                    l10n?.linkedHabitLabel ?? 'Linked habit',
                     style: PoswalText.caption.copyWith(color: textMuted, fontWeight: FontWeight.w700, letterSpacing: 0.8),
                   ),
                   const SizedBox(height: PoswalSpacing.sm),
@@ -447,7 +447,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                           contentPadding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md, vertical: 10),
                         ),
                         items: [
-                          DropdownMenuItem(value: null, child: Text(l10n?.noHabitLinked ?? 'No Habit Linked')),
+                          DropdownMenuItem(value: null, child: Text(l10n?.noHabitLinked ?? 'No habit linked')),
                           for (final h in habits)
                             DropdownMenuItem(value: h.id, child: Text(h.name)),
                         ],

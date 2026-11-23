@@ -6,23 +6,24 @@
   "tabTasks": "Tasks",
   "tabNotes": "Notes",
   "tabInsights": "Insights",
-
   "greetingMorning": "Good morning",
   "greetingAfternoon": "Good afternoon",
   "greetingEvening": "Good evening",
   "greetingNight": "Good evening",
-
   "habitsProgress": "{completed} of {total} completed",
   "@habitsProgress": {
     "placeholders": {
-      "completed": {"type": "int"},
-      "total": {"type": "int"}
+      "completed": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "allClear": "All clear. Enjoy the quiet.",
-  "habitsAllDone": "All habits complete for today. Outstanding work!",
+  "habitsAllDone": "All habits completed for today. Great progress.",
   "tasksDueOverdue": "Tasks Due & Overdue",
-
   "yourOrbitClear": "Your Orbit is Clear",
   "noHabitsScheduled": "No habits scheduled for this day.\nRest and recharge, or create a new habit below.",
   "addHabit": "Add Habit",
@@ -30,10 +31,11 @@
   "tasksDueCount": "({count} due)",
   "@tasksDueCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "allHabits": "All Habits",
   "habitsActive": "Active",
   "habitsArchived": "Archived",
@@ -41,7 +43,9 @@
   "streakDays": "{days}d streak",
   "@streakDays": {
     "placeholders": {
-      "days": {"type": "int"}
+      "days": {
+        "type": "int"
+      }
     }
   },
   "streakFreezeActive": "1 Streak Freeze Active",
@@ -54,16 +58,19 @@
   "habitRestored": "Restored \"{name}\" to Active Habits",
   "@habitRestored": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "habitDeleted": "Permanently deleted \"{name}\"",
   "@habitDeleted": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
-
   "createHabitTitle": "Create Habit",
   "editHabitTitle": "Edit Habit",
   "livePreview": "Live Preview",
@@ -75,22 +82,21 @@
   "scheduleLabel": "Schedule",
   "saveChanges": "Save Changes",
   "habitNotFound": "Habit not found",
-  "currentStreakLabel": "Current Streak",
-  "bestStreakLabel": "Best Streak",
-  "habitScoreLabel": "Habit Score",
-  "completionRateLabel": "Completion Rate",
+  "currentStreakLabel": "Current streak",
+  "bestStreakLabel": "Best streak",
+  "habitScoreLabel": "Habit score",
+  "completionRateLabel": "Completion rate",
   "archiveHabit": "Archive Habit",
   "restoreHabit": "Restore Habit",
   "deleteHabit": "Delete Habit",
   "checkinStatusDone": "Done",
   "checkinStatusSkip": "Skip",
   "checkinStatusMissed": "Missed",
-
   "tasksSmartToday": "Today",
   "tasksSmartUpcoming": "Upcoming",
   "tasksSmartAll": "All",
   "tasksSmartDone": "Done",
-  "quickAddTaskHint": "Add a task (e.g. Call mom tomorrow 6pm !high #family)",
+  "quickAddTaskHint": "Add a task (e.g. Call mom tomorrow at 6pm #family)",
   "priorityUrgent": "Urgent",
   "priorityHigh": "High",
   "priorityMedium": "Medium",
@@ -104,12 +110,11 @@
   "addSubtaskHint": "Add a subtask...",
   "notesLabel": "Notes",
   "addNotesHint": "Add detailed notes...",
-  "dueDateLabel": "Due Date",
+  "dueDateLabel": "Due date and time",
   "priorityLabel": "Priority",
   "projectLabel": "Project",
   "taskDeletedToast": "Task deleted",
   "undoButton": "Undo",
-
   "notesPinned": "Pinned",
   "notesAll": "All Notes",
   "notesTodayJournal": "Today's Journal",
@@ -128,12 +133,13 @@
   "journalForDate": "Daily Journal: {date}",
   "@journalForDate": {
     "placeholders": {
-      "date": {"type": "String"}
+      "date": {
+        "type": "String"
+      }
     }
   },
-
   "insightsTitle": "Insights",
-  "weeklyReviewTitle": "Weekly Review",
+  "weeklyReviewTitle": "Weekly review",
   "productivityScore": "Productivity Score",
   "bestDayOfWeek": "Best Day of Week",
   "bestTimeOfDay": "Best Time of Day",
@@ -142,10 +148,9 @@
   "shareCard": "Share",
   "insightsEmptyTitle": "Your insights will grow as you go",
   "insightsEmptySubtitle": "Complete habits and check off tasks to unlock personalized patterns, weekly review cards, and productivity scores.",
-
   "settingsTitle": "Settings",
   "settingsAppearance": "Appearance",
-  "settingsTheme": "Theme Mode",
+  "settingsTheme": "Theme",
   "settingsAccent": "Accent Color",
   "settingsGlass": "Glass Intensity",
   "settingsReduceTransparency": "Reduce Transparency",
@@ -162,15 +167,13 @@
   "settingsImport": "Import",
   "settingsDanger": "Danger Zone",
   "settingsDeleteAll": "Delete All Data",
-
   "widgetTodayProgress": "Orbit Today Progress",
   "widgetQuickCheckin": "Quick Habit Check-in",
   "widgetTasksGlance": "Pending Tasks at a Glance",
-
   "dayStartBoundarySubtitle": "Habit check-ins before this hour count towards previous day",
   "reduceTransparencySubtitle": "Solid background cards for reduced GPU load or high contrast",
   "hapticFeedbackSubtitle": "Tactile vibration on habit rings, checkboxes and gestures",
-  "remindersHealthCheckSubtitle": "Verify notification permissions, exact alarms & One UI battery rules",
+  "remindersHealthCheckSubtitle": "Verify system permissions and Samsung One UI background rules to ensure 100% reliable streak reminders.",
   "sendTestAlert": "Send Test Alert",
   "syncSchedule": "Sync Schedule",
   "displayLanguage": "Display Language",
@@ -203,7 +206,9 @@
   "rollingWindowStatusSubtitle": "{count} scheduled reminders active in OS queue.",
   "@rollingWindowStatusSubtitle": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "refillBtn": "Refill",
@@ -223,14 +228,15 @@
   "last8Weeks": "Last 8 Weeks",
   "heatmapLess": "Less",
   "heatmapMore": "More",
-  "shareWeeklyRhythm": "My weekly rhythm on Poswal Orbit 🚀",
+  "shareWeeklyRhythm": "My weekly rhythm on Poswal Orbit",
   "shareFailed": "Failed to share: {error}",
   "@shareFailed": {
     "placeholders": {
-      "error": {"type": "String"}
+      "error": {
+        "type": "String"
+      }
     }
   },
-
   "restoreHabitTooltip": "Restore Habit",
   "deletePermanentlyTooltip": "Delete Permanently",
   "habitNotePlaceholder": "e.g. Felt great today, did 20 extra minutes",
@@ -250,11 +256,13 @@
   "linkUrlLabel": "URL (https://...)",
   "globalSearchPlaceholder": "Search habits, tasks, notes...",
   "searchTasksPlaceholder": "Search tasks...",
-  "noHabitLinked": "No Habit Linked",
+  "noHabitLinked": "No habit linked",
   "taskDeletedNamed": "Task \"{title}\" deleted",
   "@taskDeletedNamed": {
     "placeholders": {
-      "title": {"type": "String"}
+      "title": {
+        "type": "String"
+      }
     }
   },
   "searchTooltip": "Search",
@@ -276,7 +284,9 @@
   "importFormat": "Format: {format}",
   "@importFormat": {
     "placeholders": {
-      "format": {"type": "String"}
+      "format": {
+        "type": "String"
+      }
     }
   },
   "importSafetyNote": "A safety backup will be created automatically before importing to protect your current database.",
@@ -286,7 +296,9 @@
   "fullJsonCopiedToast": "Full JSON backup copied to clipboard ({bytes} bytes)",
   "@fullJsonCopiedToast": {
     "placeholders": {
-      "bytes": {"type": "int"}
+      "bytes": {
+        "type": "int"
+      }
     }
   },
   "habitsCsvCopiedToast": "Habits CSV copied to clipboard",
@@ -295,14 +307,18 @@
   "importSuccessToast": "Successfully imported {habits} habits, {tasks} tasks, {notes} notes",
   "@importSuccessToast": {
     "placeholders": {
-      "habits": {"type": "int"},
-      "tasks": {"type": "int"},
-      "notes": {"type": "int"}
+      "habits": {
+        "type": "int"
+      },
+      "tasks": {
+        "type": "int"
+      },
+      "notes": {
+        "type": "int"
+      }
     }
   },
-
   "remindersHealthCheckTitle": "Reminders Health Check",
-  "remindersHealthCheckSubtitle": "Verify system permissions and Samsung One UI background rules to ensure 100% reliable streak reminders.",
   "onboardingWelcomeTitle": "Welcome to Poswal Orbit",
   "onboardingWelcomeDesc": "Your private, offline space for intentional habits, tasks, and reflections.",
   "onboardingHabitsTitle": "Build Lasting Momentum",
@@ -314,17 +330,16 @@
   "getStarted": "Get Started",
   "skip": "Skip",
   "next": "Next",
-
   "restoreBackupDialogTitle": "Restore from Backup?",
   "restoreBackupDialogBody": "This will replace your current data with backup from {date}.\n\nA safety snapshot of your current database will be taken immediately before restoring so nothing is lost.",
   "@restoreBackupDialogBody": {
     "placeholders": {
-      "date": {"type": "String"}
+      "date": {
+        "type": "String"
+      }
     }
   },
   "restoreSafelyBtn": "Restore Safely",
-  "settingsAppearance": "Appearance",
-  "settingsTheme": "Theme",
   "settingsAccentColor": "Accent Color",
   "settingsGlassIntensity": "Glass Intensity",
   "settingsTimeBoundary": "Time & Orbit Boundary",
@@ -335,41 +350,106 @@
   "searchSectionHabits": "Habits ({count})",
   "@searchSectionHabits": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "searchSectionTasks": "Tasks ({count})",
   "@searchSectionTasks": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "searchSectionNotes": "Notes ({count})",
   "@searchSectionNotes": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "colorLabelTitle": "Color Label",
   "allFilter": "All",
   "noteColorLabelTitle": "Note Color Label",
   "linkHabitOrTaskTitle": "Link to Habit or Task",
-  "habitsSectionHeader": "HABITS",
-  "tasksSectionHeader": "TASKS",
+  "habitsSectionHeader": "Habits",
+  "tasksSectionHeader": "Tasks",
   "dailyJournalHeader": "Daily Journal • {date}",
   "@dailyJournalHeader": {
     "placeholders": {
-      "date": {"type": "String"}
+      "date": {
+        "type": "String"
+      }
     }
   },
-  "linkedHabitLabel": "Linked Habit",
+  "linkedHabitLabel": "Linked habit",
   "linkedTaskLabel": "Linked Task",
   "heatmapSkipped": "Skipped",
   "habitConsecutiveOccurrences": "consecutive occurrences",
   "habitHistoricalRecord": "historical record",
   "habitEwmaConsistency": "14-day EWMA consistency",
-  "testNotificationTitle": "🌟 Poswal Orbit Test Notification",
-  "testNotificationBody": "Exact alarms & notification channels are working beautifully on this device!",
-  "testNotificationSent": "Test notification sent! Check your shade & test \"Mark Done\" / \"Snooze 10m\".",
-  "calendarTapHint": "Tap any day to edit check-in or add notes"
+  "testNotificationTitle": "Poswal Orbit test notification",
+  "testNotificationBody": "Exact alarms and notification channels are working properly on this device.",
+  "testNotificationSent": "Test notification sent. Check your notifications to test Mark Done or Snooze.",
+  "calendarTapHint": "Tap any day to edit check-in or add notes",
+  "consistencyHeatmapHeader": "Consistency heatmap",
+  "@consistencyHeatmapHeader": {
+    "description": "Header for consistency heatmap"
+  },
+  "weeklyPerformanceHeader": "Weekly performance",
+  "@weeklyPerformanceHeader": {
+    "description": "Header for weekly performance chart"
+  },
+  "consistencyTrendHeader": "30-day consistency trend",
+  "@consistencyTrendHeader": {
+    "description": "Header for 30-day consistency trend chart"
+  },
+  "@linkedHabitLabel": {
+    "description": "Label for linked habit selector"
+  },
+  "recordProgressTitle": "Record progress ({unit})",
+  "@recordProgressTitle": {
+    "description": "Title for recording habit progress with unit",
+    "placeholders": {
+      "unit": {
+        "type": "String"
+      }
+    }
+  },
+  "notificationUrgentPrefix": "Urgent: ",
+  "@notificationUrgentPrefix": {
+    "description": "Prefix for urgent task notifications"
+  },
+  "notificationHighPrefix": "High priority: ",
+  "@notificationHighPrefix": {
+    "description": "Prefix for high priority task notifications"
+  },
+  "notificationHabitTitle": "Time for {name}",
+  "@notificationHabitTitle": {
+    "description": "Title for habit notification",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "notificationKeepMomentum": "Keep your momentum alive today.",
+  "@notificationKeepMomentum": {
+    "description": "Body for default habit notification"
+  },
+  "notificationTaskDueNow": "Task due now",
+  "@notificationTaskDueNow": {
+    "description": "Body for task notification when no note is provided"
+  },
+  "datePickerSetDate": "Set date",
+  "@datePickerSetDate": {
+    "description": "Button label to set date"
+  },
+  "datePickerSetTime": "Set time",
+  "@datePickerSetTime": {
+    "description": "Button label to set time"
+  }
 }

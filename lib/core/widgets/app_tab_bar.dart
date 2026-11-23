@@ -48,47 +48,50 @@ class TabItemData {
 class AppTabBar extends ConsumerWidget {
   final int currentIndex;
   final ValueChanged<int> onTabSelected;
-  final List<TabItemData> tabs;
+  final List<TabItemData>? tabs;
 
   const AppTabBar({
     super.key,
     required this.currentIndex,
     required this.onTabSelected,
-    this.tabs = const [
-      TabItemData(
-        regularIcon: PhosphorIconsRegular.circleHalfTilt,
-        fillIcon: PhosphorIconsFill.circleHalfTilt,
-        label: 'Today',
-      ),
-      TabItemData(
-        regularIcon: PhosphorIconsRegular.target,
-        fillIcon: PhosphorIconsFill.target,
-        label: 'Habits',
-      ),
-      TabItemData(
-        regularIcon: PhosphorIconsRegular.checkSquare,
-        fillIcon: PhosphorIconsFill.checkSquare,
-        label: 'Tasks',
-      ),
-      TabItemData(
-        regularIcon: PhosphorIconsRegular.notepad,
-        fillIcon: PhosphorIconsFill.notepad,
-        label: 'Notes',
-      ),
-      TabItemData(
-        regularIcon: PhosphorIconsRegular.chartLineUp,
-        fillIcon: PhosphorIconsFill.chartLineUp,
-        label: 'Insights',
-      ),
-    ],
+    this.tabs,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
     final mode = ref.watch(appThemeModeProvider);
     final reduceTransparency = ref.watch(reduceTransparencyProvider);
     final reduceMotion = MediaQuery.maybeOf(context)?.disableAnimations ?? false;
     final isMinimized = ref.watch(scrollMinimizerProvider);
+
+    final effectiveTabs = tabs ?? [
+      TabItemData(
+        regularIcon: PhosphorIconsRegular.circleHalfTilt,
+        fillIcon: PhosphorIconsFill.circleHalfTilt,
+        label: l10n?.tabToday ?? 'Today',
+      ),
+      TabItemData(
+        regularIcon: PhosphorIconsRegular.target,
+        fillIcon: PhosphorIconsFill.target,
+        label: l10n?.tabHabits ?? 'Habits',
+      ),
+      TabItemData(
+        regularIcon: PhosphorIconsRegular.checkSquare,
+        fillIcon: PhosphorIconsFill.checkSquare,
+        label: l10n?.tabTasks ?? 'Tasks',
+      ),
+      TabItemData(
+        regularIcon: PhosphorIconsRegular.notepad,
+        fillIcon: PhosphorIconsFill.notepad,
+        label: l10n?.tabNotes ?? 'Notes',
+      ),
+      TabItemData(
+        regularIcon: PhosphorIconsRegular.chartLineUp,
+        fillIcon: PhosphorIconsFill.chartLineUp,
+        label: l10n?.tabInsights ?? 'Insights',
+      ),
+    ];
 
     final isDark = mode.isDark;
     final bottomInset = MediaQuery.paddingOf(context).bottom;
@@ -126,8 +129,8 @@ class AppTabBar extends ConsumerWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: List.generate(tabs.length, (index) {
-          final tab = tabs[index];
+        children: List.generate(effectiveTabs.length, (index) {
+          final tab = effectiveTabs[index];
           final isSelected = index == currentIndex;
 
           return _TabItemButton(

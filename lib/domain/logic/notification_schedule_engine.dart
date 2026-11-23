@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart' show Locale;
 import 'package:intl/intl.dart';
+import 'package:poswal_orbit/l10n/app_localizations.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:poswal_orbit/domain/logic/date_boundary.dart';
 import 'package:poswal_orbit/domain/logic/schedule_engine.dart';
@@ -49,9 +51,13 @@ class NotificationScheduleEngine {
     required List<Task> tasks,
     required DateTime now,
     int daysCount = defaultRollingDays,
+    String languageCode = 'en',
   }) {
     final triggers = <ScheduledNotificationTrigger>[];
     final today = DateBoundary.getEffectiveDate(now);
+
+    final String validLang = (languageCode == 'hi' || languageCode == 'ur') ? languageCode : 'en';
+    final loc = lookupAppLocalizations(Locale(validLang));
 
     // 1. Habits Scheduling
     for (int dayOffset = 0; dayOffset < daysCount; dayOffset++) {
@@ -97,8 +103,8 @@ class NotificationScheduleEngine {
                 notificationId: notifId,
                 entityId: habit.id,
                 type: OrbitNotificationType.habit,
-                title: 'Time for ${habit.name}',
-                body: (desc != null && desc.isNotEmpty) ? desc : 'Keep your momentum alive today!',
+                title: loc.notificationHabitTitle(habit.name),
+                body: (desc != null && desc.isNotEmpty) ? desc : loc.notificationKeepMomentum,
                 triggerTime: triggerTime,
                 extraData: {
                   'dateStr': dateStr,
@@ -118,8 +124,8 @@ class NotificationScheduleEngine {
               notificationId: notifId,
               entityId: habit.id,
               type: OrbitNotificationType.habit,
-              title: 'Time for ${habit.name}',
-              body: (desc != null && desc.isNotEmpty) ? desc : 'Keep your momentum alive today!',
+              title: loc.notificationHabitTitle(habit.name),
+              body: (desc != null && desc.isNotEmpty) ? desc : loc.notificationKeepMomentum,
               triggerTime: triggerTime,
               extraData: {
                 'dateStr': dateStr,
@@ -149,15 +155,15 @@ class NotificationScheduleEngine {
       if (triggerTime.isAfter(now) && triggerTime.isBefore(windowEnd)) {
         final notifId = generateId(task.id, triggerTime);
         final priorityLabel = task.priority == TaskPriority.urgent
-            ? '🚨 Urgent: '
-            : (task.priority == TaskPriority.high ? '⚡ ' : '');
+            ? loc.notificationUrgentPrefix
+            : (task.priority == TaskPriority.high ? loc.notificationHighPrefix : '');
 
         triggers.add(ScheduledNotificationTrigger(
           notificationId: notifId,
           entityId: task.id,
           type: OrbitNotificationType.task,
           title: '$priorityLabel${task.title}',
-          body: task.notes != null && task.notes!.isNotEmpty ? task.notes! : 'Task due now',
+          body: task.notes != null && task.notes!.isNotEmpty ? task.notes! : loc.notificationTaskDueNow,
           triggerTime: triggerTime,
           extraData: {
             'taskId': task.id,

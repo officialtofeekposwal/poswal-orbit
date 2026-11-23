@@ -6,23 +6,24 @@
   "tabTasks": "کام",
   "tabNotes": "نوٹس",
   "tabInsights": "بصیرت",
-
   "greetingMorning": "صبح بخیر",
   "greetingAfternoon": "دوپہر بخیر",
   "greetingEvening": "شام بخیر",
   "greetingNight": "شب بخیر",
-
   "habitsProgress": "{total} میں سے {completed} مکمل",
   "@habitsProgress": {
     "placeholders": {
-      "completed": {"type": "int"},
-      "total": {"type": "int"}
+      "completed": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "allClear": "سب پرسکون ہے۔ وقت کا لطف اٹھائیں۔",
-  "habitsAllDone": "آج کی تمام عادات مکمل ہو گئیں۔ شاندار کارکردگی!",
+  "habitsAllDone": "آج کی تمام عادات مکمل ہو گئیں۔ عمدہ پیش رفت۔",
   "tasksDueOverdue": "مقررہ اور بقایا کام",
-
   "yourOrbitClear": "آپ کا مدار پرسکون ہے",
   "noHabitsScheduled": "آج کے لیے کوئی عادت مقرر نہیں۔\nآرام کریں یا نیچے نئی عادت شروع کریں۔",
   "addHabit": "عادت شامل کریں",
@@ -30,10 +31,11 @@
   "tasksDueCount": "({count} باقی)",
   "@tasksDueCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "allHabits": "تمام عادات",
   "habitsActive": "فعال",
   "habitsArchived": "محفوظ شدہ",
@@ -41,7 +43,9 @@
   "streakDays": "{days} دن مسلسل",
   "@streakDays": {
     "placeholders": {
-      "days": {"type": "int"}
+      "days": {
+        "type": "int"
+      }
     }
   },
   "streakFreezeActive": "1 اسٹریک فریز فعال",
@@ -54,16 +58,19 @@
   "habitRestored": "\"{name}\" کو فعال عادات میں بحال کر دیا گیا",
   "@habitRestored": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "habitDeleted": "\"{name}\" کو مستقل طور پر حذف کر دیا گیا",
   "@habitDeleted": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
-
   "createHabitTitle": "نئی عادت بنائیں",
   "editHabitTitle": "عادت کی ترمیم",
   "livePreview": "براہ راست پیش منظر",
@@ -75,9 +82,9 @@
   "scheduleLabel": "اوقات کار",
   "saveChanges": "تبدیلیاں محفوظ کریں",
   "habitNotFound": "عادت نہیں ملی",
-  "currentStreakLabel": "موجودہ تسلسل",
-  "bestStreakLabel": "بہترین تسلسل",
-  "habitScoreLabel": "عادت کا اسکور",
+  "currentStreakLabel": "موجودہ سلسلہ",
+  "bestStreakLabel": "بہترین سلسلہ",
+  "habitScoreLabel": "عادت اسکور",
   "completionRateLabel": "تکمیل کی شرح",
   "archiveHabit": "عادت محفوظ کریں",
   "restoreHabit": "عادت بحال کریں",
@@ -85,12 +92,11 @@
   "checkinStatusDone": "مکمل",
   "checkinStatusSkip": "چھوڑیں",
   "checkinStatusMissed": "چھوٹ گیا",
-
   "tasksSmartToday": "آج",
   "tasksSmartUpcoming": "آئندہ",
   "tasksSmartAll": "تمام",
   "tasksSmartDone": "مکمل",
-  "quickAddTaskHint": "نیا کام شامل کریں (مثلاً کل شام 6 بجے امی کو کال کریں !high #family)",
+  "quickAddTaskHint": "نیا کام شامل کریں (مثلاً کل شام 6 بجے امی کو کال کریں #family)",
   "priorityUrgent": "انتہائی ضروری",
   "priorityHigh": "اہم",
   "priorityMedium": "درمیانہ",
@@ -104,12 +110,11 @@
   "addSubtaskHint": "ذیلی کام درج کریں...",
   "notesLabel": "نوٹس",
   "addNotesHint": "تفصیلی نوٹس درج کریں...",
-  "dueDateLabel": "مقررہ تاریخ",
+  "dueDateLabel": "مقررہ تاریخ اور وقت",
   "priorityLabel": "ترجیح",
   "projectLabel": "پروجیکٹ",
   "taskDeletedToast": "کام حذف ہو گیا",
   "undoButton": "واپس لائیں",
-
   "notesPinned": "پن کردہ",
   "notesAll": "تمام نوٹس",
   "notesTodayJournal": "آج کا روزنامچہ",
@@ -128,10 +133,11 @@
   "journalForDate": "روزنامچہ: {date}",
   "@journalForDate": {
     "placeholders": {
-      "date": {"type": "String"}
+      "date": {
+        "type": "String"
+      }
     }
   },
-
   "insightsTitle": "بصیرت",
   "weeklyReviewTitle": "ہفتہ وار جائزہ",
   "productivityScore": "پیداواری اسکور",
@@ -142,10 +148,9 @@
   "shareCard": "شیئر کریں",
   "insightsEmptyTitle": "جیسے جیسے آپ آگے بڑھیں گے، بصیرت میں اضافہ ہوگا",
   "insightsEmptySubtitle": "ذاتی نمونے، ہفتہ وار جائزے اور پیداواری اسکور کو فعال کرنے کے لیے اپنی عادات اور کام مکمل کریں۔",
-
   "settingsTitle": "ترتیبات",
   "settingsAppearance": "ظاہری شکل",
-  "settingsTheme": "تھیم موڈ",
+  "settingsTheme": "تھیم",
   "settingsAccent": "نمایاں رنگ",
   "settingsGlass": "شیشے کا اثر",
   "settingsReduceTransparency": "شفافیت کم کریں",
@@ -162,15 +167,13 @@
   "settingsImport": "درآمد کریں",
   "settingsDanger": "خطرناک زون",
   "settingsDeleteAll": "تمام ڈیٹا حذف کریں",
-
   "widgetTodayProgress": "مدار کی آج کی پیش رفت",
   "widgetQuickCheckin": "فوری عادت چیک اِن",
   "widgetTasksGlance": "باقی کام ایک نظر میں",
-
   "dayStartBoundarySubtitle": "اس گھنٹے سے پہلے کی عادتیں پچھلے دن میں شمار ہوتی ہیں",
   "reduceTransparencySubtitle": "کم جی پی یو بوجھ یا زیادہ کنٹراسٹ کے لیے ٹھوس پس منظر کارڈ",
   "hapticFeedbackSubtitle": "عادت کے دائروں، چیک باکسز اور اشاروں پر لمسی ارتعاش",
-  "remindersHealthCheckSubtitle": "اطلاعات کی اجازت، درست الارم اور ون یو آئی بیٹری کے قواعد کی جانچ کریں",
+  "remindersHealthCheckSubtitle": "100٪ قابل اعتماد عادات کی یاد دہانیوں کو یقینی بنانے کے لیے سسٹم کی اجازتوں اور سام سنگ One UI کے پس منظر کے اصولوں کی توثیق کریں۔",
   "sendTestAlert": "آزمائشی الرٹ بھیجیں",
   "syncSchedule": "شیڈول مطابقت پذیر کریں",
   "displayLanguage": "نمائش کی زبان",
@@ -218,9 +221,8 @@
   "last8Weeks": "گزشتہ 8 ہفتے",
   "heatmapLess": "کم",
   "heatmapMore": "زیادہ",
-  "shareWeeklyRhythm": "پوسوال مدار پر میری ہفتہ وار ترتیب 🚀",
+  "shareWeeklyRhythm": "پوسوال مدار پر میری ہفتہ وار ترتیب",
   "shareFailed": "شیئر کرنے میں ناکامی: {error}",
-
   "restoreHabitTooltip": "عادت بحال کریں",
   "deletePermanentlyTooltip": "مستقل طور پر حذف کریں",
   "habitNotePlaceholder": "مثلاً آج بہت اچھا محسوس ہوا، 20 منٹ اضافی کیا",
@@ -268,9 +270,7 @@
   "tasksCsvCopiedToast": "کام CSV کلپ بورڈ پر کاپی ہو گئے",
   "notesCsvCopiedToast": "نوٹس CSV کلپ بورڈ پر کاپی ہو گئے",
   "importSuccessToast": "کامیابی کے ساتھ {habits} عادات، {tasks} کام، {notes} نوٹس درآمد کیے گئے",
-
   "remindersHealthCheckTitle": "یاد دہانیوں کی جانچ",
-  "remindersHealthCheckSubtitle": "100٪ قابل اعتماد عادات کی یاد دہانیوں کو یقینی بنانے کے لیے سسٹم کی اجازتوں اور سام سنگ One UI کے پس منظر کے اصولوں کی توثیق کریں۔",
   "onboardingWelcomeTitle": "پوسوال مدار میں خوش آمدید",
   "onboardingWelcomeDesc": "آپ کی عادات، کاموں اور خیالات کے لیے ایک پرسکون، ذاتی اور آف لائن جگہ۔",
   "onboardingHabitsTitle": "پائیدار تسلسل بنائیں",
@@ -282,12 +282,9 @@
   "getStarted": "شروع کریں",
   "skip": "چھوڑیں",
   "next": "آگے",
-
   "restoreBackupDialogTitle": "بیک اپ سے بحال کریں؟",
   "restoreBackupDialogBody": "یہ آپ کے موجودہ ڈیٹا کو {date} کے بیک اپ سے بدل دے گا۔\n\nبحال کرنے سے پہلے آپ کے موجودہ ڈیٹا بیس کا ایک حفاظتی سنیپ شاٹ لیا جائے گا تاکہ کچھ ضائع نہ ہو۔",
   "restoreSafelyBtn": "محفوظ طریقے سے بحال کریں",
-  "settingsAppearance": "ظاہری شکل",
-  "settingsTheme": "تھیم",
   "settingsAccentColor": "لہجے کا رنگ",
   "settingsGlassIntensity": "شیشے کی شدت",
   "settingsTimeBoundary": "وقت اور مدار کی حد",
@@ -307,14 +304,23 @@
   "dailyJournalHeader": "روزنامچہ • {date}",
   "linkedHabitLabel": "منسلک عادت",
   "linkedTaskLabel": "منسلک کام",
-  "heatmapLess": "کم",
-  "heatmapMore": "زیادہ",
   "heatmapSkipped": "چھوڑا گیا",
   "habitConsecutiveOccurrences": "مسلسل دن",
   "habitHistoricalRecord": "تاریخی ریکارڈ",
   "habitEwmaConsistency": "14 دن کی مستقل مزاجی",
-  "testNotificationTitle": "🌟 پوسوال مدار ٹیسٹ اطلاع",
-  "testNotificationBody": "اس آلہ پر بالکل درست الارم اور اطلاعی چینلز ٹھیک کام کر رہے ہیں!",
-  "testNotificationSent": "ٹیسٹ اطلاع بھیج دی گئی! اپنی نوٹیفکیشن بار دیکھیں اور \"مکمل\" / \"10 منٹ بعد\" آزمائیں۔",
-  "calendarTapHint": "چیک ان میں ترمیم کرنے یا نوٹس شامل کرنے کے لیے کسی بھی دن ٹیپ کریں"
+  "testNotificationTitle": "پوسوال مدار ٹیسٹ اطلاع",
+  "testNotificationBody": "اس آلہ پر بالکل درست الارم اور اطلاعی چینلز ٹھیک کام کر رہے ہیں۔",
+  "testNotificationSent": "ٹیسٹ اطلاع بھیج دی گئی ہے۔ اپنی نوٹیفکیشن بار میں مکمل یا 10 منٹ بعد کا اختیار دیکھیں۔",
+  "calendarTapHint": "چیک ان میں ترمیم کرنے یا نوٹس شامل کرنے کے لیے کسی بھی دن ٹیپ کریں",
+  "consistencyHeatmapHeader": "مستقل مزاجی ہیٹ میپ",
+  "weeklyPerformanceHeader": "ہفتہ وار کارکردگی",
+  "consistencyTrendHeader": "30 دن کی مستقل مزاجی کا رجحان",
+  "recordProgressTitle": "پیش رفت درج کریں ({unit})",
+  "notificationUrgentPrefix": "ضروری: ",
+  "notificationHighPrefix": "اعلیٰ ترجیح: ",
+  "notificationHabitTitle": "{name} کا وقت",
+  "notificationKeepMomentum": "آج اپنی رفتار برقرار رکھیں۔",
+  "notificationTaskDueNow": "کام کا وقت ہو گیا",
+  "datePickerSetDate": "تاریخ منتخب کریں",
+  "datePickerSetTime": "وقت منتخب کریں"
 }

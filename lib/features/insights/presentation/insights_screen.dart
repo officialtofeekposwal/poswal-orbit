@@ -55,7 +55,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
       await SharePlus.instance.share(
         ShareParams(
           files: [XFile(filePath)],
-          text: l10n?.shareWeeklyRhythm ?? 'My weekly rhythm on Poswal Orbit 🚀',
+          text: l10n?.shareWeeklyRhythm ?? 'My weekly rhythm on Poswal Orbit',
         ),
       );
     } catch (e) {

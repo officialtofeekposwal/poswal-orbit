@@ -143,7 +143,7 @@ void main() {
 
       await pumpInsightsTest(tester);
 
-      expect(find.text('Weekly Review'), findsOneWidget);
+      expect(find.text('Weekly review'), findsOneWidget);
       expect(find.text('Productivity Score'), findsOneWidget);
       expect(find.text('Best Day of Week'), findsOneWidget);
 

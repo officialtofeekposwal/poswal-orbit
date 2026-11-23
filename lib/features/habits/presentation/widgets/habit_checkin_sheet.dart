@@ -155,7 +155,7 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
 
               // Status Selector (Done, Skip, Missed)
               Text(
-                'CHECK-IN STATUS',
+                'Check-in status',
                 style: PoswalText.caption.copyWith(
                   color: textMuted,
                   fontWeight: FontWeight.w700,
@@ -190,9 +190,17 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
 
               if (_status == HabitEntryStatus.skipped) ...[
                 const SizedBox(height: PoswalSpacing.xs),
-                Text(
-                  '💡 Skipped days do not break your streak, preserving your habit momentum.',
-                  style: PoswalText.caption.copyWith(color: PoswalColors.gold),
+                Row(
+                  children: [
+                    const Icon(PhosphorIconsRegular.info, size: 14, color: PoswalColors.gold),
+                    const SizedBox(width: PoswalSpacing.xs),
+                    Expanded(
+                      child: Text(
+                        'Skipped days do not break your streak, preserving your habit momentum.',
+                        style: PoswalText.caption.copyWith(color: PoswalColors.gold),
+                      ),
+                    ),
+                  ],
                 ),
               ],
 
@@ -200,7 +208,7 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
               if (widget.habit.isNumeric && _status == HabitEntryStatus.done) ...[
                 const SizedBox(height: PoswalSpacing.lg),
                 Text(
-                  'RECORD PROGRESS (${widget.habit.unit.toUpperCase()})',
+                  l10n?.recordProgressTitle(widget.habit.unit) ?? 'Record progress (${widget.habit.unit})',
                   style: PoswalText.caption.copyWith(
                     color: textMuted,
                     fontWeight: FontWeight.w700,
@@ -260,7 +268,7 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
 
               // Note Field
               Text(
-                'CHECK-IN NOTE (OPTIONAL)',
+                'Check-in note (optional)',
                 style: PoswalText.caption.copyWith(
                   color: textMuted,
                   fontWeight: FontWeight.w700,

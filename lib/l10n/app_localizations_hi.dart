@@ -48,7 +48,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get allClear => 'सब कुछ शांत है। आराम का आनंद लें।';
 
   @override
-  String get habitsAllDone => 'आज की सभी आदतें पूरी हो चुकी हैं। शानदार काम!';
+  String get habitsAllDone =>
+      'आज की सभी आदतें पूरी हो चुकी हैं। उत्कृष्ट प्रगति।';
 
   @override
   String get tasksDueOverdue => 'देय और बकाया कार्य';
@@ -157,10 +158,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get habitNotFound => 'आदत नहीं मिली';
 
   @override
-  String get currentStreakLabel => 'वर्तमान स्ट्रीक';
+  String get currentStreakLabel => 'वर्तमान लय';
 
   @override
-  String get bestStreakLabel => 'सर्वोत्तम स्ट्रीक';
+  String get bestStreakLabel => 'सर्वश्रेष्ठ लय';
 
   @override
   String get habitScoreLabel => 'आदत स्कोर';
@@ -200,7 +201,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get quickAddTaskHint =>
-      'कार्य जोड़ें (उदा. कल शाम 6 बजे माँ को कॉल !high #family)';
+      'कार्य जोड़ें (उदा. कल शाम 6 बजे माँ को कॉल #family)';
 
   @override
   String get priorityUrgent => 'अति आवश्यक';
@@ -243,7 +244,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get addNotesHint => 'विस्तृत विवरण जोड़ें...';
 
   @override
-  String get dueDateLabel => 'देय तिथि';
+  String get dueDateLabel => 'नियत तिथि और समय';
 
   @override
   String get priorityLabel => 'प्राथमिकता';
@@ -576,7 +577,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get heatmapMore => 'अधिक';
 
   @override
-  String get shareWeeklyRhythm => 'पोसवाल ऑर्बिट पर मेरी साप्ताहिक लय 🚀';
+  String get shareWeeklyRhythm => 'पोसवाल ऑर्बिट पर मेरी साप्ताहिक लय';
 
   @override
   String shareFailed(String error) {
@@ -867,17 +868,54 @@ class AppLocalizationsHi extends AppLocalizations {
   String get habitEwmaConsistency => '14-दिवसीय ईडब्ल्यूएमए निरंतरता';
 
   @override
-  String get testNotificationTitle => '🌟 पोसवाल ऑर्बिट परीक्षण सूचना';
+  String get testNotificationTitle => 'पोसवाल ऑर्बिट परीक्षण सूचना';
 
   @override
   String get testNotificationBody =>
-      'इस डिवाइस पर सटीक अलार्म और अधिसूचना चैनल ठीक से काम कर रहे हैं!';
+      'इस डिवाइस पर सटीक अलार्म और अधिसूचना चैनल ठीक से काम कर रहे हैं।';
 
   @override
   String get testNotificationSent =>
-      'परीक्षण सूचना भेज दी गई! अपनी सूचना पट्टी देखें और \"पूर्ण\" / \"10 मिनट बाद\" आज़माएं।';
+      'परीक्षण सूचना भेज दी गई है। अपनी सूचना पट्टी में पूर्ण या 10 मिनट बाद विकल्प देखें।';
 
   @override
   String get calendarTapHint =>
       'चेक-इन संपादित करने या नोट्स जोड़ने के लिए किसी भी दिन टैप करें';
+
+  @override
+  String get consistencyHeatmapHeader => 'निरंतरता हीटमैप';
+
+  @override
+  String get weeklyPerformanceHeader => 'साप्ताहिक प्रदर्शन';
+
+  @override
+  String get consistencyTrendHeader => '30-दिवसीय निरंतरता रुझान';
+
+  @override
+  String recordProgressTitle(String unit) {
+    return 'प्रगति दर्ज करें ($unit)';
+  }
+
+  @override
+  String get notificationUrgentPrefix => 'अति आवश्यक: ';
+
+  @override
+  String get notificationHighPrefix => 'उच्च प्राथमिकता: ';
+
+  @override
+  String notificationHabitTitle(String name) {
+    return '$name का समय';
+  }
+
+  @override
+  String get notificationKeepMomentum => 'आज अपनी गति बनाए रखें।';
+
+  @override
+  String get notificationTaskDueNow => 'कार्य का समय हो गया';
+
+  @override
+  String get datePickerSetDate => 'तिथि चुनें';
+
+  @override
+  String get datePickerSetTime => 'समय चुनें';
 }

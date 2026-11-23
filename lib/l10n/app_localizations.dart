@@ -175,7 +175,7 @@ abstract class AppLocalizations {
   /// No description provided for @habitsAllDone.
   ///
   /// In en, this message translates to:
-  /// **'All habits complete for today. Outstanding work!'**
+  /// **'All habits completed for today. Great progress.'**
   String get habitsAllDone;
 
   /// No description provided for @tasksDueOverdue.
@@ -367,25 +367,25 @@ abstract class AppLocalizations {
   /// No description provided for @currentStreakLabel.
   ///
   /// In en, this message translates to:
-  /// **'Current Streak'**
+  /// **'Current streak'**
   String get currentStreakLabel;
 
   /// No description provided for @bestStreakLabel.
   ///
   /// In en, this message translates to:
-  /// **'Best Streak'**
+  /// **'Best streak'**
   String get bestStreakLabel;
 
   /// No description provided for @habitScoreLabel.
   ///
   /// In en, this message translates to:
-  /// **'Habit Score'**
+  /// **'Habit score'**
   String get habitScoreLabel;
 
   /// No description provided for @completionRateLabel.
   ///
   /// In en, this message translates to:
-  /// **'Completion Rate'**
+  /// **'Completion rate'**
   String get completionRateLabel;
 
   /// No description provided for @archiveHabit.
@@ -451,7 +451,7 @@ abstract class AppLocalizations {
   /// No description provided for @quickAddTaskHint.
   ///
   /// In en, this message translates to:
-  /// **'Add a task (e.g. Call mom tomorrow 6pm !high #family)'**
+  /// **'Add a task (e.g. Call mom tomorrow at 6pm #family)'**
   String get quickAddTaskHint;
 
   /// No description provided for @priorityUrgent.
@@ -535,7 +535,7 @@ abstract class AppLocalizations {
   /// No description provided for @dueDateLabel.
   ///
   /// In en, this message translates to:
-  /// **'Due Date'**
+  /// **'Due date and time'**
   String get dueDateLabel;
 
   /// No description provided for @priorityLabel.
@@ -667,7 +667,7 @@ abstract class AppLocalizations {
   /// No description provided for @weeklyReviewTitle.
   ///
   /// In en, this message translates to:
-  /// **'Weekly Review'**
+  /// **'Weekly review'**
   String get weeklyReviewTitle;
 
   /// No description provided for @productivityScore.
@@ -1159,7 +1159,7 @@ abstract class AppLocalizations {
   /// No description provided for @shareWeeklyRhythm.
   ///
   /// In en, this message translates to:
-  /// **'My weekly rhythm on Poswal Orbit 🚀'**
+  /// **'My weekly rhythm on Poswal Orbit'**
   String get shareWeeklyRhythm;
 
   /// No description provided for @shareFailed.
@@ -1285,7 +1285,7 @@ abstract class AppLocalizations {
   /// No description provided for @noHabitLinked.
   ///
   /// In en, this message translates to:
-  /// **'No Habit Linked'**
+  /// **'No habit linked'**
   String get noHabitLinked;
 
   /// No description provided for @taskDeletedNamed.
@@ -1627,13 +1627,13 @@ abstract class AppLocalizations {
   /// No description provided for @habitsSectionHeader.
   ///
   /// In en, this message translates to:
-  /// **'HABITS'**
+  /// **'Habits'**
   String get habitsSectionHeader;
 
   /// No description provided for @tasksSectionHeader.
   ///
   /// In en, this message translates to:
-  /// **'TASKS'**
+  /// **'Tasks'**
   String get tasksSectionHeader;
 
   /// No description provided for @dailyJournalHeader.
@@ -1642,10 +1642,10 @@ abstract class AppLocalizations {
   /// **'Daily Journal • {date}'**
   String dailyJournalHeader(String date);
 
-  /// No description provided for @linkedHabitLabel.
+  /// Label for linked habit selector
   ///
   /// In en, this message translates to:
-  /// **'Linked Habit'**
+  /// **'Linked habit'**
   String get linkedHabitLabel;
 
   /// No description provided for @linkedTaskLabel.
@@ -1681,19 +1681,19 @@ abstract class AppLocalizations {
   /// No description provided for @testNotificationTitle.
   ///
   /// In en, this message translates to:
-  /// **'🌟 Poswal Orbit Test Notification'**
+  /// **'Poswal Orbit test notification'**
   String get testNotificationTitle;
 
   /// No description provided for @testNotificationBody.
   ///
   /// In en, this message translates to:
-  /// **'Exact alarms & notification channels are working beautifully on this device!'**
+  /// **'Exact alarms and notification channels are working properly on this device.'**
   String get testNotificationBody;
 
   /// No description provided for @testNotificationSent.
   ///
   /// In en, this message translates to:
-  /// **'Test notification sent! Check your shade & test \"Mark Done\" / \"Snooze 10m\".'**
+  /// **'Test notification sent. Check your notifications to test Mark Done or Snooze.'**
   String get testNotificationSent;
 
   /// No description provided for @calendarTapHint.
@@ -1701,6 +1701,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tap any day to edit check-in or add notes'**
   String get calendarTapHint;
+
+  /// Header for consistency heatmap
+  ///
+  /// In en, this message translates to:
+  /// **'Consistency heatmap'**
+  String get consistencyHeatmapHeader;
+
+  /// Header for weekly performance chart
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly performance'**
+  String get weeklyPerformanceHeader;
+
+  /// Header for 30-day consistency trend chart
+  ///
+  /// In en, this message translates to:
+  /// **'30-day consistency trend'**
+  String get consistencyTrendHeader;
+
+  /// Title for recording habit progress with unit
+  ///
+  /// In en, this message translates to:
+  /// **'Record progress ({unit})'**
+  String recordProgressTitle(String unit);
+
+  /// Prefix for urgent task notifications
+  ///
+  /// In en, this message translates to:
+  /// **'Urgent: '**
+  String get notificationUrgentPrefix;
+
+  /// Prefix for high priority task notifications
+  ///
+  /// In en, this message translates to:
+  /// **'High priority: '**
+  String get notificationHighPrefix;
+
+  /// Title for habit notification
+  ///
+  /// In en, this message translates to:
+  /// **'Time for {name}'**
+  String notificationHabitTitle(String name);
+
+  /// Body for default habit notification
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your momentum alive today.'**
+  String get notificationKeepMomentum;
+
+  /// Body for task notification when no note is provided
+  ///
+  /// In en, this message translates to:
+  /// **'Task due now'**
+  String get notificationTaskDueNow;
+
+  /// Button label to set date
+  ///
+  /// In en, this message translates to:
+  /// **'Set date'**
+  String get datePickerSetDate;
+
+  /// Button label to set time
+  ///
+  /// In en, this message translates to:
+  /// **'Set time'**
+  String get datePickerSetTime;
 }
 
 class _AppLocalizationsDelegate
