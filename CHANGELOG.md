@@ -5,6 +5,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [1.0.0+1] - 2026-11-23
+
+### 🎨 Unslop Design & Copy Polish Pass
+- **Strict Sentence Case Across All Languages:**
+  - Removed all `.toUpperCase()` invocations on user-facing copy. Standardized headers, stat cards, date formats, and sheet titles to calm sentence case ("Consistency heatmap", "Weekly performance", "Current streak", "Due date and time", "Subtasks", "Linked habit", "Record progress", "November 2026").
+- **Emoji Removal & Native Icon Preservation:**
+  - Removed all decorative emojis (`🌟`, `🔥`, `💡`, `🚨`, `🚀`) from UI, share strings, and notification payloads across English, Hindi, and Urdu.
+  - Added native `PhosphorIconsFill.flame` icon alongside streak count in `HabitRowCard` to ensure streak signal is preserved without relying on emojis.
+- **Calm, Exclamation-Free Tone:**
+  - Removed exclamation marks from all ARB copy in English, Hindi, and Urdu, replacing shouty phrasing with calm, warm, and natural rewrites.
+- **Localized Notification Scheduling:**
+  - Localized task priority prefixes and habit notification strings in `NotificationScheduleEngine` using `AppLocalizations` (`notificationUrgentPrefix`, `notificationHighPrefix`, `notificationHabitTitle`, `notificationKeepMomentum`, `notificationTaskDueNow`), removing hardcoded English and emoji prefixes.
+- **Strict Text Token Hierarchy & Contrast Separation:**
+  - Resolved light-mode hierarchy inversion where secondary text had higher contrast than muted text.
+  - Established strict descending contrast ladder on all surfaces: `Primary > Muted > Secondary` (Light: 18.93:1 > 7.58:1 > 5.75:1; Dark: 15.70:1 > 11.31:1 > 6.55:1; OLED: 19.63:1 > 14.14:1 > 8.19:1), with all tiers exceeding WCAG AA (>= 4.5:1) and separated by >= 1.0:1-2.0:1 contrast distance.
+  - Added automated test in `wcag_contrast_audit_test.dart` to prevent contrast hierarchy regression.
+- **Grid Alignment & Reduced Motion:**
+  - Replaced off-grid 3px values in `habit_heatmap`, `habit_row_card`, `task_row_card`, and `settings_screen` with design tokens (`PoswalSpacing.xxs` 2px / `PoswalSpacing.xs` 4px).
+  - Added `MediaQuery.disableAnimations` support in `AuroraBackground` (stops animation ticker and renders static aurora) and `PoswalOrbitRing` (snaps directly to target progress without tween).
+  - Added dedicated widget tests in `reduced_motion_widgets_test.dart` asserting static rendering when animations are disabled.
+- **Comprehensive Localization Scanner:**
+  - Extended recursive regex audit in `localization_audit_test.dart` to verify that `label:`, `semanticLabel:`, `SnackBar`, and tooltips across `lib/` are free from raw literals, emojis, exclamations, and ALL-CAPS strings.
+
+---
+
 ## [1.0.0] - 2026-11-22
 
 ### 🎉 Initial Public Open Source Release

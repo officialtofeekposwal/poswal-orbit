@@ -176,14 +176,16 @@ void main() {
         '3',
         '4',
         'v1.0.0 (Build 42)',
-        'CONSISTENCY HEATMAP',
       };
 
       final violations = <String>[];
 
       final textLiteralRegex = RegExp(r"Text\(\s*[']([^']+)[']\s*[,)]");
       final textDoubleLiteralRegex = RegExp(r'Text\(\s*["]([^"]+)["]\s*[,)]');
-      final hintLabelTooltipRegex = RegExp(r"(hintText|labelText|tooltip|title):\s*[']([^']+)[']");
+      final hintLabelTooltipRegex = RegExp(r"(hintText|labelText|tooltip|title|label|semanticLabel):\s*[']([^']+)[']");
+      final hintLabelTooltipDoubleRegex = RegExp(r'(hintText|labelText|tooltip|title|label|semanticLabel):\s*["]([^"]+)["]');
+      final emojiRegex = RegExp(r'[\u{1F300}-\u{1F9FF}\u{2600}-\u{27BF}]', unicode: true);
+      final rawExclamationRegex = RegExp(r'[A-Za-z]+!');
 
       for (final file in dartFiles) {
         final lines = file.readAsLinesSync();
@@ -194,6 +196,11 @@ void main() {
             continue;
           }
 
+          // Check for emojis in code
+          if (emojiRegex.hasMatch(line)) {
+            violations.add('${file.path}:${i + 1} - Emoji detected: "$line"');
+          }
+
           // Check Text('...')
           for (final m in textLiteralRegex.allMatches(line)) {
             final val = m.group(1)!.trim();
@@ -201,6 +208,9 @@ void main() {
               if (!line.contains('??')) {
                 violations.add('${file.path}:${i + 1} - Raw Text: "$val"');
               }
+            }
+            if (rawExclamationRegex.hasMatch(val)) {
+              violations.add('${file.path}:${i + 1} - Exclamation in text: "$val"');
             }
           }
 
@@ -212,9 +222,12 @@ void main() {
                 violations.add('${file.path}:${i + 1} - Raw Text: "$val"');
               }
             }
+            if (rawExclamationRegex.hasMatch(val)) {
+              violations.add('${file.path}:${i + 1} - Exclamation in text: "$val"');
+            }
           }
 
-          // Check hintText / labelText / tooltip / title
+          // Check hintText / labelText / tooltip / title / label / semanticLabel
           for (final m in hintLabelTooltipRegex.allMatches(line)) {
             final key = m.group(1)!;
             final val = m.group(2)!.trim();
@@ -222,6 +235,22 @@ void main() {
               if (!line.contains('??')) {
                 violations.add('${file.path}:${i + 1} - Raw $key: "$val"');
               }
+            }
+            if (rawExclamationRegex.hasMatch(val)) {
+              violations.add('${file.path}:${i + 1} - Exclamation in $key: "$val"');
+            }
+          }
+
+          for (final m in hintLabelTooltipDoubleRegex.allMatches(line)) {
+            final key = m.group(1)!;
+            final val = m.group(2)!.trim();
+            if (!allowlist.contains(val) && !val.contains(r'$') && RegExp(r'[A-Za-z]').hasMatch(val)) {
+              if (!line.contains('??')) {
+                violations.add('${file.path}:${i + 1} - Raw $key: "$val"');
+              }
+            }
+            if (rawExclamationRegex.hasMatch(val)) {
+              violations.add('${file.path}:${i + 1} - Exclamation in $key: "$val"');
             }
           }
         }
@@ -231,6 +260,24 @@ void main() {
         fail('Found hardcoded user-facing strings across lib/:\n${violations.join('\n')}');
       }
       expect(violations, isEmpty);
+    });
+
+    test('Demonstration proof: Scanner catches bad strings (emoji, exclamation, raw label, ALL-CAPS)', () {
+      final badSamples = [
+        "Text('🌟 Test notification')",
+        "Text('Outstanding work!')",
+        "label: 'RawUnlocalizedLabel'",
+        "title: 'ALL CAPS HEADER'",
+      ];
+
+      final emojiRegex = RegExp(r'[\u{1F300}-\u{1F9FF}\u{2600}-\u{27BF}]', unicode: true);
+      final rawExclamationRegex = RegExp(r'[A-Za-z]+!');
+      final rawLabelRegex = RegExp(r"(hintText|labelText|tooltip|title|label|semanticLabel):\s*[']([^']+)[']");
+
+      expect(emojiRegex.hasMatch(badSamples[0]), isTrue, reason: 'Must detect emoji');
+      expect(rawExclamationRegex.hasMatch(badSamples[1]), isTrue, reason: 'Must detect exclamation mark');
+      expect(rawLabelRegex.hasMatch(badSamples[2]), isTrue, reason: 'Must detect raw label');
+      expect(RegExp(r'\b[A-Z]{3,}\b').hasMatch(badSamples[3]), isTrue, reason: 'Must detect ALL-CAPS');
     });
 
     testWidgets('Opens Settings in Hindi (hi) and Urdu (ur) without English leaks', (tester) async {

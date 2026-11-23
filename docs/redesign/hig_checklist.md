@@ -26,7 +26,7 @@
 6. **Rule 6 (Primary Action Placement):** Primary create actions (+ button) in a toolbar or header, NOT in the tab bar. No floating FAB colliding with the tab bar. Morph into quick-add sheet.
 7. **Rule 7 (Toolbars):** Items grouped by function on their own glass background; no mixing icons and text in one group; accessibility labels on every item.
 8. **Rule 8 (Sheets & Modals):** Half-sheets inset from screen edges so parent content peeks through; opaque when full height; morph from origin control.
-9. **Rule 9 (Lists & Inset Grouping):** Inset grouped section rhythm, generous row height (>=44dp), section headers in Title Case (never ALL CAPS).
+9. **Rule 9 (Lists & Inset Grouping):** Inset grouped section rhythm, generous row height (>=44dp), section headers in sentence case (never ALL CAPS or Title Case).
 10. **Rule 10 (Interactive Controls):** Tactile knobs on touch (slider/switch), generous touch targets (>=44x44dp), large capsule primary buttons.
 11. **Rule 11 (Color & Contrast):** Judicious color; light, dark, and increased-contrast variants; brand Orbit Teal never fights content legibility; aurora background quiet and subtle.
 12. **Rule 12 (Typography Hierarchy):** Large Title (34), Title (22), Headline (17 sb), Body (17), Callout (15), Caption (13). Scales up to 200% without clipping. Phosphor regular/fill pairs.
