@@ -41,6 +41,12 @@
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="{{assetPath}}assets/css/style.css">
+  {{#if isHi}}
+  <link rel="stylesheet" href="{{assetPath}}assets/css/font-hi.css">
+  {{/if}}
+  {{#if isUr}}
+  <link rel="stylesheet" href="{{assetPath}}assets/css/font-ur.css">
+  {{/if}}
 
   <!-- Schema.org SoftwareApplication (Truthful fields only) -->
   <script type="application/ld+json">
@@ -231,7 +237,7 @@
               <button type="button" class="screen-tab-btn" data-screen="screen-notes" role="tab" aria-selected="false">{{hero.screenTabs.notes}}</button>
             </div>
 
-            <button type="button" id="gyro-btn" class="btn btn-secondary btn-sm gyro-btn" style="display: none; margin-top: 0.5rem;">Enable Motion 3D</button>
+            <button type="button" id="gyro-btn" class="btn btn-secondary btn-sm gyro-btn">Enable Motion 3D</button>
             <div class="scene-disclaimer">{{hero.illustrationLabel}}</div>
           </div>
         </div>
@@ -286,7 +292,7 @@
                 <div class="ring-visualizer">
                   <svg class="sim-ring-svg" viewBox="0 0 160 160" aria-hidden="true">
                     <circle class="sim-ring-bg" cx="80" cy="80" r="70"/>
-                    <circle class="sim-ring-fill" cx="80" cy="80" r="70" style="stroke-dashoffset: 147;"/>
+                    <circle class="sim-ring-fill" cx="80" cy="80" r="70" stroke-dashoffset="147"/>
                   </svg>
                   <div class="ring-score">66%</div>
                   <div class="ring-label">Consistency Score</div>
@@ -383,10 +389,10 @@
           <div class="interactive-glass-card" id="sample-glass-card">
             <h3 class="feature-title">{{design.interactiveLabel}}</h3>
             <p class="feature-desc">Adjust the refraction slider below to inspect our control-layer blur filter in real-time.</p>
-            <div class="slider-container" style="margin-top: 1rem;">
-              <div style="display: flex; justify-content: space-between; font-size: 0.8125rem;">
+            <div class="slider-container slider-container-margin">
+              <div class="slider-label-row">
                 <label for="glass-slider">{{design.sliderLabel}}</label>
-                <span id="glass-blur-value" style="font-family: var(--font-mono); color: var(--color-teal-text);">16px</span>
+                <span id="glass-blur-value" class="slider-value-teal">16px</span>
               </div>
               <input type="range" id="glass-slider" class="glass-slider" min="0" max="32" value="16">
             </div>
@@ -397,12 +403,12 @@
               <div class="concentric-inner"></div>
             </div>
             <div>
-              <h4 style="font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">{{design.concentricLabel}}</h4>
-              <p style="font-size: 0.875rem; color: var(--text-muted);">{{design.concentricDesc}}</p>
+              <h4 class="concentric-title">{{design.concentricLabel}}</h4>
+              <p class="concentric-desc">{{design.concentricDesc}}</p>
             </div>
           </div>
 
-          <p style="font-size: 0.8125rem; color: var(--text-secondary); text-align: center; font-style: italic;">{{design.disclaimer}}</p>
+          <p class="design-disclaimer">{{design.disclaimer}}</p>
         </div>
       </div>
     </section>
@@ -437,7 +443,7 @@
             <span class="terminal-dot"></span>
             <span class="terminal-dot"></span>
             <span class="terminal-dot"></span>
-            <span style="font-size: 0.75rem; color: #94A3B8; margin-inline-start: 0.5rem;">{{privacy.verifyTitle}}</span>
+            <span class="verify-terminal-title">{{privacy.verifyTitle}}</span>
           </div>
           <div class="terminal-body" tabindex="0" role="region" aria-label="Verification commands">
             <div><span class="cmd">$</span> {{privacy.verifyStep1}}</div>
@@ -460,15 +466,15 @@
         <div class="lang-cards-grid">
           <div class="lang-proof-card">
             <h3 class="feature-title">{{languages.enCardTitle}}</h3>
-            <p class="feature-desc" style="font-size: 1.125rem;">{{languages.enCardSample}}</p>
+            <p class="feature-desc lang-sample-en">{{languages.enCardSample}}</p>
           </div>
           <div class="lang-proof-card">
             <h3 class="feature-title">{{languages.hiCardTitle}}</h3>
-            <p class="feature-desc" style="font-size: 1.125rem; font-family: 'Noto Sans Devanagari';">{{languages.hiCardSample}}</p>
+            <p class="feature-desc lang-sample-hi">{{languages.hiCardSample}}</p>
           </div>
           <div class="lang-proof-card" dir="rtl">
             <h3 class="feature-title">{{languages.urCardTitle}}</h3>
-            <p class="feature-desc" style="font-size: 1.25rem; font-family: 'Noto Nastaliq Urdu'; line-height: 1.8;">{{languages.urCardSample}}</p>
+            <p class="feature-desc lang-sample-ur">{{languages.urCardSample}}</p>
           </div>
         </div>
       </div>
@@ -512,15 +518,15 @@
             <a href="https://github.com/officialtofeekposwal/poswal-orbit/actions" class="btn btn-primary" target="_blank" rel="noopener noreferrer">{{install.ciActionBtn}}</a>
             {{/if}}
 
-            <p style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 0.5rem;">{{install.sideloadInstructions}}</p>
-            <p style="font-size: 0.75rem; color: var(--text-secondary); font-style: italic;">{{install.playStoreNotice}}</p>
+            <p class="install-instruction-text">{{install.sideloadInstructions}}</p>
+            <p class="playstore-notice-text">{{install.playStoreNotice}}</p>
           </div>
 
           <!-- iOS Card -->
           <div class="install-card">
             <h3 class="feature-title">{{install.iosCardTitle}}</h3>
             <p class="feature-desc">{{install.iosCardDesc}}</p>
-            <div style="margin-top: auto;">
+            <div class="install-card-actions">
               <span class="btn btn-secondary btn-unreleased">App Store (Unreleased)</span>
             </div>
           </div>
@@ -601,17 +607,17 @@
         <div class="opensource-banner">
           <span class="eyebrow">{{opensource.eyebrow}}</span>
           <h2 class="section-title">{{opensource.title}}</h2>
-          <p class="section-subtitle" style="margin-bottom: 2rem;">{{opensource.subtitle}}</p>
-          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <p class="section-subtitle opensource-subtitle">{{opensource.subtitle}}</p>
+          <div class="opensource-actions">
             <a href="https://github.com/officialtofeekposwal/poswal-orbit" class="btn btn-primary" target="_blank" rel="noopener noreferrer">{{opensource.repoBtn}}</a>
             <a href="https://github.com/officialtofeekposwal/poswal-orbit/issues" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">{{opensource.issuesBtn}}</a>
             <a href="https://github.com/officialtofeekposwal/poswal-orbit/discussions" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">{{opensource.discussionsBtn}}</a>
           </div>
 
           <!-- Milestone Roadmap Table -->
-          <div class="roadmap-table-wrapper" style="margin-top: 3rem; text-align: start;">
-            <h3 class="feature-title" style="margin-bottom: 1rem; text-align: center;">{{opensource.roadmapTitle}}</h3>
-            <table class="specs-table" style="background-color: var(--bg-surface-elevated); border-radius: var(--r-card);">
+          <div class="roadmap-table-wrapper roadmap-table-container">
+            <h3 class="feature-title roadmap-heading">{{opensource.roadmapTitle}}</h3>
+            <table class="specs-table roadmap-table">
               <tbody>
                 <tr>
                   <th scope="row"><span class="roadmap-badge badge-done">{{opensource.roadmapCompleted}}</span></th>
@@ -641,7 +647,7 @@
             </table>
           </div>
 
-          <p style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 1.5rem;">{{opensource.licenseNotice}}</p>
+          <p class="license-notice-text">{{opensource.licenseNotice}}</p>
         </div>
       </div>
     </section>
@@ -657,8 +663,8 @@
         <a href="https://github.com/officialtofeekposwal/poswal-orbit/security/policy" target="_blank" rel="noopener noreferrer">Security Policy</a>
       </div>
       <p>{{footer.disclaimer}}</p>
-      <p style="font-size: 0.75rem;">{{footer.fontCredits}}</p>
-      <p style="font-size: 0.75rem;">{{footer.rights}}</p>
+      <p class="footer-small-text">{{footer.fontCredits}}</p>
+      <p class="footer-small-text">{{footer.rights}}</p>
     </div>
   </footer>
 

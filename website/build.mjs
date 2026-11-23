@@ -204,8 +204,8 @@ function copyDir(src, dest) {
 copyDir(ASSETS_DIR, path.join(DIST_DIR, 'assets'));
 
 // Copy CSS and JS
-fs.copyFileSync(path.join(SRC_DIR, 'css', 'style.css'), path.join(DIST_DIR, 'assets', 'css', 'style.css'));
-fs.copyFileSync(path.join(SRC_DIR, 'js', 'main.js'), path.join(DIST_DIR, 'assets', 'js', 'main.js'));
+copyDir(path.join(SRC_DIR, 'css'), path.join(DIST_DIR, 'assets', 'css'));
+copyDir(path.join(SRC_DIR, 'js'), path.join(DIST_DIR, 'assets', 'js'));
 
 // Copy Static files
 for (const file of fs.readdirSync(STATIC_DIR)) {
@@ -346,15 +346,20 @@ console.log('✓ Generated sitemap.xml');
 // 6. Transfer Budget & Asset Size Verification
 console.log('[6/6] Verifying per-page transfer budgets (< 120 KB HTML+CSS+JS excluding fonts)...');
 
-const cssSize = fs.statSync(path.join(DIST_DIR, 'assets', 'css', 'style.css')).size;
+const cssBaseSize = fs.statSync(path.join(DIST_DIR, 'assets', 'css', 'style.css')).size;
+const fontHiCssSize = fs.existsSync(path.join(DIST_DIR, 'assets', 'css', 'font-hi.css')) ? fs.statSync(path.join(DIST_DIR, 'assets', 'css', 'font-hi.css')).size : 0;
+const fontUrCssSize = fs.existsSync(path.join(DIST_DIR, 'assets', 'css', 'font-ur.css')) ? fs.statSync(path.join(DIST_DIR, 'assets', 'css', 'font-ur.css')).size : 0;
 const jsSize = fs.statSync(path.join(DIST_DIR, 'assets', 'js', 'main.js')).size;
 
 for (const cfg of pageConfigs) {
   const htmlSize = fs.statSync(cfg.outputPath).size;
-  const coreTotal = htmlSize + cssSize + jsSize;
+  let pageCss = cssBaseSize;
+  if (cfg.lang === 'hi') pageCss += fontHiCssSize;
+  if (cfg.lang === 'ur') pageCss += fontUrCssSize;
+  const coreTotal = htmlSize + pageCss + jsSize;
   const coreTotalKB = (coreTotal / 1024).toFixed(2);
 
-  console.log(`Route [/${cfg.lang === 'en' ? '' : cfg.lang + '/'}]: HTML=${(htmlSize / 1024).toFixed(2)} KB, CSS=${(cssSize / 1024).toFixed(2)} KB, JS=${(jsSize / 1024).toFixed(2)} KB. Total=${coreTotalKB} KB.`);
+  console.log(`Route [/${cfg.lang === 'en' ? '' : cfg.lang + '/'}]: HTML=${(htmlSize / 1024).toFixed(2)} KB, CSS=${(pageCss / 1024).toFixed(2)} KB, JS=${(jsSize / 1024).toFixed(2)} KB. Total=${coreTotalKB} KB.`);
 
   if (coreTotal > 120 * 1024) {
     console.error(`FATAL: Budget exceeded on route ${cfg.lang}! Total is ${coreTotalKB} KB (limit: 120 KB)`);

@@ -36,22 +36,6 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: "Noto Sans Devanagari";
-  src: url("../fonts/NotoSansDevanagari-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Noto Nastaliq Urdu";
-  src: url("../fonts/NotoNastaliqUrdu-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
 /* --- 2. CSS Custom Properties --- */
 :root {
   --color-teal: #14B8A6;
@@ -410,6 +394,12 @@ a {
   font-size: 0.8125rem;
   color: var(--text-secondary);
   transition: color var(--dur-fast);
+  padding: 0.35rem 0.5rem;
+  min-height: 24px;
+  min-width: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .nav-link:hover {
@@ -1694,3 +1684,25 @@ html[dir="rtl"] .faq-item summary::after {
     font-size: 0.875rem;
   }
 }
+
+/* --- 18. Semantic Layout & Typography Utilities (Zero Inline Styles) --- */
+.slider-container-margin { margin-top: 1rem; }
+.slider-label-row { display: flex; justify-content: space-between; font-size: 0.8125rem; }
+.slider-value-teal { font-family: var(--font-mono); color: var(--color-teal-text); }
+.concentric-title { font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; }
+.concentric-desc { font-size: 0.875rem; color: var(--text-muted); }
+.design-disclaimer { font-size: 0.8125rem; color: var(--text-secondary); text-align: center; font-style: italic; }
+.verify-terminal-title { font-size: 0.75rem; color: #94A3B8; margin-inline-start: 0.5rem; }
+.lang-sample-en { font-size: 1.125rem; }
+.lang-sample-hi { font-size: 1.125rem; font-family: var(--font-devanagari, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif); }
+.lang-sample-ur { font-size: 1.25rem; font-family: var(--font-nastaliq, -apple-system, BlinkMacSystemFont, "Segoe UI", serif); line-height: 1.8; }
+.install-instruction-text { font-size: 0.8125rem; color: var(--text-secondary); margin-top: 0.5rem; }
+.playstore-notice-text { font-size: 0.75rem; color: var(--text-secondary); font-style: italic; }
+.install-card-actions { margin-top: auto; }
+.opensource-subtitle { margin-bottom: 2rem; }
+.opensource-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.roadmap-table-container { margin-top: 3rem; text-align: start; }
+.roadmap-heading { margin-bottom: 1rem; text-align: center; }
+.roadmap-table { background-color: var(--bg-surface-elevated); border-radius: var(--r-card); }
+.license-notice-text { font-size: 0.8125rem; color: var(--text-secondary); margin-top: 1.5rem; }
+.footer-small-text { font-size: 0.75rem; }

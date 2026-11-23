@@ -114,7 +114,7 @@
     "title": "Download Poswal Orbit",
     "subtitle": "Install the verified release APK or build from source.",
     "releaseCardTitle": "Android Release APK",
-    "releaseCardDesc": "Pre-release build signed with a CI verification throwaway key. Minified with R8 and verified across automated CI tests.",
+    "releaseCardDesc": "Pre-release build signed with a throwaway CI key. A later build signed with a permanent release key cannot be installed over it, so the app must be uninstalled first. Export a data backup from Settings > Data before uninstalling, as Android deletes local application data on uninstall.",
     "downloadBtn": "Download APK",
     "checksumLabel": "SHA-256 Checksum",
     "copyChecksum": "Copy SHA-256",
