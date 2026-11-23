@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 1800" width="1280" height="1800" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#070B14"/>
+      <stop offset="1" stop-color="#0A1020"/>
+    </linearGradient>
+    <radialGradient id="mesh" cx="0.5" cy="0.2" r="0.6">
+      <stop offset="0" stop-color="#14B8A6" stop-opacity="0.15"/>
+      <stop offset="0.5" stop-color="#8B7CFF" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#070B14" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="1800" fill="url(#bg)"/>
+  <rect width="1280" height="1800" fill="url(#mesh)"/>
+
+  <!-- Top Bar -->
+  <rect x="0" y="0" width="1280" height="64" fill="#0F1626" fill-opacity="0.8"/>
+  <line x1="0" y1="64" x2="1280" y2="64" stroke="#FFFFFF" stroke-opacity="0.1"/>
+  <text x="80" y="40" font-size="18" font-weight="700" fill="#FFFFFF">POSWAL ORBIT</text>
+  <text x="440" y="38" font-size="13" font-family="monospace" fill="#94A3B8">01 DEMO   02 FEATURES   03 DESIGN   04 PRIVACY   05 SPECS   06 GET IT</text>
+  <rect x="1100" y="18" width="100" height="28" rx="14" fill="#14B8A6"/>
+  <text x="1150" y="37" font-size="12" font-weight="700" text-anchor="middle" fill="#070B14">GET APP</text>
+
+  <!-- Hero Section -->
+  <rect x="520" y="110" width="240" height="28" rx="14" fill="#FFFFFF" fill-opacity="0.05" stroke="#14B8A6" stroke-opacity="0.4"/>
+  <text x="640" y="129" font-size="11" font-family="monospace" font-weight="700" text-anchor="middle" fill="#14B8A6">PRE-RELEASE · v0.9.0-BETA.1</text>
+  <text x="640" y="190" font-size="52" font-weight="800" letter-spacing="-1" text-anchor="middle" fill="#FFFFFF">Your whole day, in orbit.</text>
+  <text x="640" y="225" font-size="18" fill="#94A3B8" text-anchor="middle">Habits, tasks and notes in one calm app. Everything stays on your phone.</text>
+
+  <rect x="490" y="255" width="140" height="42" rx="21" fill="#14B8A6"/>
+  <text x="560" y="281" font-size="14" font-weight="700" text-anchor="middle" fill="#070B14">Get the app</text>
+  <rect x="650" y="255" width="140" height="42" rx="21" fill="#FFFFFF" fill-opacity="0.08" stroke="#FFFFFF" stroke-opacity="0.2"/>
+  <text x="720" y="281" font-size="14" font-weight="600" text-anchor="middle" fill="#FFFFFF">GitHub</text>
+
+  <!-- 3D Phone Mockup Container (Desktop Wireframe) -->
+  <g transform="translate(640, 480)">
+    <!-- Tilted Orbit Ring -->
+    <ellipse cx="0" cy="0" rx="360" ry="110" fill="none" stroke="#FFFFFF" stroke-opacity="0.1" stroke-width="2"/>
+    <ellipse cx="0" cy="0" rx="360" ry="110" fill="none" stroke="#14B8A6" stroke-opacity="0.4" stroke-width="2" stroke-dasharray="120 400"/>
+    <circle cx="280" cy="-60" r="16" fill="#FFC857"/>
+    <!-- Phone Body -->
+    <rect x="-140" y="-180" width="280" height="380" rx="36" fill="#0F1626" stroke="#FFFFFF" stroke-opacity="0.2" stroke-width="3"/>
+    <rect x="-120" y="-140" width="240" height="320" rx="24" fill="#070B14"/>
+    <!-- Ring inside Phone -->
+    <circle cx="0" cy="-40" r="50" fill="none" stroke="#14B8A6" stroke-width="10"/>
+    <text x="0" y="-34" font-size="18" font-weight="700" text-anchor="middle" fill="#FFFFFF">68%</text>
+    <!-- Card inside Phone -->
+    <rect x="-100" y="30" width="200" height="40" rx="12" fill="#162035"/>
+    <rect x="-100" y="80" width="200" height="40" rx="12" fill="#162035"/>
+  </g>
+
+  <!-- Fact Strip -->
+  <g transform="translate(140, 720)">
+    <rect width="1000" height="50" rx="12" fill="#0F1626" stroke="#FFFFFF" stroke-opacity="0.1"/>
+    <text x="50" y="30" font-size="12" font-family="monospace" fill="#94A3B8">01. PLATFORM: Android · iOS (code written)</text>
+    <text x="420" y="30" font-size="12" font-family="monospace" fill="#94A3B8">02. PRIVACY: 0 trackers · 0 network calls</text>
+    <text x="800" y="30" font-size="12" font-family="monospace" fill="#94A3B8">03. LICENCE: MIT</text>
+  </g>
+
+  <!-- Section 02: Interactive Simulator -->
+  <text x="140" y="840" font-size="13" font-family="monospace" font-weight="700" fill="#14B8A6">01 // LIVE SIMULATOR</text>
+  <text x="140" y="880" font-size="32" font-weight="800" fill="#FFFFFF">Try the orbit loop</text>
+  <rect x="140" y="910" width="1000" height="340" rx="24" fill="#0F1626" stroke="#FFFFFF" stroke-opacity="0.1"/>
+  <!-- Habits Column -->
+  <g transform="translate(180, 950)">
+    <text x="0" y="24" font-size="18" font-weight="700" fill="#FFFFFF">Habits Check-in</text>
+    <rect x="0" y="45" width="440" height="60" rx="14" fill="#162035" stroke="#FFFFFF" stroke-opacity="0.08"/>
+    <circle cx="35" cy="75" r="14" fill="#14B8A6"/>
+    <text x="65" y="80" font-size="15" font-weight="600" fill="#FFFFFF">Morning walk · 3-day streak</text>
+
+    <rect x="0" y="115" width="440" height="60" rx="14" fill="#162035" stroke="#FFFFFF" stroke-opacity="0.08"/>
+    <circle cx="35" cy="145" r="14" fill="#14B8A6"/>
+    <text x="65" y="150" font-size="15" font-weight="600" fill="#FFFFFF">Drink 2L water · 12-day streak</text>
+
+    <rect x="0" y="185" width="440" height="60" rx="14" fill="#162035" stroke="#FFFFFF" stroke-opacity="0.08"/>
+    <circle cx="35" cy="215" r="14" fill="none" stroke="#FFFFFF" stroke-opacity="0.3" stroke-width="2"/>
+    <text x="65" y="220" font-size="15" font-weight="600" fill="#94A3B8">Read 20 minutes</text>
+  </g>
+  <!-- Parser Column -->
+  <g transform="translate(680, 950)">
+    <text x="0" y="24" font-size="18" font-weight="700" fill="#FFFFFF">Natural Language Task Add</text>
+    <rect x="0" y="45" width="420" height="46" rx="12" fill="#070B14" stroke="#14B8A6" stroke-opacity="0.5"/>
+    <text x="15" y="74" font-size="13" font-family="monospace" fill="#FFFFFF">Pay rent tomorrow 4pm !high #home</text>
+    <!-- Parsed Chips -->
+    <rect x="0" y="115" width="130" height="32" rx="16" fill="#162035" stroke="#14B8A6" stroke-opacity="0.4"/>
+    <text x="65" y="136" font-size="12" text-anchor="middle" fill="#14B8A6">Tomorrow 4pm</text>
+    <rect x="140" y="115" width="110" height="32" rx="16" fill="#162035" stroke="#FF7A59" stroke-opacity="0.4"/>
+    <text x="195" y="136" font-size="12" text-anchor="middle" fill="#FF7A59">! High Priority</text>
+    <rect x="260" y="115" width="90" height="32" rx="16" fill="#162035" stroke="#8B7CFF" stroke-opacity="0.4"/>
+    <text x="305" y="136" font-size="12" text-anchor="middle" fill="#8B7CFF">#home</text>
+  </g>
+
+  <!-- Section 03: Feature Grid -->
+  <text x="140" y="1320" font-size="13" font-family="monospace" font-weight="700" fill="#8B7CFF">02 // CORE SYSTEMS</text>
+  <text x="140" y="1360" font-size="32" font-weight="800" fill="#FFFFFF">Engineered for permanence</text>
+  <g transform="translate(140, 1390)">
+    <rect x="0" y="0" width="310" height="160" rx="18" fill="#0F1626" stroke="#FFFFFF" stroke-opacity="0.1"/>
+    <text x="25" y="35" font-size="12" font-family="monospace" fill="#14B8A6">01 // TODAY</text>
+    <text x="25" y="65" font-size="17" font-weight="700" fill="#FFFFFF">Unified Timeline</text>
+    <text x="25" y="95" font-size="13" fill="#94A3B8">Habits and tasks in one orbit ring.</text>
+
+    <rect x="345" y="0" width="310" height="160" rx="18" fill="#0F1626" stroke="#FFFFFF" stroke-opacity="0.1"/>
+    <text x="370" y="35" font-size="12" font-family="monospace" fill="#8B7CFF">02 // HABITS</text>
+    <text x="370" y="65" font-size="17" font-weight="700" fill="#FFFFFF">EWMA Consistency</text>
+    <text x="370" y="95" font-size="13" fill="#94A3B8">Weighted scoring and streak freeze.</text>
+
+    <rect x="690" y="0" width="310" height="160" rx="18" fill="#0F1626" stroke="#FFFFFF" stroke-opacity="0.1"/>
+    <text x="715" y="35" font-size="12" font-family="monospace" fill="#FF7A59">03 // TASKS</text>
+    <text x="715" y="65" font-size="17" font-weight="700" fill="#FFFFFF">Quick Natural Add</text>
+    <text x="715" y="95" font-size="13" fill="#94A3B8">Instant smart parsing & subtasks.</text>
+
+    <rect x="0" y="180" width="310" height="160" rx="18" fill="#0F1626" stroke="#FFFFFF" stroke-opacity="0.1"/>
+    <text x="25" y="215" font-size="12" font-family="monospace" fill="#FFC857">04 // NOTES</text>
+    <text x="25" y="245" font-size="17" font-weight="700" fill="#FFFFFF">Markdown Journal</text>
+    <text x="25" y="275" font-size="13" fill="#94A3B8">Live dimmed styling and checklists.</text>
+
+    <rect x="345" y="180" width="310" height="160" rx="18" fill="#0F1626" stroke="#FFFFFF" stroke-opacity="0.1"/>
+    <text x="370" y="215" font-size="12" font-family="monospace" fill="#14B8A6">05 // ALARMS</text>
+    <text x="370" y="245" font-size="17" font-weight="700" fill="#FFFFFF">7-Day Rolling Window</text>
+    <text x="370" y="275" font-size="13" fill="#94A3B8">Accurate alerts with health screen.</text>
+
+    <rect x="690" y="180" width="310" height="160" rx="18" fill="#0F1626" stroke="#FFFFFF" stroke-opacity="0.1"/>
+    <text x="715" y="215" font-size="12" font-family="monospace" fill="#8B7CFF">06 // PRIVACY</text>
+    <text x="715" y="245" font-size="17" font-weight="700" fill="#FFFFFF">Zero Network Access</text>
+    <text x="715" y="275" font-size="13" fill="#94A3B8">Release builds omit INTERNET.</text>
+  </g>
+</svg>

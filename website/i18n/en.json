@@ -1,0 +1,124 @@
+{
+  "meta": {
+    "title": "Poswal Orbit · Your whole day, in orbit",
+    "description": "A calm, offline-first personal workspace for habits, tasks and notes on Android. True RTL support, zero trackers, and zero accounts."
+  },
+  "nav": {
+    "brand": "Poswal Orbit",
+    "demo": "01 Demo",
+    "features": "02 Features",
+    "design": "03 Design",
+    "privacy": "04 Privacy",
+    "languages": "05 Languages",
+    "install": "06 Get It",
+    "specs": "07 Specs",
+    "faq": "08 FAQ",
+    "cta": "Get App"
+  },
+  "hero": {
+    "eyebrow": "Pre-release · v0.9.0-beta.1 · 100% Offline",
+    "headline": "Your whole day, in orbit.",
+    "subheadline": "Habits, tasks and notes in one calm app. Everything stays on your phone.",
+    "primaryCta": "Get the app",
+    "secondaryCta": "View on GitHub",
+    "illustrationLabel": "Illustration, not a screenshot. Real device screenshots will replace mockups after phone verification.",
+    "factStrip": {
+      "platforms": "Android pre-release · iOS code written",
+      "privacy": "0 trackers · 0 accounts · 0 network calls",
+      "languages": "English · हिन्दी · اردو (True RTL)",
+      "license": "MIT open source"
+    }
+  },
+  "simulator": {
+    "eyebrow": "01 // Live Simulator",
+    "title": "Try the orbit loop",
+    "subtitle": "A simplified interactive demonstration of the core habits check-in and task parser.",
+    "habitsTab": "Habit check-in",
+    "tasksTab": "Natural language quick add",
+    "habit1": "Morning walk",
+    "habit2": "Drink 2L water",
+    "habit3": "Read 20 minutes",
+    "taskPlaceholder": "Type: Pay rent tomorrow 4pm !high #home",
+    "parsedDue": "Due date",
+    "parsedPriority": "Priority",
+    "parsedProject": "Project"
+  },
+  "features": {
+    "eyebrow": "02 // Core Systems",
+    "title": "Built for focus, engineered for permanence",
+    "subtitle": "Six verified modules working together without server reliance.",
+    "todayTitle": "01 // Today",
+    "todayDesc": "A single timeline merging habits and tasks due today with a visual progress ring.",
+    "habitsTitle": "02 // Habits & streaks",
+    "habitsDesc": "EWMA consistency scores, streak freeze protection, and a 14-week visual check-in heatmap.",
+    "tasksTitle": "03 // Tasks & quick add",
+    "tasksDesc": "Plain sentence parsing, checklist subtasks, priority levels, and flexible repeats.",
+    "notesTitle": "04 // Markdown notes",
+    "notesDesc": "Live syntax styling with dimmed markdown tokens and integrated checklist toggling.",
+    "remindersTitle": "05 // Reminders & widgets",
+    "remindersDesc": "7-day rolling notifications with health check status and native home screen widgets.",
+    "safetyTitle": "06 // Data freedom",
+    "safetyDesc": "7-day automatic backup rotation, transactional JSON exports, and Loop CSV migration."
+  },
+  "design": {
+    "eyebrow": "03 // Design System",
+    "title": "Liquid Glass on Apple HIG",
+    "subtitle": "Frosted glass only on control surfaces, solid high-contrast content, and concentric corner geometry.",
+    "interactiveLabel": "Live glass refraction control",
+    "sliderLabel": "Glass blur intensity",
+    "disclaimer": "Inspired by Apple's Human Interface Guidelines. Not affiliated with or endorsed by Apple Inc."
+  },
+  "privacy": {
+    "eyebrow": "04 // Privacy & Safety",
+    "title": "Verify, do not trust",
+    "subtitle": "Your data never leaves your device because release builds do not request network permission.",
+    "point1Title": "0 network permission",
+    "point1Desc": "Release builds omit the INTERNET permission entirely from AndroidManifest.xml.",
+    "point2Title": "Local SQLite database",
+    "point2Desc": "All habits, tasks, and notes stay in an on-device Drift SQLite database.",
+    "point3Title": "Zero trackers or analytics",
+    "point3Desc": "No Firebase, no crash telemetry, and no advertising SDKs are bundled."
+  },
+  "languages": {
+    "eyebrow": "05 // Languages",
+    "title": "Trilingual and true RTL",
+    "subtitle": "English, Hindi and Urdu with native right-to-left layout symmetry and bundled offline fonts.",
+    "marquee": "habits · आदतें · عادات · tasks · कार्य · کام · notes · नोट्स · نوٹس"
+  },
+  "install": {
+    "eyebrow": "06 // Installation",
+    "title": "Download Poswal Orbit",
+    "subtitle": "Install the verified release APK or build from source.",
+    "releaseCardTitle": "Android Release APK (v0.9.0-beta.1)",
+    "releaseCardDesc": "Minified and shrunk with R8. Verified across 228 automated CI tests.",
+    "downloadReleaseBtn": "Download APK (74.8 MB)",
+    "checksumLabel": "SHA-256 Checksum",
+    "iosCardTitle": "iOS (Apple iPhone)",
+    "iosCardDesc": "Code written, not yet verified on hardware (no Mac available). Not available on App Store.",
+    "playStoreNotice": "Poswal Orbit is not published on Google Play. Sideload via GitHub Release."
+  },
+  "specs": {
+    "eyebrow": "07 // Specifications",
+    "title": "Technical architecture",
+    "framework": "Flutter 3.50.1 / Dart 3.14.0",
+    "state": "Riverpod 2.x",
+    "database": "SQLite 3 via Drift",
+    "tests": "228 tests across 39 files (100% CI pass)"
+  },
+  "faq": {
+    "eyebrow": "08 // Questions",
+    "title": "Frequently asked questions",
+    "q1": "Is Poswal Orbit really 100% offline?",
+    "a1": "Yes. Release builds do not declare or request the INTERNET permission. Data cannot leave the device unless you explicitly export or share it.",
+    "q2": "Why does the day start at 4:00 AM?",
+    "a2": "To protect late-night productivity. Any check-in between midnight and 3:59 AM counts toward the previous day, preventing accidental streak breaks.",
+    "q3": "How can I back up my data?",
+    "a3": "The app automatically keeps the last 7 daily backup snapshots in local storage. You can also export a full JSON or CSV backup at any time in Settings.",
+    "q4": "When will the iOS version be available?",
+    "a4": "The Swift widgets and Flutter iOS code are complete, but hardware verification on a physical Mac and iPhone is required before publishing."
+  },
+  "footer": {
+    "disclaimer": "This website sets zero cookies, loads zero analytics, and calls zero third-party hosts.",
+    "rights": "Poswal Orbit is open-source software released under the MIT License."
+  }
+}
