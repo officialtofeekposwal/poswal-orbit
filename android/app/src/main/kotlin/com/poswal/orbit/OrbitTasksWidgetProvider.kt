@@ -22,7 +22,7 @@ class OrbitTasksWidgetProvider : AppWidgetProvider() {
             val views = RemoteViews(context.packageName, R.layout.orbit_tasks_widget).apply {
                 val tasksJsonStr = widgetData.getString("orbit_tasks_json", "[]")
 
-                setTextViewText(R.id.widget_tasks_title, "Poswal Orbit · Tasks")
+                setTextViewText(R.id.widget_tasks_title, context.getString(R.string.widget_tasks_title))
 
                 val rowIds = intArrayOf(R.id.task_row_1, R.id.task_row_2, R.id.task_row_3, R.id.task_row_4)
                 val dotIds = intArrayOf(R.id.task_dot_1, R.id.task_dot_2, R.id.task_dot_3, R.id.task_dot_4)

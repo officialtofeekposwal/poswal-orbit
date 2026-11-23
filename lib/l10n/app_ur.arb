@@ -322,5 +322,7 @@
   "notificationKeepMomentum": "آج اپنی رفتار برقرار رکھیں۔",
   "notificationTaskDueNow": "کام کا وقت ہو گیا",
   "datePickerSetDate": "تاریخ منتخب کریں",
-  "datePickerSetTime": "وقت منتخب کریں"
+  "datePickerSetTime": "وقت منتخب کریں",
+  "notificationActionMarkDone": "مکمل کریں",
+  "notificationActionSnooze10m": "10 منٹ بعد"
 }

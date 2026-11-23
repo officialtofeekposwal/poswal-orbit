@@ -18,6 +18,13 @@ class NotificationScheduleEngine {
     return ((entityHash << 15) | minuteEpoch) & 0x7FFFFFFF;
   }
 
+  /// Returns localized action button labels (Mark Done, Snooze 10m) for the given [languageCode].
+  static (String, String) getActionLabels(String languageCode) {
+    final String validLang = (languageCode == 'hi' || languageCode == 'ur') ? languageCode : 'en';
+    final loc = lookupAppLocalizations(Locale(validLang));
+    return (loc.notificationActionMarkDone, loc.notificationActionSnooze10m);
+  }
+
   /// Parses "HH:mm" string into hour and minute.
   static (int, int)? parseTimeString(String? timeStr) {
     if (timeStr == null || timeStr.trim().isEmpty) return null;
@@ -109,6 +116,7 @@ class NotificationScheduleEngine {
                 extraData: {
                   'dateStr': dateStr,
                   'habitId': habit.id,
+                  'languageCode': validLang,
                 },
               ));
             }
@@ -130,6 +138,7 @@ class NotificationScheduleEngine {
               extraData: {
                 'dateStr': dateStr,
                 'habitId': habit.id,
+                'languageCode': validLang,
               },
             ));
           }
@@ -168,6 +177,7 @@ class NotificationScheduleEngine {
           extraData: {
             'taskId': task.id,
             'dueAt': due.toIso8601String(),
+            'languageCode': validLang,
           },
         ));
       }

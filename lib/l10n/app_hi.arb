@@ -322,5 +322,7 @@
   "notificationKeepMomentum": "आज अपनी गति बनाए रखें।",
   "notificationTaskDueNow": "कार्य का समय हो गया",
   "datePickerSetDate": "तिथि चुनें",
-  "datePickerSetTime": "समय चुनें"
+  "datePickerSetTime": "समय चुनें",
+  "notificationActionMarkDone": "पूर्ण करें",
+  "notificationActionSnooze10m": "10 मि. बाद"
 }

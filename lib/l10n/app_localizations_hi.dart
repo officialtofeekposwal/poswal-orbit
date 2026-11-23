@@ -918,4 +918,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get datePickerSetTime => 'समय चुनें';
+
+  @override
+  String get notificationActionMarkDone => 'पूर्ण करें';
+
+  @override
+  String get notificationActionSnooze10m => '10 मि. बाद';
 }

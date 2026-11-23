@@ -917,4 +917,10 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get datePickerSetTime => 'وقت منتخب کریں';
+
+  @override
+  String get notificationActionMarkDone => 'مکمل کریں';
+
+  @override
+  String get notificationActionSnooze10m => '10 منٹ بعد';
 }

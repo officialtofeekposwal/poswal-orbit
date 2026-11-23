@@ -1767,6 +1767,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Set time'**
   String get datePickerSetTime;
+
+  /// Action button label on notification to mark item as done
+  ///
+  /// In en, this message translates to:
+  /// **'Mark done'**
+  String get notificationActionMarkDone;
+
+  /// Action button label on notification to snooze for 10 minutes
+  ///
+  /// In en, this message translates to:
+  /// **'Snooze 10m'**
+  String get notificationActionSnooze10m;
 }
 
 class _AppLocalizationsDelegate

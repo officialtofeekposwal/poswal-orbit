@@ -451,5 +451,13 @@
   "datePickerSetTime": "Set time",
   "@datePickerSetTime": {
     "description": "Button label to set time"
+  },
+  "notificationActionMarkDone": "Mark done",
+  "@notificationActionMarkDone": {
+    "description": "Action button label on notification to mark item as done"
+  },
+  "notificationActionSnooze10m": "Snooze 10m",
+  "@notificationActionSnooze10m": {
+    "description": "Action button label on notification to snooze for 10 minutes"
   }
 }

@@ -22,7 +22,7 @@ class OrbitTodayWidgetProvider : AppWidgetProvider() {
                 val percentStr = widgetData.getString("orbit_progress_percent", "0")
                 val percent = percentStr?.toIntOrNull() ?: 0
 
-                setTextViewText(R.id.widget_orbit_title, "Poswal Orbit")
+                setTextViewText(R.id.widget_orbit_title, context.getString(R.string.widget_today_title))
                 setTextViewText(R.id.widget_orbit_count, "$completed of $total")
                 setTextViewText(R.id.widget_orbit_percent, "$percent%")
                 setProgressBar(R.id.widget_orbit_progressbar, 100, percent, false)

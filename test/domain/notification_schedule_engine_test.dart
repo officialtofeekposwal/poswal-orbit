@@ -263,5 +263,19 @@ void main() {
       expect(tzDt.hour, 14);
       expect(tzDt.minute, 30);
     });
+
+    test('getActionLabels returns localized action buttons across en, hi, and ur', () {
+      final (enMark, enSnooze) = NotificationScheduleEngine.getActionLabels('en');
+      expect(enMark, 'Mark done');
+      expect(enSnooze, 'Snooze 10m');
+
+      final (hiMark, hiSnooze) = NotificationScheduleEngine.getActionLabels('hi');
+      expect(hiMark, 'पूर्ण करें');
+      expect(hiSnooze, '10 मि. बाद');
+
+      final (urMark, urSnooze) = NotificationScheduleEngine.getActionLabels('ur');
+      expect(urMark, 'مکمل کریں');
+      expect(urSnooze, '10 منٹ بعد');
+    });
   });
 }

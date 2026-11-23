@@ -913,4 +913,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get datePickerSetTime => 'Set time';
+
+  @override
+  String get notificationActionMarkDone => 'Mark done';
+
+  @override
+  String get notificationActionSnooze10m => 'Snooze 10m';
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Widget titles -->
+    <string name="widget_habits_title">Poswal Orbit · Habits</string>
+    <string name="widget_tasks_title">Poswal Orbit · Tasks</string>
+    <string name="widget_today_title">Poswal Orbit</string>
+
+    <!-- Widget empty states -->
+    <string name="widget_habits_empty">No habits scheduled for today.</string>
+    <string name="widget_tasks_empty">All clear. Enjoy the quiet.</string>
+
+    <!-- Widget dynamic labels (set from Kotlin, included here for reference) -->
+    <string name="widget_count_format">%1$s of %2$s</string>
+    <string name="widget_pending_format">%1$d pending</string>
+    <string name="widget_completed_format">%1$s of %2$s completed</string>
+
+    <!-- Notification action buttons -->
+    <string name="notif_action_mark_done">Mark done</string>
+    <string name="notif_action_snooze">Snooze 10m</string>
+</resources>

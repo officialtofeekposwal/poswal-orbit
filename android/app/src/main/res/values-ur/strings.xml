@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Widget titles -->
+    <string name="widget_habits_title">پوسوال آربٹ · عادات</string>
+    <string name="widget_tasks_title">پوسوال آربٹ · کام</string>
+    <string name="widget_today_title">پوسوال آربٹ</string>
+
+    <!-- Widget empty states -->
+    <string name="widget_habits_empty">آج کے لیے کوئی عادت مقرر نہیں۔</string>
+    <string name="widget_tasks_empty">سب واضح ہے۔ سکون سے لطف اٹھائیں۔</string>
+
+    <!-- Widget dynamic labels -->
+    <string name="widget_count_format">%2$s میں سے %1$s</string>
+    <string name="widget_pending_format">%1$d باقی</string>
+    <string name="widget_completed_format">%2$s میں سے %1$s مکمل</string>
+
+    <!-- Notification action buttons -->
+    <string name="notif_action_mark_done">مکمل کریں</string>
+    <string name="notif_action_snooze">10 منٹ بعد</string>
+</resources>

@@ -247,7 +247,7 @@ class NotificationService {
   }
 
   /// Schedule a single notification trigger
-  Future<void> scheduleTrigger(ScheduledNotificationTrigger trigger) async {
+  Future<void> scheduleTrigger(ScheduledNotificationTrigger trigger, {String? languageCode}) async {
     await initialize();
 
     final channelId = trigger.type == OrbitNotificationType.task
@@ -256,14 +256,17 @@ class NotificationService {
 
     final channelName = trigger.type == OrbitNotificationType.task ? 'Task Reminders' : 'Habit Reminders';
 
+    final effectiveLang = trigger.extraData['languageCode'] as String? ?? languageCode ?? 'en';
+    final actionLabels = NotificationScheduleEngine.getActionLabels(effectiveLang);
+
     final androidDetails = AndroidNotificationDetails(
       channelId,
       channelName,
       importance: Importance.high,
       priority: Priority.high,
-      actions: const [
-        AndroidNotificationAction('mark_done', 'Mark Done'),
-        AndroidNotificationAction('snooze_10m', 'Snooze 10m'),
+      actions: [
+        AndroidNotificationAction('mark_done', actionLabels.$1),
+        AndroidNotificationAction('snooze_10m', actionLabels.$2),
       ],
     );
 
@@ -322,24 +325,26 @@ class NotificationService {
   }
 
   /// Sends an immediate test notification to verify channel, sound, icon, and actions on real device
-  Future<void> sendTestNotification({String? title, String? body}) async {
+  Future<void> sendTestNotification({String? title, String? body, String languageCode = 'en'}) async {
     await initialize();
 
-    const androidDetails = AndroidNotificationDetails(
+    final actionLabels = NotificationScheduleEngine.getActionLabels(languageCode);
+
+    final androidDetails = AndroidNotificationDetails(
       habitChannelId,
       'Habit Reminders',
       channelDescription: 'Test Notification channel verification',
       importance: Importance.high,
       priority: Priority.high,
       actions: [
-        AndroidNotificationAction('mark_done', 'Mark Done'),
-        AndroidNotificationAction('snooze_10m', 'Snooze 10m'),
+        AndroidNotificationAction('mark_done', actionLabels.$1),
+        AndroidNotificationAction('snooze_10m', actionLabels.$2),
       ],
     );
 
-    const details = NotificationDetails(
+    final details = NotificationDetails(
       android: androidDetails,
-      iOS: DarwinNotificationDetails(presentAlert: true, presentSound: true),
+      iOS: const DarwinNotificationDetails(presentAlert: true, presentSound: true),
     );
 
     try {
@@ -358,9 +363,22 @@ class NotificationService {
     } catch (_) {}
   }
 
-  /// Refills the 7-day rolling window of notification triggers from database state
-  Future<int> refillRollingWindow({DateTime? nowOverride, String languageCode = 'en'}) async {
+  /// Refills the 7-day rolling window of notification triggers from database state.
+  /// If [languageCode] is omitted, it queries the persisted language from [appSettingsTable] in the database.
+  Future<int> refillRollingWindow({DateTime? nowOverride, String? languageCode}) async {
     await initialize();
+
+    String effectiveLang = languageCode ?? 'en';
+    if (languageCode == null) {
+      try {
+        final langRow = await (_db.select(_db.appSettingsTable)
+              ..where((t) => t.key.equals('app_language')))
+            .getSingleOrNull();
+        if (langRow != null && langRow.value.isNotEmpty) {
+          effectiveLang = langRow.value;
+        }
+      } catch (_) {}
+    }
 
     // 1. Fetch active habits
     final habitRows = await (_db.select(_db.habitsTable)
@@ -466,7 +484,7 @@ class NotificationService {
       tasks: tasks,
       now: now,
       daysCount: 7,
-      languageCode: languageCode,
+      languageCode: effectiveLang,
     );
 
     // 6. Get currently scheduled requests from plugin

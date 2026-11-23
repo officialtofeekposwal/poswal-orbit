@@ -25,7 +25,7 @@ class OrbitHabitsWidgetProvider : AppWidgetProvider() {
                 val total = widgetData.getString("orbit_total_habits", "0")
                 val habitsJsonStr = widgetData.getString("orbit_habits_json", "[]")
 
-                setTextViewText(R.id.widget_habits_title, "Poswal Orbit · Habits")
+                setTextViewText(R.id.widget_habits_title, context.getString(R.string.widget_habits_title))
                 setTextViewText(R.id.widget_habits_count, "$completed of $total")
 
                 val rowIds = intArrayOf(R.id.habit_row_1, R.id.habit_row_2, R.id.habit_row_3, R.id.habit_row_4)
