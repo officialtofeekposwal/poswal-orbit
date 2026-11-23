@@ -106,7 +106,7 @@ jobs:
       - name: Generate Throwaway Release Keystore for CI Verification
         run: |
           keytool -genkeypair -v \
-            -keystore android/ci-release.jks \
+            -keystore android/app/ci-release.jks \
             -alias cirelease \
             -keyalg RSA \
             -keysize 2048 \
