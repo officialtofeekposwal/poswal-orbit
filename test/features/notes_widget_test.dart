@@ -123,9 +123,9 @@ void main() {
       await pumpWidgetTest(tester, const NotesScreen(), repaintKey: key);
 
       expect(find.text('Notes'), findsOneWidget);
-      expect(find.textContaining('PINNED'), findsOneWidget);
+      expect(find.textContaining('Pinned'), findsOneWidget);
       expect(find.text('Project Roadmap 2026'), findsOneWidget);
-      expect(find.textContaining('OTHER NOTES'), findsOneWidget);
+      expect(find.textContaining('Other notes'), findsOneWidget);
       expect(find.text('Grocery List'), findsOneWidget);
       expect(find.byType(NoteCard), findsNWidgets(2));
 
@@ -462,11 +462,11 @@ void main() {
       await tester.pump(const Duration(milliseconds: 500));
 
       // All 3 groups should be rendered
-      expect(find.textContaining('HABITS (1)'), findsOneWidget);
+      expect(find.textContaining('Habits (1)'), findsOneWidget);
       expect(find.text('Morning Meditation'), findsOneWidget);
-      expect(find.textContaining('TASKS (1)'), findsOneWidget);
+      expect(find.textContaining('Tasks (1)'), findsOneWidget);
       expect(find.text('Morning Yoga and Stretching'), findsOneWidget);
-      expect(find.textContaining('NOTES (1)'), findsOneWidget);
+      expect(find.textContaining('Notes (1)'), findsOneWidget);
       expect(find.text('Morning Reflections and Gratitude'), findsOneWidget);
 
       await captureWidgetScreenshot(tester, key, 'global-search');

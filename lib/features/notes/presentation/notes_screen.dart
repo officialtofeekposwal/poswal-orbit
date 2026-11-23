@@ -397,7 +397,7 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                             const Icon(PhosphorIconsFill.pushPin, size: 14, color: PoswalColors.gold),
                             const SizedBox(width: 6),
                             Text(
-                              'PINNED (${pinnedNotes.length})',
+                              'Pinned (${pinnedNotes.length})',
                               style: PoswalText.caption.copyWith(
                                 color: PoswalColors.gold,
                                 fontWeight: FontWeight.w700,
@@ -426,7 +426,7 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                       if (unpinnedNotes.isNotEmpty) ...[
                         if (pinnedNotes.isNotEmpty)
                           Text(
-                            'OTHER NOTES (${unpinnedNotes.length})',
+                            'Other notes (${unpinnedNotes.length})',
                             style: PoswalText.caption.copyWith(
                               color: textMuted,
                               fontWeight: FontWeight.w700,

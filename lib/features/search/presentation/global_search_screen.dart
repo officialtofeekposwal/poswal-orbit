@@ -303,7 +303,7 @@ class _GlobalSearchScreenState extends ConsumerState<GlobalSearchScreen> {
                                     const Icon(PhosphorIconsRegular.sparkle, size: 14, color: PoswalColors.teal),
                                     const SizedBox(width: 6),
                                     Text(
-                                      'HABITS (${results.habits.length})',
+                                      'Habits (${results.habits.length})',
                                       style: PoswalText.caption.copyWith(
                                         color: PoswalColors.teal,
                                         fontWeight: FontWeight.w700,
@@ -324,7 +324,7 @@ class _GlobalSearchScreenState extends ConsumerState<GlobalSearchScreen> {
                                     const Icon(PhosphorIconsRegular.checkSquare, size: 14, color: PoswalColors.coral),
                                     const SizedBox(width: 6),
                                     Text(
-                                      'TASKS (${results.tasks.length})',
+                                      'Tasks (${results.tasks.length})',
                                       style: PoswalText.caption.copyWith(
                                         color: PoswalColors.coral,
                                         fontWeight: FontWeight.w700,
@@ -345,7 +345,7 @@ class _GlobalSearchScreenState extends ConsumerState<GlobalSearchScreen> {
                                     const Icon(PhosphorIconsRegular.note, size: 14, color: PoswalColors.violet),
                                     const SizedBox(width: 6),
                                     Text(
-                                      'NOTES (${results.notes.length})',
+                                      'Notes (${results.notes.length})',
                                       style: PoswalText.caption.copyWith(
                                         color: PoswalColors.violet,
                                         fontWeight: FontWeight.w700,

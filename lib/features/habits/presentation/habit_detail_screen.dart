@@ -348,11 +348,11 @@ class HabitDetailScreen extends ConsumerWidget {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        'CHECK-IN NOTES',
+                                        'Check-in notes',
                                         style: PoswalText.caption.copyWith(
                                           color: textMuted,
                                           fontWeight: FontWeight.w700,
-                                          letterSpacing: 0.8,
+                                          letterSpacing: 0.5,
                                         ),
                                       ),
                                       Text(

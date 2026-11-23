@@ -349,7 +349,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
               if (habits.isNotEmpty) ...[
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md, vertical: PoswalSpacing.xs),
-                  child: Text(l10n?.habitsSectionHeader ?? 'HABITS', style: PoswalText.caption.copyWith(color: textMuted)),
+                  child: Text(l10n?.habitsSectionHeader ?? 'Habits', style: PoswalText.caption.copyWith(color: textMuted)),
                 ),
                 ...habits.map((h) => ListTile(
                       leading: Icon(PhosphorIconsRegular.sparkle, color: Color(h.colorValue)),
@@ -369,7 +369,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
               if (tasks.isNotEmpty) ...[
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md, vertical: PoswalSpacing.xs),
-                  child: Text(l10n?.tasksSectionHeader ?? 'TASKS', style: PoswalText.caption.copyWith(color: textMuted)),
+                  child: Text(l10n?.tasksSectionHeader ?? 'Tasks', style: PoswalText.caption.copyWith(color: textMuted)),
                 ),
                 ...tasks.map((t) => ListTile(
                       leading: Icon(PhosphorIconsRegular.checkSquare, color: Color(t.priority.colorValue)),
