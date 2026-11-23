@@ -12,7 +12,9 @@ const __dirname = path.dirname(__filename);
 
 // Base configuration
 const BASE_PATH = process.env.BASE_PATH || '/poswal-orbit/';
-const SITE_URL = 'https://officialtofeekposwal.github.io/poswal-orbit/';
+const SITE_ORIGIN = (process.env.SITE_ORIGIN || 'https://officialtofeekposwal.github.io').replace(/\/+$/, '');
+const normalizedBase = BASE_PATH.startsWith('/') ? BASE_PATH : `/${BASE_PATH}`;
+const SITE_URL = `${SITE_ORIGIN}${normalizedBase.endsWith('/') ? normalizedBase : `${normalizedBase}/`}`;
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 const WEBSITE_DIR = __dirname;
@@ -295,7 +297,14 @@ for (const cfg of pageConfigs) {
     isUr: cfg.isUr,
     ogLocale: cfg.ogLocale,
     baseUrl: BASE_PATH,
+    siteUrl: SITE_URL,
     canonicalUrl: cfg.canonicalUrl,
+    hreflangEn: SITE_URL,
+    hreflangHi: `${SITE_URL}hi/`,
+    hreflangUr: `${SITE_URL}ur/`,
+    hreflangDefault: SITE_URL,
+    ogImageUrl: `${SITE_URL}assets/images/og-image.png`,
+    twitterImageUrl: `${SITE_URL}assets/images/og-image.png`,
     pagePath: cfg.pagePath,
     assetPath: cfg.assetPath,
     hasRelease: Boolean(releaseInfo.hasRelease),
@@ -319,6 +328,7 @@ const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
     <xhtml:link rel="alternate" hreflang="en" href="${SITE_URL}"/>
     <xhtml:link rel="alternate" hreflang="hi" href="${SITE_URL}hi/"/>
     <xhtml:link rel="alternate" hreflang="ur" href="${SITE_URL}ur/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}"/>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -327,6 +337,7 @@ const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
     <xhtml:link rel="alternate" hreflang="en" href="${SITE_URL}"/>
     <xhtml:link rel="alternate" hreflang="hi" href="${SITE_URL}hi/"/>
     <xhtml:link rel="alternate" hreflang="ur" href="${SITE_URL}ur/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -335,13 +346,24 @@ const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
     <xhtml:link rel="alternate" hreflang="en" href="${SITE_URL}"/>
     <xhtml:link rel="alternate" hreflang="hi" href="${SITE_URL}hi/"/>
     <xhtml:link rel="alternate" hreflang="ur" href="${SITE_URL}ur/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}"/>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 </urlset>
 `;
-fs.writeFileSync(path.join(DIST_DIR, 'sitemap.xml'), sitemapContent.trim(), 'utf-8');
+fs.writeFileSync(path.join(DIST_DIR, 'sitemap.xml'), sitemapContent.trim() + '\n', 'utf-8');
 console.log('✓ Generated sitemap.xml');
+
+// Generate robots.txt
+const robotsContent = `User-agent: *
+Allow: /
+
+Sitemap: ${SITE_URL}sitemap.xml
+`;
+fs.writeFileSync(path.join(DIST_DIR, 'robots.txt'), robotsContent.trim() + '\n', 'utf-8');
+fs.writeFileSync(path.join(STATIC_DIR, 'robots.txt'), robotsContent.trim() + '\n', 'utf-8');
+console.log('✓ Generated robots.txt');
 
 // 6. Transfer Budget & Asset Size Verification
 console.log('[6/6] Verifying per-page transfer budgets (< 120 KB HTML+CSS+JS excluding fonts)...');
@@ -379,4 +401,4 @@ if (fs.existsSync(fontsDir)) {
   }
 }
 
-console.log('\n✅ Build completed successfully with 100% checks passing!\n');
+console.log('\n✅ Build completed successfully with all checks passing!\n');

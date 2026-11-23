@@ -18,7 +18,7 @@
     "mobileMenu": "Menu"
   },
   "hero": {
-    "eyebrow": "Pre-release · 100% Offline",
+    "eyebrow": "Pre-release · Offline-first",
     "headline": "Your whole day, in orbit.",
     "subheadline": "Habits, tasks and notes in one calm app. Everything stays on your phone.",
     "primaryCta": "Get the app",
@@ -79,7 +79,7 @@
     "interactiveLabel": "Live glass refraction control",
     "sliderLabel": "Glass blur intensity",
     "concentricLabel": "Concentric corner radii",
-    "concentricDesc": "Outer radius equals inner radius plus inset padding for seamless optical harmony.",
+    "concentricDesc": "Outer radius equals inner radius plus inset padding for optical harmony.",
     "disclaimer": "Inspired by Apple's Human Interface Guidelines. Not affiliated with or endorsed by Apple Inc."
   },
   "privacy": {

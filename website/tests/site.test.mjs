@@ -35,12 +35,19 @@ test('Website Distribution: Core files exist', () => {
   }
 });
 
-test('Website Metadata: Canonical, hreflangs, and CSP in all pages', () => {
+test('Website Metadata: Absolute SEO URLs, reciprocal hreflangs, CSP, and og:image', () => {
   const pages = [
     { file: 'index.html', lang: 'en', dir: 'ltr', canonical: 'https://officialtofeekposwal.github.io/poswal-orbit/' },
     { file: 'hi/index.html', lang: 'hi', dir: 'ltr', canonical: 'https://officialtofeekposwal.github.io/poswal-orbit/hi/' },
     { file: 'ur/index.html', lang: 'ur', dir: 'rtl', canonical: 'https://officialtofeekposwal.github.io/poswal-orbit/ur/' }
   ];
+
+  const expectedHreflangs = {
+    'en': 'https://officialtofeekposwal.github.io/poswal-orbit/',
+    'hi': 'https://officialtofeekposwal.github.io/poswal-orbit/hi/',
+    'ur': 'https://officialtofeekposwal.github.io/poswal-orbit/ur/',
+    'x-default': 'https://officialtofeekposwal.github.io/poswal-orbit/'
+  };
 
   for (const p of pages) {
     const html = fs.readFileSync(path.join(DIST_DIR, p.file), 'utf-8');
@@ -52,11 +59,28 @@ test('Website Metadata: Canonical, hreflangs, and CSP in all pages', () => {
     // Canonical
     assert.ok(html.includes(`rel="canonical" href="${p.canonical}"`), `${p.file} must have correct canonical URL`);
 
-    // Reciprocal hreflangs
-    assert.ok(html.includes('hreflang="en"'), `${p.file} must have hreflang="en"`);
-    assert.ok(html.includes('hreflang="hi"'), `${p.file} must have hreflang="hi"`);
-    assert.ok(html.includes('hreflang="ur"'), `${p.file} must have hreflang="ur"`);
-    assert.ok(html.includes('hreflang="x-default"'), `${p.file} must have hreflang="x-default"`);
+    // Check canonical starts with https://
+    const canonicalMatch = html.match(/<link[^>]+rel="canonical"[^>]+href="([^"]+)"/i);
+    assert.ok(canonicalMatch && canonicalMatch[1].startsWith('https://'), `${p.file} canonical URL must start with https://`);
+
+    // Check reciprocal hreflangs and ensure all start with https://
+    for (const [langKey, expectedUrl] of Object.entries(expectedHreflangs)) {
+      const hreflangRegex = new RegExp(`<link[^>]+hreflang="${langKey}"[^>]+href="([^"]+)"`, 'i');
+      const match = html.match(hreflangRegex);
+      assert.ok(match, `${p.file} must have hreflang="${langKey}"`);
+      assert.equal(match[1], expectedUrl, `${p.file} hreflang="${langKey}" must point to ${expectedUrl}`);
+      assert.ok(match[1].startsWith('https://'), `${p.file} hreflang="${langKey}" URL must start with https://`);
+    }
+
+    // Check Open Graph and Twitter image & url start with https://
+    const ogUrlMatch = html.match(/<meta[^>]+property="og:url"[^>]+content="([^"]+)"/i);
+    assert.ok(ogUrlMatch && ogUrlMatch[1].startsWith('https://'), `${p.file} og:url must start with https://`);
+
+    const ogImageMatch = html.match(/<meta[^>]+property="og:image"[^>]+content="([^"]+)"/i);
+    assert.ok(ogImageMatch && ogImageMatch[1].startsWith('https://'), `${p.file} og:image must start with https://`);
+
+    const twitterImageMatch = html.match(/<meta[^>]+name="twitter:image"[^>]+content="([^"]+)"/i);
+    assert.ok(twitterImageMatch && twitterImageMatch[1].startsWith('https://'), `${p.file} twitter:image must start with https://`);
 
     // Strict CSP
     assert.ok(html.includes('Content-Security-Policy'), `${p.file} must declare Content-Security-Policy`);
@@ -65,6 +89,11 @@ test('Website Metadata: Canonical, hreflangs, and CSP in all pages', () => {
     // Accessibility skip link
     assert.ok(html.includes('class="skip-link"'), `${p.file} must have skip link for accessibility`);
   }
+
+  // og:image must exist in dist and have non-zero size
+  const ogImagePath = path.join(DIST_DIR, 'assets', 'images', 'og-image.png');
+  assert.ok(fs.existsSync(ogImagePath), 'og-image.png must exist in dist');
+  assert.ok(fs.statSync(ogImagePath).size > 1000, 'og-image.png must be a valid non-empty image');
 });
 
 test('Website Privacy & Security: Zero external network calls', () => {
