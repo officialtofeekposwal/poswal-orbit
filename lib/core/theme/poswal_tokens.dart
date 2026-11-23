@@ -45,9 +45,11 @@ abstract final class PoswalColors {
 
   // Increased-Contrast Variants (WCAG AAA)
   static const textHighContrastDark = Color(0xFFFFFFFF);
-  static const textHighContrastLight = Color(0xFF000000);
   static const textMutedHighContrastDark = Color(0xFFF1F5F9);
-  static const textMutedHighContrastLight = Color(0xFF334155);
+  static const textSecondaryHighContrastDark = Color(0xFFE2E8F0);
+  static const textHighContrastLight = Color(0xFF000000);
+  static const textMutedHighContrastLight = Color(0xFF1E293B);
+  static const textSecondaryHighContrastLight = Color(0xFF334155);
   static const tealHighContrast = Color(0xFF0D9488);
   static const borderHighContrastDark = Color(0x7FFFFFFF);
   static const borderHighContrastLight = Color(0x66000000);

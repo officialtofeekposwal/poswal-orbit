@@ -129,5 +129,58 @@ void main() {
       expect(_contrastRatio(PoswalColors.danger, bg), greaterThanOrEqualTo(4.5));
       expect(_contrastRatio(PoswalColors.violet, bg), greaterThanOrEqualTo(3.0)); // UI element
     });
+
+    test('High-contrast tokens strictly exceed normal tokens and preserve Primary > Muted > Secondary order', () {
+      const darkSurfaces = [
+        PoswalColors.surfaceDark,
+        PoswalColors.surfaceDark2,
+        PoswalColors.surfaceDark3,
+        PoswalColors.oled,
+      ];
+      for (final bg in darkSurfaces) {
+        final pNorm = _contrastRatio(PoswalColors.textOnDark, bg);
+        final mNorm = _contrastRatio(PoswalColors.textMutedDark, bg);
+        final sNorm = _contrastRatio(PoswalColors.textSecondaryDark, bg);
+
+        final pHc = _contrastRatio(PoswalColors.textHighContrastDark, bg);
+        final mHc = _contrastRatio(PoswalColors.textMutedHighContrastDark, bg);
+        final sHc = _contrastRatio(PoswalColors.textSecondaryHighContrastDark, bg);
+
+        // High-contrast must strictly exceed normal at every tier
+        expect(pHc >= pNorm, isTrue, reason: 'Dark HC primary must be >= normal on $bg');
+        expect(mHc > mNorm, isTrue, reason: 'Dark HC muted ($mHc) must strictly exceed normal ($mNorm) on $bg');
+        expect(sHc > sNorm, isTrue, reason: 'Dark HC secondary ($sHc) must strictly exceed normal ($sNorm) on $bg');
+
+        // High-contrast ordering must be preserved: Primary > Muted > Secondary
+        expect(pHc > mHc, isTrue, reason: 'Dark HC primary ($pHc) must exceed HC muted ($mHc) on $bg');
+        expect(mHc > sHc, isTrue, reason: 'Dark HC muted ($mHc) must exceed HC secondary ($sHc) on $bg');
+        expect(sHc >= 4.5, isTrue, reason: 'Dark HC secondary must pass AA on $bg');
+      }
+
+      const lightSurfaces = [
+        PoswalColors.surfaceLight,
+        PoswalColors.surfaceLight2,
+        PoswalColors.surfaceLight3,
+      ];
+      for (final bg in lightSurfaces) {
+        final pNorm = _contrastRatio(PoswalColors.textOnLight, bg);
+        final mNorm = _contrastRatio(PoswalColors.textMutedLight, bg);
+        final sNorm = _contrastRatio(PoswalColors.textSecondaryLight, bg);
+
+        final pHc = _contrastRatio(PoswalColors.textHighContrastLight, bg);
+        final mHc = _contrastRatio(PoswalColors.textMutedHighContrastLight, bg);
+        final sHc = _contrastRatio(PoswalColors.textSecondaryHighContrastLight, bg);
+
+        // High-contrast must strictly exceed normal at every tier
+        expect(pHc >= pNorm, isTrue, reason: 'Light HC primary must be >= normal on $bg');
+        expect(mHc > mNorm, isTrue, reason: 'Light HC muted ($mHc) must strictly exceed normal ($mNorm) on $bg');
+        expect(sHc > sNorm, isTrue, reason: 'Light HC secondary ($sHc) must strictly exceed normal ($sNorm) on $bg');
+
+        // High-contrast ordering must be preserved: Primary > Muted > Secondary
+        expect(pHc > mHc, isTrue, reason: 'Light HC primary ($pHc) must exceed HC muted ($mHc) on $bg');
+        expect(mHc > sHc, isTrue, reason: 'Light HC muted ($mHc) must exceed HC secondary ($sHc) on $bg');
+        expect(sHc >= 4.5, isTrue, reason: 'Light HC secondary must pass AA on $bg');
+      }
+    });
   });
 }
