@@ -645,11 +645,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                             final notifService = ref.read(notificationServiceProvider);
                             await notifService.sendTestNotification();
                             if (context.mounted) {
-                              _showToast('Test notification dispatched. Check your status bar!');
+                              _showToast('Test notification dispatched. Check your status bar.');
                             }
                           },
                           icon: const Icon(PhosphorIconsRegular.paperPlaneTilt, size: 16, color: Colors.white),
-                          label: Text(l10n?.sendTestAlert ?? 'Send Test Alert', style: PoswalText.caption.copyWith(color: Colors.white)),
+                          label: Text(l10n?.sendTestAlert ?? 'Send test alert', style: PoswalText.caption.copyWith(color: Colors.white)),
                         ),
                       ),
                       const SizedBox(width: PoswalSpacing.sm),
@@ -922,12 +922,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       _versionTapCount++;
                       if (_versionTapCount >= 7) {
                         _versionTapCount = 0;
-                        _showToast('Design Playground Unlocked!');
+                        _showToast('Design playground unlocked.');
                         Navigator.of(context).push(
                           MaterialPageRoute(builder: (_) => const DesignPlaygroundScreen()),
                         );
                       } else if (_versionTapCount >= 3) {
-                        _showToast('${7 - _versionTapCount} more taps to open Playground');
+                        _showToast('${7 - _versionTapCount} more taps to open playground');
                       }
                     },
                   ),

@@ -109,7 +109,7 @@ class HeroOrbitCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      completionRate >= 1.0 && totalDue > 0 ? 'All done!' : 'In orbit',
+                      completionRate >= 1.0 && totalDue > 0 ? 'All done' : 'In orbit',
                       style: PoswalText.caption.copyWith(
                         color: completionRate >= 1.0 && totalDue > 0 ? PoswalColors.teal : textMuted,
                         fontWeight: FontWeight.w500,

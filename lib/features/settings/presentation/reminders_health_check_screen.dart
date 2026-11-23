@@ -96,7 +96,7 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
         SnackBar(
           backgroundColor: PoswalColors.surfaceDark,
           content: Text(
-            l10n?.testNotificationSent ?? 'Test notification sent! Check your shade & test "Mark Done" / "Snooze 10m".',
+            l10n?.testNotificationSent ?? 'Test notification sent. Check your shade and test "Mark Done" or "Snooze 10m".',
             style: PoswalText.caption.copyWith(color: PoswalColors.teal),
           ),
           duration: const Duration(seconds: 4),

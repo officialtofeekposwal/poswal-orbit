@@ -275,7 +275,7 @@ class InsightsEngine {
     } else if (totalActions < 5) {
       encouragement = 'Every action counts. Consistency begins with a single check-in.';
     } else if (bestStreak >= 7) {
-      encouragement = 'Unstoppable rhythm! Your habits are turning into natural second nature.';
+      encouragement = 'Unstoppable rhythm. Your habits are turning into natural second nature.';
     } else if (tasksCompleted > habitsCompleted) {
       encouragement = 'Superb task focus this week. High impact across all your priorities.';
     } else {
