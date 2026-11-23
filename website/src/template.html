@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="{{lang}}" dir="{{dir}}" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{meta.title}}</title>
+  <meta name="description" content="{{meta.description}}">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none';">
+
+  <!-- Canonical & Hreflang alternates -->
+  <link rel="canonical" href="{{canonicalUrl}}">
+  <link rel="alternate" hreflang="en" href="{{baseUrl}}">
+  <link rel="alternate" hreflang="hi" href="{{baseUrl}}hi/">
+  <link rel="alternate" hreflang="ur" href="{{baseUrl}}ur/">
+  <link rel="alternate" hreflang="x-default" href="{{baseUrl}}">
+
+  <!-- Favicon & PWA -->
+  <link rel="icon" type="image/svg+xml" href="{{assetPath}}assets/images/favicon.svg">
+  <link rel="manifest" href="{{assetPath}}site.webmanifest">
+  <meta name="theme-color" content="#070B14">
+
+  <!-- Open Graph & Twitter Cards -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Poswal Orbit">
+  <meta property="og:title" content="{{meta.title}}">
+  <meta property="og:description" content="{{meta.description}}">
+  <meta property="og:url" content="{{canonicalUrl}}">
+  <meta property="og:image" content="{{baseUrl}}assets/images/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="{{ogLocale}}">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{meta.title}}">
+  <meta name="twitter:description" content="{{meta.description}}">
+  <meta name="twitter:image" content="{{baseUrl}}assets/images/og-image.png">
+
+  <!-- Preload Critical Font -->
+  <link rel="preload" href="{{assetPath}}assets/fonts/PlusJakartaSans-Bold.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="{{assetPath}}assets/css/style.css">
+
+  <!-- Schema.org SoftwareApplication (Truthful fields only) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Poswal Orbit",
+    "operatingSystem": "Android",
+    "applicationCategory": "ProductivityApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "{{meta.description}}",
+    "softwareVersion": "{{releaseTag}}",
+    "author": {
+      "@type": "Person",
+      "name": "Tofeek Poswal",
+      "url": "https://github.com/officialtofeekposwal"
+    }
+  }
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Ambient background mesh glow -->
+  <div class="mesh-bg" aria-hidden="true">
+    <div class="mesh-glow-1"></div>
+    <div class="mesh-glow-2"></div>
+  </div>
+
+  <!-- Global Sticky Navigation (00) -->
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav-bar" aria-label="Main Navigation">
+        <a href="{{pagePath}}" class="brand">
+          <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M3.6 9h16.8"/>
+            <path d="M3.6 15h16.8"/>
+            <circle cx="12" cy="12" r="3" fill="currentColor"/>
+          </svg>
+          <span>{{nav.brand}}</span>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="#simulator" class="nav-link">{{nav.demo}}</a></li>
+          <li><a href="#features" class="nav-link">{{nav.features}}</a></li>
+          <li><a href="#design" class="nav-link">{{nav.design}}</a></li>
+          <li><a href="#privacy" class="nav-link">{{nav.privacy}}</a></li>
+          <li><a href="#languages" class="nav-link">{{nav.languages}}</a></li>
+          <li><a href="#install" class="nav-link">{{nav.install}}</a></li>
+          <li><a href="#specs" class="nav-link">{{nav.specs}}</a></li>
+          <li><a href="#faq" class="nav-link">{{nav.faq}}</a></li>
+        </ul>
+
+        <div class="nav-controls">
+          <!-- Language Selector -->
+          <div class="lang-switcher" aria-label="Language options">
+            <a href="{{baseUrl}}" class="lang-btn {{#if isEn}}active{{/if}}" hreflang="en">EN</a>
+            <a href="{{baseUrl}}hi/" class="lang-btn {{#if isHi}}active{{/if}}" hreflang="hi">हिन्दी</a>
+            <a href="{{baseUrl}}ur/" class="lang-btn {{#if isUr}}active{{/if}}" hreflang="ur">اردو</a>
+          </div>
+
+          <!-- Theme Selector -->
+          <div class="theme-switcher" aria-label="Theme switcher">
+            <button type="button" class="theme-btn" data-theme-val="dark" title="Dark theme">Dark</button>
+            <button type="button" class="theme-btn" data-theme-val="light" title="Light theme">Light</button>
+            <button type="button" class="theme-btn" data-theme-val="oled" title="OLED black theme">OLED</button>
+          </div>
+
+          <a href="#install" class="btn btn-primary btn-sm">{{nav.cta}}</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- Section 01: Hero -->
+    <section class="hero" id="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <div class="status-pill">
+              <span class="status-dot"></span>
+              <span>{{hero.eyebrow}} · {{releaseTag}}</span>
+            </div>
+            <h1 class="hero-title">{{hero.headline}}</h1>
+            <p class="hero-subtitle">{{hero.subheadline}}</p>
+
+            <div class="hero-actions">
+              <a href="#install" class="btn btn-primary">{{hero.primaryCta}}</a>
+              <a href="https://github.com/officialtofeekposwal/poswal-orbit" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">{{hero.secondaryCta}}</a>
+            </div>
+
+            <!-- Fact Strip -->
+            <div class="fact-strip" role="region" aria-label="System facts">
+              <div class="fact-item">
+                <span class="fact-label">01 // PLATFORM</span>
+                <span class="fact-value">{{hero.factStrip.platforms}}</span>
+              </div>
+              <div class="fact-item">
+                <span class="fact-label">02 // PRIVACY</span>
+                <span class="fact-value">{{hero.factStrip.privacy}}</span>
+              </div>
+              <div class="fact-item">
+                <span class="fact-label">03 // LANGUAGES</span>
+                <span class="fact-value">{{hero.factStrip.languages}}</span>
+              </div>
+              <div class="fact-item">
+                <span class="fact-label">04 // LICENSE</span>
+                <span class="fact-value">{{hero.factStrip.license}}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3D Parallax Scene Mockup -->
+          <div class="hero-scene" aria-hidden="true">
+            <div class="scene-wrapper">
+              <!-- Orbit graphic with planets -->
+              <div class="css-orbit-container">
+                <div class="css-orbit-ring">
+                  <div class="planet planet-habits" title="Habits"></div>
+                  <div class="planet planet-tasks" title="Tasks"></div>
+                  <div class="planet planet-notes" title="Notes"></div>
+                </div>
+              </div>
+
+              <!-- Floating parallax glass chips -->
+              <div class="floating-chip chip-habit">
+                <span class="chip-dot"></span>
+                <span>Morning Walk · 14d streak</span>
+              </div>
+              <div class="floating-chip chip-task">
+                <span class="chip-dot"></span>
+                <span>Pay rent tomorrow 4pm</span>
+              </div>
+
+              <!-- Phone Mockup Container -->
+              <div class="phone-mockup">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                  <img src="{{assetPath}}assets/screens/screen-today.png" alt="Poswal Orbit Today screen" width="360" height="760" loading="eager">
+                </div>
+              </div>
+            </div>
+            <div class="scene-disclaimer">{{hero.illustrationLabel}}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 02: Interactive Simulator -->
+    <section class="section" id="simulator">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">{{simulator.eyebrow}}</span>
+          <h2 class="section-title">{{simulator.title}}</h2>
+          <p class="section-subtitle">{{simulator.subtitle}}</p>
+        </div>
+
+        <div class="sim-container">
+          <div class="sim-tabs" role="tablist" aria-label="Simulator tabs">
+            <button type="button" class="sim-tab-btn active" role="tab" id="tab-habits-btn" aria-selected="true" aria-controls="sim-habits-panel" data-tab="sim-habits-panel">{{simulator.habitsTab}}</button>
+            <button type="button" class="sim-tab-btn" role="tab" id="tab-tasks-btn" aria-selected="false" aria-controls="sim-tasks-panel" data-tab="sim-tasks-panel">{{simulator.tasksTab}}</button>
+          </div>
+
+          <div class="sim-body">
+            <!-- Habit Check-in Panel -->
+            <div class="sim-panel active" id="sim-habits-panel" role="tabpanel" aria-labelledby="tab-habits-btn">
+              <div class="habit-sim-grid">
+                <div class="habit-list" role="group" aria-label="Sample habit check-in checklist">
+                  <div class="habit-check-item completed" role="checkbox" aria-checked="true" tabindex="0">
+                    <div class="habit-info">
+                      <div class="habit-checkbox">✓</div>
+                      <span class="habit-title">{{simulator.habit1}}</span>
+                    </div>
+                    <span class="habit-streak-badge">14d</span>
+                  </div>
+
+                  <div class="habit-check-item completed" role="checkbox" aria-checked="true" tabindex="0">
+                    <div class="habit-info">
+                      <div class="habit-checkbox">✓</div>
+                      <span class="habit-title">{{simulator.habit2}}</span>
+                    </div>
+                    <span class="habit-streak-badge">21d</span>
+                  </div>
+
+                  <div class="habit-check-item" role="checkbox" aria-checked="false" tabindex="0">
+                    <div class="habit-info">
+                      <div class="habit-checkbox"></div>
+                      <span class="habit-title">{{simulator.habit3}}</span>
+                    </div>
+                    <span class="habit-streak-badge">5d</span>
+                  </div>
+                </div>
+
+                <div class="ring-visualizer">
+                  <svg class="sim-ring-svg" viewBox="0 0 160 160" aria-hidden="true">
+                    <circle class="sim-ring-bg" cx="80" cy="80" r="70"/>
+                    <circle class="sim-ring-fill" cx="80" cy="80" r="70" style="stroke-dashoffset: 147;"/>
+                  </svg>
+                  <div class="ring-score">66%</div>
+                  <div class="ring-label">Consistency Score</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Add Task Parser Panel -->
+            <div class="sim-panel" id="sim-tasks-panel" role="tabpanel" aria-labelledby="tab-tasks-btn">
+              <div class="task-sim-box">
+                <div class="task-input-wrapper">
+                  <label for="task-input" class="visually-hidden">Natural Language Task Quick Add</label>
+                  <input type="text" id="task-input" class="task-input" value="{{simulator.sampleChip1}}" placeholder="{{simulator.taskPlaceholder}}">
+                </div>
+
+                <div class="chip-suggestions">
+                  <span class="chip-hint">{{simulator.taskDemoHint}}:</span>
+                  <button type="button" class="sample-chip" data-sample="{{simulator.sampleChip1}}">{{simulator.sampleChip1}}</button>
+                  <button type="button" class="sample-chip" data-sample="{{simulator.sampleChip2}}">{{simulator.sampleChip2}}</button>
+                  <button type="button" class="sample-chip" data-sample="{{simulator.sampleChip3}}">{{simulator.sampleChip3}}</button>
+                </div>
+
+                <div class="parsed-chips-result">
+                  <div class="parsed-item">
+                    <span class="fact-label">{{simulator.parsedDue}}</span>
+                    <span class="parsed-badge" id="chip-due">Tomorrow 4:00 PM</span>
+                  </div>
+                  <div class="parsed-item">
+                    <span class="fact-label">{{simulator.parsedPriority}}</span>
+                    <span class="parsed-badge" id="chip-priority">High</span>
+                  </div>
+                  <div class="parsed-item">
+                    <span class="fact-label">{{simulator.parsedProject}}</span>
+                    <span class="parsed-badge" id="chip-project">#home</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="sim-live-status" class="visually-hidden" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 03: Features -->
+    <section class="section" id="features">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">{{features.eyebrow}}</span>
+          <h2 class="section-title">{{features.title}}</h2>
+          <p class="section-subtitle">{{features.subtitle}}</p>
+        </div>
+
+        <div class="features-grid">
+          <article class="feature-card">
+            <h3 class="feature-title">{{features.todayTitle}}</h3>
+            <p class="feature-desc">{{features.todayDesc}}</p>
+          </article>
+          <article class="feature-card">
+            <h3 class="feature-title">{{features.habitsTitle}}</h3>
+            <p class="feature-desc">{{features.habitsDesc}}</p>
+          </article>
+          <article class="feature-card">
+            <h3 class="feature-title">{{features.tasksTitle}}</h3>
+            <p class="feature-desc">{{features.tasksDesc}}</p>
+          </article>
+          <article class="feature-card">
+            <h3 class="feature-title">{{features.notesTitle}}</h3>
+            <p class="feature-desc">{{features.notesDesc}}</p>
+          </article>
+          <article class="feature-card">
+            <h3 class="feature-title">{{features.remindersTitle}}</h3>
+            <p class="feature-desc">{{features.remindersDesc}}</p>
+          </article>
+          <article class="feature-card">
+            <h3 class="feature-title">{{features.safetyTitle}}</h3>
+            <p class="feature-desc">{{features.safetyDesc}}</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 04: Design System -->
+    <section class="section" id="design">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">{{design.eyebrow}}</span>
+          <h2 class="section-title">{{design.title}}</h2>
+          <p class="section-subtitle">{{design.subtitle}}</p>
+        </div>
+
+        <div class="design-demo">
+          <div class="interactive-glass-card" id="sample-glass-card">
+            <h3 class="feature-title">{{design.interactiveLabel}}</h3>
+            <p class="feature-desc">Adjust the refraction slider below to inspect our control-layer blur filter in real-time.</p>
+            <div class="slider-container" style="margin-top: 1rem;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.8125rem;">
+                <label for="glass-slider">{{design.sliderLabel}}</label>
+                <span id="glass-blur-value" style="font-family: var(--font-mono); color: var(--color-teal);">16px</span>
+              </div>
+              <input type="range" id="glass-slider" class="glass-slider" min="0" max="32" value="16">
+            </div>
+          </div>
+
+          <div class="concentric-visual">
+            <div class="concentric-box">
+              <div class="concentric-inner"></div>
+            </div>
+            <div>
+              <h4 style="font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">{{design.concentricLabel}}</h4>
+              <p style="font-size: 0.875rem; color: var(--text-muted);">{{design.concentricDesc}}</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.8125rem; color: var(--text-secondary); text-align: center; font-style: italic;">{{design.disclaimer}}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 05: Privacy & Verification -->
+    <section class="section" id="privacy">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">{{privacy.eyebrow}}</span>
+          <h2 class="section-title">{{privacy.title}}</h2>
+          <p class="section-subtitle">{{privacy.subtitle}}</p>
+        </div>
+
+        <div class="privacy-grid">
+          <div class="privacy-card">
+            <h3 class="feature-title" style="color: var(--color-teal); margin-bottom: 0.5rem;">{{privacy.point1Title}}</h3>
+            <p class="feature-desc">{{privacy.point1Desc}}</p>
+          </div>
+          <div class="privacy-card">
+            <h3 class="feature-title" style="color: var(--color-teal); margin-bottom: 0.5rem;">{{privacy.point2Title}}</h3>
+            <p class="feature-desc">{{privacy.point2Desc}}</p>
+          </div>
+          <div class="privacy-card">
+            <h3 class="feature-title" style="color: var(--color-teal); margin-bottom: 0.5rem;">{{privacy.point3Title}}</h3>
+            <p class="feature-desc">{{privacy.point3Desc}}</p>
+          </div>
+        </div>
+
+        <!-- Terminal Verification Box -->
+        <div class="verify-terminal">
+          <div class="terminal-header">
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span style="font-size: 0.75rem; color: var(--text-secondary); margin-inline-start: 0.5rem;">{{privacy.verifyTitle}}</span>
+          </div>
+          <div class="terminal-body">
+            <div><span class="cmd">$</span> {{privacy.verifyStep1}}</div>
+            <div><span class="cmd">$</span> {{privacy.verifyStep2}}</div>
+            <div><span class="cmd">$</span> {{privacy.verifyStep3}}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 06: Languages & RTL -->
+    <section class="section" id="languages">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">{{languages.eyebrow}}</span>
+          <h2 class="section-title">{{languages.title}}</h2>
+          <p class="section-subtitle">{{languages.subtitle}}</p>
+        </div>
+
+        <div class="lang-cards-grid">
+          <div class="lang-proof-card">
+            <h3 class="feature-title">{{languages.enCardTitle}}</h3>
+            <p class="feature-desc" style="font-size: 1.125rem;">{{languages.enCardSample}}</p>
+          </div>
+          <div class="lang-proof-card">
+            <h3 class="feature-title">{{languages.hiCardTitle}}</h3>
+            <p class="feature-desc" style="font-size: 1.125rem; font-family: 'Noto Sans Devanagari';">{{languages.hiCardSample}}</p>
+          </div>
+          <div class="lang-proof-card" dir="rtl">
+            <h3 class="feature-title">{{languages.urCardTitle}}</h3>
+            <p class="feature-desc" style="font-size: 1.25rem; font-family: 'Noto Nastaliq Urdu'; line-height: 1.8;">{{languages.urCardSample}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="marquee-wrapper" aria-hidden="true">
+        <div class="marquee-content">
+          <span>{{languages.marquee}}</span>
+          <span>{{languages.marquee}}</span>
+          <span>{{languages.marquee}}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 07: Download & Install -->
+    <section class="section" id="install">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">{{install.eyebrow}}</span>
+          <h2 class="section-title">{{install.title}}</h2>
+          <p class="section-subtitle">{{install.subtitle}}</p>
+        </div>
+
+        <div class="install-grid">
+          <!-- Release / CI Card -->
+          <div class="install-card featured">
+            {{#if hasRelease}}
+            <h3 class="feature-title">{{install.releaseCardTitle}} ({{releaseTag}})</h3>
+            <p class="feature-desc">{{install.releaseCardDesc}}</p>
+            <a href="{{apkUrl}}" class="btn btn-primary" download>{{install.downloadBtn}} ({{apkSize}})</a>
+
+            {{#if apkSha256}}
+            <div class="checksum-box">
+              <span id="sha-checksum-text">{{apkSha256}}</span>
+              <button type="button" id="copy-sha-btn" class="btn btn-secondary btn-sm" data-copied-label="{{install.copiedChecksum}}">{{install.copyChecksum}}</button>
+            </div>
+            <div id="copy-status" class="visually-hidden" aria-live="polite"></div>
+            {{/if}}
+            {{else}}
+            <h3 class="feature-title">{{install.ciFallbackTitle}}</h3>
+            <p class="feature-desc">{{install.ciFallbackDesc}}</p>
+            <a href="https://github.com/officialtofeekposwal/poswal-orbit/actions" class="btn btn-primary" target="_blank" rel="noopener noreferrer">{{install.ciActionBtn}}</a>
+            {{/if}}
+
+            <p style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 0.5rem;">{{install.sideloadInstructions}}</p>
+            <p style="font-size: 0.75rem; color: var(--text-secondary); font-style: italic;">{{install.playStoreNotice}}</p>
+          </div>
+
+          <!-- iOS Card -->
+          <div class="install-card">
+            <h3 class="feature-title">{{install.iosCardTitle}}</h3>
+            <p class="feature-desc">{{install.iosCardDesc}}</p>
+            <div style="margin-top: auto;">
+              <span class="btn btn-secondary" style="opacity: 0.6; cursor: not-allowed;">App Store (Unreleased)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 08: Technical Specifications -->
+    <section class="section" id="specs">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">{{specs.eyebrow}}</span>
+          <h2 class="section-title">{{specs.title}}</h2>
+          <p class="section-subtitle">{{specs.subtitle}}</p>
+        </div>
+
+        <div class="specs-table-wrapper">
+          <table class="specs-table">
+            <tbody>
+              <tr>
+                <th scope="row">{{specs.frameworkLabel}}</th>
+                <td>{{derivedSpecs.dartSdk}}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{specs.stateLabel}}</th>
+                <td>Riverpod {{derivedSpecs.riverpod}}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{specs.databaseLabel}}</th>
+                <td>SQLite 3 via Drift {{derivedSpecs.drift}}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{specs.testsLabel}}</th>
+                <td>{{derivedSpecs.testCount}} tests across {{derivedSpecs.testFiles}} files (100% CI pass)</td>
+              </tr>
+              <tr>
+                <th scope="row">{{specs.licenseLabel}}</th>
+                <td>MIT Open Source</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 09: Frequently Asked Questions -->
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">{{faq.eyebrow}}</span>
+          <h2 class="section-title">{{faq.title}}</h2>
+        </div>
+
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>{{faq.q1}}</summary>
+            <div class="faq-answer">{{faq.a1}}</div>
+          </details>
+          <details class="faq-item">
+            <summary>{{faq.q2}}</summary>
+            <div class="faq-answer">{{faq.a2}}</div>
+          </details>
+          <details class="faq-item">
+            <summary>{{faq.q3}}</summary>
+            <div class="faq-answer">{{faq.a3}}</div>
+          </details>
+          <details class="faq-item">
+            <summary>{{faq.q4}}</summary>
+            <div class="faq-answer">{{faq.a4}}</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 10: Open Source -->
+    <section class="section" id="opensource">
+      <div class="container">
+        <div class="opensource-banner">
+          <span class="eyebrow">{{opensource.eyebrow}}</span>
+          <h2 class="section-title">{{opensource.title}}</h2>
+          <p class="section-subtitle" style="margin-bottom: 2rem;">{{opensource.subtitle}}</p>
+          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="https://github.com/officialtofeekposwal/poswal-orbit" class="btn btn-primary" target="_blank" rel="noopener noreferrer">{{opensource.repoBtn}}</a>
+            <a href="https://github.com/officialtofeekposwal/poswal-orbit/issues" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">{{opensource.issuesBtn}}</a>
+            <a href="https://github.com/officialtofeekposwal/poswal-orbit/discussions" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">{{opensource.discussionsBtn}}</a>
+          </div>
+          <p style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 1.5rem;">{{opensource.licenseNotice}}</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Section 11: Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-links">
+        <a href="https://github.com/officialtofeekposwal/poswal-orbit" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://github.com/officialtofeekposwal/poswal-orbit/releases" target="_blank" rel="noopener noreferrer">Releases</a>
+        <a href="https://github.com/officialtofeekposwal/poswal-orbit/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a>
+        <a href="https://github.com/officialtofeekposwal/poswal-orbit/security/policy" target="_blank" rel="noopener noreferrer">Security Policy</a>
+      </div>
+      <p>{{footer.disclaimer}}</p>
+      <p style="font-size: 0.75rem;">{{footer.fontCredits}}</p>
+      <p style="font-size: 0.75rem;">{{footer.rights}}</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="{{assetPath}}assets/js/main.js" type="module"></script>
+</body>
+</html>

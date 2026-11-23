@@ -1,0 +1,17 @@
+{
+  "name": "Poswal Orbit",
+  "short_name": "Orbit",
+  "description": "A calm, offline-first personal workspace for habits, tasks and notes.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#070B14",
+  "theme_color": "#070B14",
+  "icons": [
+    {
+      "src": "assets/images/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
