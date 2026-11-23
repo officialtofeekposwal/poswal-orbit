@@ -35,9 +35,19 @@ class _AuroraBackgroundState extends ConsumerState<AuroraBackground>
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final reduceMotion = MediaQuery.maybeDisableAnimationsOf(context) ?? false;
+    if (reduceMotion) {
+      if (_controller.isAnimating) _controller.stop();
+    }
+  }
+
+  @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (!WidgetsBinding.instance.runtimeType.toString().contains('TestWidgetsFlutterBinding')) {
-      if (state == AppLifecycleState.resumed) {
+      final reduceMotion = MediaQuery.maybeDisableAnimationsOf(context) ?? false;
+      if (state == AppLifecycleState.resumed && !reduceMotion) {
         if (!_controller.isAnimating) _controller.repeat();
       } else {
         if (_controller.isAnimating) _controller.stop();

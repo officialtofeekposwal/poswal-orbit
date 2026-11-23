@@ -72,6 +72,21 @@ class _PoswalOrbitRingState extends State<PoswalOrbitRing>
 
   @override
   Widget build(BuildContext context) {
+    final disableAnimations = MediaQuery.maybeDisableAnimationsOf(context) ?? false;
+    if (disableAnimations) {
+      return SizedBox(
+        width: widget.size,
+        height: widget.size,
+        child: CustomPaint(
+          painter: _OrbitRingPainter(
+            progress: widget.progress.clamp(0.0, 1.0),
+            strokeWidth: widget.strokeWidth,
+          ),
+          child: Center(child: widget.centerChild),
+        ),
+      );
+    }
+
     return SizedBox(
       width: widget.size,
       height: widget.size,

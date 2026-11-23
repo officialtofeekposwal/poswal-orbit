@@ -486,7 +486,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                 shape: BoxShape.circle,
                                 border: Border.all(
                                   color: isSelected ? Colors.white : Colors.transparent,
-                                  width: 3,
+                                  width: 2.0,
                                 ),
                                 boxShadow: isSelected
                                     ? [BoxShadow(color: accent.color.withValues(alpha: 0.6), blurRadius: 8, spreadRadius: 1)]

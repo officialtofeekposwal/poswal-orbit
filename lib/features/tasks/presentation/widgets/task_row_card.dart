@@ -266,7 +266,7 @@ class TaskRowCard extends ConsumerWidget {
                                               ? PoswalColors.teal
                                               : textMuted,
                                     ),
-                                    const SizedBox(width: 3),
+                                    const SizedBox(width: PoswalSpacing.xxs),
                                     Text(
                                       dueFormatted,
                                       style: PoswalText.caption2.copyWith(
