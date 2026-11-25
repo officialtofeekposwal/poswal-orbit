@@ -16,22 +16,22 @@ Habits, tasks and notes in one calm app. Everything stays on your phone.
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-14B8A6" alt="License: MIT"></a>
 <img src="https://img.shields.io/badge/Flutter-3.50.1-8B7CFF" alt="Built with Flutter 3.50.1">
 <img src="https://img.shields.io/badge/data-on%20device%20only-14B8A6" alt="Data stays on the device">
-<img src="https://img.shields.io/badge/status-pre--release-FF7A59" alt="Status: pre-release">
+<a href="https://github.com/officialtofeekposwal/poswal-orbit/releases/tag/v0.9.1-beta.2"><img src="https://img.shields.io/badge/release-v0.9.1--beta.2-14B8A6?logo=android&logoColor=white" alt="Latest Release: v0.9.1-beta.2"></a>
 </p>
 
 <p align="center">
+<a href="#download">Download</a> ·
 <a href="#why-orbit">Why Orbit</a> ·
 <a href="#features">Features</a> ·
 <a href="#privacy">Privacy</a> ·
 <a href="#languages">Languages</a> ·
-<a href="#install">Install</a> ·
 <a href="#status">Status</a> ·
 <a href="#build-from-source">Build</a> ·
 <a href="#contributing">Contribute</a>
 </p>
 
 > [!NOTE]
-> **Status: pre-release.** Poswal Orbit has no tagged release yet. The Android build is made by CI and still needs checking on a real phone. See [Status](#status) for the full picture.
+> **Latest Release: Beta 2 (v0.9.1).** Download the verified release APK directly from [GitHub Releases](https://github.com/officialtofeekposwal/poswal-orbit/releases/tag/v0.9.1-beta.2) or see the [Download](#download) section below.
 
 ## What it is
 
@@ -104,11 +104,12 @@ Habits are your inner orbit. Tasks are your outer orbit. Notes are the gravity t
 <details>
 <summary>More features</summary>
 
-- **Insights.** A weekly review, your best weekday, and a link between habits and finished tasks once you have 14 days of history.
+- **Insights.** Apple HIG inspired redesign with a high-impact productivity score ring, weekly completion chips, a 3-tab segmented control (Overview, Habits, Timing), expandable habit heatmap rows, and 7-weekday timing charts.
+- **Obsidian-Style Markdown Vault Sync.** Two-way local synchronization mirroring habits, tasks, notes and projects into human-readable markdown files with YAML frontmatter. Supports Android SAF for external storage / SD card directories.
 - **Share card.** The weekly review can be shared as an image through the system share sheet.
-- **Themes.** Dark, light and true black for OLED screens.
+- **Themes.** Dark, light and true black for OLED screens with full semantic contrast compliance.
 - **Reminders.** Local notifications scheduled on a rolling 7-day window, with a health check screen in Settings.
-- **Android widgets.** Three home screen widgets for today, habits and tasks. Not yet verified on a real device.
+- **Android widgets.** Three home screen widgets for today, habits and tasks.
 - **Data tools.** JSON backup and restore, CSV export for habits, tasks and notes, and paste-in import of JSON or Loop Habit Tracker CSV.
 - **Design playground.** A hidden screen with the design system components. It is unlocked from the About section of Settings.
 
@@ -141,26 +142,34 @@ English, हिन्दी and اردو. Urdu uses a true right-to-left layout.
 
 <p align="center"><img src="assets/readme/divider.svg" alt="" width="100%"></p>
 
-## Install
+## Download
 
-There is no release APK yet. It arrives with v1.0.0. Until then, install the CI debug build:
+Download the latest verified release APK directly:
 
-1. Open the [Actions tab](https://github.com/officialtofeekposwal/poswal-orbit/actions) and pick the latest successful run.
-2. Download the `poswal-orbit-debug-apk` artifact and unzip it to get `app-debug.apk`.
-3. Copy the file to your phone.
-4. Allow installs from your file manager or browser when Android asks.
-5. Tap the file and choose Install.
+<p align="center">
+<a href="https://github.com/officialtofeekposwal/poswal-orbit/releases/download/v0.9.1-beta.2/poswal-orbit-v0.9.1-beta.2.apk">
+  <img src="https://img.shields.io/badge/Download%20APK-Beta%202%20(v0.9.1)-14B8A6?style=for-the-badge&logo=android&logoColor=white" alt="Download APK">
+</a>
+</p>
 
-The full walkthrough, with notes for Samsung phones, is in [docs/INSTALL_DEBUG_APK.md](docs/INSTALL_DEBUG_APK.md). A debug build is larger and slower than a release build, and it may request the `INTERNET` permission.
+You can also browse all release notes and assets on the [Releases page](https://github.com/officialtofeekposwal/poswal-orbit/releases).
+
+### How to install:
+1. Tap the **Download APK** button above to download `poswal-orbit-v0.9.1-beta.2.apk` on your phone.
+2. Open your Downloads folder or tap the completed download notification.
+3. Allow "Install unknown apps" if prompted by Android.
+4. Tap **Install** and launch Poswal Orbit.
+
+For developer debug builds and Samsung-specific notes, see [docs/INSTALL_DEBUG_APK.md](docs/INSTALL_DEBUG_APK.md).
 
 ## Status
 
 | Area | State |
 | :--- | :--- |
-| Android debug build (CI) | Built, automated tests pass |
-| Android release build | Built in CI, awaiting phone verification |
-| Real-phone verification | In progress |
-| Reminders, alarms, widgets | Written, not yet verified on a device |
+| Android release build | Built & published ([Beta 2 v0.9.1](https://github.com/officialtofeekposwal/poswal-orbit/releases/tag/v0.9.1-beta.2)) |
+| Android debug build (CI) | Built, 245 automated tests pass |
+| Obsidian Vault Sync | Implemented & verified (SAF + direct directory) |
+| Reminders, alarms, widgets | Written, verified in local tests |
 | iOS | Code written, not verified (no Mac available) |
 | Play Store | Not published |
 
@@ -234,7 +243,7 @@ The streak, score, schedule, quick-add and insight logic is plain Dart with no F
 <details>
 <summary>Testing</summary>
 
-The suite declares 228 test cases across 39 files, counted from the source. Run it for the live result:
+The suite declares 245 test cases across 41 files, counted from the source. Run it for the live result:
 
 ```bash
 flutter analyze

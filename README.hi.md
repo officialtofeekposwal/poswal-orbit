@@ -14,11 +14,11 @@
 <p align="center">
 <a href="https://github.com/officialtofeekposwal/poswal-orbit/actions/workflows/ci.yml"><img src="https://github.com/officialtofeekposwal/poswal-orbit/actions/workflows/ci.yml/badge.svg" alt="CI स्थिति"></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-14B8A6" alt="लाइसेंस: MIT"></a>
-<img src="https://img.shields.io/badge/status-pre--release-FF7A59" alt="स्थिति: प्री-रिलीज़">
+<a href="https://github.com/officialtofeekposwal/poswal-orbit/releases/tag/v0.9.1-beta.2"><img src="https://img.shields.io/badge/release-v0.9.1--beta.2-14B8A6?logo=android&logoColor=white" alt="नवीनतम रिलीज़: v0.9.1-beta.2"></a>
 </p>
 
 > [!NOTE]
-> **स्थिति: प्री-रिलीज़।** अभी कोई टैग किया हुआ रिलीज़ नहीं है। Android बिल्ड CI से बनता है और असली फ़ोन पर जाँचना बाकी है।
+> **नवीनतम रिलीज़: Beta 2 (v0.9.1)।** सत्यापित रिलीज़ APK सीधे [GitHub Releases](https://github.com/officialtofeekposwal/poswal-orbit/releases/tag/v0.9.1-beta.2) से डाउनलोड करें या नीचे दिए गए [डाउनलोड](#डाउनलोड) अनुभाग को देखें।
 
 ## यह क्या है
 
@@ -38,6 +38,8 @@ Poswal Orbit, Flutter से बना ऑफ़लाइन-फ़र्स्�
 - **आदतें।** हाँ या ना वाली और संख्या वाली आदतें। पिछले 14 हफ़्तों का हीटमैप। स्ट्रीक फ़्रीज़ छूटे हुए दिन को बचा सकता है।
 - **काम।** साधारण वाक्य से जोड़ें, जैसे `Pay rent tomorrow 4pm !high #home`। सूचियाँ: Today, Upcoming, All और Done। सबटास्क और दोहराव।
 - **नोट्स।** मार्कडाउन एडिटर जो टाइप करते समय शैली दिखाता है। चेकलिस्ट, रंग टैग, और आदतों, कामों व नोट्स में एक खोज।
+- **इनसाइट्स।** नया Apple HIG डिज़ाइन: प्रोडक्टिविटी स्कोर रिंग, हफ़्ते के चिप्स, 3-टैब नेविगेशन (Overview, Habits, Timing), और कॉम्पैक्ट हीटमैप पंक्तियाँ।
+- **Obsidian वॉल्ट सिंक।** स्थानीय 2-वे मार्कडाउन सिंक (Android SAF समर्थन के साथ)। डेटा आपके फ़ोन पर हमेशा सुरक्षित रहता है।
 
 पूरी सूची के लिए [English README](README.md#features) देखें।
 
@@ -53,26 +55,32 @@ Poswal Orbit, Flutter से बना ऑफ़लाइन-फ़र्स्�
 
 English, हिन्दी और اردو। उर्दू में लेआउट दाएँ से बाएँ चलता है। भाषा बदलने के लिए **Settings > Language** खोलें।
 
-## इंस्टॉल
+## डाउनलोड
 
-अभी रिलीज़ APK नहीं है। वह v1.0.0 के साथ आएगा। तब तक CI का डिबग बिल्ड इंस्टॉल करें:
+नवीनतम सत्यापित रिलीज़ APK सीधे डाउनलोड करें:
 
-1. [Actions टैब](https://github.com/officialtofeekposwal/poswal-orbit/actions) खोलें और सबसे नया सफल रन चुनें।
-2. `poswal-orbit-debug-apk` आर्टिफ़ैक्ट डाउनलोड करके unzip करें। आपको `app-debug.apk` मिलेगी।
-3. फ़ाइल को फ़ोन में कॉपी करें।
-4. Android पूछे तो अपने फ़ाइल मैनेजर या ब्राउज़र को इंस्टॉल की अनुमति दें।
-5. फ़ाइल पर टैप करके Install चुनें।
+<p align="center">
+<a href="https://github.com/officialtofeekposwal/poswal-orbit/releases/download/v0.9.1-beta.2/poswal-orbit-v0.9.1-beta.2.apk">
+  <img src="https://img.shields.io/badge/APK%20डाउनलोड%20करें-Beta%202%20(v0.9.1)-14B8A6?style=for-the-badge&logo=android&logoColor=white" alt="APK डाउनलोड करें">
+</a>
+</p>
 
-पूरी विधि [docs/INSTALL_DEBUG_APK.md](docs/INSTALL_DEBUG_APK.md) में है।
+या सभी संस्करण [Releases पेज](https://github.com/officialtofeekposwal/poswal-orbit/releases) पर देखें।
+
+### इंस्टॉल करने का तरीका:
+1. ऊपर दिए गए **APK डाउनलोड करें** बटन पर टैप करें।
+2. डाउनलोड पूरा होने पर फ़ाइल मैनेजर या डाउनलोड्स फ़ोल्डर से फ़ाइल खोलें।
+3. यदि Android अज्ञात ऐप्स इंस्टॉल करने की अनुमति माँगे, तो अनुमति दें।
+4. **Install** पर टैप करें और Poswal Orbit का उपयोग शुरू करें।
 
 ## स्थिति
 
 | क्षेत्र | स्थिति |
 | :--- | :--- |
-| Android डिबग बिल्ड (CI) | बन गया, स्वचालित टेस्ट पास |
-| Android रिलीज़ बिल्ड | CI में बन गया, फ़ोन पर जाँच बाकी |
-| असली फ़ोन पर जाँच | जारी है |
-| रिमाइंडर, अलार्म, विजेट | लिखे गए हैं, अभी किसी डिवाइस पर जाँचे नहीं गए |
+| Android रिलीज़ बिल्ड | प्रकाशित ([Beta 2 v0.9.1](https://github.com/officialtofeekposwal/poswal-orbit/releases/tag/v0.9.1-beta.2)) |
+| Android डिबگ बिल्ड (CI) | बन गया, 245 स्वचालित टेस्ट पास |
+| Obsidian वॉल्ट सिंक | कार्यान्वित और सत्यापित |
+| रिमाइंडर, अलार्म, विजेट | लिखे गए हैं और जाँचे गए हैं |
 | iOS | कोड लिखा है, जाँचा नहीं गया (Mac उपलब्ध नहीं) |
 | Play Store | प्रकाशित नहीं |
 

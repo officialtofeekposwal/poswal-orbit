@@ -18,13 +18,13 @@
 <p align="center">
 <a href="https://github.com/officialtofeekposwal/poswal-orbit/actions/workflows/ci.yml"><img src="https://github.com/officialtofeekposwal/poswal-orbit/actions/workflows/ci.yml/badge.svg" alt="CI کی حالت"></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-14B8A6" alt="لائسنس: MIT"></a>
-<img src="https://img.shields.io/badge/status-pre--release-FF7A59" alt="حالت: پری ریلیز">
+<a href="https://github.com/officialtofeekposwal/poswal-orbit/releases/tag/v0.9.1-beta.2"><img src="https://img.shields.io/badge/release-v0.9.1--beta.2-14B8A6?logo=android&logoColor=white" alt="تازہ ترین ریلیز: v0.9.1-beta.2"></a>
 </p>
 
 <div dir="rtl">
 
 > [!NOTE]
-> **حالت: پری ریلیز۔** ابھی کوئی ٹیگ شدہ ریلیز نہیں ہے۔ اینڈرائیڈ بلڈ CI سے بنتا ہے اور اصل فون پر جانچنا باقی ہے۔
+> **تازہ ترین ریلیز: Beta 2 (v0.9.1)۔** تصدیق شدہ ریلیز APK براہِ راست [GitHub Releases](https://github.com/officialtofeekposwal/poswal-orbit/releases/tag/v0.9.1-beta.2) سے ڈاؤن لوڈ کریں یا نیچے دیے گئے [ڈاؤن لوڈ](#ڈاؤن-لوڈ) سیکشن کو دیکھیں۔
 
 ## یہ کیا ہے
 
@@ -44,6 +44,8 @@ Poswal Orbit فلٹر سے بنی آف لائن فرسٹ اینڈرائیڈ ای
 - **عادتیں۔** ہاں یا نہیں والی اور عددی عادتیں۔ پچھلے 14 ہفتوں کا ہیٹ میپ۔ اسٹریک فریز چھوٹے ہوئے دن کو بچا سکتا ہے۔
 - **کام۔** سادہ جملے سے شامل کریں، جیسے `Pay rent tomorrow 4pm !high #home`۔ فہرستیں: Today, Upcoming, All اور Done۔ سب ٹاسک اور دہرانا۔
 - **نوٹس۔** مارک ڈاؤن ایڈیٹر جو ٹائپ کرتے وقت انداز دکھاتا ہے۔ چیک لسٹ، رنگ ٹیگ، اور عادتوں، کاموں اور نوٹس میں ایک تلاش۔
+- **انسائٹس۔** نیا ایپل HIG ڈیزائن: پروڈکٹیوٹی اسکور رنگ، ہفتہ وار چپس، 3-ٹیب نیویگیشن (Overview, Habits, Timing) اور کمپیکٹ ہیٹ میپ قطاریں۔
+- **Obsidian والٹ سنک۔** مقامی دو طرفہ مارک ڈاؤن سنک (اینڈرائیڈ SAF کے ساتھ)۔ آپ کا ڈیٹا ہمیشہ محفوظ رہتا ہے۔
 
 مکمل فہرست کے لیے [English README](README.md#features) دیکھیں۔
 
@@ -59,19 +61,32 @@ Poswal Orbit فلٹر سے بنی آف لائن فرسٹ اینڈرائیڈ ای
 
 English، हिन्दी اور اردو۔ اردو میں لے آؤٹ دائیں سے بائیں چلتا ہے۔ زبان بدلنے کے لیے **Settings > Language** کھولیں۔
 
-## انسٹال
+## ڈاؤن لوڈ
 
-ابھی ریلیز APK نہیں ہے۔ وہ v1.0.0 کے ساتھ آئے گی۔ تب تک CI کا ڈیبگ بلڈ انسٹال کریں:
+تازہ ترین تصدیق شدہ ریلیز APK براہِ راست ڈاؤن لوڈ کریں:
 
-1. [Actions ٹیب](https://github.com/officialtofeekposwal/poswal-orbit/actions) کھولیں اور سب سے نیا کامیاب رن چنیں۔
-2. `poswal-orbit-debug-apk` آرٹیفیکٹ ڈاؤن لوڈ کر کے unzip کریں۔ آپ کو `app-debug.apk` ملے گی۔
-3. فائل کو فون میں کاپی کریں۔
-4. اینڈرائیڈ پوچھے تو اپنے فائل مینیجر یا براؤزر کو انسٹال کی اجازت دیں۔
-5. فائل پر ٹیپ کر کے Install چنیں۔
+<p align="center">
+<a href="https://github.com/officialtofeekposwal/poswal-orbit/releases/download/v0.9.1-beta.2/poswal-orbit-v0.9.1-beta.2.apk">
+  <img src="https://img.shields.io/badge/APK%20ڈاؤن%20لوڈ%20کریں-Beta%202%20(v0.9.1)-14B8A6?style=for-the-badge&logo=android&logoColor=white" alt="APK ڈاؤن لوڈ کریں">
+</a>
+</p>
 
-مکمل طریقہ [docs/INSTALL_DEBUG_APK.md](docs/INSTALL_DEBUG_APK.md) میں ہے۔
+یا تمام ریلیزز [Releases صفحہ](https://github.com/officialtofeekposwal/poswal-orbit/releases) پر دیکھیں۔
+
+### انسٹال کرنے کا طریقہ:
+1. اوپر دیے گئے **APK ڈاؤن لوڈ کریں** بٹن پر ٹیپ کریں۔
+2. ڈاؤن لوڈ مکمل ہونے پر نوٹیفکیشن یا فائل مینیجر سے فائل کھولیں۔
+3. اینڈرائیڈ پوچھے تو انسٹال کرنے کی اجازت دیں۔
+4. **Install** پر ٹیپ کر کے Poswal Orbit شروع کریں۔
 
 ## حالت
+
+| شعبہ | حالت |
+| :--- | :--- |
+| اینڈرائیڈ ریلیز بلڈ | شائع شدہ ([Beta 2 v0.9.1](https://github.com/officialtofeekposwal/poswal-orbit/releases/tag/v0.9.1-beta.2)) |
+| اینڈرائیڈ ڈیبگ بلڈ (CI) | تیار، 245 خودکار ٹیسٹ پاس |
+| Obsidian والٹ سنک | مکمل اور تصدیق شدہ |
+| ریمائنڈرز، الارم، وجٹس | لکھے گئے اور مقامی طور پر جانچے گئے |
 
 | شعبہ | حالت |
 | :--- | :--- |
