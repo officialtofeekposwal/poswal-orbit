@@ -27,6 +27,7 @@ class InsightsScreen extends ConsumerStatefulWidget {
 class _InsightsScreenState extends ConsumerState<InsightsScreen> {
   final GlobalKey _shareBoundaryKey = GlobalKey();
   bool _isSharing = false;
+  bool _showAllHabitHeatmaps = false;
 
   Future<void> _shareStatsCard(BuildContext context) async {
     if (_isSharing) return;
@@ -253,17 +254,31 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
                             style: PoswalText.headline.copyWith(color: textPrimary),
                           ),
                           const SizedBox(height: PoswalSpacing.sm),
-                          ...state.habits.map((habit) {
+                          ...(_showAllHabitHeatmaps ? state.habits : state.habits.take(3).toList()).map((habit) {
                             final habitEntries = state.entries.where((e) => e.habitId == habit.id).toList();
                             return Padding(
                               padding: const EdgeInsets.only(bottom: PoswalSpacing.md),
                               child: HabitHeatmap(
+                                key: ValueKey('habit_heatmap_${habit.id}'),
                                 habit: habit,
                                 entries: habitEntries,
                                 weeksToShow: 10,
+                                showHabitName: true,
                               ),
                             );
                           }),
+                          if (state.habits.length > 3)
+                            Center(
+                              child: TextButton(
+                                key: const ValueKey('insights_toggle_all_heatmaps'),
+                                onPressed: () => setState(() => _showAllHabitHeatmaps = !_showAllHabitHeatmaps),
+                                child: Text(
+                                  _showAllHabitHeatmaps
+                                      ? 'Show fewer'
+                                      : 'Show all ${state.habits.length} habits',
+                                ),
+                              ),
+                            ),
                         ],
 
                         // Extra bottom spacing for floating tab bar

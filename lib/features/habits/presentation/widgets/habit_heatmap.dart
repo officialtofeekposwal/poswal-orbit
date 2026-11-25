@@ -12,11 +12,17 @@ class HabitHeatmap extends StatelessWidget {
   final List<HabitEntry> entries;
   final int weeksToShow;
 
+  /// When true the card header shows the habit's name (with its color dot)
+  /// instead of the generic "Consistency heatmap" title. Used on the Insights
+  /// screen where many heatmaps are stacked.
+  final bool showHabitName;
+
   const HabitHeatmap({
     super.key,
     required this.habit,
     required this.entries,
     this.weeksToShow = 14,
+    this.showHabitName = false,
   });
 
   @override
@@ -24,6 +30,7 @@ class HabitHeatmap extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
+    final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
     final habitColor = Color(widgetColor);
 
     // Map entries by date string
@@ -78,14 +85,42 @@ class HabitHeatmap extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                l10n?.consistencyHeatmapHeader ?? 'Consistency heatmap',
-                style: PoswalText.caption.copyWith(
-                  color: textMuted,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.8,
-                ),
+              Expanded(
+                child: showHabitName
+                    ? Row(
+                        children: [
+                          Container(
+                            width: 10,
+                            height: 10,
+                            decoration: BoxDecoration(
+                              color: habitColor,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          const SizedBox(width: PoswalSpacing.xs),
+                          Flexible(
+                            child: Text(
+                              habit.name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: PoswalText.callout.copyWith(
+                                color: textPrimary,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    : Text(
+                        l10n?.consistencyHeatmapHeader ?? 'Consistency heatmap',
+                        style: PoswalText.caption.copyWith(
+                          color: textMuted,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 0.8,
+                        ),
+                      ),
               ),
+              const SizedBox(width: PoswalSpacing.sm),
               Text(
                 'Past $weeksToShow weeks',
                 style: PoswalText.caption.copyWith(color: textMuted),
