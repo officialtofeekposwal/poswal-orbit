@@ -1779,6 +1779,156 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Snooze 10m'**
   String get notificationActionSnooze10m;
+
+  /// No description provided for @insightsTabOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get insightsTabOverview;
+
+  /// No description provided for @insightsTabHabits.
+  ///
+  /// In en, this message translates to:
+  /// **'Habits'**
+  String get insightsTabHabits;
+
+  /// No description provided for @insightsTabTiming.
+  ///
+  /// In en, this message translates to:
+  /// **'Timing'**
+  String get insightsTabTiming;
+
+  /// No description provided for @insightsEmptyAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore habits'**
+  String get insightsEmptyAction;
+
+  /// No description provided for @weeklyTrendUp.
+  ///
+  /// In en, this message translates to:
+  /// **'+{percent}% vs last week'**
+  String weeklyTrendUp(int percent);
+
+  /// No description provided for @weeklyTrendDown.
+  ///
+  /// In en, this message translates to:
+  /// **'-{percent}% vs last week'**
+  String weeklyTrendDown(int percent);
+
+  /// No description provided for @weeklyTrendSteady.
+  ///
+  /// In en, this message translates to:
+  /// **'Steady pace'**
+  String get weeklyTrendSteady;
+
+  /// No description provided for @habitStreakDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}d streak'**
+  String habitStreakDays(int count);
+
+  /// No description provided for @habitThirtyDayRate.
+  ///
+  /// In en, this message translates to:
+  /// **'{rate}% in 30d'**
+  String habitThirtyDayRate(int rate);
+
+  /// No description provided for @habitHeatmapExpand.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to expand heatmap'**
+  String get habitHeatmapExpand;
+
+  /// No description provided for @habitHeatmapCollapse.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to collapse heatmap'**
+  String get habitHeatmapCollapse;
+
+  /// No description provided for @heatmapDayMon.
+  ///
+  /// In en, this message translates to:
+  /// **'M'**
+  String get heatmapDayMon;
+
+  /// No description provided for @heatmapDayWed.
+  ///
+  /// In en, this message translates to:
+  /// **'W'**
+  String get heatmapDayWed;
+
+  /// No description provided for @heatmapDayFri.
+  ///
+  /// In en, this message translates to:
+  /// **'F'**
+  String get heatmapDayFri;
+
+  /// No description provided for @heatmapCellTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'{date}: {count} completed'**
+  String heatmapCellTooltip(String date, int count);
+
+  /// No description provided for @bestWeekdayLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Best Day'**
+  String get bestWeekdayLabel;
+
+  /// No description provided for @bestTimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Best Time'**
+  String get bestTimeLabel;
+
+  /// No description provided for @timingDistributionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Completions by Weekday'**
+  String get timingDistributionTitle;
+
+  /// No description provided for @dayShortMon.
+  ///
+  /// In en, this message translates to:
+  /// **'Mon'**
+  String get dayShortMon;
+
+  /// No description provided for @dayShortTue.
+  ///
+  /// In en, this message translates to:
+  /// **'Tue'**
+  String get dayShortTue;
+
+  /// No description provided for @dayShortWed.
+  ///
+  /// In en, this message translates to:
+  /// **'Wed'**
+  String get dayShortWed;
+
+  /// No description provided for @dayShortThu.
+  ///
+  /// In en, this message translates to:
+  /// **'Thu'**
+  String get dayShortThu;
+
+  /// No description provided for @dayShortFri.
+  ///
+  /// In en, this message translates to:
+  /// **'Fri'**
+  String get dayShortFri;
+
+  /// No description provided for @dayShortSat.
+  ///
+  /// In en, this message translates to:
+  /// **'Sat'**
+  String get dayShortSat;
+
+  /// No description provided for @dayShortSun.
+  ///
+  /// In en, this message translates to:
+  /// **'Sun'**
+  String get dayShortSun;
 }
 
 class _AppLocalizationsDelegate

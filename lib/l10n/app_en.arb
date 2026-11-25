@@ -459,5 +459,68 @@
   "notificationActionSnooze10m": "Snooze 10m",
   "@notificationActionSnooze10m": {
     "description": "Action button label on notification to snooze for 10 minutes"
-  }
+  },
+  "insightsTabOverview": "Overview",
+  "insightsTabHabits": "Habits",
+  "insightsTabTiming": "Timing",
+  "insightsEmptyAction": "Explore habits",
+  "weeklyTrendUp": "+{percent}% vs last week",
+  "@weeklyTrendUp": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "weeklyTrendDown": "-{percent}% vs last week",
+  "@weeklyTrendDown": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "weeklyTrendSteady": "Steady pace",
+  "habitStreakDays": "{count}d streak",
+  "@habitStreakDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "habitThirtyDayRate": "{rate}% in 30d",
+  "@habitThirtyDayRate": {
+    "placeholders": {
+      "rate": {
+        "type": "int"
+      }
+    }
+  },
+  "habitHeatmapExpand": "Tap to expand heatmap",
+  "habitHeatmapCollapse": "Tap to collapse heatmap",
+  "heatmapDayMon": "M",
+  "heatmapDayWed": "W",
+  "heatmapDayFri": "F",
+  "heatmapCellTooltip": "{date}: {count} completed",
+  "@heatmapCellTooltip": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "bestWeekdayLabel": "Best Day",
+  "bestTimeLabel": "Best Time",
+  "timingDistributionTitle": "Completions by Weekday",
+  "dayShortMon": "Mon",
+  "dayShortTue": "Tue",
+  "dayShortWed": "Wed",
+  "dayShortThu": "Thu",
+  "dayShortFri": "Fri",
+  "dayShortSat": "Sat",
+  "dayShortSun": "Sun"
 }
