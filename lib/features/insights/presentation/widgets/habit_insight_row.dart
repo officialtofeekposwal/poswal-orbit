@@ -97,7 +97,6 @@ class _HabitInsightRowState extends State<HabitInsightRow> {
                 ? (l10n?.habitHeatmapCollapse ?? 'Tap to collapse heatmap')
                 : (l10n?.habitHeatmapExpand ?? 'Tap to expand heatmap'),
             child: InkWell(
-              key: ValueKey('habit_row_${widget.habit.id}'),
               borderRadius: BorderRadius.circular(PoswalRadii.card),
               onTap: () {
                 HapticFeedback.lightImpact();
