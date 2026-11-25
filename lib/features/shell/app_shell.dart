@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:poswal_orbit/core/widgets/app_tab_bar.dart';
 import 'package:poswal_orbit/data/services/data_safety_service.dart';
 import 'package:poswal_orbit/data/services/notification_service.dart';
+import 'package:poswal_orbit/data/vault/vault_providers.dart';
 import 'package:poswal_orbit/features/habits/presentation/habits_screen.dart';
 import 'package:poswal_orbit/features/insights/presentation/insights_screen.dart';
 import 'package:poswal_orbit/features/notes/presentation/notes_screen.dart';
@@ -32,6 +33,9 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
       try {
         ref.read(notificationServiceProvider).refillRollingWindow();
       } catch (_) {}
+      try {
+        ref.read(vaultControllerProvider.notifier).syncOnLaunch();
+      } catch (_) {}
     });
   }
 
@@ -46,6 +50,9 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
     if (state == AppLifecycleState.resumed) {
       try {
         ref.read(notificationServiceProvider).refillRollingWindow();
+      } catch (_) {}
+      try {
+        ref.read(vaultControllerProvider.notifier).syncOnResume();
       } catch (_) {}
     }
   }

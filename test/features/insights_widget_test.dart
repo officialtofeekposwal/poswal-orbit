@@ -104,13 +104,17 @@ void main() {
 
       await pumpInsightsTest(tester);
 
-      // Verify that full data view rendered
+      // Verify that full data view rendered on Overview tab
       expect(find.byKey(const ValueKey('insights_weekly_review_card')), findsOneWidget);
       expect(find.byKey(const ValueKey('insights_productivity_score_card')), findsOneWidget);
-      expect(find.byKey(const ValueKey('insights_best_timing_card')), findsOneWidget);
       expect(find.byKey(const ValueKey('insights_correlation_card')), findsOneWidget);
       expect(find.byKey(const ValueKey('insights_overall_heatmap_card')), findsOneWidget);
       expect(find.byKey(const ValueKey('share_insights_button')), findsOneWidget);
+
+      // Tap Timing tab to verify timing card
+      await tester.tap(find.byKey(const ValueKey('insights_tab_timing')));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const ValueKey('insights_best_timing_card')), findsOneWidget);
 
       await tearDownTest(tester);
     });
@@ -145,7 +149,76 @@ void main() {
 
       expect(find.text('Weekly review'), findsOneWidget);
       expect(find.text('Productivity Score'), findsOneWidget);
+
+      // Tap Timing tab to inspect timing details
+      await tester.tap(find.byKey(const ValueKey('insights_tab_timing')));
+      await tester.pumpAndSettle();
       expect(find.text('Best Day of Week'), findsOneWidget);
+
+      await tearDownTest(tester);
+    });
+
+    testWidgets('4. Insights tab renders per-habit heatmaps with habit names as titles', (tester) async {
+      final now = DateTime.now();
+      await inMemoryDb.into(inMemoryDb.habitsTable).insert(
+        HabitsTableCompanion.insert(
+          id: 'habit_run',
+          name: 'Morning Run',
+          colorValue: 0xFF14B8A6,
+          startDate: DateTime(now.year, now.month, now.day - 7),
+          createdAt: now,
+          updatedAt: now,
+        ),
+      );
+      await inMemoryDb.into(inMemoryDb.habitsTable).insert(
+        HabitsTableCompanion.insert(
+          id: 'habit_read',
+          name: 'Read Philosophy',
+          colorValue: 0xFF3B82F6,
+          startDate: DateTime(now.year, now.month, now.day - 7),
+          createdAt: now,
+          updatedAt: now,
+        ),
+      );
+
+      final todayStr = '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
+      await inMemoryDb.into(inMemoryDb.habitEntriesTable).insert(
+        HabitEntriesTableCompanion.insert(
+          id: 'e_run',
+          habitId: 'habit_run',
+          entryDate: todayStr,
+          status: const Value('done'),
+          value: const Value(1.0),
+          createdAt: now,
+          updatedAt: now,
+        ),
+      );
+
+      await pumpInsightsTest(tester);
+
+      // Tap Habits tab
+      await tester.tap(find.byKey(const ValueKey('insights_tab_habits')));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Habit Heatmaps'), findsOneWidget);
+      expect(find.text('Morning Run'), findsOneWidget);
+
+      // Expand Morning Run row to reveal heatmap
+      await tester.tap(find.byKey(const ValueKey('habit_row_habit_run')));
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const ValueKey('habit_heatmap_habit_run')), findsOneWidget);
+
+      await tester.drag(find.byType(CustomScrollView), const Offset(0, -600));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Read Philosophy'), findsOneWidget);
+
+      // Expand Read Philosophy row to reveal heatmap
+      await tester.tap(find.byKey(const ValueKey('habit_row_habit_read')));
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const ValueKey('habit_heatmap_habit_read')), findsOneWidget);
 
       await tearDownTest(tester);
     });

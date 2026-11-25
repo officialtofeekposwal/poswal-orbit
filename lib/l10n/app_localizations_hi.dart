@@ -924,4 +924,89 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get notificationActionSnooze10m => '10 मि. बाद';
+
+  @override
+  String get insightsTabOverview => 'अवलोकन';
+
+  @override
+  String get insightsTabHabits => 'आदतें';
+
+  @override
+  String get insightsTabTiming => 'समय';
+
+  @override
+  String get insightsEmptyAction => 'आदतें देखें';
+
+  @override
+  String weeklyTrendUp(int percent) {
+    return 'पिछले सप्ताह से +$percent%';
+  }
+
+  @override
+  String weeklyTrendDown(int percent) {
+    return 'पिछले सप्ताह से -$percent%';
+  }
+
+  @override
+  String get weeklyTrendSteady => 'स्थिर गति';
+
+  @override
+  String habitStreakDays(int count) {
+    return '$count दिन स्ट्रीक';
+  }
+
+  @override
+  String habitThirtyDayRate(int rate) {
+    return '30 दिनों में $rate%';
+  }
+
+  @override
+  String get habitHeatmapExpand => 'हीटमैप देखने के लिए टैप करें';
+
+  @override
+  String get habitHeatmapCollapse => 'हीटमैप समेटने के लिए टैप करें';
+
+  @override
+  String get heatmapDayMon => 'सोम';
+
+  @override
+  String get heatmapDayWed => 'बुध';
+
+  @override
+  String get heatmapDayFri => 'शुक्र';
+
+  @override
+  String heatmapCellTooltip(String date, int count) {
+    return '$date: $count पूर्ण';
+  }
+
+  @override
+  String get bestWeekdayLabel => 'सर्वश्रेष्ठ दिन';
+
+  @override
+  String get bestTimeLabel => 'सर्वश्रेष्ठ समय';
+
+  @override
+  String get timingDistributionTitle => 'सप्ताह के दिनों में पूर्णता';
+
+  @override
+  String get dayShortMon => 'सोम';
+
+  @override
+  String get dayShortTue => 'मंगल';
+
+  @override
+  String get dayShortWed => 'बुध';
+
+  @override
+  String get dayShortThu => 'गुरु';
+
+  @override
+  String get dayShortFri => 'शुक्र';
+
+  @override
+  String get dayShortSat => 'शनि';
+
+  @override
+  String get dayShortSun => 'रवि';
 }

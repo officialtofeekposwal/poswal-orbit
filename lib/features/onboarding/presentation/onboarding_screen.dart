@@ -7,7 +7,9 @@ import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/core/widgets/aurora_background.dart';
 import 'package:poswal_orbit/core/widgets/poswal_orbit_ring.dart';
+import 'package:poswal_orbit/data/vault/vault_providers.dart';
 import 'package:poswal_orbit/features/onboarding/application/onboarding_providers.dart';
+import 'package:poswal_orbit/features/settings/presentation/vault_flow.dart';
 import 'package:poswal_orbit/l10n/app_localizations.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
@@ -48,6 +50,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     ref.read(onboardingCompletedProvider.notifier).completeOnboarding();
   }
 
+  Future<void> _connectVault() async {
+    final connected = await runVaultConnectFlow(context, ref);
+    if (connected && mounted) {
+      await ref.read(onboardingCompletedProvider.notifier).completeOnboarding();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -69,8 +78,21 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   top: PoswalSpacing.md,
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    if (vaultSupported)
+                      TextButton.icon(
+                        key: const ValueKey('onboarding_connect_vault_btn'),
+                        onPressed: _connectVault,
+                        icon: const Icon(Icons.folder_open, size: 18, color: PoswalColors.teal),
+                        label: Text(
+                          'Connect existing vault',
+                          style: PoswalText.callout.copyWith(
+                            color: PoswalColors.teal,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    const Spacer(),
                     if (_currentPage < 2)
                       Semantics(
                         button: true,
