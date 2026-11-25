@@ -919,4 +919,89 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notificationActionSnooze10m => 'Snooze 10m';
+
+  @override
+  String get insightsTabOverview => 'Overview';
+
+  @override
+  String get insightsTabHabits => 'Habits';
+
+  @override
+  String get insightsTabTiming => 'Timing';
+
+  @override
+  String get insightsEmptyAction => 'Explore habits';
+
+  @override
+  String weeklyTrendUp(int percent) {
+    return '+$percent% vs last week';
+  }
+
+  @override
+  String weeklyTrendDown(int percent) {
+    return '-$percent% vs last week';
+  }
+
+  @override
+  String get weeklyTrendSteady => 'Steady pace';
+
+  @override
+  String habitStreakDays(int count) {
+    return '${count}d streak';
+  }
+
+  @override
+  String habitThirtyDayRate(int rate) {
+    return '$rate% in 30d';
+  }
+
+  @override
+  String get habitHeatmapExpand => 'Tap to expand heatmap';
+
+  @override
+  String get habitHeatmapCollapse => 'Tap to collapse heatmap';
+
+  @override
+  String get heatmapDayMon => 'M';
+
+  @override
+  String get heatmapDayWed => 'W';
+
+  @override
+  String get heatmapDayFri => 'F';
+
+  @override
+  String heatmapCellTooltip(String date, int count) {
+    return '$date: $count completed';
+  }
+
+  @override
+  String get bestWeekdayLabel => 'Best Day';
+
+  @override
+  String get bestTimeLabel => 'Best Time';
+
+  @override
+  String get timingDistributionTitle => 'Completions by Weekday';
+
+  @override
+  String get dayShortMon => 'Mon';
+
+  @override
+  String get dayShortTue => 'Tue';
+
+  @override
+  String get dayShortWed => 'Wed';
+
+  @override
+  String get dayShortThu => 'Thu';
+
+  @override
+  String get dayShortFri => 'Fri';
+
+  @override
+  String get dayShortSat => 'Sat';
+
+  @override
+  String get dayShortSun => 'Sun';
 }
