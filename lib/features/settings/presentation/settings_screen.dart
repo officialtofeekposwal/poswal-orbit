@@ -10,6 +10,8 @@ import 'package:poswal_orbit/core/widgets/app_sheet.dart';
 import 'package:poswal_orbit/core/widgets/aurora_background.dart';
 import 'package:poswal_orbit/data/services/data_safety_service.dart';
 import 'package:poswal_orbit/data/services/notification_service.dart';
+import 'package:poswal_orbit/data/vault/vault_providers.dart';
+import 'package:poswal_orbit/features/settings/presentation/vault_settings_section.dart';
 import 'package:poswal_orbit/features/today/application/today_providers.dart';
 import 'package:poswal_orbit/domain/models/data_safety_models.dart';
 import 'package:poswal_orbit/features/settings/application/settings_providers.dart';
@@ -50,6 +52,15 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         duration: const Duration(seconds: 4),
       ),
     );
+  }
+
+  /// "Delete all data" and "Restore backup" wipe the local database. Disconnect the
+  /// vault first so this can never remove the files in the user's vault folder.
+  Future<void> _vaultAfterDestructiveChange() async {
+    final wasConnected = await ref.read(vaultControllerProvider.notifier).disconnectAfterDestructiveChange();
+    if (wasConnected) {
+      _showToast('Vault disconnected for safety. Reconnect it in Settings > Vault. Your vault files were not touched.');
+    }
   }
 
   Future<void> _handleManualBackup() async {
@@ -113,6 +124,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     setState(() => _isRestoring = true);
     try {
       final res = await ref.read(dataSafetyServiceProvider).restoreFromJsonFile(backup.file);
+      await _vaultAfterDestructiveChange();
       ref.invalidate(availableBackupsProvider);
       unawaited(HapticFeedback.heavyImpact());
       _showToast('Restored successfully (${res.habitsCount} habits, ${res.tasksCount} tasks, ${res.notesCount} notes)');
@@ -210,6 +222,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
     try {
       await ref.read(dataSafetyServiceProvider).deleteAllData();
+      await _vaultAfterDestructiveChange();
       ref.invalidate(availableBackupsProvider);
       unawaited(HapticFeedback.heavyImpact());
       _showToast(l10n?.allDataClearedToast ?? 'All data cleared. Pre-wipe safety snapshot was preserved in backups.');
@@ -344,6 +357,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       final res = preview.format == BackupFormat.csvLoop
           ? await safetyService.importLoopCsv(content)
           : await safetyService.restoreFromJsonString(content);
+      if (preview.format != BackupFormat.csvLoop) {
+        await _vaultAfterDestructiveChange();
+      }
       ref.invalidate(availableBackupsProvider);
       unawaited(HapticFeedback.heavyImpact());
       _showToast(l10n?.importSuccessToast(res.habitsCount, res.tasksCount, res.notesCount) ?? 'Successfully imported ${res.habitsCount} habits, ${res.tasksCount} tasks, ${res.notesCount} notes');
@@ -727,6 +743,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ),
 
             const SizedBox(height: PoswalSpacing.md),
+
+            const VaultSettingsSection(),
 
             // --- SECTION 6: DATA SAFETY & BACKUPS ---
             AppListSection(
