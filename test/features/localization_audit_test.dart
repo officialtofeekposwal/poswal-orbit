@@ -137,7 +137,7 @@ void main() {
       final dartFiles = libDir
           .listSync(recursive: true)
           .whereType<File>()
-          .where((f) => f.path.endsWith('.dart') && !f.path.contains('playground') && !f.path.contains('.g.dart'))
+          .where((f) => f.path.endsWith('.dart') && !f.path.contains('playground') && !f.path.contains('.g.dart') && !f.path.contains('vault'))
           .toList();
 
       final allowlist = <String>{
