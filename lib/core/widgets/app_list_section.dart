@@ -30,7 +30,7 @@ class AppListSection extends ConsumerWidget {
     final mode = ref.watch(appThemeModeProvider);
     final isDark = mode.isDark;
 
-    final headerColor = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
+    final headerColor = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
     final cardBg = isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight;
     final borderColor = isDark
         ? Colors.white.withValues(alpha: 0.08)

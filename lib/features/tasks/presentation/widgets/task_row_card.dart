@@ -41,7 +41,7 @@ class TaskRowCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
-    final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
+    final textMuted = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
     final subtasksAsync = ref.watch(taskSubtasksStreamProvider(task.id));
 
     // Due chip metadata

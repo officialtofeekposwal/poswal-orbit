@@ -67,7 +67,7 @@ class NoteFormattingToolbar extends StatelessWidget {
                 style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   labelText: l10n?.linkTextLabel ?? 'Link Text',
-                  labelStyle: const TextStyle(color: PoswalColors.textMutedDark),
+                  labelStyle: const TextStyle(color: PoswalColors.textSecondaryDark),
                   filled: true,
                   fillColor: Colors.black26,
                   border: OutlineInputBorder(
@@ -84,7 +84,7 @@ class NoteFormattingToolbar extends StatelessWidget {
                 keyboardType: TextInputType.url,
                 decoration: InputDecoration(
                   labelText: l10n?.linkUrlLabel ?? 'URL (https://...)',
-                  labelStyle: const TextStyle(color: PoswalColors.textMutedDark),
+                  labelStyle: const TextStyle(color: PoswalColors.textSecondaryDark),
                   filled: true,
                   fillColor: Colors.black26,
                   border: OutlineInputBorder(
@@ -100,7 +100,7 @@ class NoteFormattingToolbar extends StatelessWidget {
               onPressed: () => Navigator.of(ctx).pop(false),
               child: Text(
                 l10n?.cancel ?? 'Cancel',
-                style: const TextStyle(color: PoswalColors.textMutedDark),
+                style: const TextStyle(color: PoswalColors.textSecondaryDark),
               ),
             ),
             FilledButton(

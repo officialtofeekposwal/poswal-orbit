@@ -69,7 +69,7 @@ class WeekStrip extends ConsumerWidget {
                         style: PoswalText.caption.copyWith(
                           color: isSelected
                               ? PoswalColors.teal
-                              : (isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight),
+                              : (isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight),
                           fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                         ),
                       ),
@@ -79,7 +79,7 @@ class WeekStrip extends ConsumerWidget {
                         style: PoswalText.headline.copyWith(
                           color: isSelected
                               ? (isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight)
-                              : (isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight),
+                              : (isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight),
                           fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
                         ),
                       ),

@@ -19,7 +19,7 @@ class InsightsHeroCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
-    final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
+    final textMuted = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
     final l10n = AppLocalizations.of(context);
 
     final score = state.productivityScore;

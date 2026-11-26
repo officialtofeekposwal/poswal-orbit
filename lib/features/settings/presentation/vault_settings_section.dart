@@ -17,7 +17,7 @@ class VaultSettingsSection extends ConsumerWidget {
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
-    final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
+    final textMuted = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
     final controller = ref.read(vaultControllerProvider.notifier);
 
     final children = <Widget>[];

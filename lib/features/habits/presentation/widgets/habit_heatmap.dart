@@ -29,7 +29,7 @@ class HabitHeatmap extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
+    final textMuted = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
     final habitColor = Color(widgetColor);
 

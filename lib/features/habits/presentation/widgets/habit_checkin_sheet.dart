@@ -92,7 +92,7 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context);
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
-    final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
+    final textMuted = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
     final habitColor = Color(widget.habit.colorValue);
     final dateFormatted = DateFormat('EEEE, MMM d, yyyy').format(widget.checkinDate);
 
@@ -343,7 +343,7 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
           ),
           child: Column(
             children: [
-              Icon(icon, color: isSelected ? color : (isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight), size: 20),
+              Icon(icon, color: isSelected ? color : (isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight), size: 20),
               const SizedBox(height: 4),
               Text(
                 label,

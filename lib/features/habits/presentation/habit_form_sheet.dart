@@ -103,7 +103,7 @@ class _HabitFormSheetState extends ConsumerState<HabitFormSheet> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context);
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
-    final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
+    final textMuted = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
     final cardBg = isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight;
 
     return AppSheet(

@@ -20,7 +20,7 @@ class WeekdayBars extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
+    final textMuted = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
     final l10n = AppLocalizations.of(context);
 
     // Sum completions by weekday (1 = Monday ... 7 = Sunday)

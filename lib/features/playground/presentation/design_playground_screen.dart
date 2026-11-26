@@ -45,7 +45,7 @@ class _DesignPlaygroundScreenState extends ConsumerState<DesignPlaygroundScreen>
             children: [
               Text(
                 'This inset sheet floats with margin from screen edges, allowing parent content to peek through.',
-                style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark),
+                style: PoswalText.callout.copyWith(color: PoswalColors.textSecondaryDark),
               ),
               const SizedBox(height: PoswalSpacing.lg),
               AppGlassButton(
@@ -98,7 +98,7 @@ class _DesignPlaygroundScreenState extends ConsumerState<DesignPlaygroundScreen>
     final currentMode = ref.watch(appThemeModeProvider);
     final isDark = currentMode.isDark;
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
-    final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
+    final textMuted = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
 
     return Scaffold(
       backgroundColor: Colors.transparent,

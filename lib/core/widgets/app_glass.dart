@@ -283,7 +283,7 @@ class AppGlassChip extends ConsumerWidget {
               style: PoswalText.caption.copyWith(
                 color: isSelected
                     ? (isDark ? Colors.white : color)
-                    : (isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight),
+                    : (isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight),
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
               ),
             ),
@@ -362,7 +362,7 @@ class AppGlassSegmentedControl<T> extends ConsumerWidget {
                   style: PoswalText.callout.copyWith(
                     color: isSelected
                         ? (isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight)
-                        : (isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight),
+                        : (isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight),
                     fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                   ),
                 ),

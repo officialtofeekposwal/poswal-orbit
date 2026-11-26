@@ -335,7 +335,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
       builder: (ctx) {
         final isDark = Theme.of(context).brightness == Brightness.dark;
         final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
-        final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
+        final textMuted = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
 
         final l10n = AppLocalizations.of(context);
 
@@ -395,7 +395,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context);
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
-    final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
+    final textMuted = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
 
     // Detect RTL dynamically based on note title/body
     final isRtl = MarkdownLite.isRtlText(

@@ -62,7 +62,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     final l10n = AppLocalizations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
-    final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
+    final textMuted = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -363,7 +363,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 child: Text(
                   '30-minute deep focus sprint',
                   style: PoswalText.callout.copyWith(
-                    color: isDark ? Colors.white70 : PoswalColors.textMutedLight,
+                    color: isDark ? Colors.white70 : PoswalColors.textSecondaryLight,
                   ),
                 ),
               ),
@@ -408,7 +408,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           Text(
             'Calm thoughts recorded with zero cloud servers. 100% private to your device.',
             style: PoswalText.caption.copyWith(
-              color: isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight,
+              color: isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight,
               height: 1.4,
             ),
           ),

@@ -88,7 +88,7 @@ class InsightsSegmentedTabs extends StatelessWidget {
                         size: 16,
                         color: isSelected
                             ? PoswalColors.teal
-                            : (isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight),
+                            : (isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight),
                       ),
                       const SizedBox(width: PoswalSpacing.xs),
                       Text(
@@ -96,7 +96,7 @@ class InsightsSegmentedTabs extends StatelessWidget {
                         style: PoswalText.caption.copyWith(
                           color: isSelected
                               ? (isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight)
-                              : (isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight),
+                              : (isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight),
                           fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
                         ),
                       ),

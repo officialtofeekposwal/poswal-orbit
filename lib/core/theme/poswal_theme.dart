@@ -32,7 +32,7 @@ class PoswalTheme {
           surface: PoswalColors.surfaceLight,
           surfaceSecondary: const Color(0xFFE5E5EA),
           textPrimary: PoswalColors.textOnLight,
-          textMuted: PoswalColors.textMutedLight,
+          textMuted: PoswalColors.textSecondaryLight,
           border: Colors.black.withValues(alpha: 0.08),
           languageCode: languageCode,
         );
@@ -43,7 +43,7 @@ class PoswalTheme {
           surface: PoswalColors.surfaceDark,
           surfaceSecondary: PoswalColors.surfaceDark2,
           textPrimary: PoswalColors.textOnDark,
-          textMuted: PoswalColors.textMutedDark,
+          textMuted: PoswalColors.textSecondaryDark,
           border: Colors.white.withValues(alpha: 0.10),
           languageCode: languageCode,
         );
@@ -54,7 +54,7 @@ class PoswalTheme {
           surface: const Color(0xFF0C0C0E),
           surfaceSecondary: const Color(0xFF141416),
           textPrimary: PoswalColors.textOnDark,
-          textMuted: PoswalColors.textMutedDark,
+          textMuted: PoswalColors.textSecondaryDark,
           border: Colors.white.withValues(alpha: 0.12),
           languageCode: languageCode,
         );

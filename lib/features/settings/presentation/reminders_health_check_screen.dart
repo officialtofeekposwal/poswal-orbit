@@ -138,7 +138,7 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
           children: [
             Text(
               l10n?.samsungGuideIntro ?? 'Samsung phones aggressively close background apps to preserve battery. To prevent missing habit streaks:',
-              style: PoswalText.bodyText.copyWith(color: PoswalColors.textMutedDark),
+              style: PoswalText.bodyText.copyWith(color: PoswalColors.textSecondaryDark),
             ),
             const SizedBox(height: PoswalSpacing.md),
             _guideStep('1', 'Go to phone Settings → Apps → Poswal Orbit.'),
@@ -186,7 +186,7 @@ class _RemindersHealthCheckScreenState extends ConsumerState<RemindersHealthChec
     final l10n = AppLocalizations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textPrimary = isDark ? Colors.white : PoswalColors.textOnLight;
-    final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
+    final textMuted = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
 
     return Scaffold(
       backgroundColor: Colors.transparent,

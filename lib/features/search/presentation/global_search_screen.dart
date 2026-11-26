@@ -71,7 +71,7 @@ class _GlobalSearchScreenState extends ConsumerState<GlobalSearchScreen> {
 
   Widget _buildResultItem(SearchResultItem item, bool isDark) {
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
-    final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
+    final textMuted = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
     final cardBg = isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight;
     final borderColor = isDark ? Colors.white.withValues(alpha: 0.12) : Colors.black.withValues(alpha: 0.08);
 
@@ -161,7 +161,7 @@ class _GlobalSearchScreenState extends ConsumerState<GlobalSearchScreen> {
     final l10n = AppLocalizations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
-    final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
+    final textMuted = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
 
     final resultsAsync = ref.watch(globalSearchResultsProvider);
     final query = ref.watch(searchQueryProvider);

@@ -35,20 +35,16 @@ abstract final class PoswalColors {
   static const surfaceLight2 = Color(0xFFF8FAFC);
   static const surfaceLight3 = Color(0xFFEDF2F7);
 
-  // Text Hierarchies (Primary > Muted > Secondary, all >= 4.5:1 on their surfaces)
+  // Text Hierarchies (Two tones per theme: Primary and Secondary, >= 4.5:1 on their surfaces)
   static const textOnDark = Color(0xFFF5F7FF);
-  static const textMutedDark = Color(0xFFCBD5E1); // 11.31:1 on surfaceDark2 (Passes AAA)
-  static const textSecondaryDark = Color(0xFF94A3B8); // 6.55:1 on surfaceDark2 (Passes AA)
+  static const textSecondaryDark = Color(0xFF94A3B8);
   static const textOnLight = Color(0xFF0B1020);
-  static const textMutedLight = Color(0xFF475569); // 7.24:1 on surfaceLight2 (Passes AAA)
-  static const textSecondaryLight = Color(0xFF5B667F); // 5.50:1 on surfaceLight2 (Passes AA)
+  static const textSecondaryLight = Color(0xFF5B667F);
 
   // Increased-Contrast Variants (WCAG AAA)
   static const textHighContrastDark = Color(0xFFFFFFFF);
-  static const textMutedHighContrastDark = Color(0xFFF1F5F9);
   static const textSecondaryHighContrastDark = Color(0xFFE2E8F0);
   static const textHighContrastLight = Color(0xFF000000);
-  static const textMutedHighContrastLight = Color(0xFF1E293B);
   static const textSecondaryHighContrastLight = Color(0xFF334155);
   static const tealHighContrast = Color(0xFF0D9488);
   static const borderHighContrastDark = Color(0x7FFFFFFF);

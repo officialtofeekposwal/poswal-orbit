@@ -18,7 +18,7 @@ class HabitWeeklyBars extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
-    final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
+    final textMuted = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
     final habitColor = Color(habit.colorValue);
 
     final int maxVal = weekdayCompletions.values.fold(0, (prev, curr) => curr > prev ? curr : prev);
@@ -174,7 +174,7 @@ class HabitTrendLine extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
+    final textMuted = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
     final habitColor = Color(habit.colorValue);
 
     // Calculate rolling 30-day completion rate trend points

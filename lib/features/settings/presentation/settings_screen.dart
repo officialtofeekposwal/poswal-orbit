@@ -153,7 +153,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               Text(
                 l10n?.restoreBackupDialogBody(backup.formattedDate) ??
                     'This will replace your current data with backup from ${backup.formattedDate}.\n\nA safety snapshot of your current database will be taken immediately before restoring so nothing is lost.',
-                style: PoswalText.bodyText.copyWith(color: PoswalColors.textMutedDark),
+                style: PoswalText.bodyText.copyWith(color: PoswalColors.textSecondaryDark),
               ),
               const SizedBox(height: PoswalSpacing.lg),
               FilledButton(
@@ -172,7 +172,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.capsule)),
                 ),
                 onPressed: () => Navigator.of(ctx).pop(false),
-                child: Text(l10n?.cancel ?? 'Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
+                child: Text(l10n?.cancel ?? 'Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textSecondaryDark)),
               ),
             ],
           ),
@@ -211,7 +211,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               Text(
                 l10n?.deleteAllDataDialogContent ??
                     'This will wipe all habits, entries, tasks, and notes.\n\nA safety backup snapshot will be created automatically before wiping so you can recover if needed.',
-                style: PoswalText.bodyText.copyWith(color: PoswalColors.textMutedDark),
+                style: PoswalText.bodyText.copyWith(color: PoswalColors.textSecondaryDark),
               ),
               const SizedBox(height: PoswalSpacing.lg),
               FilledButton(
@@ -230,7 +230,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.capsule)),
                 ),
                 onPressed: () => Navigator.of(ctx).pop(false),
-                child: Text(l10n?.cancel ?? 'Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
+                child: Text(l10n?.cancel ?? 'Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textSecondaryDark)),
               ),
             ],
           ),
@@ -252,7 +252,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             children: [
               Text(
                 l10n?.finalConfirmationContent ?? 'Are you completely sure? This action will reset your active workspace.',
-                style: PoswalText.bodyText.copyWith(color: PoswalColors.textMutedDark),
+                style: PoswalText.bodyText.copyWith(color: PoswalColors.textSecondaryDark),
               ),
               const SizedBox(height: PoswalSpacing.lg),
               FilledButton(
@@ -271,7 +271,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.capsule)),
                 ),
                 onPressed: () => Navigator.of(ctx).pop(false),
-                child: Text(l10n?.keepMyData ?? 'Keep My Data', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
+                child: Text(l10n?.keepMyData ?? 'Keep My Data', style: PoswalText.callout.copyWith(color: PoswalColors.textSecondaryDark)),
               ),
             ],
           ),
@@ -307,7 +307,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             children: [
               Text(
                 l10n?.importDialogContent ?? 'Paste JSON backup content or Loop Habit Tracker CSV data below:',
-                style: PoswalText.bodyText.copyWith(color: PoswalColors.textMutedDark),
+                style: PoswalText.bodyText.copyWith(color: PoswalColors.textSecondaryDark),
               ),
               const SizedBox(height: PoswalSpacing.md),
               TextField(
@@ -316,7 +316,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 style: PoswalText.bodyText.copyWith(color: Colors.white),
                 decoration: InputDecoration(
                   hintText: l10n?.importPlaceholder ?? 'Paste JSON backup or Loop CSV data...',
-                  hintStyle: PoswalText.caption.copyWith(color: PoswalColors.textMutedDark),
+                  hintStyle: PoswalText.caption.copyWith(color: PoswalColors.textSecondaryDark),
                   filled: true,
                   fillColor: Colors.black26,
                   border: OutlineInputBorder(
@@ -347,7 +347,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.capsule)),
                 ),
                 onPressed: () => Navigator.of(ctx).pop(),
-                child: Text(l10n?.cancel ?? 'Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
+                child: Text(l10n?.cancel ?? 'Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textSecondaryDark)),
               ),
             ],
           ),
@@ -385,7 +385,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               const SizedBox(height: PoswalSpacing.md),
               Text(
                 l10n?.importSafetyNote ?? 'A safety backup will be created automatically before importing to protect your current database.',
-                style: PoswalText.caption.copyWith(color: PoswalColors.textMutedDark),
+                style: PoswalText.caption.copyWith(color: PoswalColors.textSecondaryDark),
               ),
               const SizedBox(height: PoswalSpacing.lg),
               FilledButton(
@@ -404,7 +404,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.capsule)),
                 ),
                 onPressed: () => Navigator.of(ctx).pop(false),
-                child: Text(l10n?.cancel ?? 'Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textMutedDark)),
+                child: Text(l10n?.cancel ?? 'Cancel', style: PoswalText.callout.copyWith(color: PoswalColors.textSecondaryDark)),
               ),
             ],
           ),
@@ -442,7 +442,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ListTile(
               leading: const Icon(PhosphorIconsRegular.fileCode, color: PoswalColors.teal),
               title: Text(l10n?.backupFullJson ?? 'Full Database Snapshot (JSON)', style: PoswalText.callout.copyWith(color: Colors.white)),
-              subtitle: Text(l10n?.backupFullJsonSubtitle ?? 'Complete portable backup with habits, tasks & notes', style: PoswalText.caption.copyWith(color: PoswalColors.textMutedDark)),
+              subtitle: Text(l10n?.backupFullJsonSubtitle ?? 'Complete portable backup with habits, tasks & notes', style: PoswalText.caption.copyWith(color: PoswalColors.textSecondaryDark)),
               onTap: () async {
                 Navigator.of(ctx).pop();
                 final jsonStr = await ref.read(dataSafetyServiceProvider).exportFullDatabaseJson();
@@ -491,7 +491,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context);
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
-    final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
+    final textMuted = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
 
     final settings = ref.watch(settingsProvider);
     final settingsNotifier = ref.read(settingsProvider.notifier);
@@ -956,7 +956,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       const SizedBox(height: PoswalSpacing.xs),
                       Text(
                         l10n?.deleteAllDataSubtitle ?? 'Wipes all active habits, tasks, and notes. A pre-wipe snapshot is automatically taken to guarantee data safety.',
-                        style: PoswalText.caption.copyWith(color: PoswalColors.textMutedDark),
+                        style: PoswalText.caption.copyWith(color: PoswalColors.textSecondaryDark),
                       ),
                       const SizedBox(height: PoswalSpacing.md),
                       OutlinedButton.icon(

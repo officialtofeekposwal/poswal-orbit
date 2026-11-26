@@ -71,7 +71,7 @@ class _AppSearchFieldState extends ConsumerState<AppSearchField> {
     final reduceTransparency = ref.watch(reduceTransparencyProvider);
     final isDark = mode.isDark;
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
-    final textMuted = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
+    final textMuted = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
 
     const outerRadius = PoswalRadii.capsule;
 
