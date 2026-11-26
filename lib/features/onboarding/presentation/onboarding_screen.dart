@@ -83,7 +83,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       TextButton.icon(
                         key: const ValueKey('onboarding_connect_vault_btn'),
                         onPressed: _connectVault,
-                        icon: const Icon(Icons.folder_open, size: 18, color: PoswalColors.teal),
+                        icon: const Icon(PhosphorIconsRegular.folderOpen, size: 20, color: PoswalColors.teal),
                         label: Text(
                           'Connect existing vault',
                           style: PoswalText.callout.copyWith(

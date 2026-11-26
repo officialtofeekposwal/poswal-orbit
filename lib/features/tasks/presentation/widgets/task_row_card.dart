@@ -193,7 +193,7 @@ class TaskRowCard extends ConsumerWidget {
                         color: task.isCompleted ? PoswalColors.teal : Colors.transparent,
                       ),
                       child: task.isCompleted
-                          ? const Icon(Icons.check, size: 16, color: Colors.white)
+                          ? const Icon(PhosphorIconsRegular.check, size: 20, color: Colors.white)
                           : null,
                     ),
                   ),

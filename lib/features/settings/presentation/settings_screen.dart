@@ -570,7 +570,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                     ? [BoxShadow(color: accent.color.withValues(alpha: 0.6), blurRadius: 8, spreadRadius: 1)]
                                     : null,
                               ),
-                              child: isSelected ? const Icon(Icons.check, size: 20, color: Colors.white) : null,
+                              child: isSelected ? const Icon(PhosphorIconsRegular.check, size: 20, color: Colors.white) : null,
                             ),
                           );
                         }).toList(),

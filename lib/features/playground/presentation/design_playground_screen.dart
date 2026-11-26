@@ -272,7 +272,7 @@ class _DesignPlaygroundScreenState extends ConsumerState<DesignPlaygroundScreen>
                                         width: 2.5,
                                       ),
                                     ),
-                                    child: isSelected ? const Icon(Icons.check, size: 18, color: Colors.white) : null,
+                                    child: isSelected ? const Icon(PhosphorIconsRegular.check, size: 20, color: Colors.white) : null,
                                   ),
                                 );
                               }).toList(),
