@@ -19,6 +19,8 @@ jobs:
     name: Build Signed Release APK & AAB
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
 
     steps:
       - name: Checkout repository
@@ -40,12 +42,14 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Run code analysis
+        run: flutter analyze --fatal-infos --fatal-warnings
+
       - name: Run verification tests
         run: flutter test --no-test-assets
 
       - name: Validate Release Secrets and Configure Keystore
         env:
-          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
