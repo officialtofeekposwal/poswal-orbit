@@ -10,10 +10,10 @@ abstract final class PoswalColors {
   static const coral = Color(0xFFFF7A59);
   static const gold = Color(0xFFFFC857);
 
-  // Background Surfaces
-  static const ink = Color(0xFF070B14);
+  // Background Surfaces (neutral near-black dark, neutral light, pure OLED)
+  static const ink = Color(0xFF0A0A0B);
   static const oled = Color(0xFF000000);
-  static const mist = Color(0xFFF4F6FB);
+  static const mist = Color(0xFFF2F2F7);
 
   // Semantic Status (Dark / Default)
   static const success = Color(0xFF34D399);
@@ -27,10 +27,10 @@ abstract final class PoswalColors {
   static const dangerLight = Color(0xFFB91C1C); // 6.33:1 on #EDF2F7, 7.09:1 on #FFFFFF (Passes AA/AAA)
   static const violetLight = Color(0xFF6D28D9); // 6.38:1 on #FFFFFF (Passes AA)
 
-  // Surface Tiers
-  static const surfaceDark = Color(0xFF0F1626);
-  static const surfaceDark2 = Color(0xFF151D30);
-  static const surfaceDark3 = Color(0xFF1C263D);
+  // Surface Tiers (neutral near-black dark surfaces, clean light surfaces)
+  static const surfaceDark = Color(0xFF141416);
+  static const surfaceDark2 = Color(0xFF1C1C1F);
+  static const surfaceDark3 = Color(0xFF242428);
   static const surfaceLight = Color(0xFFFFFFFF);
   static const surfaceLight2 = Color(0xFFF8FAFC);
   static const surfaceLight3 = Color(0xFFEDF2F7);
@@ -170,6 +170,12 @@ abstract final class PoswalDurations {
   static const slow = Duration(milliseconds: 1200);
 }
 
+/// Motion scale constants
+abstract final class PoswalMotion {
+  static const pressScale = 0.97;
+  static const enterStartScale = 0.95;
+}
+
 /// HIG Standard Row & Touch Target Heights
 abstract final class PoswalRowHeights {
   /// Minimum accessible touch target per HIG (44dp)
@@ -250,10 +256,11 @@ abstract final class PoswalGlass {
   }
 }
 
-/// Typography Scale (HIG Hierarchy with Scalable System Metrics & Optical Tracking)
+/// Typography Scale (Inter-only with tabular figures and optical tracking)
 abstract final class PoswalText {
-  static const heading = 'PlusJakartaSans';
+  static const heading = 'Inter';
   static const body = 'Inter';
+  static const tabularFigures = <FontFeature>[FontFeature.tabularFigures()];
 
   /// Calculates optical letterSpacing in logical pixels from em units.
   /// For non-Latin scripts (Hindi / Urdu), negative tracking is set to 0.0
@@ -279,7 +286,8 @@ abstract final class PoswalText {
     fontSize: 48,
     fontWeight: FontWeight.w800,
     height: 1.1,
-    letterSpacing: -1.0,
+    letterSpacing: -0.5,
+    fontFeatures: tabularFigures,
   );
 
   static const largeTitle = TextStyle(
@@ -287,7 +295,8 @@ abstract final class PoswalText {
     fontSize: 34,
     fontWeight: FontWeight.w700,
     height: 1.15,
-    letterSpacing: -0.75, // -0.022em optical tracking
+    letterSpacing: -0.4,
+    fontFeatures: tabularFigures,
   );
 
   static const title1 = TextStyle(
@@ -295,23 +304,26 @@ abstract final class PoswalText {
     fontSize: 28,
     fontWeight: FontWeight.w700,
     height: 1.2,
-    letterSpacing: -0.53, // -0.019em optical tracking
+    letterSpacing: -0.3,
+    fontFeatures: tabularFigures,
   );
 
   static const title2 = TextStyle(
     fontFamily: heading,
-    fontSize: 26,
+    fontSize: 22,
     fontWeight: FontWeight.w700,
-    height: 1.2,
-    letterSpacing: -0.40,
+    height: 1.25,
+    letterSpacing: -0.2,
+    fontFeatures: tabularFigures,
   );
 
   static const title = TextStyle(
     fontFamily: heading,
     fontSize: 22,
     fontWeight: FontWeight.w700,
-    height: 1.2,
-    letterSpacing: -0.33, // -0.015em optical tracking
+    height: 1.25,
+    letterSpacing: -0.2,
+    fontFeatures: tabularFigures,
   );
 
   static const title3 = TextStyle(
@@ -319,7 +331,8 @@ abstract final class PoswalText {
     fontSize: 20,
     fontWeight: FontWeight.w600,
     height: 1.25,
-    letterSpacing: -0.24, // -0.012em optical tracking
+    letterSpacing: -0.1,
+    fontFeatures: tabularFigures,
   );
 
   static const headline = TextStyle(
@@ -327,7 +340,8 @@ abstract final class PoswalText {
     fontSize: 17,
     fontWeight: FontWeight.w600,
     height: 1.3,
-    letterSpacing: -0.17, // -0.010em optical tracking
+    letterSpacing: -0.1,
+    fontFeatures: tabularFigures,
   );
 
   static const bodyText = TextStyle(
@@ -335,23 +349,26 @@ abstract final class PoswalText {
     fontSize: 17,
     fontWeight: FontWeight.w400,
     height: 1.4,
-    letterSpacing: -0.14, // -0.008em optical tracking
+    letterSpacing: 0.0,
+    fontFeatures: tabularFigures,
   );
 
   static const callout = TextStyle(
     fontFamily: body,
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: FontWeight.w400,
     height: 1.35,
-    letterSpacing: -0.08, // -0.005em optical tracking
+    letterSpacing: 0.0,
+    fontFeatures: tabularFigures,
   );
 
   static const subheadline = TextStyle(
     fontFamily: body,
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: FontWeight.w500,
     height: 1.3,
     letterSpacing: 0.0,
+    fontFeatures: tabularFigures,
   );
 
   static const footnote = TextStyle(
@@ -359,7 +376,8 @@ abstract final class PoswalText {
     fontSize: 13,
     fontWeight: FontWeight.w400,
     height: 1.25,
-    letterSpacing: 0.06, // +0.005em optical tracking
+    letterSpacing: 0.0,
+    fontFeatures: tabularFigures,
   );
 
   static const caption = TextStyle(
@@ -367,7 +385,8 @@ abstract final class PoswalText {
     fontSize: 12,
     fontWeight: FontWeight.w500,
     height: 1.2,
-    letterSpacing: 0.12, // +0.010em optical tracking
+    letterSpacing: 0.0,
+    fontFeatures: tabularFigures,
   );
 
   static const caption2 = TextStyle(
@@ -375,7 +394,8 @@ abstract final class PoswalText {
     fontSize: 11,
     fontWeight: FontWeight.w400,
     height: 1.2,
-    letterSpacing: 0.16, // +0.015em optical tracking
+    letterSpacing: 0.0,
+    fontFeatures: tabularFigures,
   );
 
   static const micro = TextStyle(
@@ -383,6 +403,7 @@ abstract final class PoswalText {
     fontSize: 10,
     fontWeight: FontWeight.w400,
     height: 1.2,
-    letterSpacing: 0.20, // +0.020em optical tracking
+    letterSpacing: 0.0,
+    fontFeatures: tabularFigures,
   );
 }
