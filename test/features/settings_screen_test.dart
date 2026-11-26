@@ -77,22 +77,14 @@ void main() {
 
     await tester.runAsync(() async {
       await tester.tap(backupBtn);
-      for (int i = 0; i < 100; i++) {
-        final files = tempBackupDir.listSync().whereType<File>().where((f) => !f.path.endsWith('.tmp')).toList();
-        if (files.isNotEmpty) {
+      for (int i = 0; i < 300; i++) {
+        await Future.delayed(const Duration(milliseconds: 50));
+        await tester.pump(const Duration(milliseconds: 50));
+        if (find.textContaining('Backup safely saved').evaluate().isNotEmpty) {
           break;
         }
-        await Future.delayed(const Duration(milliseconds: 50));
       }
     });
-
-    // Pump frames deterministically until _handleManualBackup finishes and schedules the SnackBar
-    for (int i = 0; i < 40; i++) {
-      await tester.pump(const Duration(milliseconds: 100));
-      if (find.textContaining('Backup safely saved').evaluate().isNotEmpty) {
-        break;
-      }
-    }
 
     expect(find.textContaining('Backup safely saved'), findsOneWidget);
 
