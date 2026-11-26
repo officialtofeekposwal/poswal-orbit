@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
-import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/core/widgets/app_background.dart';
 import 'package:poswal_orbit/core/widgets/poswal_orbit_ring.dart';
 import 'package:poswal_orbit/data/vault/vault_providers.dart';
@@ -187,7 +186,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                           decoration: BoxDecoration(
                             color: isActive
                                 ? PoswalColors.teal
-                                : (isDark ? Colors.white24 : Colors.black12),
+                                : (isDark
+                                    ? PoswalColors.textSecondaryDark
+                                    : PoswalColors.textSecondaryLight)
+                                    .withValues(alpha: 0.25),
                             borderRadius: BorderRadius.circular(PoswalRadii.pill),
                           ),
                         );
@@ -226,7 +228,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                             const Icon(
                               PhosphorIconsRegular.caretRight,
                               color: PoswalColors.ink,
-                              size: 18,
+                              size: 20,
                             ),
                           ],
                         ),
@@ -265,7 +267,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               style: PoswalText.title1.copyWith(
                 color: textPrimary,
                 fontWeight: FontWeight.w800,
-                letterSpacing: -0.5,
               ),
             ),
             const SizedBox(height: PoswalSpacing.sm),
@@ -284,62 +285,62 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   Widget _buildHabitsVisual() {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Container(
-          width: 180,
-          height: 180,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: PoswalColors.teal.withValues(alpha: 0.25),
-                blurRadius: 36,
-                spreadRadius: 8,
-              ),
-            ],
-          ),
-        ),
-        const PoswalOrbitRing(
-          progress: 0.8,
-          size: 160,
-          strokeWidth: 14,
-        ),
-        Column(
-          mainAxisSize: MainAxisSize.min,
+    return Builder(
+      builder: (context) {
+        final isDark = Theme.of(context).brightness == Brightness.dark;
+        final accent = isDark ? PoswalColors.teal : PoswalColors.tealLight;
+        final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
+        return Stack(
+          alignment: Alignment.center,
           children: [
-            const Icon(PhosphorIconsRegular.fire, color: PoswalColors.gold, size: 32),
-            const SizedBox(height: 4),
-            Text(
-              '80%',
-              style: PoswalText.headline.copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.w900,
-              ),
+            const PoswalOrbitRing(
+              progress: 0.8,
+              size: 160,
+              strokeWidth: 14,
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(PhosphorIconsRegular.target, color: accent, size: 24),
+                const SizedBox(height: 4),
+                Text(
+                  '80%',
+                  style: PoswalText.headline.copyWith(
+                    color: textPrimary,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ],
             ),
           ],
-        ),
-      ],
+        );
+      },
     );
   }
 
   Widget _buildTasksVisual(bool isDark, AppLocalizations? l10n) {
-    return AppGlassCard(
+    final accent = isDark ? PoswalColors.teal : PoswalColors.tealLight;
+    final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
+    final textSecondary = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
+    return Container(
       padding: const EdgeInsets.all(PoswalSpacing.lg),
+      decoration: BoxDecoration(
+        color: isDark ? PoswalColors.surfaceDark : PoswalColors.surfaceLight,
+        borderRadius: BorderRadius.circular(PoswalRadii.card),
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              const Icon(PhosphorIconsRegular.checkCircle, color: PoswalColors.teal, size: 22),
+              Icon(PhosphorIconsRegular.checkCircle, color: accent, size: 22),
               const SizedBox(width: PoswalSpacing.sm),
               Expanded(
                 child: Text(
                   'Review morning rhythm',
                   style: PoswalText.callout.copyWith(
-                    color: isDark ? Colors.white : PoswalColors.textOnLight,
+                    color: textPrimary,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -347,32 +348,32 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
-                  color: PoswalColors.teal.withValues(alpha: 0.15),
+                  color: accent.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(PoswalRadii.chip),
                 ),
-                child: Text(l10n?.tabToday ?? 'Today', style: PoswalText.caption2.copyWith(color: PoswalColors.teal, fontWeight: FontWeight.w700)),
+                child: Text(l10n?.tabToday ?? 'Today', style: PoswalText.caption2.copyWith(color: accent, fontWeight: FontWeight.w700)),
               ),
             ],
           ),
           const SizedBox(height: PoswalSpacing.md),
           Row(
             children: [
-              const Icon(PhosphorIconsRegular.circle, color: Colors.white38, size: 22),
+              Icon(PhosphorIconsRegular.circle, color: textSecondary, size: 22),
               const SizedBox(width: PoswalSpacing.sm),
               Expanded(
                 child: Text(
                   '30-minute deep focus sprint',
                   style: PoswalText.callout.copyWith(
-                    color: isDark ? Colors.white70 : PoswalColors.textSecondaryLight,
+                    color: textSecondary,
                   ),
                 ),
               ),
               Container(
                 width: 8,
                 height: 8,
-                decoration: const BoxDecoration(
-                  color: PoswalColors.coral,
-                  shape: BoxShape.circle,
+                decoration: BoxDecoration(
+                  color: accent,
+                  borderRadius: BorderRadius.circular(PoswalRadii.pill),
                 ),
               ),
             ],
@@ -383,32 +384,39 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   Widget _buildNotesVisual(bool isDark) {
-    return AppGlassCard(
+    final accent = isDark ? PoswalColors.teal : PoswalColors.tealLight;
+    final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
+    final textSecondary = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
+    return Container(
       padding: const EdgeInsets.all(PoswalSpacing.lg),
+      decoration: BoxDecoration(
+        color: isDark ? PoswalColors.surfaceDark : PoswalColors.surfaceLight,
+        borderRadius: BorderRadius.circular(PoswalRadii.card),
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              const Icon(PhosphorIconsRegular.notebook, color: PoswalColors.violet, size: 22),
+              Icon(PhosphorIconsRegular.notebook, color: accent, size: 22),
               const SizedBox(width: PoswalSpacing.sm),
               Text(
                 'Daily Journal',
                 style: PoswalText.callout.copyWith(
-                  color: isDark ? Colors.white : PoswalColors.textOnLight,
+                  color: textPrimary,
                   fontWeight: FontWeight.w700,
                 ),
               ),
               const Spacer(),
-              const Icon(PhosphorIconsRegular.lockSimple, color: PoswalColors.teal, size: 16),
+              Icon(PhosphorIconsRegular.lockSimple, color: accent, size: 20),
             ],
           ),
           const SizedBox(height: PoswalSpacing.sm),
           Text(
             'Calm thoughts recorded with zero cloud servers. 100% private to your device.',
             style: PoswalText.caption.copyWith(
-              color: isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight,
+              color: textSecondary,
               height: 1.4,
             ),
           ),
