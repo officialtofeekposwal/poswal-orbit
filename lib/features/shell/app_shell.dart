@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:poswal_orbit/core/services/update/update_providers.dart';
 import 'package:poswal_orbit/core/widgets/app_tab_bar.dart';
+import 'package:poswal_orbit/core/widgets/update_bottom_sheet.dart';
 import 'package:poswal_orbit/data/services/data_safety_service.dart';
 import 'package:poswal_orbit/data/services/notification_service.dart';
 import 'package:poswal_orbit/data/vault/vault_providers.dart';
@@ -36,7 +38,18 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
       try {
         ref.read(vaultControllerProvider.notifier).syncOnLaunch();
       } catch (_) {}
+      _checkForUpdatesOnLaunch();
     });
+  }
+
+  Future<void> _checkForUpdatesOnLaunch() async {
+    try {
+      if (!ref.read(onboardingCompletedProvider)) return;
+      final release = await ref.read(appUpdateServiceProvider).checkForUpdate(force: false);
+      if (release != null && mounted) {
+        await UpdateBottomSheet.show(context, release);
+      }
+    } catch (_) {}
   }
 
   @override

@@ -349,5 +349,15 @@
   "dayShortThu": "गुरु",
   "dayShortFri": "शुक्र",
   "dayShortSat": "शनि",
-  "dayShortSun": "रवि"
+  "dayShortSun": "रवि",
+  "checkForUpdates": "अपडेट की जाँच करें",
+  "autoUpdateChecks": "स्वचालित अपडेट जाँच",
+  "autoUpdateChecksSubtitle": "नए संस्करण के लिए दिन में एक बार GitHub रिलीज़ देखें",
+  "currentVersionLabel": "वर्तमान संस्करण: {version}",
+  "updateAvailableTitle": "नया अपडेट उपलब्ध है",
+  "updateVersionSubtitle": "संस्करण {version} डाउनलोड के लिए तैयार है",
+  "updateUpToDate": "आप नवीनतम संस्करण का उपयोग कर रहे हैं",
+  "updateDownloadBtn": "अपडेट डाउनलोड करें",
+  "updateLaterBtn": "बाद में",
+  "updateSkipVersionBtn": "यह संस्करण छोड़ें"
 }

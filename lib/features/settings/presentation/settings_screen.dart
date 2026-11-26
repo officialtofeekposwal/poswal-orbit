@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
+import 'package:poswal_orbit/core/services/update/update_providers.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/core/widgets/app_list_section.dart';
 import 'package:poswal_orbit/core/widgets/app_sheet.dart';
 import 'package:poswal_orbit/core/widgets/aurora_background.dart';
+import 'package:poswal_orbit/core/widgets/update_bottom_sheet.dart';
 import 'package:poswal_orbit/data/services/data_safety_service.dart';
 import 'package:poswal_orbit/data/services/notification_service.dart';
 import 'package:poswal_orbit/data/vault/vault_providers.dart';
@@ -36,7 +38,39 @@ class SettingsScreen extends ConsumerStatefulWidget {
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   bool _isBackingUp = false;
   bool _isRestoring = false;
+  bool _isCheckingUpdate = false;
   int _versionTapCount = 0;
+  String _currentVersion = '0.9.1-beta.2+2';
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      try {
+        final v = await ref.read(appUpdateServiceProvider).getCurrentVersionDisplay();
+        if (mounted && v.isNotEmpty) {
+          setState(() => _currentVersion = v);
+        }
+      } catch (_) {}
+    });
+  }
+
+  Future<void> _handleCheckUpdates() async {
+    if (_isCheckingUpdate) return;
+    setState(() => _isCheckingUpdate = true);
+    try {
+      final release = await ref.read(appUpdateServiceProvider).checkForUpdate(force: true);
+      if (!mounted) return;
+      if (release != null) {
+        await UpdateBottomSheet.show(context, release);
+      } else {
+        final l10n = AppLocalizations.of(context);
+        _showToast(l10n?.updateUpToDate ?? 'You are on the latest version');
+      }
+    } finally {
+      if (mounted) setState(() => _isCheckingUpdate = false);
+    }
+  }
 
   void _showToast(String message, {bool isError = false}) {
     if (!mounted) return;
@@ -926,17 +960,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   child: ListTile(
                     key: const ValueKey('settings_version_tile'),
                     contentPadding: EdgeInsets.zero,
-                    leading: Container(
-                      padding: const EdgeInsets.all(PoswalSpacing.xs),
-                      decoration: BoxDecoration(
-                        color: PoswalColors.teal.withValues(alpha: 0.15),
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(PhosphorIconsRegular.atom, color: PoswalColors.teal, size: 20),
-                    ),
+                    leading: const Icon(PhosphorIconsRegular.atom, color: PoswalColors.teal, size: 22),
                     title: Text(l10n?.appTitle ?? 'Poswal Orbit', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
-                    subtitle: Text('v1.0.0 (Build 42)', style: PoswalText.caption.copyWith(color: textMuted)),
-                    trailing: const Icon(PhosphorIconsRegular.caretRight, size: 16, color: Colors.white54),
+                    subtitle: Text(
+                      l10n?.currentVersionLabel(_currentVersion) ?? 'Current version: $_currentVersion',
+                      style: PoswalText.caption.copyWith(color: textMuted),
+                    ),
+                    trailing: Icon(PhosphorIconsRegular.caretRight, size: 16, color: textMuted),
                     onTap: () {
                       _versionTapCount++;
                       if (_versionTapCount >= 7) {
@@ -949,6 +979,45 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         _showToast('${7 - _versionTapCount} more taps to open playground');
                       }
                     },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md),
+                  child: ListTile(
+                    key: const ValueKey('settings_check_updates_tile'),
+                    contentPadding: EdgeInsets.zero,
+                    leading: const Icon(PhosphorIconsRegular.arrowCircleUp, color: PoswalColors.teal, size: 22),
+                    title: Text(
+                      l10n?.checkForUpdates ?? 'Check for updates',
+                      style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w500),
+                    ),
+                    trailing: _isCheckingUpdate
+                        ? const SizedBox(
+                            width: 18,
+                            height: 18,
+                            child: CircularProgressIndicator(strokeWidth: 2, color: PoswalColors.teal),
+                          )
+                        : Icon(PhosphorIconsRegular.caretRight, size: 16, color: textMuted),
+                    onTap: _isCheckingUpdate ? null : _handleCheckUpdates,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md),
+                  child: SwitchListTile(
+                    key: const ValueKey('settings_auto_update_switch'),
+                    contentPadding: EdgeInsets.zero,
+                    secondary: const Icon(PhosphorIconsRegular.arrowsClockwise, color: PoswalColors.teal, size: 22),
+                    title: Text(
+                      l10n?.autoUpdateChecks ?? 'Automatic update checks',
+                      style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w500),
+                    ),
+                    subtitle: Text(
+                      l10n?.autoUpdateChecksSubtitle ?? 'Check GitHub Releases once a day for new versions',
+                      style: PoswalText.caption.copyWith(color: textMuted),
+                    ),
+                    value: ref.watch(autoUpdateCheckProvider).value ?? true,
+                    activeThumbColor: PoswalColors.teal,
+                    onChanged: (val) => ref.read(autoUpdateCheckProvider.notifier).setEnabled(val),
                   ),
                 ),
               ],

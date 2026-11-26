@@ -1004,4 +1004,39 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dayShortSun => 'Sun';
+
+  @override
+  String get checkForUpdates => 'Check for updates';
+
+  @override
+  String get autoUpdateChecks => 'Automatic update checks';
+
+  @override
+  String get autoUpdateChecksSubtitle =>
+      'Check GitHub Releases once a day for new versions';
+
+  @override
+  String currentVersionLabel(String version) {
+    return 'Current version: $version';
+  }
+
+  @override
+  String get updateAvailableTitle => 'Update available';
+
+  @override
+  String updateVersionSubtitle(String version) {
+    return 'Version $version is ready to download';
+  }
+
+  @override
+  String get updateUpToDate => 'You are on the latest version';
+
+  @override
+  String get updateDownloadBtn => 'Download update';
+
+  @override
+  String get updateLaterBtn => 'Later';
+
+  @override
+  String get updateSkipVersionBtn => 'Skip this version';
 }

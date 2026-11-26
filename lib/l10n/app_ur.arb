@@ -349,5 +349,15 @@
   "dayShortThu": "جمعرات",
   "dayShortFri": "جمعہ",
   "dayShortSat": "ہفتہ",
-  "dayShortSun": "اتوار"
+  "dayShortSun": "اتوار",
+  "checkForUpdates": "اپ ڈیٹس چیک کریں",
+  "autoUpdateChecks": "خودکار اپ ڈیٹ چیک",
+  "autoUpdateChecksSubtitle": "نئے ورژن کے لیے روزانہ ایک بار GitHub ریلیز چیک کریں",
+  "currentVersionLabel": "موجودہ ورژن: {version}",
+  "updateAvailableTitle": "نئی اپ ڈیٹ دستیاب ہے",
+  "updateVersionSubtitle": "ورژن {version} ڈاؤن لوڈ کے لیے تیار ہے",
+  "updateUpToDate": "آپ تازہ ترین ورژن استعمال کر رہے ہیں",
+  "updateDownloadBtn": "اپ ڈیٹ ڈاؤن لوڈ کریں",
+  "updateLaterBtn": "بعد میں",
+  "updateSkipVersionBtn": "یہ ورژن چھوڑ دیں"
 }

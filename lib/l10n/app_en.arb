@@ -522,5 +522,29 @@
   "dayShortThu": "Thu",
   "dayShortFri": "Fri",
   "dayShortSat": "Sat",
-  "dayShortSun": "Sun"
+  "dayShortSun": "Sun",
+  "checkForUpdates": "Check for updates",
+  "autoUpdateChecks": "Automatic update checks",
+  "autoUpdateChecksSubtitle": "Check GitHub Releases once a day for new versions",
+  "currentVersionLabel": "Current version: {version}",
+  "@currentVersionLabel": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "updateAvailableTitle": "Update available",
+  "updateVersionSubtitle": "Version {version} is ready to download",
+  "@updateVersionSubtitle": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "updateUpToDate": "You are on the latest version",
+  "updateDownloadBtn": "Download update",
+  "updateLaterBtn": "Later",
+  "updateSkipVersionBtn": "Skip this version"
 }

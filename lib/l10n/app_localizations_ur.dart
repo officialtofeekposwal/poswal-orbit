@@ -1008,4 +1008,39 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get dayShortSun => 'اتوار';
+
+  @override
+  String get checkForUpdates => 'اپ ڈیٹس چیک کریں';
+
+  @override
+  String get autoUpdateChecks => 'خودکار اپ ڈیٹ چیک';
+
+  @override
+  String get autoUpdateChecksSubtitle =>
+      'نئے ورژن کے لیے روزانہ ایک بار GitHub ریلیز چیک کریں';
+
+  @override
+  String currentVersionLabel(String version) {
+    return 'موجودہ ورژن: $version';
+  }
+
+  @override
+  String get updateAvailableTitle => 'نئی اپ ڈیٹ دستیاب ہے';
+
+  @override
+  String updateVersionSubtitle(String version) {
+    return 'ورژن $version ڈاؤن لوڈ کے لیے تیار ہے';
+  }
+
+  @override
+  String get updateUpToDate => 'آپ تازہ ترین ورژن استعمال کر رہے ہیں';
+
+  @override
+  String get updateDownloadBtn => 'اپ ڈیٹ ڈاؤن لوڈ کریں';
+
+  @override
+  String get updateLaterBtn => 'بعد میں';
+
+  @override
+  String get updateSkipVersionBtn => 'یہ ورژن چھوڑ دیں';
 }

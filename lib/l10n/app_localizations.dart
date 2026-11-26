@@ -1929,6 +1929,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sun'**
   String get dayShortSun;
+
+  /// No description provided for @checkForUpdates.
+  ///
+  /// In en, this message translates to:
+  /// **'Check for updates'**
+  String get checkForUpdates;
+
+  /// No description provided for @autoUpdateChecks.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic update checks'**
+  String get autoUpdateChecks;
+
+  /// No description provided for @autoUpdateChecksSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Check GitHub Releases once a day for new versions'**
+  String get autoUpdateChecksSubtitle;
+
+  /// No description provided for @currentVersionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Current version: {version}'**
+  String currentVersionLabel(String version);
+
+  /// No description provided for @updateAvailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Update available'**
+  String get updateAvailableTitle;
+
+  /// No description provided for @updateVersionSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version} is ready to download'**
+  String updateVersionSubtitle(String version);
+
+  /// No description provided for @updateUpToDate.
+  ///
+  /// In en, this message translates to:
+  /// **'You are on the latest version'**
+  String get updateUpToDate;
+
+  /// No description provided for @updateDownloadBtn.
+  ///
+  /// In en, this message translates to:
+  /// **'Download update'**
+  String get updateDownloadBtn;
+
+  /// No description provided for @updateLaterBtn.
+  ///
+  /// In en, this message translates to:
+  /// **'Later'**
+  String get updateLaterBtn;
+
+  /// No description provided for @updateSkipVersionBtn.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip this version'**
+  String get updateSkipVersionBtn;
 }
 
 class _AppLocalizationsDelegate

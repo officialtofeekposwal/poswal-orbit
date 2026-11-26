@@ -1009,4 +1009,39 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get dayShortSun => 'रवि';
+
+  @override
+  String get checkForUpdates => 'अपडेट की जाँच करें';
+
+  @override
+  String get autoUpdateChecks => 'स्वचालित अपडेट जाँच';
+
+  @override
+  String get autoUpdateChecksSubtitle =>
+      'नए संस्करण के लिए दिन में एक बार GitHub रिलीज़ देखें';
+
+  @override
+  String currentVersionLabel(String version) {
+    return 'वर्तमान संस्करण: $version';
+  }
+
+  @override
+  String get updateAvailableTitle => 'नया अपडेट उपलब्ध है';
+
+  @override
+  String updateVersionSubtitle(String version) {
+    return 'संस्करण $version डाउनलोड के लिए तैयार है';
+  }
+
+  @override
+  String get updateUpToDate => 'आप नवीनतम संस्करण का उपयोग कर रहे हैं';
+
+  @override
+  String get updateDownloadBtn => 'अपडेट डाउनलोड करें';
+
+  @override
+  String get updateLaterBtn => 'बाद में';
+
+  @override
+  String get updateSkipVersionBtn => 'यह संस्करण छोड़ें';
 }
