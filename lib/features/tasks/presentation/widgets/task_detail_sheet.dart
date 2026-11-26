@@ -421,7 +421,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                               ),
                               IconButton(
                                 key: const ValueKey('add_subtask_btn'),
-                                icon: const Icon(PhosphorIconsBold.plus, color: PoswalColors.teal),
+                                icon: const Icon(PhosphorIconsRegular.plus, color: PoswalColors.teal),
                                 onPressed: _addSubtask,
                               ),
                             ],

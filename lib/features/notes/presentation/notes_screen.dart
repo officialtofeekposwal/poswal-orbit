@@ -167,7 +167,7 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                     ),
                     child: isSelected
                         ? Icon(
-                            PhosphorIconsBold.check,
+                            PhosphorIconsRegular.check,
                             size: 18,
                             color: label == NoteColorLabel.none
                                 ? (isDark ? Colors.white : Colors.black)

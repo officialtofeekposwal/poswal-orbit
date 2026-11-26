@@ -246,7 +246,7 @@ class _HabitFormSheetState extends ConsumerState<HabitFormSheet> {
                             : null,
                       ),
                       child: isSelected
-                          ? const Icon(PhosphorIconsBold.check, size: 16, color: Colors.white)
+                          ? const Icon(PhosphorIconsRegular.check, size: 16, color: Colors.white)
                           : null,
                     ),
                   );
@@ -332,7 +332,7 @@ class _HabitFormSheetState extends ConsumerState<HabitFormSheet> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(PhosphorIconsBold.check, size: 18, color: Colors.white),
+                    const Icon(PhosphorIconsRegular.check, size: 18, color: Colors.white),
                     const SizedBox(width: PoswalSpacing.sm),
                     Text(
                       widget.habitToEdit == null

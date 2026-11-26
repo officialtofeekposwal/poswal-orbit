@@ -365,7 +365,7 @@ class _DesignPlaygroundScreenState extends ConsumerState<DesignPlaygroundScreen>
                                 ),
                                 child: Column(
                                   children: [
-                                    const Icon(PhosphorIconsBold.checkCircle, color: PoswalColors.teal, size: 24),
+                                    const Icon(PhosphorIconsRegular.checkCircle, color: PoswalColors.teal, size: 24),
                                     const SizedBox(height: PoswalSpacing.xs),
                                     Text('Option A (HIG)', style: PoswalText.subheadline.copyWith(color: textPrimary, fontWeight: FontWeight.w700)),
                                     const SizedBox(height: PoswalSpacing.xxs),

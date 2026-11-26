@@ -265,7 +265,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
                     ),
                     child: isSelected
                         ? Icon(
-                            PhosphorIconsBold.check,
+                            PhosphorIconsRegular.check,
                             size: 16,
                             color: label == NoteColorLabel.none
                                 ? (isDark ? Colors.white : Colors.black)

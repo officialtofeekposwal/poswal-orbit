@@ -279,7 +279,7 @@ class _TaskQuickAddSheetState extends ConsumerState<TaskQuickAddSheet> {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(PhosphorIconsBold.plus, size: 16),
+                      const Icon(PhosphorIconsRegular.plus, size: 16),
                       const SizedBox(width: PoswalSpacing.xs),
                       Text(l10n?.addTask ?? 'Add Task'),
                     ],

@@ -80,7 +80,7 @@ class TaskRowCard extends ConsumerWidget {
         ),
         child: const Row(
           children: [
-            Icon(PhosphorIconsBold.check, color: Colors.white, size: 24),
+            Icon(PhosphorIconsRegular.check, color: Colors.white, size: 24),
             SizedBox(width: PoswalSpacing.sm),
             Text(
               'Complete',
@@ -104,7 +104,7 @@ class TaskRowCard extends ConsumerWidget {
               style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
             ),
             SizedBox(width: PoswalSpacing.sm),
-            Icon(PhosphorIconsBold.trash, color: Colors.white, size: 24),
+            Icon(PhosphorIconsRegular.trash, color: Colors.white, size: 24),
           ],
         ),
       ),

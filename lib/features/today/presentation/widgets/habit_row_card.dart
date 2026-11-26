@@ -215,9 +215,9 @@ class HabitRowCard extends ConsumerWidget {
                             ),
                     ),
                     child: isDone
-                        ? const Icon(PhosphorIconsBold.check, size: 16, color: Colors.white)
+                        ? const Icon(PhosphorIconsRegular.check, size: 16, color: Colors.white)
                         : (isSkipped
-                            ? const Icon(PhosphorIconsBold.arrowBendRightDown, size: 14, color: Colors.white)
+                            ? const Icon(PhosphorIconsRegular.arrowBendRightDown, size: 14, color: Colors.white)
                             : null),
                   ),
                 ),

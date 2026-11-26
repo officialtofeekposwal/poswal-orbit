@@ -262,7 +262,7 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        const Icon(PhosphorIconsBold.plus, size: 16, color: Colors.white),
+                                        const Icon(PhosphorIconsRegular.plus, size: 16, color: Colors.white),
                                         const SizedBox(width: PoswalSpacing.xs),
                                         Text(l10n?.addHabit ?? 'Add Habit'),
                                       ],

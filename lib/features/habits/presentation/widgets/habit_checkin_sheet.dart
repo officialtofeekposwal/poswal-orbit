@@ -231,7 +231,7 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
                             _value = (_value - 1.0).clamp(0.0, 999.0);
                           });
                         },
-                        icon: const Icon(PhosphorIconsBold.minusCircle, size: 28),
+                        icon: const Icon(PhosphorIconsRegular.minusCircle, size: 28),
                         color: PoswalColors.teal,
                       ),
                       Column(
@@ -256,7 +256,7 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
                             _value = (_value + 1.0).clamp(0.0, 999.0);
                           });
                         },
-                        icon: const Icon(PhosphorIconsBold.plusCircle, size: 28),
+                        icon: const Icon(PhosphorIconsRegular.plusCircle, size: 28),
                         color: PoswalColors.teal,
                       ),
                     ],
