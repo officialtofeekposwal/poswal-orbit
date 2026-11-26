@@ -105,7 +105,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       SnackBar(
         content: Text(
           message,
-          style: PoswalText.callout.copyWith(color: Colors.white),
+          style: PoswalText.callout.copyWith(color: PoswalColors.textOnDark),
         ),
         backgroundColor: isError ? PoswalColors.danger : PoswalColors.surfaceDark,
         behavior: SnackBarBehavior.floating,
@@ -221,7 +221,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.capsule)),
                 ),
                 onPressed: () => Navigator.of(ctx).pop(true),
-                child: Text(l10n?.proceed ?? 'Proceed', style: PoswalText.callout.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+                child: Text(l10n?.proceed ?? 'Proceed', style: PoswalText.callout.copyWith(color: PoswalColors.surfaceLight, fontWeight: FontWeight.bold)),
               ),
               const SizedBox(height: PoswalSpacing.sm),
               TextButton(
@@ -262,7 +262,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.capsule)),
                 ),
                 onPressed: () => Navigator.of(ctx).pop(true),
-                child: Text(l10n?.wipeEverything ?? 'Wipe Everything', style: PoswalText.callout.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+                child: Text(l10n?.wipeEverything ?? 'Wipe Everything', style: PoswalText.callout.copyWith(color: PoswalColors.surfaceLight, fontWeight: FontWeight.bold)),
               ),
               const SizedBox(height: PoswalSpacing.sm),
               TextButton(
@@ -310,20 +310,28 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 style: PoswalText.bodyText.copyWith(color: PoswalColors.textSecondaryDark),
               ),
               const SizedBox(height: PoswalSpacing.md),
-              TextField(
-                controller: textController,
-                maxLines: 6,
-                style: PoswalText.bodyText.copyWith(color: Colors.white),
-                decoration: InputDecoration(
-                  hintText: l10n?.importPlaceholder ?? 'Paste JSON backup or Loop CSV data...',
-                  hintStyle: PoswalText.caption.copyWith(color: PoswalColors.textSecondaryDark),
-                  filled: true,
-                  fillColor: Colors.black26,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(PoswalRadii.chip),
-                    borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
-                  ),
-                ),
+              Builder(
+                builder: (innerCtx) {
+                  final sheetDark = Theme.of(innerCtx).brightness == Brightness.dark;
+                  final fieldText = sheetDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
+                  final fieldSecondary = sheetDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
+                  final fieldFill = sheetDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight2;
+                  return TextField(
+                    controller: textController,
+                    maxLines: 6,
+                    style: PoswalText.bodyText.copyWith(color: fieldText),
+                    decoration: InputDecoration(
+                      hintText: l10n?.importPlaceholder ?? 'Paste JSON backup or Loop CSV data...',
+                      hintStyle: PoswalText.caption.copyWith(color: fieldSecondary),
+                      filled: true,
+                      fillColor: fieldFill,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(PoswalRadii.chip),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  );
+                },
               ),
               const SizedBox(height: PoswalSpacing.lg),
               FilledButton(
@@ -381,7 +389,17 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             children: [
               Text(l10n?.importFormat(preview.format.label) ?? 'Format: ${preview.format.label}', style: PoswalText.headline.copyWith(color: PoswalColors.teal)),
               const SizedBox(height: PoswalSpacing.xs),
-              Text(preview.summary, style: PoswalText.bodyText.copyWith(color: Colors.white)),
+              Builder(
+                builder: (innerCtx) {
+                  final sheetDark = Theme.of(innerCtx).brightness == Brightness.dark;
+                  return Text(
+                    preview.summary,
+                    style: PoswalText.bodyText.copyWith(
+                      color: sheetDark ? PoswalColors.textOnDark : PoswalColors.textOnLight,
+                    ),
+                  );
+                },
+              ),
               const SizedBox(height: PoswalSpacing.md),
               Text(
                 l10n?.importSafetyNote ?? 'A safety backup will be created automatically before importing to protect your current database.',
@@ -431,6 +449,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
   void _showExportOptions() {
     final l10n = AppLocalizations.of(context);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final sheetTextPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
+    final sheetTextSecondary = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
+    final accent = isDark ? PoswalColors.teal : PoswalColors.tealLight;
     AppSheet.show(
       context: context,
       builder: (ctx) => AppSheet(
@@ -440,9 +462,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
-              leading: const Icon(PhosphorIconsRegular.fileCode, color: PoswalColors.teal),
-              title: Text(l10n?.backupFullJson ?? 'Full Database Snapshot (JSON)', style: PoswalText.callout.copyWith(color: Colors.white)),
-              subtitle: Text(l10n?.backupFullJsonSubtitle ?? 'Complete portable backup with habits, tasks & notes', style: PoswalText.caption.copyWith(color: PoswalColors.textSecondaryDark)),
+              leading: Icon(PhosphorIconsRegular.fileCode, color: accent),
+              title: Text(l10n?.backupFullJson ?? 'Full Database Snapshot (JSON)', style: PoswalText.callout.copyWith(color: sheetTextPrimary)),
+              subtitle: Text(l10n?.backupFullJsonSubtitle ?? 'Complete portable backup with habits, tasks & notes', style: PoswalText.caption.copyWith(color: sheetTextSecondary)),
               onTap: () async {
                 Navigator.of(ctx).pop();
                 final jsonStr = await ref.read(dataSafetyServiceProvider).exportFullDatabaseJson();
@@ -451,8 +473,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               },
             ),
             ListTile(
-              leading: const Icon(PhosphorIconsRegular.table, color: PoswalColors.success),
-              title: Text(l10n?.exportHabitsCsv ?? 'Habits & Check-ins (CSV)', style: PoswalText.callout.copyWith(color: Colors.white)),
+              leading: Icon(PhosphorIconsRegular.table, color: accent),
+              title: Text(l10n?.exportHabitsCsv ?? 'Habits & Check-ins (CSV)', style: PoswalText.callout.copyWith(color: sheetTextPrimary)),
               onTap: () async {
                 Navigator.of(ctx).pop();
                 final csvStr = await ref.read(dataSafetyServiceProvider).exportHabitsCsv();
@@ -461,8 +483,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               },
             ),
             ListTile(
-              leading: const Icon(PhosphorIconsRegular.checkSquare, color: PoswalColors.coral),
-              title: Text(l10n?.exportTasksCsv ?? 'Tasks & Subtasks (CSV)', style: PoswalText.callout.copyWith(color: Colors.white)),
+              leading: Icon(PhosphorIconsRegular.checkSquare, color: accent),
+              title: Text(l10n?.exportTasksCsv ?? 'Tasks & Subtasks (CSV)', style: PoswalText.callout.copyWith(color: sheetTextPrimary)),
               onTap: () async {
                 Navigator.of(ctx).pop();
                 final csvStr = await ref.read(dataSafetyServiceProvider).exportTasksCsv();
@@ -471,8 +493,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               },
             ),
             ListTile(
-              leading: const Icon(PhosphorIconsRegular.note, color: PoswalColors.violet),
-              title: Text(l10n?.exportNotesCsv ?? 'Notes & Journal (CSV)', style: PoswalText.callout.copyWith(color: Colors.white)),
+              leading: Icon(PhosphorIconsRegular.note, color: accent),
+              title: Text(l10n?.exportNotesCsv ?? 'Notes & Journal (CSV)', style: PoswalText.callout.copyWith(color: sheetTextPrimary)),
               onTap: () async {
                 Navigator.of(ctx).pop();
                 final csvStr = await ref.read(dataSafetyServiceProvider).exportNotesCsv();
@@ -546,7 +568,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                           );
                         }).toList(),
                       ),
-                      const Divider(color: Colors.white12, height: 28),
+                      const SizedBox(height: PoswalSpacing.md),
                       Text(l10n?.settingsAccentColor ?? 'Accent Color', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
                       const SizedBox(height: PoswalSpacing.sm),
                       Row(
@@ -557,30 +579,29 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                             onTap: () => settingsNotifier.updateAccent(accent),
                             child: AnimatedContainer(
                               duration: PoswalDurations.micro,
-                              width: 38,
-                              height: 38,
+                              width: 44,
+                              height: 44,
                               decoration: BoxDecoration(
                                 color: accent.color,
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: isSelected ? Colors.white : Colors.transparent,
-                                  width: 2.0,
-                                ),
-                                boxShadow: isSelected
-                                    ? [BoxShadow(color: accent.color.withValues(alpha: 0.6), blurRadius: 8, spreadRadius: 1)]
+                                borderRadius: BorderRadius.circular(PoswalRadii.pill),
+                                border: isSelected
+                                    ? Border.all(
+                                        color: textPrimary,
+                                        width: 2.0,
+                                      )
                                     : null,
                               ),
-                              child: isSelected ? const Icon(PhosphorIconsRegular.check, size: 20, color: Colors.white) : null,
+                              child: isSelected ? const Icon(PhosphorIconsRegular.check, size: 20, color: PoswalColors.surfaceLight) : null,
                             ),
                           );
                         }).toList(),
                       ),
-                      const Divider(color: Colors.white12, height: 28),
+                      const SizedBox(height: PoswalSpacing.md),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(l10n?.settingsGlassIntensity ?? 'Glass Intensity', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
-                          Text('${(intensity * 100).toInt()}%', style: PoswalText.caption.copyWith(color: PoswalColors.teal, fontWeight: FontWeight.w700)),
+                          Text('${(intensity * 100).toInt()}%', style: PoswalText.caption.copyWith(color: isDark ? PoswalColors.teal : PoswalColors.tealLight, fontWeight: FontWeight.w700)),
                         ],
                       ),
                       Slider(
@@ -589,13 +610,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         max: 1.0,
                         divisions: 9,
                         activeColor: PoswalColors.teal,
-                        inactiveColor: Colors.white12,
+                        inactiveColor: textMuted.withValues(alpha: 0.2),
                         onChanged: (val) {
                           ref.read(glassIntensityProvider.notifier).setIntensity(val);
                           settingsNotifier.updateGlassIntensity(val);
                         },
                       ),
-                      const Divider(color: Colors.white12, height: 28),
+                      const SizedBox(height: PoswalSpacing.xs),
                       SwitchListTile.adaptive(
                         contentPadding: EdgeInsets.zero,
                         title: Text(l10n?.settingsReduceTransparency ?? 'Reduce Transparency', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
@@ -630,13 +651,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     ),
                     trailing: DropdownButton<int>(
                       value: settings.dayStartHour,
-                      dropdownColor: PoswalColors.surfaceDark,
+                      dropdownColor: isDark ? PoswalColors.surfaceDark : PoswalColors.surfaceLight,
                       underline: const SizedBox(),
                       items: [0, 3, 4, 5, 6].map((hour) {
                         final label = hour == 0 ? '12:00 AM' : '${hour.toString().padLeft(2, '0')}:00 AM${hour == 4 ? ' (Default)' : ''}';
                         return DropdownMenuItem(
                           value: hour,
-                          child: Text(label, style: PoswalText.callout.copyWith(color: Colors.white)),
+                          child: Text(label, style: PoswalText.callout.copyWith(color: textPrimary)),
                         );
                       }).toList(),
                       onChanged: (val) {
@@ -694,17 +715,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   child: ListTile(
                     key: const ValueKey('reminders_health_check_tile'),
                     contentPadding: EdgeInsets.zero,
-                    leading: Container(
-                      padding: const EdgeInsets.all(PoswalSpacing.xs),
-                      decoration: BoxDecoration(
-                        color: PoswalColors.teal.withValues(alpha: 0.15),
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(PhosphorIconsRegular.heartbeat, color: PoswalColors.teal, size: 20),
+                    leading: Icon(
+                      PhosphorIconsRegular.heartbeat,
+                      color: isDark ? PoswalColors.teal : PoswalColors.tealLight,
+                      size: 20,
                     ),
                     title: Text(l10n?.settingsHealthCheck ?? 'Reminders Health Check', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
                     subtitle: Text(l10n?.remindersHealthCheckSubtitle ?? 'Verify notification permissions, exact alarms & One UI battery rules', style: PoswalText.caption.copyWith(color: textMuted)),
-                    trailing: const Icon(PhosphorIconsRegular.caretRight, size: 16, color: Colors.white54),
+                    trailing: Icon(PhosphorIconsRegular.caretRight, size: 20, color: textMuted),
                     onTap: () => RemindersHealthCheckScreen.push(context),
                   ),
                 ),
@@ -716,7 +734,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         child: OutlinedButton.icon(
                           key: const ValueKey('settings_send_test_notif_btn'),
                           style: OutlinedButton.styleFrom(
-                            side: BorderSide(color: Colors.white.withValues(alpha: 0.2)),
+                            side: BorderSide(color: textMuted.withValues(alpha: 0.3)),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.chip)),
                           ),
                           onPressed: () async {
@@ -726,8 +744,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                               _showToast('Test notification dispatched. Check your status bar.');
                             }
                           },
-                          icon: const Icon(PhosphorIconsRegular.paperPlaneTilt, size: 16, color: Colors.white),
-                          label: Text(l10n?.sendTestAlert ?? 'Send test alert', style: PoswalText.caption.copyWith(color: Colors.white)),
+                          icon: Icon(PhosphorIconsRegular.paperPlaneTilt, size: 20, color: textPrimary),
+                          label: Text(l10n?.sendTestAlert ?? 'Send test alert', style: PoswalText.caption.copyWith(color: textPrimary)),
                         ),
                       ),
                       const SizedBox(width: PoswalSpacing.sm),
@@ -735,7 +753,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         child: OutlinedButton.icon(
                           key: const ValueKey('settings_refill_schedule_btn'),
                           style: OutlinedButton.styleFrom(
-                            side: BorderSide(color: Colors.white.withValues(alpha: 0.2)),
+                            side: BorderSide(color: textMuted.withValues(alpha: 0.3)),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.chip)),
                           ),
                           onPressed: () async {
@@ -745,8 +763,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                               _showToast('Rolling window synced ($count reminders).');
                             }
                           },
-                          icon: const Icon(PhosphorIconsRegular.arrowsClockwise, size: 16, color: Colors.white),
-                          label: Text(l10n?.syncSchedule ?? 'Sync Schedule', style: PoswalText.caption.copyWith(color: Colors.white)),
+                          icon: Icon(PhosphorIconsRegular.arrowsClockwise, size: 20, color: textPrimary),
+                          label: Text(l10n?.syncSchedule ?? 'Sync Schedule', style: PoswalText.caption.copyWith(color: textPrimary)),
                         ),
                       ),
                     ],
@@ -861,29 +879,29 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                           OutlinedButton.icon(
                             key: const ValueKey('export_btn'),
                             style: OutlinedButton.styleFrom(
-                              side: BorderSide(color: Colors.white.withValues(alpha: 0.2)),
+                              side: BorderSide(color: textMuted.withValues(alpha: 0.3)),
                               padding: const EdgeInsets.symmetric(vertical: PoswalSpacing.sm, horizontal: PoswalSpacing.md),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.chip)),
                             ),
                             onPressed: _showExportOptions,
-                            icon: const Icon(PhosphorIconsRegular.export, size: 18, color: Colors.white),
-                            label: Text(l10n?.settingsExport ?? 'Export', style: PoswalText.callout.copyWith(color: Colors.white)),
+                            icon: Icon(PhosphorIconsRegular.export, size: 20, color: textPrimary),
+                            label: Text(l10n?.settingsExport ?? 'Export', style: PoswalText.callout.copyWith(color: textPrimary)),
                           ),
                           const SizedBox(width: PoswalSpacing.sm),
                           OutlinedButton.icon(
                             key: const ValueKey('import_btn'),
                             style: OutlinedButton.styleFrom(
-                              side: BorderSide(color: Colors.white.withValues(alpha: 0.2)),
+                              side: BorderSide(color: textMuted.withValues(alpha: 0.3)),
                               padding: const EdgeInsets.symmetric(vertical: PoswalSpacing.sm, horizontal: PoswalSpacing.md),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.chip)),
                             ),
                             onPressed: _showImportDialog,
-                            icon: const Icon(PhosphorIconsRegular.downloadSimple, size: 18, color: Colors.white),
-                            label: Text(l10n?.settingsImport ?? 'Import', style: PoswalText.callout.copyWith(color: Colors.white)),
+                            icon: Icon(PhosphorIconsRegular.downloadSimple, size: 20, color: textPrimary),
+                            label: Text(l10n?.settingsImport ?? 'Import', style: PoswalText.callout.copyWith(color: textPrimary)),
                           ),
                         ],
                       ),
-                      const Divider(color: Colors.white12, height: 28),
+                      const SizedBox(height: PoswalSpacing.md),
                       Text(l10n?.availableBackups ?? 'Available Backups (Last 7)', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
                       const SizedBox(height: PoswalSpacing.xs),
                       backupsAsync.when(
@@ -902,7 +920,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                 margin: const EdgeInsets.only(top: PoswalSpacing.xs),
                                 padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.sm, vertical: PoswalSpacing.xs),
                                 decoration: BoxDecoration(
-                                  color: Colors.white.withValues(alpha: 0.04),
+                                  color: textMuted.withValues(alpha: 0.08),
                                   borderRadius: BorderRadius.circular(PoswalRadii.chip),
                                 ),
                                 child: Row(
@@ -952,11 +970,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(l10n?.resetOrClearData ?? 'Reset or Clear Data', style: PoswalText.callout.copyWith(color: Colors.white, fontWeight: FontWeight.w600)),
+                      Text(l10n?.resetOrClearData ?? 'Reset or Clear Data', style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
                       const SizedBox(height: PoswalSpacing.xs),
                       Text(
                         l10n?.deleteAllDataSubtitle ?? 'Wipes all active habits, tasks, and notes. A pre-wipe snapshot is automatically taken to guarantee data safety.',
-                        style: PoswalText.caption.copyWith(color: PoswalColors.textSecondaryDark),
+                        style: PoswalText.caption.copyWith(color: textMuted),
                       ),
                       const SizedBox(height: PoswalSpacing.md),
                       OutlinedButton.icon(
