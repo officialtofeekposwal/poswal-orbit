@@ -64,7 +64,7 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                 key: const ValueKey('note_action_pin'),
                 leading: Icon(
                   note.isPinned ? PhosphorIconsFill.pushPin : PhosphorIconsRegular.pushPin,
-                  color: PoswalColors.gold,
+                  color: isDark ? PoswalColors.teal : PoswalColors.tealLight,
                 ),
                 title: Text(
                   note.isPinned ? (l10n?.unpinNote ?? 'Unpin Note') : (l10n?.pinNote ?? 'Pin Note'),
@@ -77,7 +77,10 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
               ),
               ListTile(
                 key: const ValueKey('note_action_color'),
-                leading: const Icon(PhosphorIconsRegular.palette, color: PoswalColors.violet),
+                leading: Icon(
+                  PhosphorIconsRegular.palette,
+                  color: isDark ? PoswalColors.teal : PoswalColors.tealLight,
+                ),
                 title: Text(
                   l10n?.changeColorLabel ?? 'Change Color Label',
                   style: TextStyle(color: textPrimary, fontWeight: FontWeight.w600),
@@ -87,7 +90,7 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                   _showColorPicker(context, note);
                 },
               ),
-              const Divider(),
+              const SizedBox(height: PoswalSpacing.xs),
               ListTile(
                 key: const ValueKey('note_action_delete'),
                 leading: const Icon(PhosphorIconsRegular.trash, color: PoswalColors.danger),
@@ -157,21 +160,23 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                     height: 44,
                     decoration: BoxDecoration(
                       color: label == NoteColorLabel.none
-                          ? (isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight)
+                          ? (isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight2)
                           : Color(colorVal),
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: isSelected ? Colors.white : Colors.transparent,
-                        width: 2.5,
-                      ),
+                      borderRadius: BorderRadius.circular(PoswalRadii.pill),
+                      border: isSelected
+                          ? Border.all(
+                              color: isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight,
+                              width: 2.5,
+                            )
+                          : null,
                     ),
                     child: isSelected
                         ? Icon(
                             PhosphorIconsRegular.check,
-                            size: 18,
+                            size: 20,
                             color: label == NoteColorLabel.none
-                                ? (isDark ? Colors.white : Colors.black)
-                                : Colors.white,
+                                ? (isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight)
+                                : PoswalColors.surfaceLight,
                           )
                         : null,
                   ),
@@ -219,7 +224,6 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                   style: PoswalText.largeTitle.copyWith(
                     color: textPrimary,
                     fontWeight: FontWeight.w700,
-                    letterSpacing: -0.5,
                   ),
                 ),
                 actions: [
@@ -394,14 +398,17 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                       if (pinnedNotes.isNotEmpty) ...[
                         Row(
                           children: [
-                            const Icon(PhosphorIconsFill.pushPin, size: 14, color: PoswalColors.gold),
+                            Icon(
+                              PhosphorIconsFill.pushPin,
+                              size: 20,
+                              color: isDark ? PoswalColors.teal : PoswalColors.tealLight,
+                            ),
                             const SizedBox(width: 6),
                             Text(
                               'Pinned (${pinnedNotes.length})',
                               style: PoswalText.caption.copyWith(
-                                color: PoswalColors.gold,
+                                color: isDark ? PoswalColors.teal : PoswalColors.tealLight,
                                 fontWeight: FontWeight.w700,
-                                letterSpacing: 0.5,
                               ),
                             ),
                           ],
@@ -430,7 +437,6 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
                             style: PoswalText.caption.copyWith(
                               color: textMuted,
                               fontWeight: FontWeight.w700,
-                              letterSpacing: 0.5,
                             ),
                           ),
                         if (pinnedNotes.isNotEmpty) const SizedBox(height: PoswalSpacing.sm),

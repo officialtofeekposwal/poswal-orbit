@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
-import 'package:poswal_orbit/core/widgets/app_glass.dart';
+import 'package:poswal_orbit/core/widgets/liquid_glass.dart';
 import 'package:poswal_orbit/domain/logic/markdown_editor_engine.dart';
 import 'package:poswal_orbit/l10n/app_localizations.dart';
 
@@ -51,12 +51,19 @@ class NoteFormattingToolbar extends StatelessWidget {
       context: context,
       builder: (ctx) {
         final l10n = AppLocalizations.of(ctx);
+        final isDark = Theme.of(ctx).brightness == Brightness.dark;
+        final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
+        final textSecondary =
+            isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
+        final fieldFill = isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight2;
+        final accent = isDark ? PoswalColors.teal : PoswalColors.tealLight;
+
         return AlertDialog(
-          backgroundColor: PoswalColors.surfaceDark,
+          backgroundColor: isDark ? PoswalColors.surfaceDark : PoswalColors.surfaceLight,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PoswalRadii.card)),
           title: Text(
             l10n?.insertLinkTooltip ?? 'Insert Link',
-            style: PoswalText.title.copyWith(color: Colors.white),
+            style: PoswalText.title.copyWith(color: textPrimary),
           ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -64,15 +71,15 @@ class NoteFormattingToolbar extends StatelessWidget {
               TextField(
                 controller: textController,
                 autofocus: !hasSelection,
-                style: const TextStyle(color: Colors.white),
+                style: TextStyle(color: textPrimary),
                 decoration: InputDecoration(
                   labelText: l10n?.linkTextLabel ?? 'Link Text',
-                  labelStyle: const TextStyle(color: PoswalColors.textSecondaryDark),
+                  labelStyle: TextStyle(color: textSecondary),
                   filled: true,
-                  fillColor: Colors.black26,
+                  fillColor: fieldFill,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(PoswalRadii.chip),
-                    borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
+                    borderSide: BorderSide.none,
                   ),
                 ),
               ),
@@ -80,16 +87,16 @@ class NoteFormattingToolbar extends StatelessWidget {
               TextField(
                 controller: urlController,
                 autofocus: hasSelection,
-                style: const TextStyle(color: Colors.white),
+                style: TextStyle(color: textPrimary),
                 keyboardType: TextInputType.url,
                 decoration: InputDecoration(
                   labelText: l10n?.linkUrlLabel ?? 'URL (https://...)',
-                  labelStyle: const TextStyle(color: PoswalColors.textSecondaryDark),
+                  labelStyle: TextStyle(color: textSecondary),
                   filled: true,
-                  fillColor: Colors.black26,
+                  fillColor: fieldFill,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(PoswalRadii.chip),
-                    borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
+                    borderSide: BorderSide.none,
                   ),
                 ),
               ),
@@ -100,11 +107,11 @@ class NoteFormattingToolbar extends StatelessWidget {
               onPressed: () => Navigator.of(ctx).pop(false),
               child: Text(
                 l10n?.cancel ?? 'Cancel',
-                style: const TextStyle(color: PoswalColors.textSecondaryDark),
+                style: TextStyle(color: textSecondary),
               ),
             ),
             FilledButton(
-              style: FilledButton.styleFrom(backgroundColor: PoswalColors.teal),
+              style: FilledButton.styleFrom(backgroundColor: accent),
               onPressed: () {
                 final linkText = textController.text.trim();
                 final url = urlController.text.trim();
@@ -114,7 +121,9 @@ class NoteFormattingToolbar extends StatelessWidget {
               },
               child: Text(
                 l10n?.proceed ?? 'Insert',
-                style: const TextStyle(color: PoswalColors.ink),
+                style: TextStyle(
+                  color: isDark ? PoswalColors.ink : PoswalColors.surfaceLight,
+                ),
               ),
             ),
           ],
@@ -153,8 +162,8 @@ class NoteFormattingToolbar extends StatelessWidget {
         horizontal: PoswalSpacing.md,
         vertical: PoswalSpacing.xs,
       ),
-      child: AppGlassCard(
-        borderRadius: PoswalRadii.pill,
+      child: LiquidGlass(
+        isCapsule: true,
         padding: const EdgeInsetsDirectional.symmetric(horizontal: PoswalSpacing.sm, vertical: 4),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,

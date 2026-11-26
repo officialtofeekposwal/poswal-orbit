@@ -29,18 +29,16 @@ class NoteCard extends StatelessWidget {
     final hasColor = note.colorLabel != NoteColorLabel.none;
     final isRtl = MarkdownLite.isRtlText(note.title.isNotEmpty ? note.title : note.body);
 
-    // Semi-solid background for 120fps scrolling smoothness (not glass per row)
+    // Solid flat background for 120fps scrolling smoothness (subtle tint if colored, zero border)
     final cardBg = isDark
         ? (hasColor
-            ? Color.alphaBlend(Color(colorVal).withValues(alpha: 0.12), PoswalColors.surfaceDark2)
-            : PoswalColors.surfaceDark2)
+            ? Color.alphaBlend(Color(colorVal).withValues(alpha: 0.12), PoswalColors.surfaceDark)
+            : PoswalColors.surfaceDark)
         : (hasColor
             ? Color.alphaBlend(Color(colorVal).withValues(alpha: 0.08), PoswalColors.surfaceLight)
             : PoswalColors.surfaceLight);
 
-    final borderColor = hasColor
-        ? Color(colorVal).withValues(alpha: 0.35)
-        : (isDark ? Colors.white.withValues(alpha: 0.12) : Colors.black.withValues(alpha: 0.08));
+    final accent = isDark ? PoswalColors.teal : PoswalColors.tealLight;
 
     final blocks = MarkdownLite.parseBlocks(note.body);
     final checklistBlocks = blocks.where((b) => b.type == MarkdownBlockType.checklist).take(3).toList();
@@ -49,14 +47,6 @@ class NoteCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: cardBg,
         borderRadius: BorderRadius.circular(PoswalRadii.card),
-        border: Border.all(color: borderColor, width: 1.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: isDark ? 0.25 : 0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
       ),
       child: Material(
         color: Colors.transparent,
@@ -93,13 +83,13 @@ class NoteCard extends StatelessWidget {
                               child: Container(
                                 padding: const EdgeInsetsDirectional.all(3),
                                 decoration: BoxDecoration(
-                                  color: PoswalColors.gold.withValues(alpha: 0.18),
+                                  color: accent.withValues(alpha: 0.18),
                                   borderRadius: BorderRadius.circular(PoswalRadii.chip),
                                 ),
-                                child: const Icon(
+                                child: Icon(
                                   PhosphorIconsFill.pushPin,
                                   size: 13,
-                                  color: PoswalColors.gold,
+                                  color: accent,
                                 ),
                               ),
                             ),
@@ -139,7 +129,7 @@ class NoteCard extends StatelessWidget {
                               height: 8,
                               decoration: BoxDecoration(
                                 color: Color(colorVal),
-                                shape: BoxShape.circle,
+                                borderRadius: BorderRadius.circular(PoswalRadii.pill),
                               ),
                             ),
                         ],
@@ -233,9 +223,7 @@ class NoteCard extends StatelessWidget {
                             vertical: 2,
                           ),
                           decoration: BoxDecoration(
-                            color: isDark
-                                ? Colors.white.withValues(alpha: 0.06)
-                                : Colors.black.withValues(alpha: 0.04),
+                            color: textMuted.withValues(alpha: 0.12),
                             borderRadius: BorderRadius.circular(PoswalRadii.chip),
                           ),
                           child: Text(

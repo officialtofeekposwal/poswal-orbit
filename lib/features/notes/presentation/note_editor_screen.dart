@@ -251,25 +251,27 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
                     Navigator.pop(ctx);
                   },
                   child: Container(
-                    width: 36,
-                    height: 36,
+                    width: 44,
+                    height: 44,
                     decoration: BoxDecoration(
                       color: label == NoteColorLabel.none
-                          ? (isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight)
+                          ? (isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight2)
                           : Color(colorVal),
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: isSelected ? Colors.white : Colors.transparent,
-                        width: isSelected ? 2.5 : 1.0,
-                      ),
+                      borderRadius: BorderRadius.circular(PoswalRadii.pill),
+                      border: isSelected
+                          ? Border.all(
+                              color: isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight,
+                              width: 2.5,
+                            )
+                          : null,
                     ),
                     child: isSelected
                         ? Icon(
                             PhosphorIconsRegular.check,
-                            size: 16,
+                            size: 20,
                             color: label == NoteColorLabel.none
-                                ? (isDark ? Colors.white : Colors.black)
-                                : Colors.white,
+                                ? (isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight)
+                                : PoswalColors.surfaceLight,
                           )
                         : null,
                   ),
@@ -352,7 +354,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
                   child: Text(l10n?.habitsSectionHeader ?? 'Habits', style: PoswalText.caption.copyWith(color: textMuted)),
                 ),
                 ...habits.map((h) => ListTile(
-                      leading: Icon(PhosphorIconsRegular.sparkle, color: Color(h.colorValue)),
+                      leading: Icon(PhosphorIconsRegular.target, color: Color(h.colorValue), size: 20),
                       title: Text(h.name, style: TextStyle(color: textPrimary)),
                       onTap: () {
                         setState(() {
@@ -362,7 +364,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
                         Navigator.pop(ctx);
                       },
                     )),
-                const Divider(),
+                const SizedBox(height: PoswalSpacing.sm),
               ],
 
               // Active Tasks
@@ -441,12 +443,16 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
                               ? Text(
                                   l10n?.notesSaving ?? 'Saving...',
                                   key: const ValueKey('saving_indicator'),
-                                  style: PoswalText.caption.copyWith(color: PoswalColors.gold),
+                                  style: PoswalText.caption.copyWith(
+                                    color: isDark ? PoswalColors.warning : PoswalColors.warningLight,
+                                  ),
                                 )
                               : Text(
                                   l10n?.notesSaved ?? 'Saved',
                                   key: const ValueKey('saved_indicator'),
-                                  style: PoswalText.caption.copyWith(color: PoswalColors.teal),
+                                  style: PoswalText.caption.copyWith(
+                                    color: isDark ? PoswalColors.teal : PoswalColors.tealLight,
+                                  ),
                                 ),
                         ),
                       ),
@@ -461,7 +467,9 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
                             icon: Icon(
                               _isPinned ? PhosphorIconsFill.pushPin : PhosphorIconsRegular.pushPin,
                               size: 20,
-                              color: _isPinned ? PoswalColors.gold : textMuted,
+                              color: _isPinned
+                                  ? (isDark ? PoswalColors.teal : PoswalColors.tealLight)
+                                  : textMuted,
                             ),
                             tooltip: _isPinned ? 'Unpin' : 'Pin',
                             onPressed: () {
@@ -490,7 +498,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
                               PhosphorIconsRegular.link,
                               size: 20,
                               color: (_linkedTaskId != null || _linkedHabitId != null)
-                                  ? PoswalColors.violet
+                                  ? (isDark ? PoswalColors.teal : PoswalColors.tealLight)
                                   : textMuted,
                             ),
                             tooltip: l10n?.linkHabitTaskTooltip ?? 'Link to Habit/Task',
@@ -541,7 +549,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
                                     AppGlassChip(
                                       key: const ValueKey('linked_habit_chip'),
                                       label: l10n?.linkedHabitLabel ?? 'Linked Habit',
-                                      icon: const Icon(PhosphorIconsRegular.sparkle, size: 14),
+                                      icon: const Icon(PhosphorIconsRegular.target, size: 20),
                                       isSelected: true,
                                       onTap: () {
                                         Navigator.of(context).push(

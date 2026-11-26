@@ -126,7 +126,6 @@ class MarkdownTextEditingController extends TextEditingController {
       final headingStyle = baseStyle.copyWith(
         fontSize: (baseStyle.fontSize ?? 16) + 6,
         fontWeight: FontWeight.bold,
-        letterSpacing: -0.5,
       );
       _formatInline(
         text: content,
@@ -150,7 +149,7 @@ class MarkdownTextEditingController extends TextEditingController {
         text: prefix,
         startOffset: lineStartOffset,
         style: markerDimStyle.copyWith(
-          color: PoswalColors.violet.withValues(alpha: 0.5),
+          color: PoswalColors.teal.withValues(alpha: 0.65),
           fontWeight: FontWeight.bold,
         ),
         compStart: compStart,
@@ -161,7 +160,6 @@ class MarkdownTextEditingController extends TextEditingController {
       final headingStyle = baseStyle.copyWith(
         fontSize: (baseStyle.fontSize ?? 16) + 3,
         fontWeight: FontWeight.bold,
-        letterSpacing: -0.3,
       );
       _formatInline(
         text: content,
@@ -185,7 +183,7 @@ class MarkdownTextEditingController extends TextEditingController {
         text: prefix,
         startOffset: lineStartOffset,
         style: markerDimStyle.copyWith(
-          color: PoswalColors.violet.withValues(alpha: 0.5),
+          color: PoswalColors.teal.withValues(alpha: 0.65),
           fontWeight: FontWeight.bold,
         ),
         compStart: compStart,
@@ -229,7 +227,7 @@ class MarkdownTextEditingController extends TextEditingController {
       );
       final strikeStyle = baseStyle.copyWith(
         decoration: TextDecoration.lineThrough,
-        color: (baseStyle.color ?? Colors.white).withValues(alpha: 0.45),
+        color: (baseStyle.color ?? PoswalColors.textSecondaryDark).withValues(alpha: 0.45),
       );
       _formatInline(
         text: content,
