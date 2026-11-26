@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
-import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/core/widgets/app_list_section.dart';
 import 'package:poswal_orbit/core/widgets/app_search_field.dart';
 import 'package:poswal_orbit/core/widgets/app_toolbar.dart';
@@ -127,7 +126,6 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                       style: PoswalText.title.copyWith(
                         color: textPrimary,
                         fontWeight: FontWeight.w700,
-                        letterSpacing: -0.5,
                       ),
                     ),
                     const SizedBox(height: 2),
@@ -247,7 +245,7 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                             child: Center(
                               child: Column(
                                 children: [
-                                  Icon(PhosphorIconsRegular.calendarCheck, size: 48, color: textMuted),
+                                  Icon(PhosphorIconsRegular.calendarCheck, size: 24, color: textMuted),
                                   const SizedBox(height: PoswalSpacing.md),
                                   Text(
                                     l10n?.noHabitsScheduled ??
@@ -256,17 +254,16 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                                     style: PoswalText.callout.copyWith(color: textMuted),
                                   ),
                                   const SizedBox(height: PoswalSpacing.lg),
-                                  AppGlassButton(
-                                    isPrimary: true,
-                                    onPressed: () => _openCreateSheet(context),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        const Icon(PhosphorIconsRegular.plus, size: 16, color: Colors.white),
-                                        const SizedBox(width: PoswalSpacing.xs),
-                                        Text(l10n?.addHabit ?? 'Add Habit'),
-                                      ],
+                                  FilledButton.icon(
+                                    style: FilledButton.styleFrom(
+                                      backgroundColor: isDark ? PoswalColors.teal : PoswalColors.tealLight,
+                                      foregroundColor: isDark ? PoswalColors.ink : PoswalColors.surfaceLight,
+                                      minimumSize: const Size(0, PoswalRowHeights.minTouchTarget),
+                                      shape: const StadiumBorder(),
                                     ),
+                                    onPressed: () => _openCreateSheet(context),
+                                    icon: const Icon(PhosphorIconsRegular.plus, size: 20),
+                                    label: Text(l10n?.addHabit ?? 'Add Habit'),
                                   ),
                                 ],
                               ),
@@ -397,7 +394,7 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                 child: Center(
                   child: Column(
                     children: [
-                      Icon(PhosphorIconsRegular.magnifyingGlass, size: 40, color: textMuted),
+                      Icon(PhosphorIconsRegular.magnifyingGlass, size: 24, color: textMuted),
                       const SizedBox(height: PoswalSpacing.md),
                       Text(l10n?.noMatchingResults ?? 'No matching results found', style: PoswalText.callout.copyWith(color: textMuted)),
                     ],
@@ -439,27 +436,19 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
   }
 
   Widget _buildResultRow(SearchResultItem item, bool isDark, Color textPrimary, Color textMuted) {
+    final accent = isDark ? PoswalColors.teal : PoswalColors.tealLight;
+    final itemColor = item.colorValue != null && item.colorValue != 0
+        ? Color(item.colorValue!)
+        : accent;
     return ListTile(
-      leading: Container(
-        width: 32,
-        height: 32,
-        decoration: BoxDecoration(
-          color: item.colorValue != null && item.colorValue != 0
-              ? Color(item.colorValue!).withValues(alpha: 0.15)
-              : PoswalColors.teal.withValues(alpha: 0.15),
-          shape: BoxShape.circle,
-        ),
-        child: Icon(
-          item.type == SearchResultType.habit
-              ? PhosphorIconsRegular.sparkle
-              : (item.type == SearchResultType.task
-                  ? PhosphorIconsRegular.checkSquare
-                  : PhosphorIconsRegular.note),
-          size: 16,
-          color: item.colorValue != null
-              ? Color(item.colorValue!)
-              : PoswalColors.teal,
-        ),
+      leading: Icon(
+        item.type == SearchResultType.habit
+            ? PhosphorIconsRegular.target
+            : (item.type == SearchResultType.task
+                ? PhosphorIconsRegular.checkSquare
+                : PhosphorIconsRegular.note),
+        size: 20,
+        color: itemColor,
       ),
       title: Text(item.title, style: PoswalText.callout.copyWith(color: textPrimary, fontWeight: FontWeight.w600)),
       subtitle: item.snippet.isNotEmpty

@@ -34,26 +34,16 @@ class HeroOrbitCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
-    final textMuted = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
+    final textSecondary = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
+    final accent = isDark ? PoswalColors.teal : PoswalColors.tealLight;
 
-    final cardBg = isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight;
-    final borderColor = isDark
-        ? Colors.white.withValues(alpha: 0.08)
-        : Colors.black.withValues(alpha: 0.06);
+    final cardBg = isDark ? PoswalColors.surfaceDark : PoswalColors.surfaceLight;
 
     return Container(
       padding: const EdgeInsets.all(PoswalSpacing.lg),
       decoration: BoxDecoration(
         color: cardBg,
         borderRadius: BorderRadius.circular(PoswalRadii.card),
-        border: Border.all(color: borderColor, width: 1.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: isDark ? 0.20 : 0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
       ),
       child: Column(
         children: [
@@ -74,13 +64,13 @@ class HeroOrbitCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
-                    color: PoswalColors.teal.withValues(alpha: 0.15),
+                    color: accent.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(PoswalRadii.pill),
                   ),
                   child: Text(
                     '${(completionRate * 100).round()}%',
                     style: PoswalText.caption.copyWith(
-                      color: PoswalColors.teal,
+                      color: accent,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -111,7 +101,7 @@ class HeroOrbitCard extends StatelessWidget {
                     Text(
                       completionRate >= 1.0 && totalDue > 0 ? 'All done' : 'In orbit',
                       style: PoswalText.caption.copyWith(
-                        color: completionRate >= 1.0 && totalDue > 0 ? PoswalColors.teal : textMuted,
+                        color: completionRate >= 1.0 && totalDue > 0 ? accent : textSecondary,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -125,7 +115,7 @@ class HeroOrbitCard extends StatelessWidget {
             _getEncouragingPhrase(),
             textAlign: TextAlign.center,
             style: PoswalText.callout.copyWith(
-              color: textMuted,
+              color: textSecondary,
               fontStyle: FontStyle.italic,
               height: 1.3,
             ),
