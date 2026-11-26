@@ -69,31 +69,34 @@ class TaskRowCard extends ConsumerWidget {
       dueFormatted = '$dateStr$timeStr';
     }
 
+    final accent = isDark ? PoswalColors.teal : PoswalColors.tealLight;
+    final onAccent = isDark ? PoswalColors.ink : PoswalColors.surfaceLight;
+
     return Dismissible(
       key: ValueKey('task_dismissible_${task.id}'),
       background: Container(
-        alignment: Alignment.centerLeft,
+        alignment: AlignmentDirectional.centerStart,
         padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.lg),
         decoration: BoxDecoration(
-          color: PoswalColors.teal.withValues(alpha: 0.85),
+          color: accent,
           borderRadius: BorderRadius.circular(PoswalRadii.card),
         ),
-        child: const Row(
+        child: Row(
           children: [
-            Icon(PhosphorIconsRegular.check, color: Colors.white, size: 24),
-            SizedBox(width: PoswalSpacing.sm),
+            Icon(PhosphorIconsRegular.check, color: onAccent, size: 24),
+            const SizedBox(width: PoswalSpacing.sm),
             Text(
               'Complete',
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+              style: TextStyle(color: onAccent, fontWeight: FontWeight.w700),
             ),
           ],
         ),
       ),
       secondaryBackground: Container(
-        alignment: Alignment.centerRight,
+        alignment: AlignmentDirectional.centerEnd,
         padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.lg),
         decoration: BoxDecoration(
-          color: PoswalColors.danger.withValues(alpha: 0.85),
+          color: isDark ? PoswalColors.danger : PoswalColors.dangerLight,
           borderRadius: BorderRadius.circular(PoswalRadii.card),
         ),
         child: const Row(
@@ -101,10 +104,10 @@ class TaskRowCard extends ConsumerWidget {
           children: [
             Text(
               'Delete',
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+              style: TextStyle(color: PoswalColors.surfaceLight, fontWeight: FontWeight.w700),
             ),
             SizedBox(width: PoswalSpacing.sm),
-            Icon(PhosphorIconsRegular.trash, color: Colors.white, size: 24),
+            Icon(PhosphorIconsRegular.trash, color: PoswalColors.surfaceLight, size: 24),
           ],
         ),
       ),
@@ -142,18 +145,8 @@ class TaskRowCard extends ConsumerWidget {
       child: Container(
         margin: const EdgeInsets.only(bottom: PoswalSpacing.sm),
         decoration: BoxDecoration(
-          color: isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight,
+          color: isDark ? PoswalColors.surfaceDark : PoswalColors.surfaceLight,
           borderRadius: BorderRadius.circular(PoswalRadii.card),
-          border: Border.all(
-            color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.black.withValues(alpha: 0.06),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: isDark ? 0.20 : 0.03),
-              blurRadius: 6,
-              offset: const Offset(0, 2),
-            ),
-          ],
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(
@@ -181,19 +174,19 @@ class TaskRowCard extends ConsumerWidget {
                       width: 26,
                       height: 26,
                       decoration: BoxDecoration(
-                        shape: BoxShape.circle,
+                        borderRadius: BorderRadius.circular(PoswalRadii.pill),
                         border: Border.all(
                           color: task.isCompleted
-                              ? PoswalColors.teal
+                              ? accent
                               : (task.priority != TaskPriority.none
                                   ? Color(task.priority.colorValue)
-                                  : (isDark ? Colors.white38 : Colors.black38)),
+                                  : textMuted.withValues(alpha: 0.45)),
                           width: 2,
                         ),
-                        color: task.isCompleted ? PoswalColors.teal : Colors.transparent,
+                        color: task.isCompleted ? accent : Colors.transparent,
                       ),
                       child: task.isCompleted
-                          ? const Icon(PhosphorIconsRegular.check, size: 20, color: Colors.white)
+                          ? Icon(PhosphorIconsRegular.check, size: 20, color: onAccent)
                           : null,
                     ),
                   ),
@@ -218,7 +211,7 @@ class TaskRowCard extends ConsumerWidget {
                               height: 8,
                               margin: const EdgeInsetsDirectional.only(end: PoswalSpacing.xs),
                               decoration: BoxDecoration(
-                                shape: BoxShape.circle,
+                                borderRadius: BorderRadius.circular(PoswalRadii.pill),
                                 color: Color(task.priority.colorValue),
                               ),
                             ),
@@ -250,8 +243,8 @@ class TaskRowCard extends ConsumerWidget {
                                   color: isOverdue
                                       ? PoswalColors.danger.withValues(alpha: 0.15)
                                       : isDueToday
-                                          ? PoswalColors.teal.withValues(alpha: 0.15)
-                                          : (isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.05)),
+                                          ? accent.withValues(alpha: 0.15)
+                                          : textMuted.withValues(alpha: 0.12),
                                   borderRadius: BorderRadius.circular(PoswalSpacing.xs),
                                 ),
                                 child: Row(
@@ -307,7 +300,7 @@ class TaskRowCard extends ConsumerWidget {
 
                             // Recurrence indicator
                             if (task.repeatRule != null) ...[
-                              const Icon(PhosphorIconsRegular.arrowsClockwise, size: 12, color: PoswalColors.violet),
+                              Icon(PhosphorIconsRegular.arrowsClockwise, size: 12, color: accent),
                             ],
                           ],
                         ),
@@ -320,8 +313,8 @@ class TaskRowCard extends ConsumerWidget {
               // Right arrow / detail indicator
               Icon(
                 PhosphorIconsRegular.caretRight,
-                size: 14,
-                color: isDark ? Colors.white24 : Colors.black26,
+                size: 20,
+                color: textMuted,
               ),
             ],
           ),

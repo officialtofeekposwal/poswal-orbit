@@ -229,14 +229,10 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Container(
-                              width: 56,
-                              height: 56,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: PoswalColors.teal.withValues(alpha: 0.15),
-                              ),
-                              child: const Icon(PhosphorIconsRegular.sparkle, size: 28, color: PoswalColors.teal),
+                            Icon(
+                              PhosphorIconsRegular.checkSquare,
+                              size: 24,
+                              color: isDark ? PoswalColors.teal : PoswalColors.tealLight,
                             ),
                             const SizedBox(height: PoswalSpacing.md),
                             Text(
@@ -252,18 +248,17 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
                             const SizedBox(height: PoswalSpacing.lg),
                             FilledButton(
                               style: FilledButton.styleFrom(
-                                backgroundColor: PoswalColors.teal,
-                                foregroundColor: PoswalColors.ink,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(PoswalRadii.capsule),
-                                ),
+                                backgroundColor: isDark ? PoswalColors.teal : PoswalColors.tealLight,
+                                foregroundColor: isDark ? PoswalColors.ink : PoswalColors.surfaceLight,
+                                minimumSize: const Size(0, PoswalRowHeights.minTouchTarget),
+                                shape: const StadiumBorder(),
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: PoswalSpacing.xl,
                                   vertical: PoswalSpacing.md,
                                 ),
                               ),
                               onPressed: _openQuickAdd,
-                              child: Text(l10n?.addTask ?? 'Add Task', style: PoswalText.callout.copyWith(fontWeight: FontWeight.w600, color: Colors.white)),
+                              child: Text(l10n?.addTask ?? 'Add Task', style: PoswalText.callout.copyWith(fontWeight: FontWeight.w600)),
                             ),
                           ],
                         ),
