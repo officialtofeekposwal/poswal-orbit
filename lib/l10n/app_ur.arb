@@ -359,5 +359,8 @@
   "updateUpToDate": "آپ تازہ ترین ورژن استعمال کر رہے ہیں",
   "updateDownloadBtn": "اپ ڈیٹ ڈاؤن لوڈ کریں",
   "updateLaterBtn": "بعد میں",
-  "updateSkipVersionBtn": "یہ ورژن چھوڑ دیں"
+  "updateSkipVersionBtn": "یہ ورژن چھوڑ دیں",
+  "updateCheckOffline": "اپ ڈیٹس چیک نہیں ہو سکیں۔ اپنا انٹرنیٹ کنکشن چیک کریں۔",
+  "updateCheckRateLimited": "GitHub کی حد پوری ہو گئی ہے۔ براہِ کرم بعد میں دوبارہ کوشش کریں۔",
+  "updateCheckFailed": "اس وقت اپ ڈیٹس چیک نہیں کی جا سکیں۔"
 }

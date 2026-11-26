@@ -1043,4 +1043,15 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get updateSkipVersionBtn => 'یہ ورژن چھوڑ دیں';
+
+  @override
+  String get updateCheckOffline =>
+      'اپ ڈیٹس چیک نہیں ہو سکیں۔ اپنا انٹرنیٹ کنکشن چیک کریں۔';
+
+  @override
+  String get updateCheckRateLimited =>
+      'GitHub کی حد پوری ہو گئی ہے۔ براہِ کرم بعد میں دوبارہ کوشش کریں۔';
+
+  @override
+  String get updateCheckFailed => 'اس وقت اپ ڈیٹس چیک نہیں کی جا سکیں۔';
 }

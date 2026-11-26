@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:poswal_orbit/core/services/update/app_update_service.dart';
@@ -123,6 +125,62 @@ void main() {
       final manualCheck = await service.checkForUpdate(force: true);
       expect(manualCheck, isNotNull);
       expect(networkCalls, 1);
+    });
+
+    test('returns errorOfflineOrTimeout on SocketException and TimeoutException', () async {
+      final offlineService = AppUpdateService(
+        db,
+        now: () => fakeNow,
+        versionReader: () async => '0.9.1-beta.2+2',
+        httpGet: (_, _) async => throw const SocketException('No internet'),
+      );
+      final offlineRes = await offlineService.checkForUpdateWithStatus(force: true);
+      expect(offlineRes.status, UpdateCheckStatus.errorOfflineOrTimeout);
+      expect(await offlineService.checkForUpdate(), isNull);
+
+      final timeoutService = AppUpdateService(
+        db,
+        now: () => fakeNow,
+        versionReader: () async => '0.9.1-beta.2+2',
+        httpGet: (_, _) async => throw TimeoutException('Timed out'),
+      );
+      final timeoutRes = await timeoutService.checkForUpdateWithStatus(force: true);
+      expect(timeoutRes.status, UpdateCheckStatus.errorOfflineOrTimeout);
+    });
+
+    test('returns errorRateLimited on HTTP 403 and 429', () async {
+      for (final code in [403, 429]) {
+        final rateLimitService = AppUpdateService(
+          db,
+          now: () => fakeNow,
+          versionReader: () async => '0.9.1-beta.2+2',
+          httpGet: (_, _) async => (statusCode: code, body: 'Rate limit exceeded'),
+        );
+        final res = await rateLimitService.checkForUpdateWithStatus(force: true);
+        expect(res.status, UpdateCheckStatus.errorRateLimited);
+        expect(await rateLimitService.checkForUpdate(), isNull);
+      }
+    });
+
+    test('returns errorInvalidResponse on HTTP 404 and invalid JSON', () async {
+      final notFoundService = AppUpdateService(
+        db,
+        now: () => fakeNow,
+        versionReader: () async => '0.9.1-beta.2+2',
+        httpGet: (_, _) async => (statusCode: 404, body: '{"message": "Not Found"}'),
+      );
+      final notFoundRes = await notFoundService.checkForUpdateWithStatus(force: true);
+      expect(notFoundRes.status, UpdateCheckStatus.errorInvalidResponse);
+
+      final invalidJsonService = AppUpdateService(
+        db,
+        now: () => fakeNow,
+        versionReader: () async => '0.9.1-beta.2+2',
+        httpGet: (_, _) async => (statusCode: 200, body: '{not valid json'),
+      );
+      final invalidJsonRes = await invalidJsonService.checkForUpdateWithStatus(force: true);
+      expect(invalidJsonRes.status, UpdateCheckStatus.errorInvalidResponse);
+      expect(await invalidJsonService.checkForUpdate(), isNull);
     });
   });
 }

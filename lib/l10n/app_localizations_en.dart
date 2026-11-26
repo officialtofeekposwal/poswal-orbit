@@ -1039,4 +1039,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get updateSkipVersionBtn => 'Skip this version';
+
+  @override
+  String get updateCheckOffline =>
+      'Unable to check for updates. Check your internet connection.';
+
+  @override
+  String get updateCheckRateLimited =>
+      'GitHub rate limit reached. Please try again later.';
+
+  @override
+  String get updateCheckFailed => 'Could not check for updates right now.';
 }

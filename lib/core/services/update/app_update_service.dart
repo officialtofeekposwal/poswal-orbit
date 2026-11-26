@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -11,6 +12,27 @@ typedef UpdateHttpGet = Future<({int statusCode, String body})> Function(
 );
 
 typedef CurrentVersionReader = Future<String> Function();
+
+enum UpdateCheckStatus {
+  upToDate,
+  updateAvailable,
+  skippedByUser,
+  throttled,
+  disabled,
+  errorOfflineOrTimeout,
+  errorRateLimited,
+  errorInvalidResponse,
+}
+
+class UpdateCheckResult {
+  final UpdateCheckStatus status;
+  final AppReleaseInfo? release;
+
+  const UpdateCheckResult({
+    required this.status,
+    this.release,
+  });
+}
 
 class AppUpdateService {
   static const String repoReleasesUrl =
@@ -43,10 +65,10 @@ class AppUpdateService {
     final client = HttpClient();
     client.connectionTimeout = const Duration(seconds: 10);
     try {
-      final request = await client.getUrl(uri);
+      final request = await client.getUrl(uri).timeout(const Duration(seconds: 10));
       headers.forEach((k, v) => request.headers.set(k, v));
-      final response = await request.close();
-      final body = await response.transform(utf8.decoder).join();
+      final response = await request.close().timeout(const Duration(seconds: 10));
+      final body = await response.transform(utf8.decoder).join().timeout(const Duration(seconds: 10));
       return (statusCode: response.statusCode, body: body);
     } finally {
       client.close();
@@ -104,18 +126,25 @@ class AppUpdateService {
     return _versionReader();
   }
 
-  /// Checks GitHub Releases for a newer release.
-  /// Returns [AppReleaseInfo] if a newer non-skipped release is available, otherwise null.
+  /// Convenience wrapper returning [AppReleaseInfo] only when an update is available.
   Future<AppReleaseInfo?> checkForUpdate({bool force = false}) async {
+    final res = await checkForUpdateWithStatus(force: force);
+    return res.status == UpdateCheckStatus.updateAvailable ? res.release : null;
+  }
+
+  /// Checks GitHub Releases for a newer release and reports detailed status.
+  Future<UpdateCheckResult> checkForUpdateWithStatus({bool force = false}) async {
     final nowMs = _now().millisecondsSinceEpoch;
 
     if (!force) {
       final autoEnabled = await isAutoCheckEnabled();
-      if (!autoEnabled) return null;
+      if (!autoEnabled) {
+        return const UpdateCheckResult(status: UpdateCheckStatus.disabled);
+      }
 
       final lastCheck = await getLastCheckEpoch();
       if (lastCheck != null && (nowMs - lastCheck) < checkIntervalMs) {
-        return null;
+        return const UpdateCheckResult(status: UpdateCheckStatus.throttled);
       }
     }
 
@@ -128,39 +157,80 @@ class AppUpdateService {
       final latestResp = await _httpGet(Uri.parse('$repoReleasesUrl/latest'), headers);
       await _setSetting(keyLastCheckEpoch, nowMs.toString());
 
+      if (latestResp.statusCode == 403 || latestResp.statusCode == 429) {
+        return const UpdateCheckResult(status: UpdateCheckStatus.errorRateLimited);
+      }
+
       AppReleaseInfo? candidate;
       if (latestResp.statusCode == 200) {
         final decoded = jsonDecode(latestResp.body);
-        if (decoded is Map<String, dynamic>) {
-          candidate = AppReleaseInfo.fromJson(decoded);
+        if (decoded is! Map<String, dynamic>) {
+          return const UpdateCheckResult(status: UpdateCheckStatus.errorInvalidResponse);
         }
-      } else {
+        candidate = AppReleaseInfo.fromJson(decoded);
+      } else if (latestResp.statusCode == 404) {
         // Fallback: Check all releases (includes pre-releases when /latest returns 404)
         final listResp = await _httpGet(Uri.parse(repoReleasesUrl), headers);
-        if (listResp.statusCode == 200) {
-          final decoded = jsonDecode(listResp.body);
-          if (decoded is List && decoded.isNotEmpty && decoded.first is Map<String, dynamic>) {
-            candidate = AppReleaseInfo.fromJson(decoded.first as Map<String, dynamic>);
-          }
+        if (listResp.statusCode == 403 || listResp.statusCode == 429) {
+          return const UpdateCheckResult(status: UpdateCheckStatus.errorRateLimited);
         }
+        if (listResp.statusCode == 404) {
+          return const UpdateCheckResult(status: UpdateCheckStatus.errorInvalidResponse);
+        }
+        if (listResp.statusCode != 200) {
+          return const UpdateCheckResult(status: UpdateCheckStatus.errorInvalidResponse);
+        }
+        final decoded = jsonDecode(listResp.body);
+        if (decoded is! List) {
+          return const UpdateCheckResult(status: UpdateCheckStatus.errorInvalidResponse);
+        }
+        if (decoded.isEmpty) {
+          return const UpdateCheckResult(status: UpdateCheckStatus.upToDate);
+        }
+        if (decoded.first is! Map<String, dynamic>) {
+          return const UpdateCheckResult(status: UpdateCheckStatus.errorInvalidResponse);
+        }
+        candidate = AppReleaseInfo.fromJson(decoded.first as Map<String, dynamic>);
+      } else {
+        return const UpdateCheckResult(status: UpdateCheckStatus.errorInvalidResponse);
       }
 
-      if (candidate == null || candidate.tagName.isEmpty) return null;
+      if (candidate.tagName.isEmpty) {
+        return const UpdateCheckResult(status: UpdateCheckStatus.errorInvalidResponse);
+      }
 
       if (!force) {
         final skipped = await getSkippedTag();
-        if (skipped == candidate.tagName) return null;
+        if (skipped == candidate.tagName) {
+          return const UpdateCheckResult(status: UpdateCheckStatus.skippedByUser);
+        }
       }
 
       final currentStr = await _versionReader();
       final currentVer = AppVersion.tryParse(currentStr);
       final remoteVer = AppVersion.tryParse(candidate.tagName);
 
-      if (currentVer == null || remoteVer == null) return null;
+      if (currentVer == null || remoteVer == null) {
+        return const UpdateCheckResult(status: UpdateCheckStatus.errorInvalidResponse);
+      }
 
-      return remoteVer.isNewerThan(currentVer) ? candidate : null;
+      if (remoteVer.isNewerThan(currentVer)) {
+        return UpdateCheckResult(
+          status: UpdateCheckStatus.updateAvailable,
+          release: candidate,
+        );
+      }
+      return const UpdateCheckResult(status: UpdateCheckStatus.upToDate);
+    } on SocketException {
+      return const UpdateCheckResult(status: UpdateCheckStatus.errorOfflineOrTimeout);
+    } on TimeoutException {
+      return const UpdateCheckResult(status: UpdateCheckStatus.errorOfflineOrTimeout);
+    } on HttpException {
+      return const UpdateCheckResult(status: UpdateCheckStatus.errorOfflineOrTimeout);
+    } on FormatException {
+      return const UpdateCheckResult(status: UpdateCheckStatus.errorInvalidResponse);
     } catch (_) {
-      return null;
+      return const UpdateCheckResult(status: UpdateCheckStatus.errorInvalidResponse);
     }
   }
 }

@@ -1044,4 +1044,15 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get updateSkipVersionBtn => 'यह संस्करण छोड़ें';
+
+  @override
+  String get updateCheckOffline =>
+      'अपडेट की जाँच नहीं हो सकी। अपना इंटरनेट कनेक्शन जांचें।';
+
+  @override
+  String get updateCheckRateLimited =>
+      'GitHub दर सीमा पूरी हो गई है। कृपया बाद में पुनः प्रयास करें।';
+
+  @override
+  String get updateCheckFailed => 'अभी अपडेट की जाँच नहीं की जा सकी।';
 }

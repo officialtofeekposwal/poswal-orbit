@@ -546,5 +546,8 @@
   "updateUpToDate": "You are on the latest version",
   "updateDownloadBtn": "Download update",
   "updateLaterBtn": "Later",
-  "updateSkipVersionBtn": "Skip this version"
+  "updateSkipVersionBtn": "Skip this version",
+  "updateCheckOffline": "Unable to check for updates. Check your internet connection.",
+  "updateCheckRateLimited": "GitHub rate limit reached. Please try again later.",
+  "updateCheckFailed": "Could not check for updates right now."
 }

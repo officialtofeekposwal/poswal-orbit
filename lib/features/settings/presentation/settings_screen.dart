@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
+import 'package:poswal_orbit/core/services/update/app_update_service.dart';
 import 'package:poswal_orbit/core/services/update/update_providers.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
@@ -59,13 +60,39 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     if (_isCheckingUpdate) return;
     setState(() => _isCheckingUpdate = true);
     try {
-      final release = await ref.read(appUpdateServiceProvider).checkForUpdate(force: true);
+      final result = await ref.read(appUpdateServiceProvider).checkForUpdateWithStatus(force: true);
       if (!mounted) return;
-      if (release != null) {
-        await UpdateBottomSheet.show(context, release);
-      } else {
-        final l10n = AppLocalizations.of(context);
-        _showToast(l10n?.updateUpToDate ?? 'You are on the latest version');
+      final l10n = AppLocalizations.of(context);
+      switch (result.status) {
+        case UpdateCheckStatus.updateAvailable:
+          if (result.release != null) {
+            await UpdateBottomSheet.show(context, result.release!);
+          }
+          break;
+        case UpdateCheckStatus.upToDate:
+          _showToast(l10n?.updateUpToDate ?? 'You are on the latest version');
+          break;
+        case UpdateCheckStatus.errorOfflineOrTimeout:
+          _showToast(
+            l10n?.updateCheckOffline ?? 'Unable to check for updates. Check your internet connection.',
+            isError: true,
+          );
+          break;
+        case UpdateCheckStatus.errorRateLimited:
+          _showToast(
+            l10n?.updateCheckRateLimited ?? 'GitHub rate limit reached. Please try again later.',
+            isError: true,
+          );
+          break;
+        case UpdateCheckStatus.errorInvalidResponse:
+        case UpdateCheckStatus.skippedByUser:
+        case UpdateCheckStatus.throttled:
+        case UpdateCheckStatus.disabled:
+          _showToast(
+            l10n?.updateCheckFailed ?? 'Could not check for updates right now.',
+            isError: true,
+          );
+          break;
       }
     } finally {
       if (mounted) setState(() => _isCheckingUpdate = false);

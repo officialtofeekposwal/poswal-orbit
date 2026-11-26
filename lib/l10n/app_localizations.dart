@@ -1989,6 +1989,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Skip this version'**
   String get updateSkipVersionBtn;
+
+  /// No description provided for @updateCheckOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to check for updates. Check your internet connection.'**
+  String get updateCheckOffline;
+
+  /// No description provided for @updateCheckRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitHub rate limit reached. Please try again later.'**
+  String get updateCheckRateLimited;
+
+  /// No description provided for @updateCheckFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not check for updates right now.'**
+  String get updateCheckFailed;
 }
 
 class _AppLocalizationsDelegate
