@@ -209,7 +209,6 @@ void main() {
       expect(find.text('Current streak'), findsOneWidget);
       expect(find.text('Best streak'), findsOneWidget);
       expect(find.text('Habit score'), findsOneWidget);
-      expect(find.text('Completion rate'), findsOneWidget);
       expect(find.byType(HabitHeatmap), findsOneWidget);
       expect(find.byType(HabitMonthCalendar), findsOneWidget);
 

@@ -148,30 +148,15 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
                       vertical: PoswalSpacing.sm,
                     ),
                     decoration: BoxDecoration(
-                      color: isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight,
+                      color: isDark ? PoswalColors.surfaceDark : PoswalColors.surfaceLight,
                       borderRadius: BorderRadius.circular(PoswalRadii.card),
-                      border: Border.all(
-                        color: isDark ? Colors.white.withValues(alpha: 0.08) : Colors.black.withValues(alpha: 0.06),
-                        width: 1.0,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: isDark ? 0.20 : 0.04),
-                          blurRadius: 10,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
                     ),
                     child: Row(
                       children: [
-                        Container(
-                          width: 32,
-                          height: 32,
-                          decoration: BoxDecoration(
-                            color: PoswalColors.gold.withValues(alpha: 0.18),
-                            shape: BoxShape.circle,
-                          ),
-                          child: const Icon(PhosphorIconsFill.shieldCheck, color: PoswalColors.gold, size: 18),
+                        Icon(
+                          PhosphorIconsRegular.shieldCheck,
+                          color: isDark ? PoswalColors.teal : PoswalColors.tealLight,
+                          size: 20,
                         ),
                         const SizedBox(width: PoswalSpacing.sm),
                         Expanded(
@@ -228,7 +213,7 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(PhosphorIconsRegular.target, size: 48, color: PoswalColors.teal),
+                const Icon(PhosphorIconsRegular.target, size: 24, color: PoswalColors.teal),
                 const SizedBox(height: PoswalSpacing.md),
                 Text(l10n?.noHabitsYet ?? 'No Habits Yet', style: PoswalText.headline.copyWith(color: textPrimary)),
                 const SizedBox(height: PoswalSpacing.xs),
@@ -237,8 +222,13 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
                   style: PoswalText.callout.copyWith(color: textMuted),
                 ),
                 const SizedBox(height: PoswalSpacing.lg),
-                AppGlassButton(
-                  isPrimary: true,
+                FilledButton(
+                  style: FilledButton.styleFrom(
+                    backgroundColor: isDark ? PoswalColors.teal : PoswalColors.tealLight,
+                    foregroundColor: isDark ? PoswalColors.ink : PoswalColors.surfaceLight,
+                    minimumSize: const Size(0, PoswalRowHeights.minTouchTarget),
+                    shape: const StadiumBorder(),
+                  ),
                   onPressed: () => _openCreateSheet(context),
                   child: Text(l10n?.addHabit ?? 'Add Habit'),
                 ),
@@ -276,11 +266,8 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
               key: ValueKey(habit.id),
               margin: const EdgeInsets.only(bottom: PoswalSpacing.md),
               decoration: BoxDecoration(
-                color: isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight,
+                color: isDark ? PoswalColors.surfaceDark : PoswalColors.surfaceLight,
                 borderRadius: BorderRadius.circular(PoswalRadii.card),
-                border: Border.all(
-                  color: isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.06),
-                ),
               ),
               child: InkWell(
                 borderRadius: BorderRadius.circular(PoswalRadii.card),
@@ -289,18 +276,10 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
                   padding: const EdgeInsets.all(PoswalSpacing.md),
                   child: Row(
                     children: [
-                      Container(
-                        width: 42,
-                        height: 42,
-                        decoration: BoxDecoration(
-                          color: habitColor.withValues(alpha: 0.2),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          HabitIconHelper.getIcon(habit.iconName),
-                          color: habitColor,
-                          size: 20,
-                        ),
+                      Icon(
+                        HabitIconHelper.getIcon(habit.iconName),
+                        color: habitColor,
+                        size: 22,
                       ),
                       const SizedBox(width: PoswalSpacing.md),
                       Expanded(
@@ -323,14 +302,14 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(PhosphorIconsRegular.pencilSimple, size: 18),
+                        icon: const Icon(PhosphorIconsRegular.pencilSimple, size: 20),
                         color: textMuted,
                         onPressed: () => _openEditSheet(context, habit),
                       ),
                       const SizedBox(width: 4),
                       ReorderableDragStartListener(
                         index: index,
-                        child: const Icon(PhosphorIconsRegular.dotsSixVertical, color: Colors.grey, size: 20),
+                        child: Icon(PhosphorIconsRegular.dotsSixVertical, color: textMuted, size: 20),
                       ),
                     ],
                   ),
@@ -359,7 +338,7 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(PhosphorIconsRegular.archiveBox, size: 48, color: PoswalColors.violet),
+                Icon(PhosphorIconsRegular.archiveBox, size: 24, color: isDark ? PoswalColors.teal : PoswalColors.tealLight),
                 const SizedBox(height: PoswalSpacing.md),
                 Text(l10n?.noArchivedHabits ?? 'No Archived Habits', style: PoswalText.headline.copyWith(color: textPrimary)),
                 const SizedBox(height: PoswalSpacing.xs),
@@ -390,26 +369,15 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
               margin: const EdgeInsets.only(bottom: PoswalSpacing.md),
               padding: const EdgeInsets.all(PoswalSpacing.md),
               decoration: BoxDecoration(
-                color: isDark ? PoswalColors.surfaceDark2.withValues(alpha: 0.6) : Colors.black.withValues(alpha: 0.03),
+                color: isDark ? PoswalColors.surfaceDark : PoswalColors.surfaceLight,
                 borderRadius: BorderRadius.circular(PoswalRadii.card),
-                border: Border.all(
-                  color: isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.06),
-                ),
               ),
               child: Row(
                 children: [
-                  Container(
-                    width: 42,
-                    height: 42,
-                    decoration: BoxDecoration(
-                      color: habitColor.withValues(alpha: 0.15),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      HabitIconHelper.getIcon(habit.iconName),
-                      color: habitColor.withValues(alpha: 0.6),
-                      size: 20,
-                    ),
+                  Icon(
+                    HabitIconHelper.getIcon(habit.iconName),
+                    color: habitColor.withValues(alpha: 0.6),
+                    size: 22,
                   ),
                   const SizedBox(width: PoswalSpacing.md),
                   Expanded(

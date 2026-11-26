@@ -26,24 +26,13 @@ class HabitWeeklyBars extends StatelessWidget {
 
     final List<String> dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-    final cardBg = isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight;
-    final borderColor = isDark
-        ? Colors.white.withValues(alpha: 0.08)
-        : Colors.black.withValues(alpha: 0.06);
+    final cardBg = isDark ? PoswalColors.surfaceDark : PoswalColors.surfaceLight;
 
     return Container(
       padding: const EdgeInsets.all(PoswalSpacing.lg),
       decoration: BoxDecoration(
         color: cardBg,
         borderRadius: BorderRadius.circular(PoswalRadii.card),
-        border: Border.all(color: borderColor, width: 1.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: isDark ? 0.20 : 0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +45,6 @@ class HabitWeeklyBars extends StatelessWidget {
                 style: PoswalText.caption.copyWith(
                   color: textMuted,
                   fontWeight: FontWeight.w700,
-                  letterSpacing: 0.8,
                 ),
               ),
               Text(
@@ -126,23 +114,9 @@ class HabitWeeklyBars extends StatelessWidget {
           height: barHeight,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(PoswalRadii.xs),
-            gradient: LinearGradient(
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              colors: [
-                count > 0 ? habitColor : (isDark ? Colors.white10 : Colors.black12),
-                count > 0 ? habitColor.withValues(alpha: 0.70) : (isDark ? Colors.white10 : Colors.black12),
-              ],
-            ),
-            boxShadow: count > 0
-                ? [
-                    BoxShadow(
-                      color: habitColor.withValues(alpha: 0.30),
-                      blurRadius: 6,
-                      offset: const Offset(0, 2),
-                    ),
-                  ]
-                : null,
+            color: count > 0
+                ? habitColor
+                : textMuted.withValues(alpha: 0.14),
           ),
         ),
         const SizedBox(height: PoswalSpacing.xs),
@@ -193,24 +167,13 @@ class HabitTrendLine extends StatelessWidget {
       points.add(trendVal);
     }
 
-    final cardBg = isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight;
-    final borderColor = isDark
-        ? Colors.white.withValues(alpha: 0.08)
-        : Colors.black.withValues(alpha: 0.06);
+    final cardBg = isDark ? PoswalColors.surfaceDark : PoswalColors.surfaceLight;
 
     return Container(
       padding: const EdgeInsets.all(PoswalSpacing.lg),
       decoration: BoxDecoration(
         color: cardBg,
         borderRadius: BorderRadius.circular(PoswalRadii.card),
-        border: Border.all(color: borderColor, width: 1.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: isDark ? 0.20 : 0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -223,7 +186,6 @@ class HabitTrendLine extends StatelessWidget {
                 style: PoswalText.caption.copyWith(
                   color: textMuted,
                   fontWeight: FontWeight.w700,
-                  letterSpacing: 0.8,
                 ),
               ),
               Text(
@@ -246,6 +208,7 @@ class HabitTrendLine extends StatelessWidget {
                 points: points,
                 lineColor: habitColor,
                 fillColor: habitColor.withValues(alpha: 0.15),
+                dotStrokeColor: cardBg,
               ),
             ),
           ),
@@ -259,11 +222,13 @@ class _TrendLinePainter extends CustomPainter {
   final List<double> points;
   final Color lineColor;
   final Color fillColor;
+  final Color dotStrokeColor;
 
   _TrendLinePainter({
     required this.points,
     required this.lineColor,
     required this.fillColor,
+    required this.dotStrokeColor,
   });
 
   @override
@@ -313,7 +278,7 @@ class _TrendLinePainter extends CustomPainter {
     // Draw last point dot
     final lastX = size.width;
     final lastY = size.height - (points.last * (size.height - 16)) - 8;
-    canvas.drawCircle(Offset(lastX, lastY), 4, Paint()..color = Colors.white);
+    canvas.drawCircle(Offset(lastX, lastY), 4, Paint()..color = dotStrokeColor);
     canvas.drawCircle(Offset(lastX, lastY), 2.5, Paint()..color = lineColor);
   }
 

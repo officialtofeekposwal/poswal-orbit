@@ -60,24 +60,14 @@ class HabitHeatmap extends StatelessWidget {
       columns.add(weekDays);
     }
 
-    final cardBg = isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight;
-    final borderColor = isDark
-        ? Colors.white.withValues(alpha: 0.08)
-        : Colors.black.withValues(alpha: 0.06);
+    final cardBg = isDark ? PoswalColors.surfaceDark : PoswalColors.surfaceLight;
+    final warningColor = isDark ? PoswalColors.warning : PoswalColors.warningLight;
 
     return Container(
       padding: const EdgeInsets.all(PoswalSpacing.lg),
       decoration: BoxDecoration(
         color: cardBg,
         borderRadius: BorderRadius.circular(PoswalRadii.card),
-        border: Border.all(color: borderColor, width: 1.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: isDark ? 0.20 : 0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,7 +84,7 @@ class HabitHeatmap extends StatelessWidget {
                             height: 10,
                             decoration: BoxDecoration(
                               color: habitColor,
-                              shape: BoxShape.circle,
+                              borderRadius: BorderRadius.circular(PoswalRadii.pill),
                             ),
                           ),
                           const SizedBox(width: PoswalSpacing.xs),
@@ -116,7 +106,6 @@ class HabitHeatmap extends StatelessWidget {
                         style: PoswalText.caption.copyWith(
                           color: textMuted,
                           fontWeight: FontWeight.w700,
-                          letterSpacing: 0.8,
                         ),
                       ),
               ),
@@ -188,7 +177,7 @@ class HabitHeatmap extends StatelessWidget {
             children: [
               Text(l10n?.heatmapLess ?? 'Less', style: PoswalText.micro.copyWith(color: textMuted)),
               const SizedBox(width: PoswalSpacing.xs),
-              _buildLegendBox(isDark ? Colors.white.withValues(alpha: 0.05) : Colors.black.withValues(alpha: 0.05)),
+              _buildLegendBox(textMuted.withValues(alpha: 0.14)),
               const SizedBox(width: PoswalSpacing.xxs),
               _buildLegendBox(habitColor.withValues(alpha: 0.35)),
               const SizedBox(width: PoswalSpacing.xxs),
@@ -202,9 +191,8 @@ class HabitHeatmap extends StatelessWidget {
                 width: 10,
                 height: 10,
                 decoration: BoxDecoration(
-                  color: PoswalColors.gold.withValues(alpha: 0.25),
-                  shape: BoxShape.circle,
-                  border: Border.all(color: PoswalColors.gold, width: 1.5),
+                  color: warningColor.withValues(alpha: 0.35),
+                  borderRadius: BorderRadius.circular(PoswalRadii.xxs),
                 ),
               ),
               const SizedBox(width: 4),
@@ -257,10 +245,11 @@ class HabitHeatmap extends StatelessWidget {
     final isFuture = day.isAfter(DateTime.now());
     final isScheduled = ScheduleEngine.isScheduledOn(habit, day);
 
-    Color cellColor = isDark
-        ? Colors.white.withValues(alpha: 0.05)
-        : Colors.black.withValues(alpha: 0.05);
-    Border? border;
+    final textSecondary = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
+    final warningColor = isDark ? PoswalColors.warning : PoswalColors.warningLight;
+    final accent = isDark ? PoswalColors.teal : PoswalColors.tealLight;
+
+    Color cellColor = textSecondary.withValues(alpha: 0.12);
 
     if (entry != null && entry.isDone) {
       if (habit.isNumeric && habit.targetValue > 0) {
@@ -270,17 +259,12 @@ class HabitHeatmap extends StatelessWidget {
         cellColor = habitColor;
       }
     } else if (entry != null && entry.isSkipped) {
-      cellColor = PoswalColors.gold.withValues(alpha: 0.25);
-      border = Border.all(color: PoswalColors.gold, width: 1.2);
+      cellColor = warningColor.withValues(alpha: 0.40);
     } else if (isScheduled && !isFuture && day.isAfter(habit.startDate.subtract(const Duration(days: 1)))) {
       // Scheduled past day missed
-      cellColor = isDark
-          ? Colors.white.withValues(alpha: 0.08)
-          : Colors.black.withValues(alpha: 0.08);
-    }
-
-    if (isToday) {
-      border = Border.all(color: PoswalColors.teal, width: 1.5);
+      cellColor = textSecondary.withValues(alpha: 0.22);
+    } else if (isToday) {
+      cellColor = accent.withValues(alpha: 0.30);
     }
 
     return GestureDetector(
@@ -303,7 +287,6 @@ class HabitHeatmap extends StatelessWidget {
           decoration: BoxDecoration(
             color: cellColor,
             borderRadius: BorderRadius.circular(PoswalRadii.xxs),
-            border: border,
           ),
         ),
       ),

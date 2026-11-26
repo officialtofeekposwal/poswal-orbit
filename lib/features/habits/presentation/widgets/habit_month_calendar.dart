@@ -71,24 +71,13 @@ class _HabitMonthCalendarState extends State<HabitMonthCalendar> {
 
     final int totalCells = ((firstWeekdayOffset + daysInMonth + 6) ~/ 7) * 7;
 
-    final cardBg = isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight;
-    final borderColor = isDark
-        ? Colors.white.withValues(alpha: 0.08)
-        : Colors.black.withValues(alpha: 0.06);
+    final cardBg = isDark ? PoswalColors.surfaceDark : PoswalColors.surfaceLight;
 
     return Container(
       padding: const EdgeInsets.all(PoswalSpacing.lg),
       decoration: BoxDecoration(
         color: cardBg,
         borderRadius: BorderRadius.circular(PoswalRadii.card),
-        border: Border.all(color: borderColor, width: 1.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: isDark ? 0.20 : 0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,20 +91,19 @@ class _HabitMonthCalendarState extends State<HabitMonthCalendar> {
                 style: PoswalText.caption.copyWith(
                   color: textPrimary,
                   fontWeight: FontWeight.w700,
-                  letterSpacing: 0.8,
                 ),
               ),
               Row(
                 children: [
                   IconButton(
                     onPressed: _previousMonth,
-                    icon: const Icon(PhosphorIconsRegular.caretLeft, size: 18),
+                    icon: const Icon(PhosphorIconsRegular.caretLeft, size: 20),
                     color: textMuted,
                     visualDensity: VisualDensity.compact,
                   ),
                   IconButton(
                     onPressed: _nextMonth,
-                    icon: const Icon(PhosphorIconsRegular.caretRight, size: 18),
+                    icon: const Icon(PhosphorIconsRegular.caretRight, size: 20),
                     color: textMuted,
                     visualDensity: VisualDensity.compact,
                   ),
@@ -170,24 +158,24 @@ class _HabitMonthCalendarState extends State<HabitMonthCalendar> {
               final isFuture = cellDate.isAfter(today);
               final isScheduled = ScheduleEngine.isScheduledOn(widget.habit, cellDate);
 
+              final warningColor = isDark ? PoswalColors.warning : PoswalColors.warningLight;
+              final accent = isDark ? PoswalColors.teal : PoswalColors.tealLight;
+
               Color bgColor = Colors.transparent;
               Color textColor = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
-              Border? border;
 
               if (entry != null && entry.isDone) {
                 bgColor = habitColor.withValues(alpha: 0.90);
-                textColor = Colors.white;
+                textColor = PoswalColors.surfaceLight;
               } else if (entry != null && entry.isSkipped) {
-                bgColor = PoswalColors.gold.withValues(alpha: 0.20);
-                textColor = PoswalColors.gold;
-                border = Border.all(color: PoswalColors.gold, width: 1.5);
+                bgColor = warningColor.withValues(alpha: 0.20);
+                textColor = warningColor;
               } else if (isScheduled && !isFuture && cellDate.isAfter(widget.habit.startDate.subtract(const Duration(days: 1)))) {
-                bgColor = isDark ? Colors.white.withValues(alpha: 0.05) : Colors.black.withValues(alpha: 0.04);
+                bgColor = textMuted.withValues(alpha: 0.12);
                 textColor = textMuted;
-              }
-
-              if (isToday) {
-                border = Border.all(color: PoswalColors.teal, width: 2.0);
+              } else if (isToday) {
+                bgColor = accent.withValues(alpha: 0.18);
+                textColor = accent;
               }
 
               return GestureDetector(
@@ -204,8 +192,7 @@ class _HabitMonthCalendarState extends State<HabitMonthCalendar> {
                 child: Container(
                   decoration: BoxDecoration(
                     color: bgColor,
-                    shape: BoxShape.circle,
-                    border: border,
+                    borderRadius: BorderRadius.circular(PoswalRadii.pill),
                   ),
                   child: Center(
                     child: Text(
