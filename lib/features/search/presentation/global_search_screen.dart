@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
-import 'package:poswal_orbit/core/widgets/aurora_background.dart';
+import 'package:poswal_orbit/core/widgets/app_background.dart';
 import 'package:poswal_orbit/domain/models/search_models.dart';
 import 'package:poswal_orbit/features/habits/presentation/habit_detail_screen.dart';
 import 'package:poswal_orbit/features/notes/presentation/note_editor_screen.dart';
@@ -166,7 +166,7 @@ class _GlobalSearchScreenState extends ConsumerState<GlobalSearchScreen> {
     final resultsAsync = ref.watch(globalSearchResultsProvider);
     final query = ref.watch(searchQueryProvider);
 
-    return AuroraBackground(
+    return AppBackground(
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: SafeArea(

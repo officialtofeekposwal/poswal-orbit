@@ -4,10 +4,10 @@ import 'package:poswal_orbit/core/theme/poswal_theme.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 
 /// Plain system background wrapper for dark, light, and OLED modes.
-class AuroraBackground extends ConsumerWidget {
+class AppBackground extends ConsumerWidget {
   final Widget child;
 
-  const AuroraBackground({
+  const AppBackground({
     super.key,
     required this.child,
   });

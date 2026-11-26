@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
-import 'package:poswal_orbit/core/widgets/aurora_background.dart';
+import 'package:poswal_orbit/core/widgets/app_background.dart';
 import 'package:poswal_orbit/core/widgets/poswal_orbit_ring.dart';
 import 'package:poswal_orbit/data/vault/vault_providers.dart';
 import 'package:poswal_orbit/features/onboarding/application/onboarding_providers.dart';
@@ -66,7 +66,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: AuroraBackground(
+      body: AppBackground(
         child: SafeArea(
           child: Column(
             children: [

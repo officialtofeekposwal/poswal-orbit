@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:poswal_orbit/core/widgets/aurora_background.dart';
+import 'package:poswal_orbit/core/widgets/app_background.dart';
 import 'package:poswal_orbit/core/widgets/poswal_orbit_ring.dart';
 
 void main() {
@@ -31,14 +31,14 @@ void main() {
     );
   });
 
-  testWidgets('AuroraBackground disables continuous animation loop when animations are disabled', (tester) async {
+  testWidgets('AppBackground disables continuous animation loop when animations are disabled', (tester) async {
     await tester.pumpWidget(
       const ProviderScope(
         child: MaterialApp(
           home: MediaQuery(
             data: MediaQueryData(disableAnimations: true),
             child: Scaffold(
-              body: AuroraBackground(
+              body: AppBackground(
                 child: Text('Content'),
               ),
             ),
@@ -51,7 +51,7 @@ void main() {
     // When animations are disabled, AnimatedBuilder is bypassed and static CustomPaint is rendered
     expect(
       find.descendant(
-        of: find.byType(AuroraBackground),
+        of: find.byType(AppBackground),
         matching: find.byType(AnimatedBuilder),
       ),
       findsNothing,

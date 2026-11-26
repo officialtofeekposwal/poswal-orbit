@@ -9,7 +9,7 @@ import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/core/widgets/app_list_section.dart';
 import 'package:poswal_orbit/core/widgets/app_sheet.dart';
-import 'package:poswal_orbit/core/widgets/aurora_background.dart';
+import 'package:poswal_orbit/core/widgets/app_background.dart';
 import 'package:poswal_orbit/core/widgets/update_bottom_sheet.dart';
 import 'package:poswal_orbit/data/services/data_safety_service.dart';
 import 'package:poswal_orbit/data/services/notification_service.dart';
@@ -499,7 +499,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final reduceTransparency = ref.watch(reduceTransparencyProvider);
     final backupsAsync = ref.watch(availableBackupsProvider);
 
-    return AuroraBackground(
+    return AppBackground(
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(

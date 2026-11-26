@@ -10,7 +10,7 @@ import 'package:poswal_orbit/core/widgets/app_search_field.dart';
 import 'package:poswal_orbit/core/widgets/app_sheet.dart';
 import 'package:poswal_orbit/core/widgets/app_tab_bar.dart';
 import 'package:poswal_orbit/core/widgets/app_toolbar.dart';
-import 'package:poswal_orbit/core/widgets/aurora_background.dart';
+import 'package:poswal_orbit/core/widgets/app_background.dart';
 import 'package:poswal_orbit/core/widgets/poswal_orbit_ring.dart';
 import 'package:poswal_orbit/l10n/app_localizations.dart';
 
@@ -102,7 +102,7 @@ class _DesignPlaygroundScreenState extends ConsumerState<DesignPlaygroundScreen>
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: AuroraBackground(
+      body: AppBackground(
         child: SafeArea(
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),

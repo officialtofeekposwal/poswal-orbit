@@ -8,7 +8,7 @@ import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/core/widgets/app_list_section.dart';
 import 'package:poswal_orbit/core/widgets/app_search_field.dart';
 import 'package:poswal_orbit/core/widgets/app_toolbar.dart';
-import 'package:poswal_orbit/core/widgets/aurora_background.dart';
+import 'package:poswal_orbit/core/widgets/app_background.dart';
 import 'package:poswal_orbit/domain/models/habit_models.dart';
 import 'package:poswal_orbit/domain/models/search_models.dart';
 import 'package:poswal_orbit/features/habits/presentation/habit_detail_screen.dart';
@@ -111,7 +111,7 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
     final isSearching = searchQuery.trim().isNotEmpty;
     final formattedDate = DateFormat('EEEE, MMM d').format(selectedDate);
 
-    return AuroraBackground(
+    return AppBackground(
       child: SafeArea(
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),

@@ -9,7 +9,7 @@ import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/core/widgets/app_search_field.dart';
 import 'package:poswal_orbit/core/widgets/app_sheet.dart';
 import 'package:poswal_orbit/core/widgets/app_toolbar.dart';
-import 'package:poswal_orbit/core/widgets/aurora_background.dart';
+import 'package:poswal_orbit/core/widgets/app_background.dart';
 import 'package:poswal_orbit/domain/logic/date_boundary.dart';
 import 'package:poswal_orbit/domain/models/note_models.dart';
 import 'package:poswal_orbit/features/notes/application/note_providers.dart';
@@ -205,7 +205,7 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
     final notesAsync = ref.watch(notesStreamProvider);
     final selectedTag = ref.watch(noteFilterTagProvider);
 
-    return AuroraBackground(
+    return AppBackground(
       child: SafeArea(
         bottom: false,
         child: CustomScrollView(

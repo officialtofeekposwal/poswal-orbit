@@ -8,7 +8,7 @@ import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/core/widgets/app_sheet.dart';
 import 'package:poswal_orbit/core/widgets/app_toolbar.dart';
-import 'package:poswal_orbit/core/widgets/aurora_background.dart';
+import 'package:poswal_orbit/core/widgets/app_background.dart';
 import 'package:poswal_orbit/data/repositories/note_repository.dart';
 import 'package:poswal_orbit/domain/logic/markdown_editor_engine.dart';
 import 'package:poswal_orbit/domain/logic/markdown_lite.dart';
@@ -406,7 +406,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> with Widget
       onPopInvokedWithResult: (didPop, result) {
         _saveNoteImmediate();
       },
-      child: AuroraBackground(
+      child: AppBackground(
         child: Scaffold(
           backgroundColor: Colors.transparent,
           body: SafeArea(

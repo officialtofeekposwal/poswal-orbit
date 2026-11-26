@@ -6,7 +6,7 @@ import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/core/widgets/app_toolbar.dart';
-import 'package:poswal_orbit/core/widgets/aurora_background.dart';
+import 'package:poswal_orbit/core/widgets/app_background.dart';
 import 'package:poswal_orbit/core/widgets/icon_helper.dart';
 import 'package:poswal_orbit/domain/logic/schedule_engine.dart';
 import 'package:poswal_orbit/domain/models/habit_models.dart';
@@ -96,7 +96,7 @@ class _HabitsScreenState extends ConsumerState<HabitsScreen> {
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: AuroraBackground(
+      body: AppBackground(
         child: SafeArea(
           child: Column(
             children: [

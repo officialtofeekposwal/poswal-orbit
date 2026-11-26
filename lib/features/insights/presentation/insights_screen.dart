@@ -10,7 +10,7 @@ import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
 import 'package:poswal_orbit/core/widgets/app_glass.dart';
 import 'package:poswal_orbit/core/widgets/app_toolbar.dart';
-import 'package:poswal_orbit/core/widgets/aurora_background.dart';
+import 'package:poswal_orbit/core/widgets/app_background.dart';
 import 'package:poswal_orbit/domain/logic/date_boundary.dart';
 import 'package:poswal_orbit/features/insights/application/insights_providers.dart';
 import 'package:poswal_orbit/features/insights/presentation/widgets/habit_insight_row.dart';
@@ -97,7 +97,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: AuroraBackground(
+      body: AppBackground(
         child: SafeArea(
           bottom: false,
           child: CustomScrollView(
