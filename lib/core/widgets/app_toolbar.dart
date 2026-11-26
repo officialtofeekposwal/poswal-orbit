@@ -1,13 +1,11 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_theme.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
-import 'package:poswal_orbit/core/widgets/app_glass.dart';
+import 'package:poswal_orbit/core/widgets/liquid_glass.dart';
 
-/// HIG Grouped Glass Toolbar for screen headers
+/// Grouped Liquid Glass toolbar for screen headers.
 class AppToolbar extends ConsumerWidget {
   final Widget? leading;
   final Widget? title;
@@ -43,8 +41,7 @@ class AppToolbar extends ConsumerWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (actions.isNotEmpty)
-                AppToolbarButtonGroup(buttons: actions),
+              if (actions.isNotEmpty) AppToolbarButtonGroup(buttons: actions),
               if (showAddButton && onAddPressed != null) ...[
                 const SizedBox(width: PoswalSpacing.sm),
                 AppToolbarAddButton(
@@ -61,7 +58,7 @@ class AppToolbar extends ConsumerWidget {
   }
 }
 
-/// A cluster of icon buttons encased in a single unified glass capsule
+/// A cluster of icon buttons encased in a unified Liquid Glass capsule.
 class AppToolbarButtonGroup extends ConsumerWidget {
   final List<Widget> buttons;
 
@@ -72,54 +69,20 @@ class AppToolbarButtonGroup extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mode = ref.watch(appThemeModeProvider);
-    final reduceTransparency = ref.watch(reduceTransparencyProvider);
-    final isDark = mode.isDark;
-
-    Widget container = Container(
+    return LiquidGlass(
+      isCapsule: true,
       height: PoswalRowHeights.minTouchTarget,
       padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.xs),
-      decoration: BoxDecoration(
-        color: (isDark ? Colors.black : Colors.white).withValues(
-          alpha: PoswalGlass.tintOpacity(GlassTier.standard, isDark: isDark),
-        ),
-        borderRadius: BorderRadius.circular(PoswalRadii.capsule),
-        border: Border.all(
-          color: (isDark ? Colors.white : Colors.black).withValues(
-            alpha: PoswalGlass.borderOpacity(GlassTier.standard, isDark: isDark),
-          ),
-          width: PoswalGlass.borderWidth,
-        ),
-      ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: buttons,
       ),
     );
-
-    if (!reduceTransparency && !mode.isOled) {
-      final sigma = PoswalGlass.blurSigma(GlassTier.standard);
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(PoswalRadii.capsule),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
-          child: container,
-        ),
-      );
-    }
-
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(PoswalRadii.capsule),
-      child: Container(
-        color: isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight,
-        child: container,
-      ),
-    );
   }
 }
 
-/// HIG-Aligned Top Trailing Frosted Glass "+" Button
-class AppToolbarAddButton extends ConsumerStatefulWidget {
+/// Top trailing Liquid Glass "+" button with 44x44 minimum touch target.
+class AppToolbarAddButton extends ConsumerWidget {
   final VoidCallback onPressed;
   final String tooltip;
   final Key? buttonKey;
@@ -132,90 +95,29 @@ class AppToolbarAddButton extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<AppToolbarAddButton> createState() => _AppToolbarAddButtonState();
-}
-
-class _AppToolbarAddButtonState extends ConsumerState<AppToolbarAddButton>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _controller;
-  late final Animation<double> _scaleAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: PoswalDurations.micro,
-      reverseDuration: PoswalDurations.micro,
-    );
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.90).animate(
-      CurvedAnimation(parent: _controller, curve: PoswalCurves.standard),
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  void _handleTap() {
-    HapticFeedback.lightImpact();
-    _controller.forward().then((_) {
-      if (mounted) _controller.reverse();
-    });
-    widget.onPressed();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final mode = ref.watch(appThemeModeProvider);
-    final reduceTransparency = ref.watch(reduceTransparencyProvider);
     final isDark = mode.isDark;
-
-    Widget buttonContent = Container(
-      width: PoswalRowHeights.minTouchTarget,
-      height: PoswalRowHeights.minTouchTarget,
-      decoration: BoxDecoration(
-        color: PoswalColors.teal.withValues(alpha: isDark ? 0.22 : 0.15),
-        borderRadius: BorderRadius.circular(PoswalRadii.capsule),
-        border: Border.all(
-          color: PoswalColors.teal.withValues(alpha: isDark ? 0.40 : 0.30),
-          width: 1.2,
-        ),
-      ),
-      child: const Center(
-        child: Icon(
-          PhosphorIconsBold.plus,
-          color: PoswalColors.teal,
-          size: 20,
-        ),
-      ),
-    );
-
-    if (!reduceTransparency && !mode.isOled) {
-      final sigma = PoswalGlass.blurSigma(GlassTier.premium);
-      buttonContent = ClipRRect(
-        borderRadius: BorderRadius.circular(PoswalRadii.capsule),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
-          child: buttonContent,
-        ),
-      );
-    }
+    final accent = isDark ? PoswalColors.teal : PoswalColors.tealLight;
 
     return Semantics(
       button: true,
-      label: widget.tooltip,
+      label: tooltip,
       child: Tooltip(
-        message: widget.tooltip,
-        child: GestureDetector(
-          key: widget.buttonKey ?? const ValueKey('app_toolbar_add_btn'),
-          onTap: _handleTap,
-          behavior: HitTestBehavior.opaque,
-          child: ScaleTransition(
-            scale: _scaleAnimation,
-            child: buttonContent,
+        message: tooltip,
+        child: LiquidGlass(
+          key: buttonKey ?? const ValueKey('app_toolbar_add_btn'),
+          isCapsule: true,
+          width: PoswalRowHeights.minTouchTarget,
+          height: PoswalRowHeights.minTouchTarget,
+          tintColor: accent.withValues(alpha: isDark ? 0.24 : 0.16),
+          onTap: onPressed,
+          child: Center(
+            child: Icon(
+              PhosphorIconsRegular.plus,
+              color: accent,
+              size: 22,
+            ),
           ),
         ),
       ),

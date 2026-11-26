@@ -1,10 +1,9 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:poswal_orbit/core/theme/poswal_theme.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
-import 'package:poswal_orbit/core/widgets/app_glass.dart';
+import 'package:poswal_orbit/core/widgets/liquid_glass.dart';
 
 class AppMenuItem {
   final IconData? icon;
@@ -20,7 +19,7 @@ class AppMenuItem {
   });
 }
 
-/// HIG Floating Glass Menu / Popover
+/// Floating Liquid Glass Menu / Popover
 class AppMenu extends ConsumerWidget {
   final List<AppMenuItem> items;
   final double width;
@@ -31,7 +30,7 @@ class AppMenu extends ConsumerWidget {
     this.width = 220.0,
   });
 
-  /// Displays a glass popover menu originating from a source [targetOffset]
+  /// Displays a glass popover menu at [position].
   static Future<void> show({
     required BuildContext context,
     required RelativeRect position,
@@ -59,42 +58,24 @@ class AppMenu extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final mode = ref.watch(appThemeModeProvider);
-    final reduceTransparency = ref.watch(reduceTransparencyProvider);
     final isDark = mode.isDark;
-    final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
+    final textPrimary =
+        isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
+    final dangerColor = isDark ? PoswalColors.danger : PoswalColors.dangerLight;
 
-    const outerRadius = PoswalRadii.card;
-
-    Widget menuContent = Container(
+    return LiquidGlass(
       width: width,
-      decoration: BoxDecoration(
-        color: (isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight).withValues(
-          alpha: isDark ? 0.85 : 0.92,
-        ),
-        borderRadius: BorderRadius.circular(outerRadius),
-        border: Border.all(
-          color: (isDark ? Colors.white : Colors.black).withValues(
-            alpha: isDark ? 0.16 : 0.10,
-          ),
-          width: PoswalGlass.borderWidth,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: isDark ? 0.40 : 0.12),
-            blurRadius: 24,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(outerRadius),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: List.generate(items.length, (index) {
-            final item = items[index];
-            final color = item.isDestructive ? PoswalColors.danger : textPrimary;
+      borderRadius: PoswalRadii.card,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: List.generate(items.length, (index) {
+          final item = items[index];
+          final color = item.isDestructive ? dangerColor : textPrimary;
 
-            return Material(
+          return Semantics(
+            button: true,
+            label: item.title,
+            child: Material(
               color: Colors.transparent,
               child: InkWell(
                 onTap: () {
@@ -102,55 +83,41 @@ class AppMenu extends ConsumerWidget {
                   Navigator.of(context).pop();
                   item.onTap();
                 },
-                child: Container(
-                  height: PoswalRowHeights.compact,
-                  padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md),
-                  decoration: BoxDecoration(
-                    border: index < items.length - 1
-                        ? Border(
-                            bottom: BorderSide(
-                              color: (isDark ? Colors.white : Colors.black).withValues(alpha: 0.06),
-                              width: 0.5,
-                            ),
-                          )
-                        : null,
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    minHeight: PoswalRowHeights.minTouchTarget,
                   ),
-                  child: Row(
-                    children: [
-                      if (item.icon != null) ...[
-                        Icon(item.icon, size: 18, color: color),
-                        const SizedBox(width: PoswalSpacing.sm),
-                      ],
-                      Expanded(
-                        child: Text(
-                          item.title,
-                          style: PoswalText.callout.copyWith(
-                            color: color,
-                            fontWeight: item.isDestructive ? FontWeight.w600 : FontWeight.w500,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: PoswalSpacing.md,
+                      vertical: PoswalSpacing.sm,
+                    ),
+                    child: Row(
+                      children: [
+                        if (item.icon != null) ...[
+                          Icon(item.icon, size: 20, color: color),
+                          const SizedBox(width: PoswalSpacing.sm),
+                        ],
+                        Expanded(
+                          child: Text(
+                            item.title,
+                            style: PoswalText.callout.copyWith(
+                              color: color,
+                              fontWeight: item.isDestructive
+                                  ? FontWeight.w600
+                                  : FontWeight.w500,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
-            );
-          }),
-        ),
+            ),
+          );
+        }),
       ),
     );
-
-    if (!reduceTransparency && !mode.isOled) {
-      final sigma = PoswalGlass.blurSigma(GlassTier.premium);
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(outerRadius),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
-          child: menuContent,
-        ),
-      );
-    }
-
-    return menuContent;
   }
 }

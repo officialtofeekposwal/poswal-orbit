@@ -1,16 +1,22 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:poswal_orbit/core/theme/poswal_theme.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
-import 'package:poswal_orbit/core/widgets/app_glass.dart';
+import 'package:poswal_orbit/core/widgets/liquid_glass.dart';
 
-/// HIG-Compliant Inset Glass Sheet
+/// Standard sheet detents.
+enum AppSheetDetent {
+  medium,
+  large,
+}
+
+/// Inset sheet with Liquid Glass header/grabber and medium/large detents.
 class AppSheet extends ConsumerWidget {
   final Widget child;
   final String? title;
   final Widget? trailing;
   final bool isFullHeight;
+  final AppSheetDetent detent;
 
   const AppSheet({
     super.key,
@@ -18,9 +24,10 @@ class AppSheet extends ConsumerWidget {
     this.title,
     this.trailing,
     this.isFullHeight = false,
+    this.detent = AppSheetDetent.medium,
   });
 
-  /// Displays an inset half-sheet that allows parent content to peek through
+  /// Displays a modal sheet that allows parent content to peek through.
   static Future<T?> show<T>({
     required BuildContext context,
     required WidgetBuilder builder,
@@ -38,113 +45,114 @@ class AppSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final mode = ref.watch(appThemeModeProvider);
-    final reduceTransparency = ref.watch(reduceTransparencyProvider);
     final isDark = mode.isDark;
-    final textPrimary = isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
+    final textPrimary =
+        isDark ? PoswalColors.textOnDark : PoswalColors.textOnLight;
     final bottomInset = MediaQuery.paddingOf(context).bottom;
     final topInset = MediaQuery.paddingOf(context).top;
+    final screenHeight = MediaQuery.sizeOf(context).height;
 
-    // Sheet Corner Radius
-    const outerRadius = PoswalRadii.sheet;
+    final effectiveDetent =
+        isFullHeight ? AppSheetDetent.large : detent;
+    final double maxSheetHeight = effectiveDetent == AppSheetDetent.large
+        ? screenHeight - (topInset + PoswalSpacing.xxl)
+        : (screenHeight * 0.62).clamp(320.0, screenHeight - topInset - 32.0);
 
-    Widget sheetContainer = Container(
-      constraints: BoxConstraints(
-        maxHeight: MediaQuery.sizeOf(context).height - (topInset + 32.0),
-      ),
+    final Color surfaceColor = isDark
+        ? (mode.isOled ? const Color(0xFF0C0C0E) : PoswalColors.surfaceDark)
+        : PoswalColors.surfaceLight;
+
+    return Container(
+      constraints: BoxConstraints(maxHeight: maxSheetHeight),
       decoration: BoxDecoration(
-        color: (isDark ? PoswalColors.surfaceDark : PoswalColors.surfaceLight).withValues(
-          alpha: isFullHeight ? 0.98 : (isDark ? 0.88 : 0.92),
-        ),
+        color: surfaceColor,
         borderRadius: const BorderRadius.vertical(
-          top: Radius.circular(outerRadius),
-        ),
-        border: Border(
-          top: BorderSide(
-            color: (isDark ? Colors.white : Colors.black).withValues(
-              alpha: isDark ? 0.16 : 0.08,
-            ),
-            width: 1.0,
-          ),
+          top: Radius.circular(PoswalRadii.sheet),
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: isDark ? 0.45 : 0.15),
+            color: Colors.black.withValues(alpha: isDark ? 0.45 : 0.14),
             blurRadius: 32,
             offset: const Offset(0, -8),
           ),
         ],
       ),
-      child: Material(
-        color: Colors.transparent,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Drag Handle
-            const SizedBox(height: PoswalSpacing.sm),
-            Center(
-              child: Container(
-                width: 38,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: (isDark ? Colors.white : Colors.black).withValues(alpha: 0.20),
-                  borderRadius: BorderRadius.circular(PoswalRadii.pill),
-                ),
-              ),
-            ),
-            const SizedBox(height: PoswalSpacing.xs),
-
-            // Optional Title Header
-            if (title != null) ...[
+      child: ClipRRect(
+        borderRadius: const BorderRadius.vertical(
+          top: Radius.circular(PoswalRadii.sheet),
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Glass header and grabber
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: PoswalSpacing.lg,
-                  vertical: PoswalSpacing.xs,
+                padding: const EdgeInsets.fromLTRB(
+                  PoswalSpacing.md,
+                  PoswalSpacing.sm,
+                  PoswalSpacing.md,
+                  PoswalSpacing.xs,
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      title!,
-                      style: PoswalText.headline.copyWith(
-                        color: textPrimary,
-                        fontWeight: FontWeight.w700,
+                child: LiquidGlass(
+                  borderRadius: PoswalRadii.card,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: PoswalSpacing.md,
+                    vertical: title != null ? PoswalSpacing.sm : PoswalSpacing.xs,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Center(
+                        child: Container(
+                          width: 38,
+                          height: 4,
+                          decoration: BoxDecoration(
+                            color: (isDark
+                                    ? PoswalColors.textSecondaryDark
+                                    : PoswalColors.textSecondaryLight)
+                                .withValues(alpha: 0.45),
+                            borderRadius:
+                                BorderRadius.circular(PoswalRadii.pill),
+                          ),
+                        ),
                       ),
-                    ),
-                    ?trailing,
-                  ],
+                      if (title != null) ...[
+                        const SizedBox(height: PoswalSpacing.sm),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                title!,
+                                style: PoswalText.headline.copyWith(
+                                  color: textPrimary,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                            ?trailing,
+                          ],
+                        ),
+                      ],
+                    ],
+                  ),
                 ),
               ),
-              const Divider(height: 1, thickness: 0.5),
-            ],
 
-            // Sheet Content
-            Flexible(
-              child: Padding(
-                padding: EdgeInsets.only(
-                  bottom: bottomInset > 0 ? bottomInset : PoswalSpacing.md,
+              // Sheet Content
+              Flexible(
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    bottom: bottomInset > 0 ? bottomInset : PoswalSpacing.md,
+                  ),
+                  child: child,
                 ),
-                child: child,
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    );
-
-    if (!reduceTransparency && !mode.isOled) {
-      final sigma = PoswalGlass.blurSigma(GlassTier.premium);
-      return ClipRRect(
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(outerRadius)),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
-          child: sheetContainer,
-        ),
-      );
-    }
-
-    return ClipRRect(
-      borderRadius: const BorderRadius.vertical(top: Radius.circular(outerRadius)),
-      child: sheetContainer,
     );
   }
 }

@@ -1,15 +1,18 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/physics.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:poswal_orbit/core/theme/poswal_theme.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
-import 'package:poswal_orbit/core/widgets/app_glass.dart';
+import 'package:poswal_orbit/core/widgets/liquid_glass.dart';
 import 'package:poswal_orbit/l10n/app_localizations.dart';
 
-/// Provider to track scroll direction for auto-minimizing navigation bars
+/// Feature flag for alternative floating-button tab bar style.
+const bool kUseFloatingButtonTabBar = false;
+
+/// Provider to track scroll direction for auto-minimizing navigation bars.
 class ScrollMinimizerNotifier extends Notifier<bool> {
   @override
   bool build() => false; // false = expanded, true = minimized
@@ -44,7 +47,22 @@ class TabItemData {
   });
 }
 
-/// HIG Floating Glass Tab Bar with scroll-edge blur and auto-minimization
+class _SpringCurve extends Curve {
+  final SpringSimulation _sim;
+
+  _SpringCurve()
+      : _sim = SpringSimulation(
+          const SpringDescription(mass: 1.0, stiffness: 320.0, damping: 24.0),
+          0.0,
+          1.0,
+          0.0,
+        );
+
+  @override
+  double transformInternal(double t) => _sim.x(t).clamp(0.0, 1.15);
+}
+
+/// Floating Liquid Glass Tab Bar with sliding spring lens indicator.
 class AppTabBar extends ConsumerWidget {
   final int currentIndex;
   final ValueChanged<int> onTabSelected;
@@ -61,117 +79,112 @@ class AppTabBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final mode = ref.watch(appThemeModeProvider);
-    final reduceTransparency = ref.watch(reduceTransparencyProvider);
-    final reduceMotion = MediaQuery.maybeOf(context)?.disableAnimations ?? false;
+    final reduceMotion = MediaQuery.maybeDisableAnimationsOf(context) ?? false;
     final isMinimized = ref.watch(scrollMinimizerProvider);
 
-    final effectiveTabs = tabs ?? [
-      TabItemData(
-        regularIcon: PhosphorIconsRegular.circleHalfTilt,
-        fillIcon: PhosphorIconsFill.circleHalfTilt,
-        label: l10n?.tabToday ?? 'Today',
-      ),
-      TabItemData(
-        regularIcon: PhosphorIconsRegular.target,
-        fillIcon: PhosphorIconsFill.target,
-        label: l10n?.tabHabits ?? 'Habits',
-      ),
-      TabItemData(
-        regularIcon: PhosphorIconsRegular.checkSquare,
-        fillIcon: PhosphorIconsFill.checkSquare,
-        label: l10n?.tabTasks ?? 'Tasks',
-      ),
-      TabItemData(
-        regularIcon: PhosphorIconsRegular.notepad,
-        fillIcon: PhosphorIconsFill.notepad,
-        label: l10n?.tabNotes ?? 'Notes',
-      ),
-      TabItemData(
-        regularIcon: PhosphorIconsRegular.chartLineUp,
-        fillIcon: PhosphorIconsFill.chartLineUp,
-        label: l10n?.tabInsights ?? 'Insights',
-      ),
-    ];
+    final effectiveTabs = tabs ??
+        [
+          TabItemData(
+            regularIcon: PhosphorIconsRegular.circleHalfTilt,
+            fillIcon: PhosphorIconsFill.circleHalfTilt,
+            label: l10n?.tabToday ?? 'Today',
+          ),
+          TabItemData(
+            regularIcon: PhosphorIconsRegular.target,
+            fillIcon: PhosphorIconsFill.target,
+            label: l10n?.tabHabits ?? 'Habits',
+          ),
+          TabItemData(
+            regularIcon: PhosphorIconsRegular.checkSquare,
+            fillIcon: PhosphorIconsFill.checkSquare,
+            label: l10n?.tabTasks ?? 'Tasks',
+          ),
+          TabItemData(
+            regularIcon: PhosphorIconsRegular.notepad,
+            fillIcon: PhosphorIconsFill.notepad,
+            label: l10n?.tabNotes ?? 'Notes',
+          ),
+          TabItemData(
+            regularIcon: PhosphorIconsRegular.chartLineUp,
+            fillIcon: PhosphorIconsFill.chartLineUp,
+            label: l10n?.tabInsights ?? 'Insights',
+          ),
+        ];
 
     final isDark = mode.isDark;
     final bottomInset = MediaQuery.paddingOf(context).bottom;
+    final barHeight = isMinimized ? 50.0 : PoswalRowHeights.tabBar;
+    final clampedIndex = currentIndex.clamp(0, effectiveTabs.length - 1);
 
-    // Outer radius for the floating bar
-    const outerRadius = PoswalRadii.capsule;
-    const barPadding = EdgeInsets.symmetric(horizontal: PoswalSpacing.sm, vertical: PoswalSpacing.xs);
-
-    // Height calculation: standard vs minimized compact pill
-    final barHeight = isMinimized ? 48.0 : PoswalRowHeights.tabBar;
-
-    Widget barContent = AnimatedContainer(
-      duration: reduceMotion ? Duration.zero : PoswalDurations.standard,
-      curve: PoswalCurves.standard,
-      height: barHeight,
-      padding: barPadding,
-      decoration: BoxDecoration(
-        color: (isDark ? Colors.black : Colors.white).withValues(
-          alpha: PoswalGlass.tintOpacity(GlassTier.standard, isDark: isDark),
-        ),
-        borderRadius: BorderRadius.circular(outerRadius),
-        border: Border.all(
-          color: (isDark ? Colors.white : Colors.black).withValues(
-            alpha: PoswalGlass.borderOpacity(GlassTier.standard, isDark: isDark),
-          ),
-          width: PoswalGlass.borderWidth,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: isDark ? 0.35 : 0.08),
-            blurRadius: 20,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: List.generate(effectiveTabs.length, (index) {
-          final tab = effectiveTabs[index];
-          final isSelected = index == currentIndex;
-
-          return _TabItemButton(
-            index: index,
-            item: tab,
-            isSelected: isSelected,
-            isMinimized: isMinimized,
-            isDark: isDark,
-            onTap: () {
-              HapticFeedback.selectionClick();
-              onTabSelected(index);
-            },
-          );
-        }),
-      ),
-    );
-
-    // Apply frosted blur filter when transparency reduction is off and not OLED true-black
-    if (!reduceTransparency && !mode.isOled) {
-      final sigma = PoswalGlass.blurSigma(GlassTier.standard);
-      barContent = ClipRRect(
-        borderRadius: BorderRadius.circular(outerRadius),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
-          child: barContent,
-        ),
-      );
-    } else {
-      barContent = ClipRRect(
-        borderRadius: BorderRadius.circular(outerRadius),
-        child: Container(
-          color: isDark ? PoswalColors.surfaceDark : PoswalColors.surfaceLight,
-          child: barContent,
-        ),
+    if (kUseFloatingButtonTabBar) {
+      return _buildFloatingButtonBar(
+        context: context,
+        effectiveTabs: effectiveTabs,
+        clampedIndex: clampedIndex,
+        isDark: isDark,
+        bottomInset: bottomInset,
       );
     }
+
+    final activeAccent = isDark ? PoswalColors.teal : PoswalColors.tealLight;
+
+    final Widget barContent = LiquidGlass(
+      isCapsule: true,
+      height: barHeight,
+      padding: const EdgeInsets.symmetric(
+        horizontal: PoswalSpacing.xs,
+        vertical: PoswalSpacing.xs,
+      ),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final count = effectiveTabs.length;
+          final slotWidth = constraints.maxWidth / count;
+          final lensLeft = slotWidth * clampedIndex;
+
+          return Stack(
+            children: [
+              AnimatedPositioned(
+                duration: reduceMotion
+                    ? Duration.zero
+                    : const Duration(milliseconds: 200),
+                curve: reduceMotion ? Curves.linear : _SpringCurve(),
+                left: lensLeft,
+                top: 0,
+                bottom: 0,
+                width: slotWidth,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: activeAccent.withValues(alpha: isDark ? 0.18 : 0.14),
+                    borderRadius: BorderRadius.circular(PoswalRadii.capsule),
+                  ),
+                ),
+              ),
+              Row(
+                children: List.generate(count, (index) {
+                  return Expanded(
+                    child: _TabItemButton(
+                      index: index,
+                      item: effectiveTabs[index],
+                      isSelected: index == clampedIndex,
+                      isMinimized: isMinimized,
+                      isDark: isDark,
+                      onTap: () {
+                        HapticFeedback.selectionClick();
+                        onTabSelected(index);
+                      },
+                    ),
+                  );
+                }),
+              ),
+            ],
+          );
+        },
+      ),
+    );
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // Soft scroll-edge blur mask underneath bar
         Container(
           height: 14,
           decoration: BoxDecoration(
@@ -180,21 +193,60 @@ class AppTabBar extends ConsumerWidget {
               end: Alignment.bottomCenter,
               colors: [
                 Colors.transparent,
-                (isDark ? PoswalColors.ink : PoswalColors.mist).withValues(alpha: 0.6),
+                (isDark ? PoswalColors.ink : PoswalColors.mist)
+                    .withValues(alpha: 0.6),
               ],
             ),
           ),
         ),
-        // Floating glass bar with safe margin from gesture pill
         Padding(
           padding: EdgeInsets.only(
             left: PoswalSpacing.lg,
             right: PoswalSpacing.lg,
-            bottom: bottomInset > 0 ? bottomInset + PoswalSpacing.xs : PoswalSpacing.md,
+            bottom:
+                bottomInset > 0 ? bottomInset + PoswalSpacing.xs : PoswalSpacing.md,
           ),
           child: barContent,
         ),
       ],
+    );
+  }
+
+  Widget _buildFloatingButtonBar({
+    required BuildContext context,
+    required List<TabItemData> effectiveTabs,
+    required int clampedIndex,
+    required bool isDark,
+    required double bottomInset,
+  }) {
+    return Padding(
+      padding: EdgeInsets.only(
+        left: PoswalSpacing.lg,
+        right: PoswalSpacing.lg,
+        bottom:
+            bottomInset > 0 ? bottomInset + PoswalSpacing.xs : PoswalSpacing.md,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: List.generate(effectiveTabs.length, (index) {
+          return LiquidGlass(
+            isCapsule: true,
+            width: PoswalRowHeights.minTouchTarget + 8,
+            height: PoswalRowHeights.minTouchTarget + 8,
+            child: _TabItemButton(
+              index: index,
+              item: effectiveTabs[index],
+              isSelected: index == clampedIndex,
+              isMinimized: true,
+              isDark: isDark,
+              onTap: () {
+                HapticFeedback.selectionClick();
+                onTabSelected(index);
+              },
+            ),
+          );
+        }),
+      ),
     );
   }
 }
@@ -218,8 +270,9 @@ class _TabItemButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const activeColor = PoswalColors.teal;
-    final inactiveColor = isDark ? PoswalColors.textMutedDark : PoswalColors.textMutedLight;
+    final activeColor = isDark ? PoswalColors.teal : PoswalColors.tealLight;
+    final inactiveColor =
+        isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
     final l10n = AppLocalizations.of(context);
     final String label = switch (index) {
       0 => l10n?.tabToday ?? item.label,
@@ -238,36 +291,35 @@ class _TabItemButton extends StatelessWidget {
         key: ValueKey('tab_item_$index'),
         behavior: HitTestBehavior.opaque,
         onTap: onTap,
-        child: AnimatedContainer(
-          duration: PoswalDurations.micro,
-          padding: const EdgeInsets.symmetric(horizontal: PoswalSpacing.md, vertical: 2),
-          decoration: BoxDecoration(
-            color: isSelected
-                ? activeColor.withValues(alpha: isDark ? 0.16 : 0.12)
-                : Colors.transparent,
-            borderRadius: BorderRadius.circular(PoswalRadii.capsule),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(
+            minWidth: PoswalRowHeights.minTouchTarget,
+            minHeight: PoswalRowHeights.minTouchTarget,
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                isSelected ? item.fillIcon : item.regularIcon,
-                size: isMinimized ? 20 : 22,
-                color: isSelected ? activeColor : inactiveColor,
-              ),
-              if (!isMinimized) ...[
-                const SizedBox(height: 2),
-                Text(
-                  label,
-                  maxLines: 1,
-                  style: PoswalText.caption2.copyWith(
-                    color: isSelected ? activeColor : inactiveColor,
-                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                  ),
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  isSelected ? item.fillIcon : item.regularIcon,
+                  size: isMinimized ? 20 : 22,
+                  color: isSelected ? activeColor : inactiveColor,
                 ),
+                if (!isMinimized) ...[
+                  const SizedBox(height: 2),
+                  Text(
+                    label,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: PoswalText.caption2.copyWith(
+                      color: isSelected ? activeColor : inactiveColor,
+                      fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                    ),
+                  ),
+                ],
               ],
-            ],
+            ),
           ),
         ),
       ),
