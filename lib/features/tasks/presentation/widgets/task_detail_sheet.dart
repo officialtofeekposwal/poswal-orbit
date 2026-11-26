@@ -224,7 +224,6 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                   ],
                 ),
               ),
-              const Divider(height: 1),
 
               // Scrollable Content
               Expanded(
@@ -256,12 +255,12 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                       contentPadding: EdgeInsets.zero,
                     ),
                   ),
-                  const Divider(height: PoswalSpacing.xl),
+                  const SizedBox(height: PoswalSpacing.lg),
 
                   // 3. Priority Selector (5 options)
                   Text(
                     l10n?.priorityLabel ?? 'Priority',
-                    style: PoswalText.caption.copyWith(color: textMuted, fontWeight: FontWeight.w700, letterSpacing: 0.8),
+                    style: PoswalText.caption.copyWith(color: textMuted, fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(height: PoswalSpacing.sm),
                   SingleChildScrollView(
@@ -279,7 +278,10 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                                 ? Container(
                                     width: 10,
                                     height: 10,
-                                    decoration: BoxDecoration(shape: BoxShape.circle, color: Color(p.colorValue)),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(PoswalRadii.pill),
+                                      color: Color(p.colorValue),
+                                    ),
                                   )
                                 : null,
                             labelStyle: TextStyle(
@@ -299,14 +301,14 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                   // 4. Due Date & Time Pickers
                   Text(
                     l10n?.dueDateLabel ?? 'Due date and time',
-                    style: PoswalText.caption.copyWith(color: textMuted, fontWeight: FontWeight.w700, letterSpacing: 0.8),
+                    style: PoswalText.caption.copyWith(color: textMuted, fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(height: PoswalSpacing.sm),
                   Row(
                     children: [
                       Expanded(
                         child: OutlinedButton.icon(
-                          icon: const Icon(PhosphorIconsRegular.calendar, size: 16),
+                          icon: const Icon(PhosphorIconsRegular.calendar, size: 20),
                           label: Text(
                             _dueDate != null ? DateFormat('EEE, MMM d, yyyy').format(_dueDate!) : (l10n?.datePickerSetDate ?? 'Set date'),
                             style: PoswalText.footnote,
@@ -317,7 +319,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                       const SizedBox(width: PoswalSpacing.sm),
                       Expanded(
                         child: OutlinedButton.icon(
-                          icon: const Icon(PhosphorIconsRegular.clock, size: 16),
+                          icon: const Icon(PhosphorIconsRegular.clock, size: 20),
                           label: Text(
                             _dueTime != null ? _dueTime!.format(context) : (l10n?.datePickerSetTime ?? 'Set time'),
                             style: PoswalText.footnote,
@@ -327,7 +329,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                       ),
                       if (_dueDate != null) ...[
                         IconButton(
-                          icon: const Icon(PhosphorIconsRegular.xCircle, size: 18),
+                          icon: const Icon(PhosphorIconsRegular.xCircle, size: 20),
                           onPressed: () => setState(() {
                             _dueDate = null;
                             _dueTime = null;
@@ -344,7 +346,7 @@ class _TaskDetailSheetState extends ConsumerState<TaskDetailSheet> {
                     children: [
                       Text(
                         l10n?.subtasksTitle ?? 'Subtasks',
-                        style: PoswalText.caption.copyWith(color: textMuted, fontWeight: FontWeight.w700, letterSpacing: 0.8),
+                        style: PoswalText.caption.copyWith(color: textMuted, fontWeight: FontWeight.w700),
                       ),
                       subtasksAsync.maybeWhen(
                         data: (subs) => Text(

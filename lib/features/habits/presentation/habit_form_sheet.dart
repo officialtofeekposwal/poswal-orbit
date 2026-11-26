@@ -138,24 +138,13 @@ class _HabitFormSheetState extends ConsumerState<HabitFormSheet> {
                 decoration: BoxDecoration(
                   color: cardBg,
                   borderRadius: BorderRadius.circular(PoswalRadii.card),
-                  border: Border.all(
-                    color: isDark ? Colors.white12 : Colors.black.withValues(alpha: 0.08),
-                  ),
                 ),
                 child: Row(
                   children: [
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: _selectedColor.withValues(alpha: 0.2),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        HabitIconHelper.getIcon(_selectedIcon),
-                        color: _selectedColor,
-                        size: 20,
-                      ),
+                    Icon(
+                      HabitIconHelper.getIcon(_selectedIcon),
+                      color: _selectedColor,
+                      size: 22,
                     ),
                     const SizedBox(width: PoswalSpacing.md),
                     Expanded(
@@ -178,7 +167,7 @@ class _HabitFormSheetState extends ConsumerState<HabitFormSheet> {
                       width: 28,
                       height: 28,
                       decoration: BoxDecoration(
-                        shape: BoxShape.circle,
+                        borderRadius: BorderRadius.circular(PoswalRadii.pill),
                         border: Border.all(color: _selectedColor.withValues(alpha: 0.6), width: 2),
                       ),
                     ),
@@ -203,7 +192,7 @@ class _HabitFormSheetState extends ConsumerState<HabitFormSheet> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(PoswalRadii.button),
                     borderSide: BorderSide(
-                      color: isDark ? Colors.white12 : Colors.black12,
+                      color: textMuted.withValues(alpha: 0.25),
                     ),
                   ),
                 ),
@@ -226,27 +215,20 @@ class _HabitFormSheetState extends ConsumerState<HabitFormSheet> {
                       setState(() => _selectedColor = color);
                     },
                     child: Container(
-                      width: 34,
-                      height: 34,
+                      width: 44,
+                      height: 44,
                       decoration: BoxDecoration(
                         color: color,
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: isSelected ? Colors.white : Colors.transparent,
-                          width: 2.5,
-                        ),
-                        boxShadow: isSelected
-                            ? [
-                                BoxShadow(
-                                  color: color.withValues(alpha: 0.5),
-                                  blurRadius: 8,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ]
+                        borderRadius: BorderRadius.circular(PoswalRadii.pill),
+                        border: isSelected
+                            ? Border.all(
+                                color: textPrimary,
+                                width: 2.5,
+                              )
                             : null,
                       ),
                       child: isSelected
-                          ? const Icon(PhosphorIconsRegular.check, size: 16, color: Colors.white)
+                          ? const Icon(PhosphorIconsRegular.check, size: 20, color: PoswalColors.surfaceLight)
                           : null,
                     ),
                   );
@@ -269,15 +251,17 @@ class _HabitFormSheetState extends ConsumerState<HabitFormSheet> {
                       setState(() => _selectedIcon = name);
                     },
                     child: Container(
-                      width: 40,
-                      height: 40,
+                      width: 44,
+                      height: 44,
                       decoration: BoxDecoration(
                         color: isSelected ? _selectedColor.withValues(alpha: 0.25) : cardBg,
                         borderRadius: BorderRadius.circular(PoswalRadii.chip),
-                        border: Border.all(
-                          color: isSelected ? _selectedColor : Colors.transparent,
-                          width: 1.5,
-                        ),
+                        border: isSelected
+                            ? Border.all(
+                                color: _selectedColor,
+                                width: 1.5,
+                              )
+                            : null,
                       ),
                       child: Icon(
                         HabitIconHelper.getIcon(name),
@@ -332,7 +316,11 @@ class _HabitFormSheetState extends ConsumerState<HabitFormSheet> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(PhosphorIconsRegular.check, size: 18, color: Colors.white),
+                    Icon(
+                      PhosphorIconsRegular.check,
+                      size: 20,
+                      color: isDark ? PoswalColors.ink : PoswalColors.surfaceLight,
+                    ),
                     const SizedBox(width: PoswalSpacing.sm),
                     Text(
                       widget.habitToEdit == null

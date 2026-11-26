@@ -111,21 +111,11 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
             Row(
                 children: [
                   Container(
-                    width: 44,
-                    height: 44,
+                    width: 14,
+                    height: 14,
                     decoration: BoxDecoration(
-                      color: habitColor.withValues(alpha: 0.15),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Center(
-                      child: Container(
-                        width: 14,
-                        height: 14,
-                        decoration: BoxDecoration(
-                          color: habitColor,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
+                      color: habitColor,
+                      borderRadius: BorderRadius.circular(PoswalRadii.pill),
                     ),
                   ),
                   const SizedBox(width: PoswalSpacing.md),
@@ -159,7 +149,6 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
                 style: PoswalText.caption.copyWith(
                   color: textMuted,
                   fontWeight: FontWeight.w700,
-                  letterSpacing: 0.8,
                 ),
               ),
               const SizedBox(height: PoswalSpacing.xs),
@@ -169,21 +158,21 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
                     status: HabitEntryStatus.done,
                     label: l10n?.checkinStatusDone ?? 'Done',
                     icon: PhosphorIconsFill.checkCircle,
-                    color: PoswalColors.teal,
+                    color: isDark ? PoswalColors.teal : PoswalColors.tealLight,
                   ),
                   const SizedBox(width: PoswalSpacing.xs),
                   _buildStatusButton(
                     status: HabitEntryStatus.skipped,
                     label: l10n?.checkinStatusSkip ?? 'Skip',
                     icon: PhosphorIconsFill.shieldStar,
-                    color: PoswalColors.gold,
+                    color: isDark ? PoswalColors.warning : PoswalColors.warningLight,
                   ),
                   const SizedBox(width: PoswalSpacing.xs),
                   _buildStatusButton(
                     status: HabitEntryStatus.missed,
                     label: l10n?.checkinStatusMissed ?? 'Missed',
                     icon: PhosphorIconsFill.xCircle,
-                    color: PoswalColors.danger,
+                    color: isDark ? PoswalColors.danger : PoswalColors.dangerLight,
                   ),
                 ],
               ),
@@ -192,12 +181,12 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
                 const SizedBox(height: PoswalSpacing.xs),
                 Row(
                   children: [
-                    const Icon(PhosphorIconsRegular.info, size: 14, color: PoswalColors.gold),
+                    Icon(PhosphorIconsRegular.info, size: 20, color: isDark ? PoswalColors.warning : PoswalColors.warningLight),
                     const SizedBox(width: PoswalSpacing.xs),
                     Expanded(
                       child: Text(
                         'Skipped days do not break your streak, preserving your habit momentum.',
-                        style: PoswalText.caption.copyWith(color: PoswalColors.gold),
+                        style: PoswalText.caption.copyWith(color: isDark ? PoswalColors.warning : PoswalColors.warningLight),
                       ),
                     ),
                   ],
@@ -212,14 +201,17 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
                   style: PoswalText.caption.copyWith(
                     color: textMuted,
                     fontWeight: FontWeight.w700,
-                    letterSpacing: 0.8,
                   ),
                 ),
                 const SizedBox(height: PoswalSpacing.xs),
-                AppGlassCard(
+                Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: PoswalSpacing.md,
                     vertical: PoswalSpacing.sm,
+                  ),
+                  decoration: BoxDecoration(
+                    color: isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight2,
+                    borderRadius: BorderRadius.circular(PoswalRadii.card),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -231,8 +223,8 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
                             _value = (_value - 1.0).clamp(0.0, 999.0);
                           });
                         },
-                        icon: const Icon(PhosphorIconsRegular.minusCircle, size: 28),
-                        color: PoswalColors.teal,
+                        icon: const Icon(PhosphorIconsRegular.minusCircle, size: 24),
+                        color: isDark ? PoswalColors.teal : PoswalColors.tealLight,
                       ),
                       Column(
                         children: [
@@ -256,8 +248,8 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
                             _value = (_value + 1.0).clamp(0.0, 999.0);
                           });
                         },
-                        icon: const Icon(PhosphorIconsRegular.plusCircle, size: 28),
-                        color: PoswalColors.teal,
+                        icon: const Icon(PhosphorIconsRegular.plusCircle, size: 24),
+                        color: isDark ? PoswalColors.teal : PoswalColors.tealLight,
                       ),
                     ],
                   ),
@@ -272,7 +264,6 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
                 style: PoswalText.caption.copyWith(
                   color: textMuted,
                   fontWeight: FontWeight.w700,
-                  letterSpacing: 0.8,
                 ),
               ),
               const SizedBox(height: PoswalSpacing.xs),
@@ -283,7 +274,7 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
                   hintText: l10n?.habitNotePlaceholder ?? 'e.g. Felt great today, did 20 extra minutes',
                   hintStyle: PoswalText.callout.copyWith(color: textMuted),
                   filled: true,
-                  fillColor: isDark ? PoswalColors.surfaceDark2 : Colors.white.withValues(alpha: 0.7),
+                  fillColor: isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight2,
                   contentPadding: const EdgeInsets.symmetric(
                     horizontal: PoswalSpacing.md,
                     vertical: PoswalSpacing.sm,
@@ -291,7 +282,7 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(PoswalRadii.button),
                     borderSide: BorderSide(
-                      color: isDark ? Colors.white12 : Colors.black12,
+                      color: textMuted.withValues(alpha: 0.25),
                     ),
                   ),
                 ),
@@ -334,10 +325,14 @@ class _HabitCheckinSheetState extends ConsumerState<HabitCheckinSheet> {
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: PoswalSpacing.sm),
           decoration: BoxDecoration(
-            color: isSelected ? color.withValues(alpha: 0.20) : (isDark ? PoswalColors.surfaceDark2 : Colors.black.withValues(alpha: 0.04)),
+            color: isSelected
+                ? color.withValues(alpha: 0.20)
+                : (isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight2),
             borderRadius: BorderRadius.circular(PoswalRadii.button),
             border: Border.all(
-              color: isSelected ? color : (isDark ? Colors.white12 : Colors.black12),
+              color: isSelected
+                  ? color
+                  : (isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight).withValues(alpha: 0.25),
               width: isSelected ? 1.5 : 1.0,
             ),
           ),

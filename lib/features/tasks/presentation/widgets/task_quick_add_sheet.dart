@@ -224,7 +224,7 @@ class _TaskQuickAddSheetState extends ConsumerState<TaskQuickAddSheet> {
                     ),
                     backgroundColor: due != null
                         ? PoswalColors.teal.withValues(alpha: 0.15)
-                        : (isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.05)),
+                        : textMuted.withValues(alpha: 0.12),
                     onPressed: _pickDate,
                   ),
                   const SizedBox(width: PoswalSpacing.xs),
@@ -235,9 +235,12 @@ class _TaskQuickAddSheetState extends ConsumerState<TaskQuickAddSheet> {
                         ? Container(
                             width: 8,
                             height: 8,
-                            decoration: BoxDecoration(shape: BoxShape.circle, color: Color(priority.colorValue)),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(PoswalRadii.pill),
+                              color: Color(priority.colorValue),
+                            ),
                           )
-                        : Icon(PhosphorIconsRegular.flag, size: 14, color: textMuted),
+                        : Icon(PhosphorIconsRegular.flag, size: 20, color: textMuted),
                     label: Text(
                       priority != TaskPriority.none ? priority.label : (l10n?.priorityLabel ?? 'Priority'),
                       style: PoswalText.caption.copyWith(
@@ -247,7 +250,7 @@ class _TaskQuickAddSheetState extends ConsumerState<TaskQuickAddSheet> {
                     ),
                     backgroundColor: priority != TaskPriority.none
                         ? Color(priority.colorValue).withValues(alpha: 0.15)
-                        : (isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.05)),
+                        : textMuted.withValues(alpha: 0.12),
                     onPressed: _cyclePriority,
                   ),
                   const SizedBox(width: PoswalSpacing.xs),
@@ -255,12 +258,12 @@ class _TaskQuickAddSheetState extends ConsumerState<TaskQuickAddSheet> {
                   // 3. Project / Tag Chip
                   if (project != null) ...[
                     Chip(
-                      avatar: const Icon(PhosphorIconsRegular.tag, size: 14, color: PoswalColors.violet),
+                      avatar: Icon(PhosphorIconsRegular.tag, size: 20, color: isDark ? PoswalColors.teal : PoswalColors.tealLight),
                       label: Text(
                         '#$project',
-                        style: PoswalText.caption.copyWith(color: PoswalColors.violet, fontWeight: FontWeight.w600),
+                        style: PoswalText.caption.copyWith(color: isDark ? PoswalColors.teal : PoswalColors.tealLight, fontWeight: FontWeight.w600),
                       ),
-                      backgroundColor: PoswalColors.violet.withValues(alpha: 0.15),
+                      backgroundColor: (isDark ? PoswalColors.teal : PoswalColors.tealLight).withValues(alpha: 0.15),
                     ),
                   ],
                 ],
