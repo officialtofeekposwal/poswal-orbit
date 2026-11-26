@@ -2,7 +2,7 @@ name: poswal_orbit
 description: "Your whole day, in orbit. A calm, beautiful, offline-first habit tracker + to-do + notes app for iOS and Android, built with Flutter."
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 0.9.1-beta.2+2
 
 environment:
   sdk: ^3.14.0
@@ -25,6 +25,8 @@ dependencies:
   share_plus: ^13.3.1
   home_widget: ^0.10.0
   yaml: ^3.1.4
+  package_info_plus: ^10.2.2
+  url_launcher: ^6.3.3
 
 dev_dependencies:
   flutter_test:

@@ -7,8 +7,8 @@ Poswal Orbit is built on a simple, uncompromising foundation: **Your data belong
 
 ---
 
-## 🔒 1. 100% Offline by Architecture
-- **Zero Network Permissions:** Poswal Orbit does not request or possess the Android `android.permission.INTERNET` permission. The operating system strictly prevents the app from opening sockets, transmitting network packets, or accessing the internet.
+## 1. Local-First by Architecture
+- **Minimal Network Usage (Optional Update Checks Only):** Poswal Orbit requests `android.permission.INTERNET` solely to query the public GitHub Releases API (`https://api.github.com/repos/officialtofeekposwal/poswal-orbit/releases`) when checking for app updates. No personal data, device identifiers, habits, tasks, or notes are ever transmitted in this request. You can disable automatic update checks at any time in **Settings > About > Automatic update checks**.
 - **Zero Analytics or Telemetry:** There are no analytics libraries (e.g. Firebase, Mixpanel, Google Analytics, Sentry), ad networks, tracking SDKs, or crash uploaders included in the application.
 - **Zero Accounts or Cloud Storage:** You do not need to register an account, log in, or provide an email address. All your habits, tasks, entries, and notes are stored strictly in a local SQLite database (`poswal_orbit.sqlite`) inside your device's sandboxed storage.
 
@@ -24,6 +24,7 @@ Poswal Orbit is built on a simple, uncompromising foundation: **Your data belong
 ## 📱 3. Permissions Used
 | Permission | Purpose |
 | :--- | :--- |
+| `INTERNET` | Queries the public GitHub Releases API for optional app update checks (can be turned off in Settings). |
 | `POST_NOTIFICATIONS` | Displays local scheduled habit reminders on your device. |
 | `SCHEDULE_EXACT_ALARM` | Triggers exact local reminders at user-configured times. |
 | `RECEIVE_BOOT_COMPLETED`| Reschedules active reminders locally after device reboot. |
