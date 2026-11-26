@@ -138,6 +138,7 @@ void main() {
   }
 
   Future<void> capture(WidgetTester tester, GlobalKey repaintKey, String name) async {
+    if (Platform.environment['UPDATE_SCREENSHOTS'] != 'true') return;
     await tester.runAsync(() async {
       final boundary = repaintKey.currentContext?.findRenderObject() as RenderRepaintBoundary?;
       if (boundary != null) {

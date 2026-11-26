@@ -69,6 +69,7 @@ void main() {
     GlobalKey repaintKey,
     String filename,
   ) async {
+    if (Platform.environment['UPDATE_SCREENSHOTS'] != 'true') return;
     await tester.runAsync(() async {
       final boundary =
           repaintKey.currentContext?.findRenderObject() as RenderRepaintBoundary?;
