@@ -19,7 +19,8 @@
 -keep class com.dexterous.flutterlocalnotifications.** { *; }
 -keep class androidx.core.app.NotificationCompat** { *; }
 
-# Home Widget / Android AppWidgets
+# Home Widget / Android AppWidgets & MainActivity Vault Bridge
+-keep class com.poswal.orbit.MainActivity { *; }
 -keep class es.antonborri.home_widget.** { *; }
 -keep class com.poswal.orbit.OrbitTodayWidgetProvider { *; }
 -keep class com.poswal.orbit.OrbitHabitsWidgetProvider { *; }
