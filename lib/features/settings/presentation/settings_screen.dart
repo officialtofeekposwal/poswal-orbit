@@ -1016,7 +1016,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       _versionTapCount++;
                       if (_versionTapCount >= 7) {
                         _versionTapCount = 0;
-                        _showToast('Design playground unlocked.');
+                        _showToast('Design playground enabled.');
                         Navigator.of(context).push(
                           MaterialPageRoute(builder: (_) => const DesignPlaygroundScreen()),
                         );

@@ -715,7 +715,7 @@ abstract class AppLocalizations {
   /// No description provided for @insightsEmptySubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Complete habits and check off tasks to unlock personalized patterns, weekly review cards, and productivity scores.'**
+  /// **'Complete habits and check off tasks to see personalized patterns, weekly review cards, and productivity scores.'**
   String get insightsEmptySubtitle;
 
   /// No description provided for @settingsTitle.

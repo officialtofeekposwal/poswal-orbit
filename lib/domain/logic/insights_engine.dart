@@ -189,7 +189,7 @@ class InsightsEngine {
     if (distinctActiveDays < minDaysForCorrelation || habits.isEmpty || tasks.isEmpty) {
       return const HabitTaskCorrelationResult(
         hasEnoughData: false,
-        insightText: 'Correlations unlock after 14 days of consistent tracking.',
+        insightText: 'Correlations appear after 14 days of consistent tracking.',
       );
     }
 

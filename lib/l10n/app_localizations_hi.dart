@@ -338,7 +338,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get insightsEmptySubtitle =>
-      'व्यक्तिगत पैटर्न, साप्ताहिक समीक्षा और उत्पादकता स्कोर अनलॉक करने के लिए आदतें पूरी करें और कार्य पूरे करें।';
+      'व्यक्तिगत पैटर्न, साप्ताहिक समीक्षा और उत्पादकता स्कोर देखने के लिए आदतें पूरी करें और कार्य पूरे करें।';
 
   @override
   String get settingsTitle => 'सेटिंग्स';

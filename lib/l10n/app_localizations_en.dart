@@ -335,7 +335,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get insightsEmptySubtitle =>
-      'Complete habits and check off tasks to unlock personalized patterns, weekly review cards, and productivity scores.';
+      'Complete habits and check off tasks to see personalized patterns, weekly review cards, and productivity scores.';
 
   @override
   String get settingsTitle => 'Settings';

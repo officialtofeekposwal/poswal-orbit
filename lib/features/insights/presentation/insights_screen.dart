@@ -324,7 +324,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
               const SizedBox(height: PoswalSpacing.xs),
               Text(
                 l10n?.insightsEmptySubtitle ??
-                    'Complete habits and check off tasks to unlock personalized patterns, weekly review cards, and productivity scores.',
+                    'Complete habits and check off tasks to see personalized patterns, weekly review cards, and productivity scores.',
                 textAlign: TextAlign.center,
                 style: PoswalText.callout.copyWith(color: textMuted),
               ),
