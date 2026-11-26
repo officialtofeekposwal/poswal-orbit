@@ -70,7 +70,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
           SnackBar(
             content: Text(
               l10n?.shareFailed(e.toString()) ?? 'Failed to share: $e',
-              style: PoswalText.callout.copyWith(color: Colors.white),
+              style: PoswalText.callout.copyWith(color: PoswalColors.surfaceLight),
             ),
             backgroundColor: PoswalColors.danger,
             behavior: SnackBarBehavior.floating,
@@ -310,24 +310,10 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Container(
-                width: 64,
-                height: 64,
-                decoration: BoxDecoration(
-                  gradient: PoswalGradients.aurora,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: PoswalColors.teal.withValues(alpha: 0.3),
-                      blurRadius: 16,
-                    ),
-                  ],
-                ),
-                child: const Icon(
-                  PhosphorIconsRegular.chartLineUp,
-                  color: Colors.white,
-                  size: 32,
-                ),
+              Icon(
+                PhosphorIconsRegular.chartLineUp,
+                color: isDark ? PoswalColors.teal : PoswalColors.tealLight,
+                size: 24,
               ),
               const SizedBox(height: PoswalSpacing.lg),
               Text(
@@ -401,11 +387,8 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
                 child: Container(
                   padding: const EdgeInsetsDirectional.all(PoswalSpacing.md),
                   decoration: BoxDecoration(
-                    color: (isDark ? Colors.white : Colors.black).withValues(alpha: isDark ? 0.05 : 0.03),
+                    color: isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight2,
                     borderRadius: BorderRadius.circular(PoswalRadii.card),
-                    border: Border.all(
-                      color: (isDark ? Colors.white : Colors.black).withValues(alpha: isDark ? 0.08 : 0.05),
-                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -418,7 +401,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
                       Text(
                         timing.bestWeekdayName,
                         style: PoswalText.callout.copyWith(
-                          color: PoswalColors.teal,
+                          color: isDark ? PoswalColors.teal : PoswalColors.tealLight,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -431,11 +414,8 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
                 child: Container(
                   padding: const EdgeInsetsDirectional.all(PoswalSpacing.md),
                   decoration: BoxDecoration(
-                    color: (isDark ? Colors.white : Colors.black).withValues(alpha: isDark ? 0.05 : 0.03),
+                    color: isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight2,
                     borderRadius: BorderRadius.circular(PoswalRadii.card),
-                    border: Border.all(
-                      color: (isDark ? Colors.white : Colors.black).withValues(alpha: isDark ? 0.08 : 0.05),
-                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -450,7 +430,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: PoswalText.callout.copyWith(
-                          color: PoswalColors.violet,
+                          color: isDark ? PoswalColors.teal : PoswalColors.tealLight,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -492,7 +472,11 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
             children: [
               Row(
                 children: [
-                  const Icon(PhosphorIconsRegular.intersect, color: PoswalColors.coral, size: 20),
+                  Icon(
+                    PhosphorIconsRegular.intersect,
+                    color: isDark ? PoswalColors.teal : PoswalColors.tealLight,
+                    size: 20,
+                  ),
                   const SizedBox(width: PoswalSpacing.xs),
                   Text(
                     l10n?.habitTaskCorrelation ?? 'Habit & Task Correlation',
@@ -504,13 +488,13 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
                 Container(
                   padding: const EdgeInsetsDirectional.symmetric(horizontal: PoswalSpacing.xs, vertical: 2),
                   decoration: BoxDecoration(
-                    color: PoswalColors.coral.withValues(alpha: isDark ? 0.15 : 0.12),
+                    color: (isDark ? PoswalColors.teal : PoswalColors.tealLight).withValues(alpha: isDark ? 0.15 : 0.12),
                     borderRadius: BorderRadius.circular(PoswalRadii.pill),
                   ),
                   child: Text(
                     l10n?.observedPattern ?? 'Observed Pattern',
                     style: PoswalText.caption.copyWith(
-                      color: PoswalColors.coral,
+                      color: isDark ? PoswalColors.teal : PoswalColors.tealLight,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -544,12 +528,8 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
       key: key,
       padding: const EdgeInsetsDirectional.all(PoswalSpacing.lg),
       decoration: BoxDecoration(
-        color: isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight,
+        color: isDark ? PoswalColors.surfaceDark : PoswalColors.surfaceLight,
         borderRadius: BorderRadius.circular(PoswalRadii.card),
-        border: Border.all(
-          color: (isDark ? Colors.white : Colors.black).withValues(alpha: isDark ? 0.08 : 0.06),
-          width: 1.0,
-        ),
       ),
       child: child,
     );

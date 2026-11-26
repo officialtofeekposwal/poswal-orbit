@@ -48,10 +48,8 @@ class _OverallActivityHeatmapCardState extends State<OverallActivityHeatmapCard>
     final textMuted = isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight;
     final l10n = AppLocalizations.of(context);
 
-    final cardBg = isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight;
-    final borderColor = (isDark ? Colors.white : Colors.black).withValues(alpha: isDark ? 0.08 : 0.06);
-    final emptyCellColor = isDark ? Colors.white.withValues(alpha: 0.05) : Colors.black.withValues(alpha: 0.04);
-    final cellBorderColor = isDark ? Colors.white.withValues(alpha: 0.05) : Colors.black.withValues(alpha: 0.06);
+    final cardBg = isDark ? PoswalColors.surfaceDark : PoswalColors.surfaceLight;
+    final emptyCellColor = textMuted.withValues(alpha: 0.12);
 
     return Container(
       key: const ValueKey('insights_overall_heatmap_card'),
@@ -59,7 +57,6 @@ class _OverallActivityHeatmapCardState extends State<OverallActivityHeatmapCard>
       decoration: BoxDecoration(
         color: cardBg,
         borderRadius: BorderRadius.circular(PoswalRadii.card),
-        border: Border.all(color: borderColor, width: 1.0),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -184,12 +181,6 @@ class _OverallActivityHeatmapCardState extends State<OverallActivityHeatmapCard>
                                   decoration: BoxDecoration(
                                     color: cellColor,
                                     borderRadius: BorderRadius.circular(PoswalRadii.xxs),
-                                    border: isFuture
-                                        ? null
-                                        : Border.all(
-                                            color: cellBorderColor,
-                                            width: 0.5,
-                                          ),
                                   ),
                                 ),
                               ),

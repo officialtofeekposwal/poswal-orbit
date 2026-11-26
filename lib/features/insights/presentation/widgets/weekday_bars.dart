@@ -68,9 +68,10 @@ class WeekdayBars extends StatelessWidget {
               final isBest = bestTiming.bestWeekdayName.toLowerCase().contains(item.label.toLowerCase());
               final barHeight = math.max(4.0, (count / maxCount) * maxHeight);
 
+              final accent = isDark ? PoswalColors.teal : PoswalColors.tealLight;
               final barColor = isBest
-                  ? PoswalColors.teal
-                  : (isDark ? Colors.white.withValues(alpha: 0.15) : Colors.black.withValues(alpha: 0.12));
+                  ? accent
+                  : (isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight).withValues(alpha: 0.18);
 
               final tooltip = '${item.label}: $count';
 
@@ -88,9 +89,9 @@ class WeekdayBars extends StatelessWidget {
                             width: 4,
                             height: 4,
                             margin: const EdgeInsets.only(bottom: 2),
-                            decoration: const BoxDecoration(
-                              color: PoswalColors.teal,
-                              shape: BoxShape.circle,
+                            decoration: BoxDecoration(
+                              color: accent,
+                              borderRadius: BorderRadius.circular(PoswalRadii.pill),
                             ),
                           ),
                         AnimatedContainer(
@@ -101,15 +102,6 @@ class WeekdayBars extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: barColor,
                             borderRadius: BorderRadius.circular(PoswalRadii.xxs),
-                            boxShadow: isBest
-                                ? [
-                                    BoxShadow(
-                                      color: PoswalColors.teal.withValues(alpha: 0.35),
-                                      blurRadius: 6,
-                                      offset: const Offset(0, 1),
-                                    ),
-                                  ]
-                                : null,
                           ),
                         ),
                         const SizedBox(height: PoswalSpacing.xs),

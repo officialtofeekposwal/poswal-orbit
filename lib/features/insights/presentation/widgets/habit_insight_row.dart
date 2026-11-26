@@ -79,15 +79,13 @@ class _HabitInsightRowState extends State<HabitInsightRow> {
         ? 0
         : ((completedCount / scheduledCount) * 100).round().clamp(0, 100);
 
-    final cardBg = isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight;
-    final borderColor = (isDark ? Colors.white : Colors.black).withValues(alpha: isDark ? 0.08 : 0.06);
+    final cardBg = isDark ? PoswalColors.surfaceDark : PoswalColors.surfaceLight;
 
     return Container(
       margin: const EdgeInsetsDirectional.only(bottom: PoswalSpacing.sm),
       decoration: BoxDecoration(
         color: cardBg,
         borderRadius: BorderRadius.circular(PoswalRadii.card),
-        border: Border.all(color: borderColor, width: 1.0),
       ),
       child: Column(
         children: [
@@ -112,13 +110,7 @@ class _HabitInsightRowState extends State<HabitInsightRow> {
                       height: 12,
                       decoration: BoxDecoration(
                         color: habitColor,
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: habitColor.withValues(alpha: 0.35),
-                            blurRadius: 4,
-                          ),
-                        ],
+                        borderRadius: BorderRadius.circular(PoswalRadii.pill),
                       ),
                     ),
                     const SizedBox(width: PoswalSpacing.sm),
@@ -177,7 +169,7 @@ class _HabitInsightRowState extends State<HabitInsightRow> {
                                 decoration: BoxDecoration(
                                   color: isDone
                                       ? habitColor
-                                      : (isDark ? Colors.white.withValues(alpha: 0.08) : Colors.black.withValues(alpha: 0.06)),
+                                      : textMuted.withValues(alpha: 0.14),
                                   borderRadius: BorderRadius.circular(1.0),
                                 ),
                               );
@@ -191,7 +183,7 @@ class _HabitInsightRowState extends State<HabitInsightRow> {
                     // Expand / Collapse Chevron
                     Icon(
                       _isExpanded ? PhosphorIconsRegular.caretUp : PhosphorIconsRegular.caretDown,
-                      size: 16,
+                      size: 20,
                       color: textMuted,
                     ),
                   ],
@@ -202,11 +194,6 @@ class _HabitInsightRowState extends State<HabitInsightRow> {
 
           // Inline Expanded Heatmap
           if (_isExpanded) ...[
-            Divider(
-              height: 1,
-              thickness: 1,
-              color: (isDark ? Colors.white : Colors.black).withValues(alpha: isDark ? 0.06 : 0.04),
-            ),
             Padding(
               padding: const EdgeInsetsDirectional.all(PoswalSpacing.sm),
               child: HabitHeatmap(

@@ -20,7 +20,7 @@ class InsightsSegmentedTabs extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context);
-    final borderColor = (isDark ? Colors.white : Colors.black).withValues(alpha: isDark ? 0.08 : 0.06);
+    final accent = isDark ? PoswalColors.teal : PoswalColors.tealLight;
 
     final tabs = [
       (
@@ -44,9 +44,8 @@ class InsightsSegmentedTabs extends StatelessWidget {
       height: 48,
       padding: const EdgeInsetsDirectional.all(PoswalSpacing.xxs),
       decoration: BoxDecoration(
-        color: isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight,
+        color: isDark ? PoswalColors.surfaceDark : PoswalColors.surfaceLight,
         borderRadius: BorderRadius.circular(PoswalRadii.capsule),
-        border: Border.all(color: borderColor, width: 1.0),
       ),
       child: Row(
         children: List.generate(tabs.length, (index) {
@@ -73,21 +72,18 @@ class InsightsSegmentedTabs extends StatelessWidget {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: isSelected
-                        ? PoswalColors.teal.withValues(alpha: isDark ? 0.22 : 0.14)
+                        ? accent.withValues(alpha: isDark ? 0.22 : 0.14)
                         : Colors.transparent,
                     borderRadius: BorderRadius.circular(PoswalRadii.capsule),
-                    border: isSelected
-                        ? Border.all(color: PoswalColors.teal.withValues(alpha: 0.4), width: 1.0)
-                        : null,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
                         tab.icon,
-                        size: 16,
+                        size: 20,
                         color: isSelected
-                            ? PoswalColors.teal
+                            ? accent
                             : (isDark ? PoswalColors.textSecondaryDark : PoswalColors.textSecondaryLight),
                       ),
                       const SizedBox(width: PoswalSpacing.xs),

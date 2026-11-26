@@ -25,26 +25,28 @@ class InsightsHeroCard extends StatelessWidget {
     final score = state.productivityScore;
     final weekly = state.weeklyReview;
 
+    final accent = isDark ? PoswalColors.teal : PoswalColors.tealLight;
+    final successColor = isDark ? PoswalColors.success : PoswalColors.successLight;
+    final warningColor = isDark ? PoswalColors.warning : PoswalColors.warningLight;
+
     Color gradeColor;
     if (score.score >= 85) {
-      gradeColor = PoswalColors.teal;
+      gradeColor = accent;
     } else if (score.score >= 65) {
-      gradeColor = PoswalColors.violet;
+      gradeColor = successColor;
     } else if (score.score >= 40) {
-      gradeColor = PoswalColors.gold;
+      gradeColor = warningColor;
     } else {
       gradeColor = textMuted;
     }
 
-    final cardBg = isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight;
-    final borderColor = (isDark ? Colors.white : Colors.black).withValues(alpha: isDark ? 0.08 : 0.06);
+    final cardBg = isDark ? PoswalColors.surfaceDark : PoswalColors.surfaceLight;
 
     return Container(
       padding: const EdgeInsetsDirectional.all(PoswalSpacing.lg),
       decoration: BoxDecoration(
         color: cardBg,
         borderRadius: BorderRadius.circular(PoswalRadii.card),
-        border: Border.all(color: borderColor, width: 1.0),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -60,14 +62,7 @@ class InsightsHeroCard extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Container(
-                          padding: const EdgeInsetsDirectional.all(PoswalSpacing.xs),
-                          decoration: BoxDecoration(
-                            gradient: PoswalGradients.aurora,
-                            borderRadius: BorderRadius.circular(PoswalRadii.chip),
-                          ),
-                          child: const Icon(PhosphorIconsRegular.chartLineUp, color: Colors.white, size: 16),
-                        ),
+                        Icon(PhosphorIconsRegular.chartLineUp, color: accent, size: 20),
                         const SizedBox(width: PoswalSpacing.sm),
                         Text(
                           l10n?.productivityScore ?? 'Productivity Score',
@@ -80,7 +75,6 @@ class InsightsHeroCard extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: gradeColor.withValues(alpha: isDark ? 0.15 : 0.12),
                         borderRadius: BorderRadius.circular(PoswalRadii.pill),
-                        border: Border.all(color: gradeColor.withValues(alpha: 0.4)),
                       ),
                       child: Text(
                         score.grade,
@@ -127,9 +121,9 @@ class InsightsHeroCard extends StatelessWidget {
                               Container(
                                 width: 8,
                                 height: 8,
-                                decoration: const BoxDecoration(
-                                  color: PoswalColors.teal,
-                                  shape: BoxShape.circle,
+                                decoration: BoxDecoration(
+                                  color: accent,
+                                  borderRadius: BorderRadius.circular(PoswalRadii.pill),
                                 ),
                               ),
                               const SizedBox(width: PoswalSpacing.xs),
@@ -147,9 +141,9 @@ class InsightsHeroCard extends StatelessWidget {
                               Container(
                                 width: 8,
                                 height: 8,
-                                decoration: const BoxDecoration(
-                                  color: PoswalColors.violet,
-                                  shape: BoxShape.circle,
+                                decoration: BoxDecoration(
+                                  color: textMuted,
+                                  borderRadius: BorderRadius.circular(PoswalRadii.pill),
                                 ),
                               ),
                               const SizedBox(width: PoswalSpacing.xs),
@@ -167,7 +161,7 @@ class InsightsHeroCard extends StatelessWidget {
                             child: LinearProgressIndicator(
                               value: (score.score / 100).clamp(0.0, 1.0),
                               minHeight: 6,
-                              backgroundColor: (isDark ? Colors.white : Colors.black).withValues(alpha: 0.08),
+                              backgroundColor: textMuted.withValues(alpha: 0.14),
                               valueColor: AlwaysStoppedAnimation<Color>(gradeColor),
                             ),
                           ),
@@ -187,18 +181,15 @@ class InsightsHeroCard extends StatelessWidget {
             key: const ValueKey('insights_weekly_review_card'),
             padding: const EdgeInsetsDirectional.all(PoswalSpacing.md),
             decoration: BoxDecoration(
-              color: (isDark ? Colors.white : Colors.black).withValues(alpha: isDark ? 0.04 : 0.03),
+              color: isDark ? PoswalColors.surfaceDark2 : PoswalColors.surfaceLight2,
               borderRadius: BorderRadius.circular(PoswalRadii.card),
-              border: Border.all(
-                color: (isDark ? Colors.white : Colors.black).withValues(alpha: isDark ? 0.06 : 0.04),
-              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
-                    const Icon(PhosphorIconsRegular.sparkle, color: PoswalColors.teal, size: 16),
+                    Icon(PhosphorIconsRegular.calendarCheck, color: accent, size: 20),
                     const SizedBox(width: PoswalSpacing.xs),
                     Text(
                       l10n?.weeklyReviewTitle ?? 'Weekly review',
@@ -225,17 +216,7 @@ class InsightsHeroCard extends StatelessWidget {
                       child: _buildStatChip(
                         value: '${weekly.habitsCompleted}',
                         label: l10n?.habitsDoneCount ?? 'Habits Done',
-                        color: PoswalColors.teal,
-                        textMuted: textMuted,
-                        isDark: isDark,
-                      ),
-                    ),
-                    const SizedBox(width: PoswalSpacing.xs),
-                    Expanded(
-                      child: _buildStatChip(
-                        value: '${weekly.tasksCompleted}',
-                        label: l10n?.tasksFinishedCount ?? 'Tasks Finished',
-                        color: PoswalColors.violet,
+                        color: accent,
                         textMuted: textMuted,
                         isDark: isDark,
                       ),
@@ -245,7 +226,7 @@ class InsightsHeroCard extends StatelessWidget {
                       child: _buildStatChip(
                         value: '${weekly.bestStreak}d',
                         label: l10n?.bestStreakCount ?? 'Best Streak',
-                        color: PoswalColors.coral,
+                        color: accent,
                         textMuted: textMuted,
                         isDark: isDark,
                       ),
@@ -270,9 +251,8 @@ class InsightsHeroCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsetsDirectional.symmetric(vertical: PoswalSpacing.sm, horizontal: PoswalSpacing.xs),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: isDark ? 0.08 : 0.06),
+        color: color.withValues(alpha: isDark ? 0.12 : 0.08),
         borderRadius: BorderRadius.circular(PoswalRadii.button),
-        border: Border.all(color: color.withValues(alpha: isDark ? 0.2 : 0.15)),
       ),
       child: Column(
         children: [
