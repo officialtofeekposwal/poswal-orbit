@@ -2,6 +2,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:poswal_orbit/core/theme/poswal_tokens.dart';
+import 'package:poswal_orbit/core/widgets/liquid_glass.dart';
 
 /// Official W3C relative luminance calculation
 double _relativeLuminance(Color c) {
@@ -181,6 +182,19 @@ void main() {
         expect(mHc > sHc, isTrue, reason: 'Light HC muted ($mHc) must exceed HC secondary ($sHc) on $bg');
         expect(sHc >= 4.5, isTrue, reason: 'Light HC secondary must pass AA on $bg');
       }
+    });
+
+    test('LiquidGlass composited dark and light surfaces pass WCAG AA/AAA contrast', () {
+      final darkGlass = LiquidGlass.effectiveDarkSurface();
+      final lightGlass = LiquidGlass.effectiveLightSurface();
+
+      expect(_contrastRatio(PoswalColors.textOnDark, darkGlass), greaterThanOrEqualTo(7.0));
+      expect(_contrastRatio(PoswalColors.textSecondaryDark, darkGlass), greaterThanOrEqualTo(4.5));
+      expect(_contrastRatio(PoswalColors.teal, darkGlass), greaterThanOrEqualTo(4.5));
+
+      expect(_contrastRatio(PoswalColors.textOnLight, lightGlass), greaterThanOrEqualTo(7.0));
+      expect(_contrastRatio(PoswalColors.textSecondaryLight, lightGlass), greaterThanOrEqualTo(4.5));
+      expect(_contrastRatio(PoswalColors.tealLight, lightGlass), greaterThanOrEqualTo(4.5));
     });
   });
 }
