@@ -1,553 +1,478 @@
 {
-  "@@locale": "en",
-  "appTitle": "Poswal Orbit",
-  "tabToday": "Today",
-  "tabHabits": "Habits",
-  "tabTasks": "Tasks",
-  "tabNotes": "Notes",
-  "tabInsights": "Insights",
-  "greetingMorning": "Good morning",
-  "greetingAfternoon": "Good afternoon",
-  "greetingEvening": "Good evening",
-  "greetingNight": "Good evening",
-  "habitsProgress": "{completed} of {total} completed",
-  "@habitsProgress": {
-    "placeholders": {
-      "completed": {
-        "type": "int"
-      },
-      "total": {
-        "type": "int"
-      }
-    }
-  },
-  "allClear": "All clear. Enjoy the quiet.",
-  "habitsAllDone": "All habits completed for today. Great progress.",
-  "tasksDueOverdue": "Tasks Due & Overdue",
-  "yourOrbitClear": "Your Orbit is Clear",
-  "noHabitsScheduled": "No habits scheduled for this day.\nRest and recharge, or create a new habit below.",
-  "addHabit": "Add Habit",
-  "tasksTitle": "Tasks",
-  "tasksDueCount": "({count} due)",
-  "@tasksDueCount": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-  "allHabits": "All Habits",
-  "habitsActive": "Active",
-  "habitsArchived": "Archived",
-  "newHabit": "New Habit",
-  "streakDays": "{days}d streak",
-  "@streakDays": {
-    "placeholders": {
-      "days": {
-        "type": "int"
-      }
-    }
-  },
-  "streakFreezeActive": "1 Streak Freeze Active",
-  "streakFreezeDescription": "Protects one missed scheduled day per month.",
-  "noHabitsYet": "No Habits Yet",
-  "noHabitsYetSubtitle": "Create your first habit to begin your orbit.",
-  "noArchivedHabits": "No Archived Habits",
-  "noArchivedHabitsSubtitle": "Archived habits are stored safely here without cluttering your daily view.",
-  "archivedTapToRestore": "Archived • Tap restore to reactivate",
-  "habitRestored": "Restored \"{name}\" to Active Habits",
-  "@habitRestored": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "habitDeleted": "Permanently deleted \"{name}\"",
-  "@habitDeleted": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "createHabitTitle": "Create Habit",
-  "editHabitTitle": "Edit Habit",
-  "livePreview": "Live Preview",
-  "habitNameLabel": "Habit Name",
-  "habitNameHint": "e.g. Read 20 pages",
-  "paletteColor": "Palette Color",
-  "iconLabel": "Icon",
-  "timeOfDayLabel": "Time of Day",
-  "scheduleLabel": "Schedule",
-  "saveChanges": "Save Changes",
-  "habitNotFound": "Habit not found",
-  "currentStreakLabel": "Current streak",
-  "bestStreakLabel": "Best streak",
-  "habitScoreLabel": "Habit score",
-  "completionRateLabel": "Completion rate",
-  "archiveHabit": "Archive Habit",
-  "restoreHabit": "Restore Habit",
-  "deleteHabit": "Delete Habit",
-  "checkinStatusDone": "Done",
-  "checkinStatusSkip": "Skip",
-  "checkinStatusMissed": "Missed",
-  "tasksSmartToday": "Today",
-  "tasksSmartUpcoming": "Upcoming",
-  "tasksSmartAll": "All",
-  "tasksSmartDone": "Done",
-  "quickAddTaskHint": "Add a task (e.g. Call mom tomorrow at 6pm #family)",
-  "priorityUrgent": "Urgent",
-  "priorityHigh": "High",
-  "priorityMedium": "Medium",
-  "priorityLow": "Low",
-  "priorityNone": "None",
-  "keepDayInMotion": "Keep your day in motion",
-  "allProjects": "All Projects",
-  "noPendingTasksFound": "No pending tasks found for this view.",
-  "addTask": "Add Task",
-  "subtasksTitle": "Subtasks",
-  "addSubtaskHint": "Add a subtask...",
-  "notesLabel": "Notes",
-  "addNotesHint": "Add detailed notes...",
-  "dueDateLabel": "Due date and time",
-  "priorityLabel": "Priority",
-  "projectLabel": "Project",
-  "taskDeletedToast": "Task deleted",
-  "undoButton": "Undo",
-  "notesPinned": "Pinned",
-  "notesAll": "All Notes",
-  "notesTodayJournal": "Today's Journal",
-  "notesSaved": "Saved",
-  "notesSaving": "Saving...",
-  "unpinNote": "Unpin Note",
-  "pinNote": "Pin Note",
-  "changeColorLabel": "Change Color Label",
-  "deleteNote": "Delete Note",
-  "noteDeletedToast": "Note deleted",
-  "noNotesYet": "No notes yet",
-  "noNotesYetSubtitle": "Capture your thoughts, ideas, or start today's journal.",
-  "newNote": "New Note",
-  "noteTitleHint": "Title",
-  "noteBodyHint": "Start writing (Markdown-lite supported)...",
-  "journalForDate": "Daily Journal: {date}",
-  "@journalForDate": {
-    "placeholders": {
-      "date": {
-        "type": "String"
-      }
-    }
-  },
-  "insightsTitle": "Insights",
-  "weeklyReviewTitle": "Weekly review",
-  "productivityScore": "Productivity Score",
-  "bestDayOfWeek": "Best Day of Week",
-  "bestTimeOfDay": "Best Time of Day",
-  "habitHeatmaps": "Habit Heatmaps",
-  "habitTaskCorrelation": "Habit & Task Correlation",
-  "shareCard": "Share",
-  "insightsEmptyTitle": "Your insights will grow as you go",
-  "insightsEmptySubtitle": "Complete habits and check off tasks to see personalized patterns, weekly review cards, and productivity scores.",
-  "settingsTitle": "Settings",
-  "settingsAppearance": "Appearance",
-  "settingsTheme": "Theme",
-  "settingsAccent": "Accent Color",
-  "settingsGlass": "Glass Intensity",
-  "settingsReduceTransparency": "Reduce Transparency",
-  "settingsTime": "Time & Orbit Boundary",
-  "settingsDayStart": "Day-Start Boundary",
-  "settingsFirstDayOfWeek": "First Day of Week",
-  "settingsHaptics": "Haptic Feedback",
-  "settingsNotifications": "Reminders & Notifications",
-  "settingsHealthCheck": "Reminders Health Check",
-  "settingsLanguage": "Language",
-  "settingsDataSafety": "Data Safety & Backups",
-  "settingsBackupNow": "Back Up Now",
-  "settingsExport": "Export",
-  "settingsImport": "Import",
-  "settingsDanger": "Danger Zone",
-  "settingsDeleteAll": "Delete All Data",
-  "widgetTodayProgress": "Orbit Today Progress",
-  "widgetQuickCheckin": "Quick Habit Check-in",
-  "widgetTasksGlance": "Pending Tasks at a Glance",
-  "dayStartBoundarySubtitle": "Habit check-ins before this hour count towards previous day",
-  "reduceTransparencySubtitle": "Solid background cards for reduced GPU load or high contrast",
-  "hapticFeedbackSubtitle": "Tactile vibration on habit rings, checkboxes and gestures",
-  "remindersHealthCheckSubtitle": "Verify system permissions and Samsung One UI background rules to ensure 100% reliable streak reminders.",
-  "sendTestAlert": "Send Test Alert",
-  "syncSchedule": "Sync Schedule",
-  "displayLanguage": "Display Language",
-  "displayLanguageSubtitle": "Supports English, Hindi (हिन्दी), and Urdu (اردو) with native fonts and RTL direction",
-  "autoDailyBackupsActive": "Automatic Daily Backups Active",
-  "autoDailyBackupsSubtitle": "Rolling retention keeps the last 7 daily snapshots safely.",
-  "deleteAllDataSubtitle": "Permanently erase habits, entries, tasks, and notes",
-  "deleteAllDataDialogTitle": "Delete All Data?",
-  "deleteAllDataDialogContent": "This will wipe all habits, entries, tasks, and notes.\n\nA safety backup snapshot will be created automatically before wiping so you can recover if needed.",
-  "finalConfirmationTitle": "Final Confirmation",
-  "finalConfirmationContent": "Are you completely sure? This action will reset your active workspace.",
-  "keepMyData": "Keep My Data",
-  "wipeEverything": "Wipe Everything",
-  "importDialogTitle": "Import Data / Loop CSV",
-  "importDialogContent": "Paste JSON backup content or Loop Habit Tracker CSV data below:",
-  "inspectAndImport": "Inspect & Import",
-  "cancel": "Cancel",
-  "proceed": "Proceed",
-  "understood": "Understood",
-  "notificationPermissionTitle": "Notification Permission",
-  "notificationPermissionSubtitle": "Allows Poswal Orbit to display alerts in your status bar and lock screen.",
-  "openNotificationSettings": "Open Notification Settings",
-  "exactAlarmSchedulingTitle": "Exact Alarm Scheduling",
-  "exactAlarmSchedulingSubtitle": "Allows reminders to fire at the exact minute rather than being batched or delayed by Android battery management.",
-  "manageAlarmPermission": "Manage Alarm Permission",
-  "samsungBatteryExemptionTitle": "Samsung Battery Exemption",
-  "samsungBatteryExemptionSubtitle": "One UI automatically sleeps apps not used for a few days. Exempting Orbit guarantees streak prompts survive.",
-  "howToSetUnrestricted": "How to set \"Unrestricted\"",
-  "rollingWindowStatusTitle": "Rolling 7-Day Window",
-  "rollingWindowStatusSubtitle": "{count} scheduled reminders active in OS queue.",
-  "@rollingWindowStatusSubtitle": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-  "refillBtn": "Refill",
-  "sendTestNotificationBtn": "Send Test Notification",
-  "dispatching": "Dispatching...",
-  "granted": "Granted",
-  "restricted": "Restricted",
-  "samsungGuideTitle": "Samsung One UI Battery Guide",
-  "samsungGuideIntro": "Samsung phones aggressively close background apps to preserve battery. To prevent missing habit streaks:",
-  "habitsDoneCount": "Habits Done",
-  "tasksFinishedCount": "Tasks Finished",
-  "bestStreakCount": "Best Streak",
-  "peakMomentum": "Peak Momentum",
-  "observedPattern": "Observed Pattern",
-  "correlationDisclaimer": "We never jump to conclusions on limited data. Keep tracking to reveal true correlations.",
-  "overallHeatmap": "Overall Activity Heatmap",
-  "last8Weeks": "Last 8 Weeks",
-  "heatmapLess": "Less",
-  "heatmapMore": "More",
-  "shareWeeklyRhythm": "My weekly rhythm on Poswal Orbit",
-  "shareFailed": "Failed to share: {error}",
-  "@shareFailed": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
-  "restoreHabitTooltip": "Restore Habit",
-  "deletePermanentlyTooltip": "Delete Permanently",
-  "habitNotePlaceholder": "e.g. Felt great today, did 20 extra minutes",
-  "searchNotesPlaceholder": "Filter notes by title or content...",
-  "addTagPlaceholder": "e.g. project, ideas",
-  "addTag": "Add",
-  "colorLabelTooltip": "Color Label",
-  "linkHabitTaskTooltip": "Link to Habit/Task",
-  "addTagTooltip": "Add Tag",
-  "headingTooltip": "Heading",
-  "boldTooltip": "Bold",
-  "italicTooltip": "Italic",
-  "bulletListTooltip": "Bullet List",
-  "checklistTooltip": "Checklist",
-  "insertLinkTooltip": "Insert Link",
-  "linkTextLabel": "Link Text",
-  "linkUrlLabel": "URL (https://...)",
-  "globalSearchPlaceholder": "Search habits, tasks, notes...",
-  "searchTasksPlaceholder": "Search tasks...",
-  "noHabitLinked": "No habit linked",
-  "taskDeletedNamed": "Task \"{title}\" deleted",
-  "@taskDeletedNamed": {
-    "placeholders": {
-      "title": {
-        "type": "String"
-      }
-    }
-  },
-  "searchTooltip": "Search",
-  "settingsTooltip": "Settings",
-  "designPlaygroundTooltip": "Design Playground",
-  "mondayShort": "Mon",
-  "sundayShort": "Sun",
-  "saving": "Saving...",
-  "availableBackups": "Available Backups (Last 7)",
-  "noBackupsYet": "No backup snapshots yet. Tap \"Back Up Now\" to save your first snapshot.",
-  "restore": "Restore",
-  "resetOrClearData": "Reset or Clear Data",
-  "backupFullJson": "Full Database Snapshot (JSON)",
-  "backupFullJsonSubtitle": "Complete portable backup with habits, tasks & notes",
-  "exportHabitsCsv": "Habits & Check-ins (CSV)",
-  "exportTasksCsv": "Tasks & Subtasks (CSV)",
-  "exportNotesCsv": "Notes & Journal (CSV)",
-  "importPreview": "Import Preview",
-  "importFormat": "Format: {format}",
-  "@importFormat": {
-    "placeholders": {
-      "format": {
-        "type": "String"
-      }
-    }
-  },
-  "importSafetyNote": "A safety backup will be created automatically before importing to protect your current database.",
-  "importPlaceholder": "Paste JSON backup or Loop CSV data...",
-  "applyImport": "Apply Import",
-  "allDataClearedToast": "All data cleared. Pre-wipe safety snapshot was preserved in backups.",
-  "fullJsonCopiedToast": "Full JSON backup copied to clipboard ({bytes} bytes)",
-  "@fullJsonCopiedToast": {
-    "placeholders": {
-      "bytes": {
-        "type": "int"
-      }
-    }
-  },
-  "habitsCsvCopiedToast": "Habits CSV copied to clipboard",
-  "tasksCsvCopiedToast": "Tasks CSV copied to clipboard",
-  "notesCsvCopiedToast": "Notes CSV copied to clipboard",
-  "importSuccessToast": "Successfully imported {habits} habits, {tasks} tasks, {notes} notes",
-  "@importSuccessToast": {
-    "placeholders": {
-      "habits": {
-        "type": "int"
-      },
-      "tasks": {
-        "type": "int"
-      },
-      "notes": {
-        "type": "int"
-      }
-    }
-  },
-  "remindersHealthCheckTitle": "Reminders Health Check",
-  "onboardingWelcomeTitle": "Welcome to Poswal Orbit",
-  "onboardingWelcomeDesc": "Your private, offline space for intentional habits, tasks, and reflections.",
-  "onboardingHabitsTitle": "Build Lasting Momentum",
-  "onboardingHabitsDesc": "Track daily rhythm with beautiful orbit rings, streaks, and zero guilt.",
-  "onboardingTasksTitle": "Calm, Focused Action",
-  "onboardingTasksDesc": "Smart lists, natural language due dates, and simple checklists keep you clear.",
-  "onboardingNotesTitle": "Private Thoughts & Journal",
-  "onboardingNotesDesc": "Markdown notes and daily journals stored safely on your device only.",
-  "getStarted": "Get Started",
-  "skip": "Skip",
-  "next": "Next",
-  "restoreBackupDialogTitle": "Restore from Backup?",
-  "restoreBackupDialogBody": "This will replace your current data with backup from {date}.\n\nA safety snapshot of your current database will be taken immediately before restoring so nothing is lost.",
-  "@restoreBackupDialogBody": {
-    "placeholders": {
-      "date": {
-        "type": "String"
-      }
-    }
-  },
-  "restoreSafelyBtn": "Restore Safely",
-  "settingsAccentColor": "Accent Color",
-  "settingsGlassIntensity": "Glass Intensity",
-  "settingsTimeBoundary": "Time & Orbit Boundary",
-  "settingsAbout": "About",
-  "deleteTaskBtn": "Delete Task",
-  "taskDetailsTitle": "Task Details",
-  "noMatchingResults": "No matching results found",
-  "searchSectionHabits": "Habits ({count})",
-  "@searchSectionHabits": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-  "searchSectionTasks": "Tasks ({count})",
-  "@searchSectionTasks": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-  "searchSectionNotes": "Notes ({count})",
-  "@searchSectionNotes": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-  "colorLabelTitle": "Color Label",
-  "allFilter": "All",
-  "noteColorLabelTitle": "Note Color Label",
-  "linkHabitOrTaskTitle": "Link to Habit or Task",
-  "habitsSectionHeader": "Habits",
-  "tasksSectionHeader": "Tasks",
-  "dailyJournalHeader": "Daily Journal • {date}",
-  "@dailyJournalHeader": {
-    "placeholders": {
-      "date": {
-        "type": "String"
-      }
-    }
-  },
-  "linkedHabitLabel": "Linked habit",
-  "linkedTaskLabel": "Linked Task",
-  "heatmapSkipped": "Skipped",
-  "habitConsecutiveOccurrences": "consecutive occurrences",
-  "habitHistoricalRecord": "historical record",
-  "habitEwmaConsistency": "14-day EWMA consistency",
-  "testNotificationTitle": "Poswal Orbit test notification",
-  "testNotificationBody": "Exact alarms and notification channels are working properly on this device.",
-  "testNotificationSent": "Test notification sent. Check your notifications to test Mark Done or Snooze.",
-  "calendarTapHint": "Tap any day to edit check-in or add notes",
-  "consistencyHeatmapHeader": "Consistency heatmap",
-  "@consistencyHeatmapHeader": {
-    "description": "Header for consistency heatmap"
-  },
-  "weeklyPerformanceHeader": "Weekly performance",
-  "@weeklyPerformanceHeader": {
-    "description": "Header for weekly performance chart"
-  },
-  "consistencyTrendHeader": "30-day consistency trend",
-  "@consistencyTrendHeader": {
-    "description": "Header for 30-day consistency trend chart"
-  },
-  "@linkedHabitLabel": {
-    "description": "Label for linked habit selector"
-  },
-  "recordProgressTitle": "Record progress ({unit})",
-  "@recordProgressTitle": {
-    "description": "Title for recording habit progress with unit",
-    "placeholders": {
-      "unit": {
-        "type": "String"
-      }
-    }
-  },
-  "notificationUrgentPrefix": "Urgent: ",
-  "@notificationUrgentPrefix": {
-    "description": "Prefix for urgent task notifications"
-  },
-  "notificationHighPrefix": "High priority: ",
-  "@notificationHighPrefix": {
-    "description": "Prefix for high priority task notifications"
-  },
-  "notificationHabitTitle": "Time for {name}",
-  "@notificationHabitTitle": {
-    "description": "Title for habit notification",
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "notificationKeepMomentum": "Keep your momentum alive today.",
-  "@notificationKeepMomentum": {
-    "description": "Body for default habit notification"
-  },
-  "notificationTaskDueNow": "Task due now",
-  "@notificationTaskDueNow": {
-    "description": "Body for task notification when no note is provided"
-  },
-  "datePickerSetDate": "Set date",
-  "@datePickerSetDate": {
-    "description": "Button label to set date"
-  },
-  "datePickerSetTime": "Set time",
-  "@datePickerSetTime": {
-    "description": "Button label to set time"
-  },
-  "notificationActionMarkDone": "Mark done",
-  "@notificationActionMarkDone": {
-    "description": "Action button label on notification to mark item as done"
-  },
-  "notificationActionSnooze10m": "Snooze 10m",
-  "@notificationActionSnooze10m": {
-    "description": "Action button label on notification to snooze for 10 minutes"
-  },
-  "insightsTabOverview": "Overview",
-  "insightsTabHabits": "Habits",
-  "insightsTabTiming": "Timing",
-  "insightsEmptyAction": "Explore habits",
-  "weeklyTrendUp": "+{percent}% vs last week",
-  "@weeklyTrendUp": {
-    "placeholders": {
-      "percent": {
-        "type": "int"
-      }
-    }
-  },
-  "weeklyTrendDown": "-{percent}% vs last week",
-  "@weeklyTrendDown": {
-    "placeholders": {
-      "percent": {
-        "type": "int"
-      }
-    }
-  },
-  "weeklyTrendSteady": "Steady pace",
-  "habitStreakDays": "{count}d streak",
-  "@habitStreakDays": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-  "habitThirtyDayRate": "{rate}% in 30d",
-  "@habitThirtyDayRate": {
-    "placeholders": {
-      "rate": {
-        "type": "int"
-      }
-    }
-  },
-  "habitHeatmapExpand": "Tap to expand heatmap",
-  "habitHeatmapCollapse": "Tap to collapse heatmap",
-  "heatmapDayMon": "M",
-  "heatmapDayWed": "W",
-  "heatmapDayFri": "F",
-  "heatmapCellTooltip": "{date}: {count} completed",
-  "@heatmapCellTooltip": {
-    "placeholders": {
-      "date": {
-        "type": "String"
-      },
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-  "bestWeekdayLabel": "Best Day",
-  "bestTimeLabel": "Best Time",
-  "timingDistributionTitle": "Completions by Weekday",
-  "dayShortMon": "Mon",
-  "dayShortTue": "Tue",
-  "dayShortWed": "Wed",
-  "dayShortThu": "Thu",
-  "dayShortFri": "Fri",
-  "dayShortSat": "Sat",
-  "dayShortSun": "Sun",
-  "checkForUpdates": "Check for updates",
-  "autoUpdateChecks": "Automatic update checks",
-  "autoUpdateChecksSubtitle": "Check GitHub Releases once a day for new versions",
-  "currentVersionLabel": "Current version: {version}",
-  "@currentVersionLabel": {
-    "placeholders": {
-      "version": {
-        "type": "String"
-      }
-    }
-  },
-  "updateAvailableTitle": "Update available",
-  "updateVersionSubtitle": "Version {version} is ready to download",
-  "@updateVersionSubtitle": {
-    "placeholders": {
-      "version": {
-        "type": "String"
-      }
-    }
-  },
-  "updateUpToDate": "You are on the latest version",
-  "updateDownloadBtn": "Download update",
-  "updateLaterBtn": "Later",
-  "updateSkipVersionBtn": "Skip this version",
-  "updateCheckOffline": "Unable to check for updates. Check your internet connection.",
-  "updateCheckRateLimited": "GitHub rate limit reached. Please try again later.",
-  "updateCheckFailed": "Could not check for updates right now."
+    "@@locale":  "en",
+    "appTitle":  "Poswal Orbit",
+    "tabToday":  "Today",
+    "tabHabits":  "Habits",
+    "tabTasks":  "Tasks",
+    "tabNotes":  "Notes",
+    "tabInsights":  "Insights",
+    "greetingMorning":  "Good morning",
+    "greetingAfternoon":  "Good afternoon",
+    "greetingEvening":  "Good evening",
+    "allClear":  "All clear. Enjoy the quiet.",
+    "noHabitsScheduled":  "No habits scheduled for this day.\nRest and recharge, or create a new habit below.",
+    "addHabit":  "Add Habit",
+    "tasksTitle":  "Tasks",
+    "tasksDueCount":  "({count} due)",
+    "@tasksDueCount":  {
+                           "placeholders":  {
+                                                "count":  {
+                                                              "type":  "int"
+                                                          }
+                                            }
+                       },
+    "allHabits":  "All Habits",
+    "habitsActive":  "Active",
+    "habitsArchived":  "Archived",
+    "streakFreezeActive":  "1 Streak Freeze Active",
+    "streakFreezeDescription":  "Protects one missed scheduled day per month.",
+    "noHabitsYet":  "No Habits Yet",
+    "noHabitsYetSubtitle":  "Create your first habit to begin your orbit.",
+    "noArchivedHabits":  "No Archived Habits",
+    "noArchivedHabitsSubtitle":  "Archived habits are stored safely here without cluttering your daily view.",
+    "archivedTapToRestore":  "Archived • Tap restore to reactivate",
+    "habitRestored":  "Restored \"{name}\" to Active Habits",
+    "@habitRestored":  {
+                           "placeholders":  {
+                                                "name":  {
+                                                             "type":  "String"
+                                                         }
+                                            }
+                       },
+    "habitDeleted":  "Permanently deleted \"{name}\"",
+    "@habitDeleted":  {
+                          "placeholders":  {
+                                               "name":  {
+                                                            "type":  "String"
+                                                        }
+                                           }
+                      },
+    "createHabitTitle":  "Create Habit",
+    "editHabitTitle":  "Edit Habit",
+    "livePreview":  "Live Preview",
+    "habitNameLabel":  "Habit Name",
+    "habitNameHint":  "e.g. Read 20 pages",
+    "paletteColor":  "Palette Color",
+    "iconLabel":  "Icon",
+    "timeOfDayLabel":  "Time of Day",
+    "scheduleLabel":  "Schedule",
+    "saveChanges":  "Save Changes",
+    "habitNotFound":  "Habit not found",
+    "currentStreakLabel":  "Current streak",
+    "bestStreakLabel":  "Best streak",
+    "habitScoreLabel":  "Habit score",
+    "archiveHabit":  "Archive Habit",
+    "deleteHabit":  "Delete Habit",
+    "checkinStatusDone":  "Done",
+    "checkinStatusSkip":  "Skip",
+    "checkinStatusMissed":  "Missed",
+    "tasksSmartToday":  "Today",
+    "tasksSmartUpcoming":  "Upcoming",
+    "tasksSmartAll":  "All",
+    "tasksSmartDone":  "Done",
+    "quickAddTaskHint":  "Add a task (e.g. Call mom tomorrow at 6pm #family)",
+    "keepDayInMotion":  "Keep your day in motion",
+    "allProjects":  "All Projects",
+    "noPendingTasksFound":  "No pending tasks found for this view.",
+    "addTask":  "Add Task",
+    "subtasksTitle":  "Subtasks",
+    "addSubtaskHint":  "Add a subtask...",
+    "addNotesHint":  "Add detailed notes...",
+    "dueDateLabel":  "Due date and time",
+    "priorityLabel":  "Priority",
+    "undoButton":  "Undo",
+    "notesSaved":  "Saved",
+    "notesSaving":  "Saving...",
+    "unpinNote":  "Unpin Note",
+    "pinNote":  "Pin Note",
+    "changeColorLabel":  "Change Color Label",
+    "deleteNote":  "Delete Note",
+    "noteDeletedToast":  "Note deleted",
+    "noNotesYet":  "No notes yet",
+    "noNotesYetSubtitle":  "Capture your thoughts, ideas, or start today\u0027s journal.",
+    "newNote":  "New Note",
+    "noteTitleHint":  "Title",
+    "noteBodyHint":  "Start writing (Markdown-lite supported)...",
+    "insightsTitle":  "Insights",
+    "weeklyReviewTitle":  "Weekly review",
+    "productivityScore":  "Productivity Score",
+    "bestDayOfWeek":  "Best Day of Week",
+    "bestTimeOfDay":  "Best Time of Day",
+    "habitHeatmaps":  "Habit Heatmaps",
+    "habitTaskCorrelation":  "Habit \u0026 Task Correlation",
+    "shareCard":  "Share",
+    "insightsEmptyTitle":  "Your insights will grow as you go",
+    "insightsEmptySubtitle":  "Complete habits and check off tasks to see personalized patterns, weekly review cards, and productivity scores.",
+    "settingsTitle":  "Settings",
+    "settingsAppearance":  "Appearance",
+    "settingsTheme":  "Theme",
+    "settingsReduceTransparency":  "Reduce Transparency",
+    "settingsDayStart":  "Day-Start Boundary",
+    "settingsFirstDayOfWeek":  "First Day of Week",
+    "settingsHaptics":  "Haptic Feedback",
+    "settingsNotifications":  "Reminders \u0026 Notifications",
+    "settingsHealthCheck":  "Reminders Health Check",
+    "settingsLanguage":  "Language",
+    "settingsDataSafety":  "Data Safety \u0026 Backups",
+    "settingsBackupNow":  "Back Up Now",
+    "settingsExport":  "Export",
+    "settingsImport":  "Import",
+    "settingsDanger":  "Danger Zone",
+    "settingsDeleteAll":  "Delete All Data",
+    "dayStartBoundarySubtitle":  "Habit check-ins before this hour count towards previous day",
+    "reduceTransparencySubtitle":  "Solid background cards for reduced GPU load or high contrast",
+    "hapticFeedbackSubtitle":  "Tactile vibration on habit rings, checkboxes and gestures",
+    "remindersHealthCheckSubtitle":  "Verify system permissions and Samsung One UI background rules to ensure 100% reliable streak reminders.",
+    "sendTestAlert":  "Send Test Alert",
+    "syncSchedule":  "Sync Schedule",
+    "displayLanguage":  "Display Language",
+    "displayLanguageSubtitle":  "Supports English, Hindi (हिन्दी), and Urdu (اردو) with native fonts and RTL direction",
+    "autoDailyBackupsActive":  "Automatic Daily Backups Active",
+    "autoDailyBackupsSubtitle":  "Rolling retention keeps the last 7 daily snapshots safely.",
+    "deleteAllDataSubtitle":  "Permanently erase habits, entries, tasks, and notes",
+    "deleteAllDataDialogTitle":  "Delete All Data?",
+    "deleteAllDataDialogContent":  "This will wipe all habits, entries, tasks, and notes.\n\nA safety backup snapshot will be created automatically before wiping so you can recover if needed.",
+    "finalConfirmationTitle":  "Final Confirmation",
+    "finalConfirmationContent":  "Are you completely sure? This action will reset your active workspace.",
+    "keepMyData":  "Keep My Data",
+    "wipeEverything":  "Wipe Everything",
+    "importDialogTitle":  "Import Data / Loop CSV",
+    "importDialogContent":  "Paste JSON backup content or Loop Habit Tracker CSV data below:",
+    "inspectAndImport":  "Inspect \u0026 Import",
+    "cancel":  "Cancel",
+    "proceed":  "Proceed",
+    "understood":  "Understood",
+    "notificationPermissionTitle":  "Notification Permission",
+    "notificationPermissionSubtitle":  "Allows Poswal Orbit to display alerts in your status bar and lock screen.",
+    "openNotificationSettings":  "Open Notification Settings",
+    "exactAlarmSchedulingTitle":  "Exact Alarm Scheduling",
+    "exactAlarmSchedulingSubtitle":  "Allows reminders to fire at the exact minute rather than being batched or delayed by Android battery management.",
+    "manageAlarmPermission":  "Manage Alarm Permission",
+    "samsungBatteryExemptionTitle":  "Samsung Battery Exemption",
+    "samsungBatteryExemptionSubtitle":  "One UI automatically sleeps apps not used for a few days. Exempting Orbit guarantees streak prompts survive.",
+    "howToSetUnrestricted":  "How to set \"Unrestricted\"",
+    "rollingWindowStatusTitle":  "Rolling 7-Day Window",
+    "rollingWindowStatusSubtitle":  "{count} scheduled reminders active in OS queue.",
+    "@rollingWindowStatusSubtitle":  {
+                                         "placeholders":  {
+                                                              "count":  {
+                                                                            "type":  "int"
+                                                                        }
+                                                          }
+                                     },
+    "refillBtn":  "Refill",
+    "sendTestNotificationBtn":  "Send Test Notification",
+    "dispatching":  "Dispatching...",
+    "granted":  "Granted",
+    "restricted":  "Restricted",
+    "samsungGuideTitle":  "Samsung One UI Battery Guide",
+    "samsungGuideIntro":  "Samsung phones aggressively close background apps to preserve battery. To prevent missing habit streaks:",
+    "habitsDoneCount":  "Habits Done",
+    "bestStreakCount":  "Best Streak",
+    "peakMomentum":  "Peak Momentum",
+    "observedPattern":  "Observed Pattern",
+    "correlationDisclaimer":  "We never jump to conclusions on limited data. Keep tracking to reveal true correlations.",
+    "overallHeatmap":  "Overall Activity Heatmap",
+    "last8Weeks":  "Last 8 Weeks",
+    "heatmapLess":  "Less",
+    "heatmapMore":  "More",
+    "shareWeeklyRhythm":  "My weekly rhythm on Poswal Orbit",
+    "shareFailed":  "Failed to share: {error}",
+    "@shareFailed":  {
+                         "placeholders":  {
+                                              "error":  {
+                                                            "type":  "String"
+                                                        }
+                                          }
+                     },
+    "restoreHabitTooltip":  "Restore Habit",
+    "deletePermanentlyTooltip":  "Delete Permanently",
+    "habitNotePlaceholder":  "e.g. Felt great today, did 20 extra minutes",
+    "searchNotesPlaceholder":  "Filter notes by title or content...",
+    "addTagPlaceholder":  "e.g. project, ideas",
+    "addTag":  "Add",
+    "colorLabelTooltip":  "Color Label",
+    "linkHabitTaskTooltip":  "Link to Habit/Task",
+    "addTagTooltip":  "Add Tag",
+    "headingTooltip":  "Heading",
+    "boldTooltip":  "Bold",
+    "italicTooltip":  "Italic",
+    "bulletListTooltip":  "Bullet List",
+    "checklistTooltip":  "Checklist",
+    "insertLinkTooltip":  "Insert Link",
+    "linkTextLabel":  "Link Text",
+    "linkUrlLabel":  "URL (https://...)",
+    "globalSearchPlaceholder":  "Search habits, tasks, notes...",
+    "searchTasksPlaceholder":  "Search tasks...",
+    "noHabitLinked":  "No habit linked",
+    "taskDeletedNamed":  "Task \"{title}\" deleted",
+    "@taskDeletedNamed":  {
+                              "placeholders":  {
+                                                   "title":  {
+                                                                 "type":  "String"
+                                                             }
+                                               }
+                          },
+    "searchTooltip":  "Search",
+    "settingsTooltip":  "Settings",
+    "mondayShort":  "Mon",
+    "sundayShort":  "Sun",
+    "saving":  "Saving...",
+    "availableBackups":  "Available Backups (Last 7)",
+    "noBackupsYet":  "No backup snapshots yet. Tap \"Back Up Now\" to save your first snapshot.",
+    "restore":  "Restore",
+    "resetOrClearData":  "Reset or Clear Data",
+    "backupFullJson":  "Full Database Snapshot (JSON)",
+    "backupFullJsonSubtitle":  "Complete portable backup with habits, tasks \u0026 notes",
+    "exportHabitsCsv":  "Habits \u0026 Check-ins (CSV)",
+    "exportTasksCsv":  "Tasks \u0026 Subtasks (CSV)",
+    "exportNotesCsv":  "Notes \u0026 Journal (CSV)",
+    "importPreview":  "Import Preview",
+    "importFormat":  "Format: {format}",
+    "@importFormat":  {
+                          "placeholders":  {
+                                               "format":  {
+                                                              "type":  "String"
+                                                          }
+                                           }
+                      },
+    "importSafetyNote":  "A safety backup will be created automatically before importing to protect your current database.",
+    "importPlaceholder":  "Paste JSON backup or Loop CSV data...",
+    "applyImport":  "Apply Import",
+    "allDataClearedToast":  "All data cleared. Pre-wipe safety snapshot was preserved in backups.",
+    "fullJsonCopiedToast":  "Full JSON backup copied to clipboard ({bytes} bytes)",
+    "@fullJsonCopiedToast":  {
+                                 "placeholders":  {
+                                                      "bytes":  {
+                                                                    "type":  "int"
+                                                                }
+                                                  }
+                             },
+    "habitsCsvCopiedToast":  "Habits CSV copied to clipboard",
+    "tasksCsvCopiedToast":  "Tasks CSV copied to clipboard",
+    "notesCsvCopiedToast":  "Notes CSV copied to clipboard",
+    "importSuccessToast":  "Successfully imported {habits} habits, {tasks} tasks, {notes} notes",
+    "@importSuccessToast":  {
+                                "placeholders":  {
+                                                     "habits":  {
+                                                                    "type":  "int"
+                                                                },
+                                                     "tasks":  {
+                                                                   "type":  "int"
+                                                               },
+                                                     "notes":  {
+                                                                   "type":  "int"
+                                                               }
+                                                 }
+                            },
+    "remindersHealthCheckTitle":  "Reminders Health Check",
+    "onboardingHabitsTitle":  "Build Lasting Momentum",
+    "onboardingHabitsDesc":  "Track daily rhythm with beautiful orbit rings, streaks, and zero guilt.",
+    "onboardingTasksTitle":  "Calm, Focused Action",
+    "onboardingTasksDesc":  "Smart lists, natural language due dates, and simple checklists keep you clear.",
+    "onboardingNotesTitle":  "Private Thoughts \u0026 Journal",
+    "onboardingNotesDesc":  "Markdown notes and daily journals stored safely on your device only.",
+    "getStarted":  "Get Started",
+    "skip":  "Skip",
+    "next":  "Next",
+    "restoreBackupDialogTitle":  "Restore from Backup?",
+    "restoreBackupDialogBody":  "This will replace your current data with backup from {date}.\n\nA safety snapshot of your current database will be taken immediately before restoring so nothing is lost.",
+    "@restoreBackupDialogBody":  {
+                                     "placeholders":  {
+                                                          "date":  {
+                                                                       "type":  "String"
+                                                                   }
+                                                      }
+                                 },
+    "restoreSafelyBtn":  "Restore Safely",
+    "settingsAccentColor":  "Accent Color",
+    "settingsGlassIntensity":  "Glass Intensity",
+    "settingsTimeBoundary":  "Time \u0026 Orbit Boundary",
+    "settingsAbout":  "About",
+    "deleteTaskBtn":  "Delete Task",
+    "taskDetailsTitle":  "Task Details",
+    "noMatchingResults":  "No matching results found",
+    "searchSectionHabits":  "Habits ({count})",
+    "@searchSectionHabits":  {
+                                 "placeholders":  {
+                                                      "count":  {
+                                                                    "type":  "int"
+                                                                }
+                                                  }
+                             },
+    "searchSectionTasks":  "Tasks ({count})",
+    "@searchSectionTasks":  {
+                                "placeholders":  {
+                                                     "count":  {
+                                                                   "type":  "int"
+                                                               }
+                                                 }
+                            },
+    "searchSectionNotes":  "Notes ({count})",
+    "@searchSectionNotes":  {
+                                "placeholders":  {
+                                                     "count":  {
+                                                                   "type":  "int"
+                                                               }
+                                                 }
+                            },
+    "colorLabelTitle":  "Color Label",
+    "allFilter":  "All",
+    "noteColorLabelTitle":  "Note Color Label",
+    "linkHabitOrTaskTitle":  "Link to Habit or Task",
+    "habitsSectionHeader":  "Habits",
+    "tasksSectionHeader":  "Tasks",
+    "dailyJournalHeader":  "Daily Journal • {date}",
+    "@dailyJournalHeader":  {
+                                "placeholders":  {
+                                                     "date":  {
+                                                                  "type":  "String"
+                                                              }
+                                                 }
+                            },
+    "linkedHabitLabel":  "Linked habit",
+    "linkedTaskLabel":  "Linked Task",
+    "heatmapSkipped":  "Skipped",
+    "habitConsecutiveOccurrences":  "consecutive occurrences",
+    "habitHistoricalRecord":  "historical record",
+    "testNotificationTitle":  "Poswal Orbit test notification",
+    "testNotificationBody":  "Exact alarms and notification channels are working properly on this device.",
+    "testNotificationSent":  "Test notification sent. Check your notifications to test Mark Done or Snooze.",
+    "calendarTapHint":  "Tap any day to edit check-in or add notes",
+    "consistencyHeatmapHeader":  "Consistency heatmap",
+    "@consistencyHeatmapHeader":  {
+                                      "description":  "Header for consistency heatmap"
+                                  },
+    "weeklyPerformanceHeader":  "Weekly performance",
+    "@weeklyPerformanceHeader":  {
+                                     "description":  "Header for weekly performance chart"
+                                 },
+    "consistencyTrendHeader":  "30-day consistency trend",
+    "@consistencyTrendHeader":  {
+                                    "description":  "Header for 30-day consistency trend chart"
+                                },
+    "@linkedHabitLabel":  {
+                              "description":  "Label for linked habit selector"
+                          },
+    "recordProgressTitle":  "Record progress ({unit})",
+    "@recordProgressTitle":  {
+                                 "description":  "Title for recording habit progress with unit",
+                                 "placeholders":  {
+                                                      "unit":  {
+                                                                   "type":  "String"
+                                                               }
+                                                  }
+                             },
+    "notificationUrgentPrefix":  "Urgent: ",
+    "@notificationUrgentPrefix":  {
+                                      "description":  "Prefix for urgent task notifications"
+                                  },
+    "notificationHighPrefix":  "High priority: ",
+    "@notificationHighPrefix":  {
+                                    "description":  "Prefix for high priority task notifications"
+                                },
+    "notificationHabitTitle":  "Time for {name}",
+    "@notificationHabitTitle":  {
+                                    "description":  "Title for habit notification",
+                                    "placeholders":  {
+                                                         "name":  {
+                                                                      "type":  "String"
+                                                                  }
+                                                     }
+                                },
+    "notificationKeepMomentum":  "Keep your momentum alive today.",
+    "@notificationKeepMomentum":  {
+                                      "description":  "Body for default habit notification"
+                                  },
+    "notificationTaskDueNow":  "Task due now",
+    "@notificationTaskDueNow":  {
+                                    "description":  "Body for task notification when no note is provided"
+                                },
+    "datePickerSetDate":  "Set date",
+    "@datePickerSetDate":  {
+                               "description":  "Button label to set date"
+                           },
+    "datePickerSetTime":  "Set time",
+    "@datePickerSetTime":  {
+                               "description":  "Button label to set time"
+                           },
+    "notificationActionMarkDone":  "Mark done",
+    "@notificationActionMarkDone":  {
+                                        "description":  "Action button label on notification to mark item as done"
+                                    },
+    "notificationActionSnooze10m":  "Snooze 10m",
+    "@notificationActionSnooze10m":  {
+                                         "description":  "Action button label on notification to snooze for 10 minutes"
+                                     },
+    "insightsTabOverview":  "Overview",
+    "insightsTabHabits":  "Habits",
+    "insightsTabTiming":  "Timing",
+    "insightsEmptyAction":  "Explore habits",
+    "habitStreakDays":  "{count}d streak",
+    "@habitStreakDays":  {
+                             "placeholders":  {
+                                                  "count":  {
+                                                                "type":  "int"
+                                                            }
+                                              }
+                         },
+    "habitThirtyDayRate":  "{rate}% in 30d",
+    "@habitThirtyDayRate":  {
+                                "placeholders":  {
+                                                     "rate":  {
+                                                                  "type":  "int"
+                                                              }
+                                                 }
+                            },
+    "habitHeatmapExpand":  "Tap to expand heatmap",
+    "habitHeatmapCollapse":  "Tap to collapse heatmap",
+    "heatmapDayMon":  "M",
+    "heatmapDayWed":  "W",
+    "heatmapDayFri":  "F",
+    "heatmapCellTooltip":  "{date}: {count} completed",
+    "@heatmapCellTooltip":  {
+                                "placeholders":  {
+                                                     "date":  {
+                                                                  "type":  "String"
+                                                              },
+                                                     "count":  {
+                                                                   "type":  "int"
+                                                               }
+                                                 }
+                            },
+    "timingDistributionTitle":  "Completions by Weekday",
+    "dayShortMon":  "Mon",
+    "dayShortTue":  "Tue",
+    "dayShortWed":  "Wed",
+    "dayShortThu":  "Thu",
+    "dayShortFri":  "Fri",
+    "dayShortSat":  "Sat",
+    "dayShortSun":  "Sun",
+    "checkForUpdates":  "Check for updates",
+    "autoUpdateChecks":  "Automatic update checks",
+    "autoUpdateChecksSubtitle":  "Check GitHub Releases once a day for new versions",
+    "currentVersionLabel":  "Current version: {version}",
+    "@currentVersionLabel":  {
+                                 "placeholders":  {
+                                                      "version":  {
+                                                                      "type":  "String"
+                                                                  }
+                                                  }
+                             },
+    "updateAvailableTitle":  "Update available",
+    "updateVersionSubtitle":  "Version {version} is ready to download",
+    "@updateVersionSubtitle":  {
+                                   "placeholders":  {
+                                                        "version":  {
+                                                                        "type":  "String"
+                                                                    }
+                                                    }
+                               },
+    "updateUpToDate":  "You are on the latest version",
+    "updateDownloadBtn":  "Download update",
+    "updateLaterBtn":  "Later",
+    "updateSkipVersionBtn":  "Skip this version",
+    "updateCheckOffline":  "Unable to check for updates. Check your internet connection.",
+    "updateCheckRateLimited":  "GitHub rate limit reached. Please try again later.",
+    "updateCheckFailed":  "Could not check for updates right now."
 }

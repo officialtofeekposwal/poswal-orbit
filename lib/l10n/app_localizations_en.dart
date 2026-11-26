@@ -37,24 +37,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get greetingEvening => 'Good evening';
 
   @override
-  String get greetingNight => 'Good evening';
-
-  @override
-  String habitsProgress(int completed, int total) {
-    return '$completed of $total completed';
-  }
-
-  @override
   String get allClear => 'All clear. Enjoy the quiet.';
-
-  @override
-  String get habitsAllDone => 'All habits completed for today. Great progress.';
-
-  @override
-  String get tasksDueOverdue => 'Tasks Due & Overdue';
-
-  @override
-  String get yourOrbitClear => 'Your Orbit is Clear';
 
   @override
   String get noHabitsScheduled =>
@@ -79,14 +62,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get habitsArchived => 'Archived';
-
-  @override
-  String get newHabit => 'New Habit';
-
-  @override
-  String streakDays(int days) {
-    return '${days}d streak';
-  }
 
   @override
   String get streakFreezeActive => '1 Streak Freeze Active';
@@ -165,13 +140,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get habitScoreLabel => 'Habit score';
 
   @override
-  String get completionRateLabel => 'Completion rate';
-
-  @override
   String get archiveHabit => 'Archive Habit';
-
-  @override
-  String get restoreHabit => 'Restore Habit';
 
   @override
   String get deleteHabit => 'Delete Habit';
@@ -202,21 +171,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Add a task (e.g. Call mom tomorrow at 6pm #family)';
 
   @override
-  String get priorityUrgent => 'Urgent';
-
-  @override
-  String get priorityHigh => 'High';
-
-  @override
-  String get priorityMedium => 'Medium';
-
-  @override
-  String get priorityLow => 'Low';
-
-  @override
-  String get priorityNone => 'None';
-
-  @override
   String get keepDayInMotion => 'Keep your day in motion';
 
   @override
@@ -235,9 +189,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addSubtaskHint => 'Add a subtask...';
 
   @override
-  String get notesLabel => 'Notes';
-
-  @override
   String get addNotesHint => 'Add detailed notes...';
 
   @override
@@ -247,22 +198,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get priorityLabel => 'Priority';
 
   @override
-  String get projectLabel => 'Project';
-
-  @override
-  String get taskDeletedToast => 'Task deleted';
-
-  @override
   String get undoButton => 'Undo';
-
-  @override
-  String get notesPinned => 'Pinned';
-
-  @override
-  String get notesAll => 'All Notes';
-
-  @override
-  String get notesTodayJournal => 'Today\'s Journal';
 
   @override
   String get notesSaved => 'Saved';
@@ -300,11 +236,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noteBodyHint => 'Start writing (Markdown-lite supported)...';
-
-  @override
-  String journalForDate(String date) {
-    return 'Daily Journal: $date';
-  }
 
   @override
   String get insightsTitle => 'Insights';
@@ -347,16 +278,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsTheme => 'Theme';
 
   @override
-  String get settingsAccent => 'Accent Color';
-
-  @override
-  String get settingsGlass => 'Glass Intensity';
-
-  @override
   String get settingsReduceTransparency => 'Reduce Transparency';
-
-  @override
-  String get settingsTime => 'Time & Orbit Boundary';
 
   @override
   String get settingsDayStart => 'Day-Start Boundary';
@@ -393,15 +315,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsDeleteAll => 'Delete All Data';
-
-  @override
-  String get widgetTodayProgress => 'Orbit Today Progress';
-
-  @override
-  String get widgetQuickCheckin => 'Quick Habit Check-in';
-
-  @override
-  String get widgetTasksGlance => 'Pending Tasks at a Glance';
 
   @override
   String get dayStartBoundarySubtitle =>
@@ -546,9 +459,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get habitsDoneCount => 'Habits Done';
 
   @override
-  String get tasksFinishedCount => 'Tasks Finished';
-
-  @override
   String get bestStreakCount => 'Best Streak';
 
   @override
@@ -654,9 +564,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsTooltip => 'Settings';
 
   @override
-  String get designPlaygroundTooltip => 'Design Playground';
-
-  @override
   String get mondayShort => 'Mon';
 
   @override
@@ -737,13 +644,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get remindersHealthCheckTitle => 'Reminders Health Check';
-
-  @override
-  String get onboardingWelcomeTitle => 'Welcome to Poswal Orbit';
-
-  @override
-  String get onboardingWelcomeDesc =>
-      'Your private, offline space for intentional habits, tasks, and reflections.';
 
   @override
   String get onboardingHabitsTitle => 'Build Lasting Momentum';
@@ -861,9 +761,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get habitHistoricalRecord => 'historical record';
 
   @override
-  String get habitEwmaConsistency => '14-day EWMA consistency';
-
-  @override
   String get testNotificationTitle => 'Poswal Orbit test notification';
 
   @override
@@ -933,19 +830,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get insightsEmptyAction => 'Explore habits';
 
   @override
-  String weeklyTrendUp(int percent) {
-    return '+$percent% vs last week';
-  }
-
-  @override
-  String weeklyTrendDown(int percent) {
-    return '-$percent% vs last week';
-  }
-
-  @override
-  String get weeklyTrendSteady => 'Steady pace';
-
-  @override
   String habitStreakDays(int count) {
     return '${count}d streak';
   }
@@ -974,12 +858,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String heatmapCellTooltip(String date, int count) {
     return '$date: $count completed';
   }
-
-  @override
-  String get bestWeekdayLabel => 'Best Day';
-
-  @override
-  String get bestTimeLabel => 'Best Time';
 
   @override
   String get timingDistributionTitle => 'Completions by Weekday';

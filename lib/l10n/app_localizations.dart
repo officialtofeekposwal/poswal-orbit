@@ -154,41 +154,11 @@ abstract class AppLocalizations {
   /// **'Good evening'**
   String get greetingEvening;
 
-  /// No description provided for @greetingNight.
-  ///
-  /// In en, this message translates to:
-  /// **'Good evening'**
-  String get greetingNight;
-
-  /// No description provided for @habitsProgress.
-  ///
-  /// In en, this message translates to:
-  /// **'{completed} of {total} completed'**
-  String habitsProgress(int completed, int total);
-
   /// No description provided for @allClear.
   ///
   /// In en, this message translates to:
   /// **'All clear. Enjoy the quiet.'**
   String get allClear;
-
-  /// No description provided for @habitsAllDone.
-  ///
-  /// In en, this message translates to:
-  /// **'All habits completed for today. Great progress.'**
-  String get habitsAllDone;
-
-  /// No description provided for @tasksDueOverdue.
-  ///
-  /// In en, this message translates to:
-  /// **'Tasks Due & Overdue'**
-  String get tasksDueOverdue;
-
-  /// No description provided for @yourOrbitClear.
-  ///
-  /// In en, this message translates to:
-  /// **'Your Orbit is Clear'**
-  String get yourOrbitClear;
 
   /// No description provided for @noHabitsScheduled.
   ///
@@ -231,18 +201,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Archived'**
   String get habitsArchived;
-
-  /// No description provided for @newHabit.
-  ///
-  /// In en, this message translates to:
-  /// **'New Habit'**
-  String get newHabit;
-
-  /// No description provided for @streakDays.
-  ///
-  /// In en, this message translates to:
-  /// **'{days}d streak'**
-  String streakDays(int days);
 
   /// No description provided for @streakFreezeActive.
   ///
@@ -382,23 +340,11 @@ abstract class AppLocalizations {
   /// **'Habit score'**
   String get habitScoreLabel;
 
-  /// No description provided for @completionRateLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Completion rate'**
-  String get completionRateLabel;
-
   /// No description provided for @archiveHabit.
   ///
   /// In en, this message translates to:
   /// **'Archive Habit'**
   String get archiveHabit;
-
-  /// No description provided for @restoreHabit.
-  ///
-  /// In en, this message translates to:
-  /// **'Restore Habit'**
-  String get restoreHabit;
 
   /// No description provided for @deleteHabit.
   ///
@@ -454,36 +400,6 @@ abstract class AppLocalizations {
   /// **'Add a task (e.g. Call mom tomorrow at 6pm #family)'**
   String get quickAddTaskHint;
 
-  /// No description provided for @priorityUrgent.
-  ///
-  /// In en, this message translates to:
-  /// **'Urgent'**
-  String get priorityUrgent;
-
-  /// No description provided for @priorityHigh.
-  ///
-  /// In en, this message translates to:
-  /// **'High'**
-  String get priorityHigh;
-
-  /// No description provided for @priorityMedium.
-  ///
-  /// In en, this message translates to:
-  /// **'Medium'**
-  String get priorityMedium;
-
-  /// No description provided for @priorityLow.
-  ///
-  /// In en, this message translates to:
-  /// **'Low'**
-  String get priorityLow;
-
-  /// No description provided for @priorityNone.
-  ///
-  /// In en, this message translates to:
-  /// **'None'**
-  String get priorityNone;
-
   /// No description provided for @keepDayInMotion.
   ///
   /// In en, this message translates to:
@@ -520,12 +436,6 @@ abstract class AppLocalizations {
   /// **'Add a subtask...'**
   String get addSubtaskHint;
 
-  /// No description provided for @notesLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Notes'**
-  String get notesLabel;
-
   /// No description provided for @addNotesHint.
   ///
   /// In en, this message translates to:
@@ -544,41 +454,11 @@ abstract class AppLocalizations {
   /// **'Priority'**
   String get priorityLabel;
 
-  /// No description provided for @projectLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Project'**
-  String get projectLabel;
-
-  /// No description provided for @taskDeletedToast.
-  ///
-  /// In en, this message translates to:
-  /// **'Task deleted'**
-  String get taskDeletedToast;
-
   /// No description provided for @undoButton.
   ///
   /// In en, this message translates to:
   /// **'Undo'**
   String get undoButton;
-
-  /// No description provided for @notesPinned.
-  ///
-  /// In en, this message translates to:
-  /// **'Pinned'**
-  String get notesPinned;
-
-  /// No description provided for @notesAll.
-  ///
-  /// In en, this message translates to:
-  /// **'All Notes'**
-  String get notesAll;
-
-  /// No description provided for @notesTodayJournal.
-  ///
-  /// In en, this message translates to:
-  /// **'Today\'s Journal'**
-  String get notesTodayJournal;
 
   /// No description provided for @notesSaved.
   ///
@@ -651,12 +531,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start writing (Markdown-lite supported)...'**
   String get noteBodyHint;
-
-  /// No description provided for @journalForDate.
-  ///
-  /// In en, this message translates to:
-  /// **'Daily Journal: {date}'**
-  String journalForDate(String date);
 
   /// No description provided for @insightsTitle.
   ///
@@ -736,29 +610,11 @@ abstract class AppLocalizations {
   /// **'Theme'**
   String get settingsTheme;
 
-  /// No description provided for @settingsAccent.
-  ///
-  /// In en, this message translates to:
-  /// **'Accent Color'**
-  String get settingsAccent;
-
-  /// No description provided for @settingsGlass.
-  ///
-  /// In en, this message translates to:
-  /// **'Glass Intensity'**
-  String get settingsGlass;
-
   /// No description provided for @settingsReduceTransparency.
   ///
   /// In en, this message translates to:
   /// **'Reduce Transparency'**
   String get settingsReduceTransparency;
-
-  /// No description provided for @settingsTime.
-  ///
-  /// In en, this message translates to:
-  /// **'Time & Orbit Boundary'**
-  String get settingsTime;
 
   /// No description provided for @settingsDayStart.
   ///
@@ -831,24 +687,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete All Data'**
   String get settingsDeleteAll;
-
-  /// No description provided for @widgetTodayProgress.
-  ///
-  /// In en, this message translates to:
-  /// **'Orbit Today Progress'**
-  String get widgetTodayProgress;
-
-  /// No description provided for @widgetQuickCheckin.
-  ///
-  /// In en, this message translates to:
-  /// **'Quick Habit Check-in'**
-  String get widgetQuickCheckin;
-
-  /// No description provided for @widgetTasksGlance.
-  ///
-  /// In en, this message translates to:
-  /// **'Pending Tasks at a Glance'**
-  String get widgetTasksGlance;
 
   /// No description provided for @dayStartBoundarySubtitle.
   ///
@@ -1102,12 +940,6 @@ abstract class AppLocalizations {
   /// **'Habits Done'**
   String get habitsDoneCount;
 
-  /// No description provided for @tasksFinishedCount.
-  ///
-  /// In en, this message translates to:
-  /// **'Tasks Finished'**
-  String get tasksFinishedCount;
-
   /// No description provided for @bestStreakCount.
   ///
   /// In en, this message translates to:
@@ -1306,12 +1138,6 @@ abstract class AppLocalizations {
   /// **'Settings'**
   String get settingsTooltip;
 
-  /// No description provided for @designPlaygroundTooltip.
-  ///
-  /// In en, this message translates to:
-  /// **'Design Playground'**
-  String get designPlaygroundTooltip;
-
   /// No description provided for @mondayShort.
   ///
   /// In en, this message translates to:
@@ -1455,18 +1281,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reminders Health Check'**
   String get remindersHealthCheckTitle;
-
-  /// No description provided for @onboardingWelcomeTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Welcome to Poswal Orbit'**
-  String get onboardingWelcomeTitle;
-
-  /// No description provided for @onboardingWelcomeDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Your private, offline space for intentional habits, tasks, and reflections.'**
-  String get onboardingWelcomeDesc;
 
   /// No description provided for @onboardingHabitsTitle.
   ///
@@ -1672,12 +1486,6 @@ abstract class AppLocalizations {
   /// **'historical record'**
   String get habitHistoricalRecord;
 
-  /// No description provided for @habitEwmaConsistency.
-  ///
-  /// In en, this message translates to:
-  /// **'14-day EWMA consistency'**
-  String get habitEwmaConsistency;
-
   /// No description provided for @testNotificationTitle.
   ///
   /// In en, this message translates to:
@@ -1804,24 +1612,6 @@ abstract class AppLocalizations {
   /// **'Explore habits'**
   String get insightsEmptyAction;
 
-  /// No description provided for @weeklyTrendUp.
-  ///
-  /// In en, this message translates to:
-  /// **'+{percent}% vs last week'**
-  String weeklyTrendUp(int percent);
-
-  /// No description provided for @weeklyTrendDown.
-  ///
-  /// In en, this message translates to:
-  /// **'-{percent}% vs last week'**
-  String weeklyTrendDown(int percent);
-
-  /// No description provided for @weeklyTrendSteady.
-  ///
-  /// In en, this message translates to:
-  /// **'Steady pace'**
-  String get weeklyTrendSteady;
-
   /// No description provided for @habitStreakDays.
   ///
   /// In en, this message translates to:
@@ -1869,18 +1659,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{date}: {count} completed'**
   String heatmapCellTooltip(String date, int count);
-
-  /// No description provided for @bestWeekdayLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Best Day'**
-  String get bestWeekdayLabel;
-
-  /// No description provided for @bestTimeLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Best Time'**
-  String get bestTimeLabel;
 
   /// No description provided for @timingDistributionTitle.
   ///

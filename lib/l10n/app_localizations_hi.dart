@@ -37,25 +37,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get greetingEvening => 'शुभ संध्या';
 
   @override
-  String get greetingNight => 'शुभ संध्या';
-
-  @override
-  String habitsProgress(int completed, int total) {
-    return '$total में से $completed पूर्ण';
-  }
-
-  @override
   String get allClear => 'सब कुछ शांत है। आराम का आनंद लें।';
-
-  @override
-  String get habitsAllDone =>
-      'आज की सभी आदतें पूरी हो चुकी हैं। उत्कृष्ट प्रगति।';
-
-  @override
-  String get tasksDueOverdue => 'देय और बकाया कार्य';
-
-  @override
-  String get yourOrbitClear => 'आपकी कक्षा साफ है';
 
   @override
   String get noHabitsScheduled =>
@@ -80,14 +62,6 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get habitsArchived => 'संग्रहीत';
-
-  @override
-  String get newHabit => 'नई आदत';
-
-  @override
-  String streakDays(int days) {
-    return '$days दिन लगातार';
-  }
 
   @override
   String get streakFreezeActive => '1 स्ट्रीक फ्रीज सक्रिय';
@@ -167,13 +141,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get habitScoreLabel => 'आदत स्कोर';
 
   @override
-  String get completionRateLabel => 'पूर्णता दर';
-
-  @override
   String get archiveHabit => 'आदत संग्रहीत करें';
-
-  @override
-  String get restoreHabit => 'आदत बहाल करें';
 
   @override
   String get deleteHabit => 'आदत हटाएं';
@@ -204,21 +172,6 @@ class AppLocalizationsHi extends AppLocalizations {
       'कार्य जोड़ें (उदा. कल शाम 6 बजे माँ को कॉल #family)';
 
   @override
-  String get priorityUrgent => 'अति आवश्यक';
-
-  @override
-  String get priorityHigh => 'उच्च';
-
-  @override
-  String get priorityMedium => 'मध्यम';
-
-  @override
-  String get priorityLow => 'निम्न';
-
-  @override
-  String get priorityNone => 'कोई नहीं';
-
-  @override
   String get keepDayInMotion => 'अपने दिन को गतिमान रखें';
 
   @override
@@ -238,9 +191,6 @@ class AppLocalizationsHi extends AppLocalizations {
   String get addSubtaskHint => 'उप-कार्य जोड़ें...';
 
   @override
-  String get notesLabel => 'नोट्स';
-
-  @override
   String get addNotesHint => 'विस्तृत विवरण जोड़ें...';
 
   @override
@@ -250,22 +200,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get priorityLabel => 'प्राथमिकता';
 
   @override
-  String get projectLabel => 'प्रोजेक्ट';
-
-  @override
-  String get taskDeletedToast => 'कार्य हटा दिया गया';
-
-  @override
   String get undoButton => 'पूर्ववत करें';
-
-  @override
-  String get notesPinned => 'पिन किए गए';
-
-  @override
-  String get notesAll => 'सभी नोट्स';
-
-  @override
-  String get notesTodayJournal => 'आज की डायरी';
 
   @override
   String get notesSaved => 'सहेजा गया';
@@ -302,11 +237,6 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get noteBodyHint => 'लिखना शुरू करें (मार्कडाउन-लाइट समर्थित)...';
-
-  @override
-  String journalForDate(String date) {
-    return 'दैनिक डायरी: $date';
-  }
 
   @override
   String get insightsTitle => 'अंतर्दृष्टि';
@@ -350,16 +280,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get settingsTheme => 'थीम';
 
   @override
-  String get settingsAccent => 'मुख्य रंग';
-
-  @override
-  String get settingsGlass => 'कांच प्रभाव तीव्रता';
-
-  @override
   String get settingsReduceTransparency => 'पारदर्शिता कम करें';
-
-  @override
-  String get settingsTime => 'समय और दिन की सीमा';
 
   @override
   String get settingsDayStart => 'दिन की शुरुआत का समय';
@@ -396,15 +317,6 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get settingsDeleteAll => 'सारा डेटा हटाएं';
-
-  @override
-  String get widgetTodayProgress => 'ऑर्बिट आज की प्रगति';
-
-  @override
-  String get widgetQuickCheckin => 'त्वरित आदत चेक-इन';
-
-  @override
-  String get widgetTasksGlance => 'लंबित कार्य एक नज़र में';
 
   @override
   String get dayStartBoundarySubtitle =>
@@ -549,9 +461,6 @@ class AppLocalizationsHi extends AppLocalizations {
   String get habitsDoneCount => 'आदतें पूरी हुईं';
 
   @override
-  String get tasksFinishedCount => 'कार्य पूर्ण हुए';
-
-  @override
   String get bestStreakCount => 'सर्वश्रेष्ठ स्ट्रीक';
 
   @override
@@ -658,9 +567,6 @@ class AppLocalizationsHi extends AppLocalizations {
   String get settingsTooltip => 'सेटिंग्स';
 
   @override
-  String get designPlaygroundTooltip => 'डिज़ाइन प्लेग्राउंड';
-
-  @override
   String get mondayShort => 'सोम';
 
   @override
@@ -741,13 +647,6 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get remindersHealthCheckTitle => 'रिमाइंडर स्वास्थ्य जांच';
-
-  @override
-  String get onboardingWelcomeTitle => 'पोसवाल ऑर्बिट में आपका स्वागत है';
-
-  @override
-  String get onboardingWelcomeDesc =>
-      'आपकी आदतों, कार्यों और विचारों के लिए एक शांत, निजी और ऑफ़लाइन स्थान।';
 
   @override
   String get onboardingHabitsTitle => 'स्थायी गति बनाएं';
@@ -865,9 +764,6 @@ class AppLocalizationsHi extends AppLocalizations {
   String get habitHistoricalRecord => 'ऐतिहासिक रिकॉर्ड';
 
   @override
-  String get habitEwmaConsistency => '14-दिवसीय ईडब्ल्यूएमए निरंतरता';
-
-  @override
   String get testNotificationTitle => 'पोसवाल ऑर्बिट परीक्षण सूचना';
 
   @override
@@ -938,19 +834,6 @@ class AppLocalizationsHi extends AppLocalizations {
   String get insightsEmptyAction => 'आदतें देखें';
 
   @override
-  String weeklyTrendUp(int percent) {
-    return 'पिछले सप्ताह से +$percent%';
-  }
-
-  @override
-  String weeklyTrendDown(int percent) {
-    return 'पिछले सप्ताह से -$percent%';
-  }
-
-  @override
-  String get weeklyTrendSteady => 'स्थिर गति';
-
-  @override
   String habitStreakDays(int count) {
     return '$count दिन स्ट्रीक';
   }
@@ -979,12 +862,6 @@ class AppLocalizationsHi extends AppLocalizations {
   String heatmapCellTooltip(String date, int count) {
     return '$date: $count पूर्ण';
   }
-
-  @override
-  String get bestWeekdayLabel => 'सर्वश्रेष्ठ दिन';
-
-  @override
-  String get bestTimeLabel => 'सर्वश्रेष्ठ समय';
 
   @override
   String get timingDistributionTitle => 'सप्ताह के दिनों में पूर्णता';

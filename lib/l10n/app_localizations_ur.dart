@@ -37,24 +37,7 @@ class AppLocalizationsUr extends AppLocalizations {
   String get greetingEvening => 'شام بخیر';
 
   @override
-  String get greetingNight => 'شب بخیر';
-
-  @override
-  String habitsProgress(int completed, int total) {
-    return '$total میں سے $completed مکمل';
-  }
-
-  @override
   String get allClear => 'سب پرسکون ہے۔ وقت کا لطف اٹھائیں۔';
-
-  @override
-  String get habitsAllDone => 'آج کی تمام عادات مکمل ہو گئیں۔ عمدہ پیش رفت۔';
-
-  @override
-  String get tasksDueOverdue => 'مقررہ اور بقایا کام';
-
-  @override
-  String get yourOrbitClear => 'آپ کا مدار پرسکون ہے';
 
   @override
   String get noHabitsScheduled =>
@@ -79,14 +62,6 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get habitsArchived => 'محفوظ شدہ';
-
-  @override
-  String get newHabit => 'نئی عادت';
-
-  @override
-  String streakDays(int days) {
-    return '$days دن مسلسل';
-  }
 
   @override
   String get streakFreezeActive => '1 اسٹریک فریز فعال';
@@ -165,13 +140,7 @@ class AppLocalizationsUr extends AppLocalizations {
   String get habitScoreLabel => 'عادت اسکور';
 
   @override
-  String get completionRateLabel => 'تکمیل کی شرح';
-
-  @override
   String get archiveHabit => 'عادت محفوظ کریں';
-
-  @override
-  String get restoreHabit => 'عادت بحال کریں';
 
   @override
   String get deleteHabit => 'عادت حذف کریں';
@@ -202,21 +171,6 @@ class AppLocalizationsUr extends AppLocalizations {
       'نیا کام شامل کریں (مثلاً کل شام 6 بجے امی کو کال کریں #family)';
 
   @override
-  String get priorityUrgent => 'انتہائی ضروری';
-
-  @override
-  String get priorityHigh => 'اہم';
-
-  @override
-  String get priorityMedium => 'درمیانہ';
-
-  @override
-  String get priorityLow => 'معمولی';
-
-  @override
-  String get priorityNone => 'کوئی نہیں';
-
-  @override
   String get keepDayInMotion => 'اپنے دن کو متحرک رکھیں';
 
   @override
@@ -235,9 +189,6 @@ class AppLocalizationsUr extends AppLocalizations {
   String get addSubtaskHint => 'ذیلی کام درج کریں...';
 
   @override
-  String get notesLabel => 'نوٹس';
-
-  @override
   String get addNotesHint => 'تفصیلی نوٹس درج کریں...';
 
   @override
@@ -247,22 +198,7 @@ class AppLocalizationsUr extends AppLocalizations {
   String get priorityLabel => 'ترجیح';
 
   @override
-  String get projectLabel => 'پروجیکٹ';
-
-  @override
-  String get taskDeletedToast => 'کام حذف ہو گیا';
-
-  @override
   String get undoButton => 'واپس لائیں';
-
-  @override
-  String get notesPinned => 'پن کردہ';
-
-  @override
-  String get notesAll => 'تمام نوٹس';
-
-  @override
-  String get notesTodayJournal => 'آج کا روزنامچہ';
 
   @override
   String get notesSaved => 'محفوظ ہو گیا';
@@ -300,11 +236,6 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get noteBodyHint => 'تحریر شروع کریں (مارک ڈاؤن سپورٹ)...';
-
-  @override
-  String journalForDate(String date) {
-    return 'روزنامچہ: $date';
-  }
 
   @override
   String get insightsTitle => 'بصیرت';
@@ -348,16 +279,7 @@ class AppLocalizationsUr extends AppLocalizations {
   String get settingsTheme => 'تھیم';
 
   @override
-  String get settingsAccent => 'نمایاں رنگ';
-
-  @override
-  String get settingsGlass => 'شیشے کا اثر';
-
-  @override
   String get settingsReduceTransparency => 'شفافیت کم کریں';
-
-  @override
-  String get settingsTime => 'وقت اور دن کی حد';
 
   @override
   String get settingsDayStart => 'دن کے آغاز کی حد';
@@ -394,15 +316,6 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get settingsDeleteAll => 'تمام ڈیٹا حذف کریں';
-
-  @override
-  String get widgetTodayProgress => 'مدار کی آج کی پیش رفت';
-
-  @override
-  String get widgetQuickCheckin => 'فوری عادت چیک اِن';
-
-  @override
-  String get widgetTasksGlance => 'باقی کام ایک نظر میں';
 
   @override
   String get dayStartBoundarySubtitle =>
@@ -547,9 +460,6 @@ class AppLocalizationsUr extends AppLocalizations {
   String get habitsDoneCount => 'مکمل عادات';
 
   @override
-  String get tasksFinishedCount => 'مکمل کام';
-
-  @override
   String get bestStreakCount => 'بہترین تسلسل';
 
   @override
@@ -656,9 +566,6 @@ class AppLocalizationsUr extends AppLocalizations {
   String get settingsTooltip => 'ترتیبات';
 
   @override
-  String get designPlaygroundTooltip => 'ڈیزائن پلے گراؤنڈ';
-
-  @override
   String get mondayShort => 'پیر';
 
   @override
@@ -740,13 +647,6 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get remindersHealthCheckTitle => 'یاد دہانیوں کی جانچ';
-
-  @override
-  String get onboardingWelcomeTitle => 'پوسوال مدار میں خوش آمدید';
-
-  @override
-  String get onboardingWelcomeDesc =>
-      'آپ کی عادات، کاموں اور خیالات کے لیے ایک پرسکون، ذاتی اور آف لائن جگہ۔';
 
   @override
   String get onboardingHabitsTitle => 'پائیدار تسلسل بنائیں';
@@ -864,9 +764,6 @@ class AppLocalizationsUr extends AppLocalizations {
   String get habitHistoricalRecord => 'تاریخی ریکارڈ';
 
   @override
-  String get habitEwmaConsistency => '14 دن کی مستقل مزاجی';
-
-  @override
   String get testNotificationTitle => 'پوسوال مدار ٹیسٹ اطلاع';
 
   @override
@@ -937,19 +834,6 @@ class AppLocalizationsUr extends AppLocalizations {
   String get insightsEmptyAction => 'عادات دیکھیں';
 
   @override
-  String weeklyTrendUp(int percent) {
-    return 'گزشتہ ہفتے کے مقابلے +$percent%';
-  }
-
-  @override
-  String weeklyTrendDown(int percent) {
-    return 'گزشتہ ہفتے کے مقابلے -$percent%';
-  }
-
-  @override
-  String get weeklyTrendSteady => 'مستحکم رفتار';
-
-  @override
   String habitStreakDays(int count) {
     return '$count دن تسلسل';
   }
@@ -978,12 +862,6 @@ class AppLocalizationsUr extends AppLocalizations {
   String heatmapCellTooltip(String date, int count) {
     return '$date: $count مکمل';
   }
-
-  @override
-  String get bestWeekdayLabel => 'بہترین دن';
-
-  @override
-  String get bestTimeLabel => 'بہترین وقت';
 
   @override
   String get timingDistributionTitle => 'ہفتے کے دنوں میں تکمیل';
